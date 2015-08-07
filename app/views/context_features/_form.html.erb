@@ -1,0 +1,93 @@
+<%= form_for(@context_feature) do |f| %>
+  <% if @context_feature.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@context_feature.errors.count, "error") %> prohibited this context_feature from being saved:</h2>
+
+      <ul>
+      <% @context_feature.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :feature_number %><br />
+    <%= f.text_field :feature_number %>
+  </div>
+  <div class="field">
+    <%= f.label :length %><br />
+    <%= f.text_field :length %>
+  </div>
+  <div class="field">
+    <%= f.label :width %><br />
+    <%= f.text_field :width %>
+  </div>
+  <div class="field">
+    <%= f.label :depth %><br />
+    <%= f.text_field :depth %>
+  </div>
+  <div class="field">
+    <%= f.label :description %><br />
+    <%= f.text_field :description %>
+  </div>
+  <div class="field">
+    <%= f.label :centroid_c %><br />
+    <%= f.text_field :centroid_c %>
+  </div>
+  <div class="field">
+    <%= f.label :centroid_y %><br />
+    <%= f.text_field :centroid_y %>
+  </div>
+  <div class="field">
+    <%= f.label :feature_tpq %><br />
+    <%= f.text_field :feature_tpq %>
+  </div>
+  <div class="field">
+    <%= f.label :plan_shape_id %><br />
+    <%= f.text_field :plan_shape_id %>
+  </div>
+  <div class="field">
+    <%= f.label :profile_shape_id %><br />
+    <%= f.text_field :profile_shape_id %>
+  </div>
+  <div class="field">
+    <%= f.label :feature_group %><br />
+    <%= f.text_field :feature_group %>
+  </div>
+  <div class="field">
+    <%= f.label :feature_group_interpretation %><br />
+    <%= f.text_field :feature_group_interpretation %>
+  </div>
+  <div class="field">
+    <%= f.label :original_pit_cut_length %><br />
+    <%= f.text_field :original_pit_cut_length %>
+  </div>
+  <div class="field">
+    <%= f.label :original_pit_cut_width %><br />
+    <%= f.text_field :original_pit_cut_width %>
+  </div>
+  <div class="field">
+    <%= f.label :original_cut_depth %><br />
+    <%= f.text_field :original_cut_depth %>
+  </div>
+  <div class="field">
+    <%= f.label :editor_id_n %><br />
+    <%= f.text_field :editor_id_n %>
+  </div>
+  <div class="field">
+    <%= f.label :editor_id %><br />
+    <%= f.text_field :editor_id %>
+  </div>
+  <div class="field">
+    <%= f.label :date_added %><br />
+    <%= f.text_field :date_added %>
+  </div>
+  <div class="field">
+    <%= f.label :date_changed %><br />
+    <%= f.text_field :date_changed %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

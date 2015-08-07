@@ -1,0 +1,311 @@
+<script>
+function run_search() {
+	window.location = "/"+$('#query-type').val()+'?query='+$('#query-value').val();
+}
+function update_page() {
+	customForm.initStyles();
+	customForm.customForms.replaceAll();
+	customForm.customForms.refreshElement(obj.customFormScrollable);
+}
+
+$(function() {
+	$("#new-message-form")
+	    .bind("ajax:loading", function(){})
+	    .bind("ajax:complete", function(){
+				customForm.customForms.replaceAll();
+			})
+	    .bind("ajax:success", function(event, data, status, xhr) {
+				// $.each(('.scrollable-area-wrapper'),function(i,v) {
+				// 	customForm.customForms.refreshElement(obj.customFormScrollable);
+				// })				
+	    });
+	
+	$('.dashboard-go').click(function() {
+		// alert($(this).attr('data-type'));
+		// alert($(this).next().val());
+		$('#artifact_selection').val($(this).attr('data-type'));
+		$('#artifact_selection').trigger('chosen:updated')
+		$('#project_selection').val($(this).attr('data-project'));
+		$('#project_selection').trigger('chosen:updated')
+		if($(this).next().val() == 'Add artifact to this context sample') {
+			update_contexts('#project_selection',$(this).attr('data-context'));
+		} else {
+			update_contexts('#project_selection','');
+		}
+	});
+	$('#query-search').click(function() {
+		run_search();
+	})
+	
+	$('.contributed-selections').chosen().change(function() {
+		$.ajax({
+		  url: "/homepage/activities?range="+$('#time-contributed').val()+"&user="+$('#user-contributed').val(),
+		  type: "GET"
+		}).done(function(data) {
+			// alert('s');
+		});
+	})
+	// $('#send-message').click(function() {
+	// 	$.ajax({
+	// 		url: "/homepage/create_message",
+	// 		type: 'POST',
+	// 		data: $('#new-message').serialize()
+	// 	})
+	// 	event.preventDefault();
+	// 	return false;
+	// })
+	$('.reply').click(function(){
+		$('#message-subject').val($(this).attr('data-subject'));
+	})
+});
+</script>
+<div class="dashboard">
+	<div class="heading">
+		<div class="frame">
+			<form action="#">
+				<fieldset>
+					<div class="row">
+						<input type="text" id="query-value" class="form-control ie-fix" value="" onkeydown="if (event.keyCode == 13) run_search()">
+						<select id="query-type" class="sel ">
+							<option value="projects">Projects</option>
+							<option value="contexts">Contexts</option>
+							<option value="context_features">Features</option>
+							<option value='gen_artifacts'>Gen Artifacts</option>
+							<option value="ceramics">Ceramics</option>						
+							<option value="glasses">Glass</option>
+							<option value="beads">Beads</option>
+							<option value="buttons">Buttons</option>
+							<option value="buckles">Buckles</option>
+							<option value="tobacco_pipes">Pipes</option>
+							<option value="utensils">Utensils</option>
+							<option value="bones">Faunal</option>
+						</select>
+						<span id="query-search" class="btn btn-search ie-fix">Search</span>
+					</div>
+				</fieldset>
+			</form>
+		</div><!-- frame -->
+		<h1>Dashboard</h1>
+	</div><!-- page-header -->
+	<div class="clearfix">
+		<section class="tabs ">
+			<ul class="nav nav-tabs">
+				<li ><a class="ie-fix" href="#tab-01" data-toggle="tab">Recent Activity</a></li>
+				<li class="active"><a class="ie-fix" href="#tab-02" data-toggle="tab">Recent Artifacts</a></li>
+				<li><a class="ie-fix" href="#tab-03" data-toggle="tab">Contributions</a></li>
+				<li><a class="ie-fix" href="#tab-04" data-toggle="tab">Messages</a></li>
+			</ul><!-- nav-tabs -->
+			<div class="tab-content">
+				<section id="tab-01" class="section left activity">
+					<div class="heading">
+						<h2 class="left">Recent Activity</h2>
+						<a class="right" href="#" onclick="update_page()">View All</a>
+					</div>
+					<div class="holder ie-fix">
+						<table>
+							<tr><th>Date</th><th>Activity</th></tr>
+						</table>
+						<div class="scrollable-area">
+							<table class="data">
+								<% current_user.activities.order('created_at desc').limit(20).each do |activity| %>
+								<tr><td><%= activity.created_at.strftime("%m/%d/%Y") %></td><td><%= activity.activity %></td></tr>
+								<% end %>
+							</table>
+						</div><!-- / scrollable-area -->
+					</div><!-- / holder -->
+				</section><!-- section -->
+					<section id="tab-02" class="section right artifacts active">
+						<div class="heading">
+							<h2>Recent Artifacts</h2>
+						</div>
+						<div class="holder ie-fix">
+							<table>
+								<tr>
+									<th class="col-01">Project Name</th>
+									<th class="col-02 min">Context Sample</th>
+									<th>Last Updated Artifact</th>
+								</tr>
+							</table>
+							<div class="scrollable-area">
+								<table class="data">
+									<% artifacts = ['beads', 'bones', 'buttons', 'buckles', 'ceramics', 'gen_artifacts', 'glasses', 'tobacco_pipes', 'utensils']%>
+									<% hash = {}%>
+									<% current_user.activities.order('created_at desc').limit(20).each do |activity| %>
+										<% if artifacts.include? activity.controller %>
+											<% obj = activity.controller.classify.constantize %>
+											<% begin %>
+											<% o = obj.find activity.object_id %>
+											<% if hash[o] == nil %>
+									<tr>
+										<td class="col-01"><%= link_to(o.project.ProjectID,:controller => 'projects', :action => 'edit', :id => o.project.id)%></td>
+										<td class="col-02"><%= link_to(o.context_sample.ContextSampleID.gsub(';',''), edit_context_path(o.context))%></td>
+										<td>
+											<form action="#">
+												<fieldset>
+													<div class="row">
+														<%= link_to("#{activity.controller.singularize.humanize}: #{o.ArtifactID}",:controller => activity.controller, :action => 'edit', :id => o.id)%>
+														<span class="btn btn-search dashboard-go" data-type="<%= activity.controller.singularize %>" data-project="<%= o.project.ProjectID %>" data-context="<%= o.context_sample.ContextSampleID %>" data-toggle="modal" data-target="#add-new">Go</span>
+														<select class="sel-01 no-autocomplete" width="207" id="select-2">
+															<option>Add artifact to this context sample</option>
+															<option>Add artifact to different context sample</option>
+														</select>
+													</div>
+												</fieldset>
+											</form>
+										</td>
+									</tr>
+									<% hash[o] = true %>
+									<% end %>
+											<% rescue %>
+											<% end %>
+									<% end %>
+									<% end %>
+									
+									<tr><td>&#160;</td><td>&#160;</td><td>&#160;</td></tr>
+								</table>
+							</div><!-- / scrollable-area -->
+						</div><!-- / holder -->
+					</section><!-- section -->
+					<section id="tab-03" class="section left catalog">
+						<div class="heading">
+							<div class="heading-row">
+								<h2 class="left">Contributions</h2>
+								<div class="select-box">
+									<form action="#">
+										<fieldset>
+											<select class="sel-01 no-autocomplete contributed-selections" id="time-contributed">
+												<option>Past Year</option>
+												<option>Past 6 months</option>
+												<option>Past month</option>
+												<option>Past week</option>
+												<option>Yesterday</option>
+											</select>
+											<select class="sel-01 contributed-selections" id="user-contributed">
+												<option value="">All Users</option>
+												<% User.all.order(:userid).each do |user| %>
+													<option value="<%= user.id %>"><%= (user.first_name != nil and user.first_name != '') ? "#{user.first_name} #{user.last_name}" : user.userid %></option>
+												<% end %>
+											</select>
+										</fieldset>
+									</form>
+								</div>
+							</div>
+						</div>
+						<div class="holder ie-fix">
+							<table>
+								<tr><th>Item</th><th>Records Created</th><th>Total Artifacts</th><th>Records Deleted</th></tr>
+							</table>
+							<div class="scrollable-area">
+								<div id="contributions">
+									<%= render 'contributions'%>
+								</div>
+							</div><!-- / scrollable-area -->
+						</div><!-- / holder -->
+				</section><!-- section -->
+				<section id="tab-04" class="section right messages">
+						<div class="heading">
+							<h2 class="left">Messages</h2>
+							<div class="link-box">
+								<a data-toggle="modal" data-target="#compose" class="compose">Compose</a>
+								<%= link_to('View All', :action => 'all_messages', :remote => true)%>
+							</div>
+						</div>
+						<div class="holder ie-fix">
+							<div class="head-table">
+								<table>
+									<tr>
+										<th class="col-01"><%= link_to('Date', {:action => 'date_sort_descending'}, :remote => true, :class => 'date-sort-default') %><%= link_to('Date &#x25BE;'.html_safe, {:action => 'date_sort_ascending'}, remote: true,  :class => 'date-sort-descending') %><%= link_to('Date &#x25B4;'.html_safe, {:action => 'date_sort_descending'},  remote: true, :class => 'date-sort-ascending') %></th>
+										<th class="col-02"><%= link_to('From', {:action => 'from_sort_descending'}, :remote => true, :class => 'user-sort-default') %><%= link_to('From &#x25BE;'.html_safe, {:action => 'from_sort_ascending'}, remote: true,  :class => 'user-sort-descending') %><%= link_to('From &#x25B4;'.html_safe, {:action => 'from_sort_descending'},  remote: true, :class => 'user-sort-ascending') %></th>
+										<th><%= link_to('Subject', {:action => 'subject_sort_descending'}, :remote => true, :class => 'subject-sort-default') %><%= link_to('Subject &#x25BE;'.html_safe, {:action => 'subject_sort_ascending'}, remote: true,  :class => 'subject-sort-descending') %><%= link_to('Subject &#x25B4;'.html_safe, {:action => 'subject_sort_descending'},  remote: true, :class => 'subject-sort-ascending') %></th>
+									</tr>
+								</table>
+							</div>
+							<div id="message-list" class="scrollable-area">
+								<%= render :partial => 'messages', :locals => {:date_descend => true} %>
+							</div><!-- / scrollable-area -->
+						</div><!-- / holder -->
+				</section><!-- section -->
+			</div><!-- tab-content -->
+		</section><!-- tabs -->
+	</div>
+</div><!-- main-area -->
+<div class="modal modal-dashboard fade" id="compose" tabindex="-1" role="dialog" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+					<h4 class="modal-title">Compose Message <span><br />(This message will be viewable by all consortium members.)</span></h4>
+				</div>
+				<div class="modal-body">
+					<div class="new-image">
+					 <%= form_tag( { :action => 'create_message' }, :multipart => true, :remote=>true, :authenticity_token => true, :id => 'new-message-form' ) do %>
+							<fieldset>
+								<div class="frame new-message">
+									<div class="clearfix">
+										<!-- <div class="message-category clearfix">
+											<label for="lbl-001">Message Category</label>
+											<select name="category" id="lbl-001" class="no-autocomplete">
+												<option value="Cataloging">Cataloging</option>
+												<option value="Announcement">Announcement</option>
+												<option value="Other">Other</option>
+											</select>
+										</div> -->
+										<!-- <div class="checkbox">
+											<input type="checkbox" name="important-message" value="Important"><span class="star-icon"></span> Flag this message as important.
+										</div> -->
+									</div>
+									<label for="message-subject">Subject</label>
+									<input type="text" class="form-control" name="subject" value="" id="message-subject">
+									<label for="lbl-003">Message</label>
+									<textarea id="lbl-003" class="form-control" cols="1" rows="1" name="body"></textarea>
+									<span class="icon"></span><span class="icon-text">Attach File to Message</span>
+									<input type="file" name="attachment">
+								</div>
+								<div class="clearfix">
+									<button id="send-message" class="btn btn-info">Send Message</button>
+								</div>
+							</fieldset>
+						<% end %>
+					</div><!-- new-image -->
+				</div>
+			</div><!-- /.modal-content -->
+		</div><!-- /.modal-dialog -->
+	</div><!-- new-message -->
+	<div class="modal modal-dashboard fade" id="message-display" tabindex="-1" role="dialog" aria-hidden="true">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+						<h4 class="modal-title message-title">Message <span></span></h4>
+					</div>
+					<div class="modal-body">
+						<div id="display-message" class="new-image">
+							<fieldset>
+								<div class="frame new-message">
+									<!-- <div class="clearfix">
+										<div class="message-category clearfix">
+											<label for="lbl-001">Message Category</label>
+											<select id="lbl-001" class="no-autocomplete">
+												<option value="">Cataloging</option>
+												<option value="">Announcement</option>
+												<option value="">Other</option>
+											</select>
+										</div>
+										<div class="checkbox">
+											<input type="checkbox" name="important-message" value="Important"><span class="star-icon"></span> Flag this message as important.
+										</div>	
+									</div>	 -->
+									<!-- <label for="message-subject">Category</label>
+									<input type="text" class="form-control" name="category" value="" id="message-category" readonly> -->
+									<label for="message-subject">Subject</label>
+									<input type="text" class="form-control" name="subject" value="" id="message-subject" readonly>
+									<label for="message-body">Message</label>
+									<textarea id="message-body" class="form-control" cols="1" rows="1" name="body"></textarea>
+									<div id="message-attachment"></div>
+								</div>
+							</fieldset>
+						</div><!-- new-image -->
+					</div>
+				</div><!-- /.modal-content -->
+			</div><!-- /.modal-dialog -->
+		</div><!-- new-message -->

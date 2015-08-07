@@ -1,0 +1,21 @@
+<%= form_for(@website_region) do |f| %>
+  <% if @website_region.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@website_region.errors.count, "error") %> prohibited this website_region from being saved:</h2>
+
+      <ul>
+      <% @website_region.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :WebsiteRegion %><br>
+    <%= f.text_field :WebsiteRegion %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

@@ -1,0 +1,33 @@
+<%= form_for(@context_quadrat_boundary) do |f| %>
+  <% if @context_quadrat_boundary.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@context_quadrat_boundary.errors.count, "error") %> prohibited this context_quadrat_boundary from being saved:</h2>
+
+      <ul>
+      <% @context_quadrat_boundary.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :quadrat_northing %><br />
+    <%= f.text_field :quadrat_northing %>
+  </div>
+  <div class="field">
+    <%= f.label :quadrat_easting %><br />
+    <%= f.text_field :quadrat_easting %>
+  </div>
+  <div class="field">
+    <%= f.label :quadrat_id %><br />
+    <%= f.text_field :quadrat_id %>
+  </div>
+  <div class="field">
+    <%= f.label :project_id %><br />
+    <%= f.text_field :project_id %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

@@ -1,0 +1,30 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Artifact:</b>
+  <%= @gen_artifact_material.artifact_id %>
+</p>
+
+<p>
+  <b>Gen artifact material type:</b>
+  <%= @gen_artifact_material.gen_artifact_material_type_id %>
+</p>
+
+<p>
+  <b>Gen artifact material:</b>
+  <%= @gen_artifact_material.gen_artifact_material_id %>
+</p>
+
+<p>
+  <b>Gen artifact manu tech:</b>
+  <%= @gen_artifact_material.gen_artifact_manu_tech_id %>
+</p>
+
+<p>
+  <b>Generate context artifact:</b>
+  <%= @gen_artifact_material.generate_context_artifact_id %>
+</p>
+
+
+<%= link_to 'Edit', edit_gen_artifact_material_path(@gen_artifact_material) %> |
+<%= link_to 'Back', gen_artifact_materials_path %>

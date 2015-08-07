@@ -1,0 +1,27 @@
+<h1>Listing button_shapes</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Buttonshape</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @button_shapes.each do |button_shape| %>
+      <tr>
+        <td><%= button_shape.ButtonShape %></td>
+        <td><%= link_to 'Show', button_shape %></td>
+        <td><%= link_to 'Edit', edit_button_shape_path(button_shape) %></td>
+        <td><%= link_to 'Destroy', button_shape, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Button shape', new_button_shape_path %>

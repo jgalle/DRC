@@ -1,0 +1,421 @@
+<script>
+$(function() {
+	var content_to_remove;
+	
+	$('.add_fields').click(function (event) {
+	  time = new Date().getTime();
+	  regexp = new RegExp($(this).data('id'), 'g');
+	  // $(this).before($(this).data('fields').replace(regexp, time));
+	  $(this).prev().append($(this).data('fields').replace(regexp, time));
+		event.preventDefault();
+	});
+	$('.image-delete').click(function (event) {
+		if(content_to_remove != null) {
+			$(content_to_remove).prev('input[type=hidden]').val('1');
+			$(content_to_remove).closest('.fieldset').hide();
+		}
+		$('#image-alert-modal').modal('hide')
+		event.preventDefault();
+	});
+	$('.image-delete-link').click(function (event) {
+		content_to_remove = this;
+	});
+});
+</script>
+<%= form_for(@project) do |f| %>
+  <% if @project.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@project.errors.count, "error") %> prohibited this project from being saved:</h2>
+
+      <ul>
+      <% @project.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+	<table class="table">
+		<tbody>
+			<tr>
+				<td>
+					<table class="table">
+						<tr>
+							<td>
+				    		<%= f.label 'Project ID' %>
+							</td>
+							<td>
+				    		<%= f.text_field 'ProjectID' %>
+							</td>
+						</tr>
+						<tr>
+							<td>
+						    <%= f.label :Institution %>
+							</td>
+							<td>
+						    <%= collection_select(:project, 'InstitutionID', ProjectInstitution.all, :id, 'Institution', :prompt => true) %>
+							</td>
+						</tr>
+						<tr>
+							<td>
+						    <%= f.label 'Project Name' %>
+							</td>
+							<td>
+						    <%= collection_select(:project, 'ProjectNameID', ProjectName.all, :id, 'ProjectName', :prompt => true) %>
+							</td>
+						</tr>
+						<tr>
+							<td>
+						    <%= f.label 'Region' %>
+							</td>
+							<td>
+						    <%= collection_select(:project, 'RegionID', ProjectRegion.all, :id, 'Region', :prompt => true) %>
+							</td>
+						</tr>
+						<tr>
+							<td>
+						    <%= f.label :Country %>
+							</td>
+							<td>
+						    <%= collection_select(:project, :ProjectCountryID, ProjectCountry.all, :id, :ProjectCountry, :prompt => true) %>
+							</td>
+						</tr>
+						<tr>
+							<td>
+				    		<%= f.label 'State' %>
+							</td>
+							<td>
+				    		<%= f.text_field :State %>
+							</td>
+						</tr>
+						<tr>
+							<td>
+						    <%= f.label :County %>
+							</td>
+							<td>
+						    <%= collection_select(:project, :CountyID, ProjectCounty.all, :id, :County, :prompt => true) %>
+							</td>
+						</tr>
+						<tr>
+							<td>
+						    <%= f.label 'Place Name' %>
+							</td>
+							<td>
+						    <%= collection_select(:project, :PlaceNameID, ProjectPlaceName.all, :id, :PlaceName, :prompt => true) %>
+							</td>
+						</tr>
+						<tr>
+							<td>
+						    <%= f.label 'Plantation Name' %>
+							</td>
+							<td>
+						    <%= collection_select(:project, :PlantationID, Plantation.all, :id, :PlantationName, :prompt => true) %>
+							</td>
+						</tr>
+						<tr>
+							<td>
+				    		<%= f.label 'Beginning Date' %>
+							</td>
+							<td>
+				    		<%#= f.text_field :BeginningDate %>
+							</td>
+						</tr>
+						<tr>
+							<td>
+				    		<%= f.label 'End Date' %>
+							</td>
+							<td>
+				    		<%= f.text_field :EndDate %>
+							</td>
+						</tr>
+						<tr>
+							<td>
+				    		<%= f.label 'State Site Number' %>
+							</td>
+							<td>
+				    		<%= f.text_field :StateSiteNumber %>
+							</td>
+						</tr>
+					</table>
+				</td>
+				<td>
+					<table>
+						<tr>
+							<td>
+						    <%= f.label 'Unit of Measure' %>
+							</td>
+							<td>
+						    <%= collection_select(:project, :UnitofMeasureID, ProjectUnitofMeasure.all, :id, :UnitofMeasurement, :prompt => true) %>
+							</td>
+							<tr>
+								<td>
+							    <%= f.label :Drainage %>
+								</td>
+								<td>
+							    <%= collection_select(:project, :DrainageID, ProjectDrainage.all, :id, :Drainage, :prompt => true) %>
+								</td>
+							</tr>
+						</tr>
+						<tr>
+							<td>
+				    		<%= f.label 'Site Soils' %>
+							</td>
+							<td>
+				    		<%= f.text_field :SiteSoils %>
+							</td>
+						</tr>
+						<tr>
+							<td>
+				    		<%= f.label 'Nearest water source' %>
+							</td>
+							<td>
+				    		<%= f.text_field :NearestWaterSource %>
+							</td>
+						</tr>
+						<tr>
+							<td>
+				    		<%= f.label 'Distance from water source' %>
+							</td>
+							<td>
+				    		<%= f.text_field :DistancefromWaterSource %>
+							</td>
+						</tr>
+						<tr>
+							<td>
+						    <%= f.label 'Elevation type' %>
+							</td>
+							<td>
+						    <%= collection_select(:project, :ElevationTypeID, ProjectElevationType.all, :id, :ElevationType, :prompt => true) %>
+							</td>
+						</tr>
+						<tr>
+							<td>
+				    		<%= f.label 'Azimuth orientation of local grid' %>
+							</td>
+							<td>
+				    		<%= f.text_field :AzimuthOrientation %>
+							</td>
+						</tr>
+						<tr>
+							<td>
+				    		<%= f.label 'Total area excavated' %>
+							</td>
+							<td>
+				    		<%= f.text_field :TotalAreaExcavated %>
+							</td>
+						</tr>
+						<tr>
+							<td>
+				    		<%= f.label 'Total Convex hull' %>
+							</td>
+							<td>
+				    		<%= f.text_field :TotalConvexHull %>
+							</td>
+						</tr>
+						<tr>
+							<td>
+				    		<%= f.label 'Dates excavated' %>
+							</td>
+							<td>
+				    		<%= f.text_field :DatesExcavated %>
+							</td>
+						</tr>
+						<tr>
+							<td>
+				    		<%= f.label 'Artifact repository' %>
+							</td>
+							<td>
+				    		<%= f.text_field :ArtifactRepositoryID %>
+							</td>
+						</tr>
+					</table>
+				</td>
+				<td>
+					<table>
+						<tr>
+							<td>
+				    		<%= f.label 'Project tag' %>
+							</td>
+							<td>
+				    		<%= f.check_box :ProjectTag %>
+							</td>
+						</tr>
+						<tr>
+							<td>
+						    <%= f.label 'Level of treatment' %>
+							</td>
+							<td>
+						    <%= collection_select(:project, :LevelofTreatmentID, ProjectLevelofTreatment.all, :id, :LevelofTreatment, :prompt => true) %>
+							</td>
+						</tr>
+					</table>
+			 </tr>
+		</tbody>
+	</table>
+
+	<ul class="nav nav-tabs" id="artifact_tabs">
+	  <li class="active"><a href="#editors" data-toggle="tab">Editor and Notes</a></li>
+	  <li><a href="#geo_datum" data-toggle="tab">Geo Datum</a></li>
+	  <li><a href="#images" data-toggle="tab">Site Map</a></li>
+	</ul>
+	
+	<div class="tab-content">
+		<div id="editors" class="tab-pane active">
+			<table class="table">
+				<tr>
+					<td>
+						<table class="table">
+							<tr>
+								<td>
+							    <%= f.label 'Added by' %>
+								</td>
+								<td>
+										<input disabled value="<%= @project.created_by.Editor if @project.created_by != nil %>">
+								</td>
+							</tr>
+							<tr>
+								<td>
+							    <%= f.label 'Date Added' %>
+								</td>
+								<td>
+										<input disabled value="<%= @project.DateAdded %>">
+								</td>
+							</tr>
+							<tr>
+								<td>
+							    <%= f.label 'Changed by' %>
+								</td>
+								<td>
+										<input disabled value="<%= @project.updated_by.Editor if @project.updated_by != nil%>">
+								</td>
+							</tr>
+							<tr>
+								<td>
+							    <%= f.label 'Date changed' %>
+								</td>
+								<td>
+										<input disabled value="<%= @project.DateChanged %>">
+								</td>
+							</tr>
+						</table>
+					</td>
+					<td>
+						<table class="table">
+							<tr>
+								<td>
+							    <%= f.label 'Project notes' %>
+								</td>
+								<td>
+									<%= f.text_area :ProjectNotes, :rows => 3%>
+								</td>
+							</tr>
+							<tr>
+								<td>
+							    <%= f.label 'Site Abstract' %>
+								</td>
+								<td>
+									<%= f.text_area :SiteAbstract, :rows => 3%>
+								</td>
+							</tr>
+						</table>
+					</td>
+				</tr>
+			</table>
+		</div>
+
+		<div id="geo_datum" class="tab-pane">
+			<table>
+				<tr>
+					<td>
+				    <%= f.label 'Geo Datum' %>
+					</td>
+					<td>
+				    <%= collection_select(:project, :GeoDatumID, ProjectGeoDatum.all, :id, :GeoDatum, :prompt => true) %>
+					</td>
+				</tr>
+				<tr>
+					<td>
+				    <%= f.label 'Geo Coordinate system' %>
+					</td>
+					<td>
+				    <%= collection_select(:project, :GeoCoordinateSystemID, ProjectGeoCoordinateSystem.all, :id, :GeoCoordinateSystem, :prompt => true) %>
+					</td>
+				</tr>
+				<tr>
+					<td>
+		    		<%= f.label 'Northing Geo coordinate of local datum' %>
+					</td>
+					<td>
+		    		<%= f.text_field :NorthingGeoCoordinateofLocalDatum %>
+					</td>
+				</tr>
+				<tr>
+					<td>
+		    		<%= f.label 'Easting Geo coordinate of local datum' %>
+					</td>
+					<td>
+		    		<%= f.text_field :EastingGeoCoordinateofLocalDatum %>
+					</td>
+				</tr>
+				<tr>
+					<td>
+		    		<%= f.label 'Vertical Geo coordinate of local datum' %>
+					</td>
+					<td>
+		    		<%= f.text_field :VerticalGeoCoordinateofLocalDatum %>
+					</td>
+				</tr>
+			</table>
+		</div>
+		
+		<div id="images" class="tab-pane">
+			<table class="table">
+				<tr>
+					<th>
+						Location
+					</th>
+					<th>
+						Type
+					</th>
+					<th>
+						Description
+					</th>
+					<th>
+						Institution
+					</th>
+					<th>
+						Catalogue number
+					</th>
+				</tr>	
+				<%= f.fields_for :images do |image| %>
+					<%= render 'image_fields', f: image%>
+				<% end %>
+			</table>
+			<%= link_to_add_fields "Add Image", f, :images, {:class => 'add_fields'} %>
+		</div>
+		
+	</div>
+
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+
+	<div class="modal alert-modal fade" id="image-alert-modal" tabindex="-1" role="dialog" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+					<h4 class="modal-title">Alert</h4>
+				</div>
+				<div class="modal-body">
+					<p class="txt">Are you sure you want to delete?</p>
+				</div>
+				<div class="modal-footer">
+					<button class="btn btn-default" data-dismiss="modal">Cancel</button>
+					<button class="btn btn-warning image-delete">Delete</button>
+				</div>
+			</div><!-- /.modal-content -->
+		</div><!-- /.modal-dialog -->
+	</div><!-- alert-modal -->
+
+<% end %>

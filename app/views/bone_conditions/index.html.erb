@@ -1,0 +1,23 @@
+<h1>Listing bone_conditions</h1>
+
+<table>
+  <tr>
+    <th>Bone condition</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @bone_conditions.each do |bone_condition| %>
+  <tr>
+    <td><%= bone_condition.bone_condition %></td>
+    <td><%= link_to 'Show', bone_condition %></td>
+    <td><%= link_to 'Edit', edit_bone_condition_path(bone_condition) %></td>
+    <td><%= link_to 'Destroy', bone_condition, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Bone condition', new_bone_condition_path %>

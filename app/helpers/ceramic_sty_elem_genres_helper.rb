@@ -1,0 +1,2 @@
+module CeramicStyElemGenresHelper
+end

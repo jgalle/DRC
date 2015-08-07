@@ -1,0 +1,23 @@
+<h1>Listing gen_object_manufacture_countries</h1>
+
+<table>
+  <tr>
+    <th>Object manufacture country</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @gen_object_manufacture_countries.each do |gen_object_manufacture_country| %>
+  <tr>
+    <td><%= gen_object_manufacture_country.object_manufacture_country %></td>
+    <td><%= link_to 'Show', gen_object_manufacture_country %></td>
+    <td><%= link_to 'Edit', edit_gen_object_manufacture_country_path(gen_object_manufacture_country) %></td>
+    <td><%= link_to 'Destroy', gen_object_manufacture_country, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Gen object manufacture country', new_gen_object_manufacture_country_path %>

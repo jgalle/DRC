@@ -1,0 +1,23 @@
+<h1>Listing context_screen_sizes</h1>
+
+<table>
+  <tr>
+    <th>Screen size</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @context_screen_sizes.each do |context_screen_size| %>
+  <tr>
+    <td><%= context_screen_size.screen_size %></td>
+    <td><%= link_to 'Show', context_screen_size %></td>
+    <td><%= link_to 'Edit', edit_context_screen_size_path(context_screen_size) %></td>
+    <td><%= link_to 'Destroy', context_screen_size, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Context screen size', new_context_screen_size_path %>

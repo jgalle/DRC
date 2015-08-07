@@ -1,0 +1,17 @@
+<%= form_for(@yes_no) do |f| %>
+  <% if @yes_no.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@yes_no.errors.count, "error") %> prohibited this yes_no from being saved:</h2>
+
+      <ul>
+      <% @yes_no.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

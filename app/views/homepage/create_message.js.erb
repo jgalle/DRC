@@ -1,0 +1,4 @@
+$('#new-message-form')[0].reset();
+$('#compose').modal('hide');
+$('#message-list').html('<%= escape_javascript("#{render :partial => 'messages', :locals => {:date_descend => true}}").html_safe %>');
+console.log('done');

@@ -1,0 +1,2 @@
+module CeramicStyElemIndividualDesignsHelper
+end

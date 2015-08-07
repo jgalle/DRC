@@ -1,0 +1,33 @@
+<h1>Listing glass_bottles</h1>
+
+<table>
+  <tr>
+    <th>Artifact</th>
+    <th>Glass bottle element</th>
+    <th>Glass bottle shape</th>
+    <th>Glass bottle manu tech</th>
+    <th>Glass bottle treatment</th>
+    <th>Generate context artifact id--skip stylesheets</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @glass_bottles.each do |glass_bottle| %>
+  <tr>
+    <td><%= glass_bottle.artifact_id %></td>
+    <td><%= glass_bottle.glass_bottle_element_id %></td>
+    <td><%= glass_bottle.glass_bottle_shape_id %></td>
+    <td><%= glass_bottle.glass_bottle_manu_tech_id %></td>
+    <td><%= glass_bottle.glass_bottle_treatment_id %></td>
+    <td><%= glass_bottle.generate_context_artifact_id--skip_stylesheets %></td>
+    <td><%= link_to 'Show', glass_bottle %></td>
+    <td><%= link_to 'Edit', edit_glass_bottle_path(glass_bottle) %></td>
+    <td><%= link_to 'Destroy', glass_bottle, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Glass bottle', new_glass_bottle_path %>

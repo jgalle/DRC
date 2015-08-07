@@ -1,0 +1,79 @@
+<script>
+$(function() {
+	sitesContain();
+});
+</script>
+<div class="page-header page-header-004 query-database popover-area">
+		<div class="frame">
+			<div class="clearfix">
+				<% if params[:daacs] != nil and params[:daacs] != '' %>
+					<div class="dropdown options-drop back-to-queries">
+												<a href="http://www.daacs.org/query-the-database/" id="back-to-queries" class="btn btn-info ie-fix">Back to Queries Page</a>
+					</div>
+				<% end %>
+				
+			</div>
+		</div><!-- frame -->
+		<div class="">
+	<h1>Query the Database</h1>
+							<% pd = PopupDialog.find(53) %>
+	<p>Context Query 1: Basic Information<a id="aq5-popover" class="btn what-is-this" data-content="<%= pd.content %>" data-placement="right" data-toggle="popover" data-container="body" type="button" data-original-title="What Does This Query Do?" title="" tabindex="0" role="button" data-trigger="focus">What does this query do?</a></p>
+	</div>
+</div><!-- page-header -->
+<div class="query-database popover-area">
+	<%= form_tag({:action => 'query_context_one_results'}, {:onreset=>"setTimeout(function(){sitesContain()},100)"}) do %>
+	<!-- <form action="#" onreset="setTimeout(function(){sitesContain()},100)"> -->
+		<input type="hidden" name="daacs" value="<%= params[:daacs] %>">
+		<fieldset>
+			<div class="tabs">
+				<ul class="nav nav-tabs">
+					<li class="active"><a href="#tab-step3" data-toggle="tab">Step 1</a></li>
+				</ul><!-- end nav-tabs --> 
+				<div class="tab-content" id="query-steps">
+
+
+			<div class="block tab-pane active" id="tab-step3">
+				<div class="heading">
+					<div class="check-block">
+						<input type="checkbox" id="lbl-028" onchange="checkAll(this)" class="check" />
+						<label for="lbl-028">Select All</label>
+					</div><!-- end chech-block -->
+							<% pd = PopupDialog.find(54) %>
+					<h2><%= pd.title %><a class="btn" data-content="<%= pd.content %>" data-placement="right" data-toggle="popover" data-container="body" type="button" data-original-title="<%= pd.title %>" title="<%= pd.title %>" tabindex="0" role="button" data-trigger="focus"> Popover on left </a></h2>
+				</div><!-- end heading -->
+				<div class="section section-003">
+					<%= render :partial => 'site_selection' %>
+					<div id="query-selection">
+							<div class="query-info">
+								<h4>Query Selections</h4>
+								<table class="table table-bordered">
+									<thead>
+										<th>Step 1: Sites</th>
+									</thead>
+									<tbody>
+										<td>
+											<span id="sites_contain">
+											</span>
+										</td>
+									</tbody>
+								</table>
+							</div>
+					</div><!-- end #query-selection -->
+
+					<div class="buttons">
+						<div class="c">
+							<div class="box">
+								<input type="reset" class="reset" value="Reset" />
+								<input type="submit" class="btn submit" value="Submit" />
+							</div><!-- end box -->
+						</div><!-- end c -->
+					</div><!-- end buttons -->
+					
+				</div><!-- end section -->
+			</div><!-- end block -->
+		</fieldset>
+		
+		
+	<!-- </form> -->
+	<% end %>
+</div><!-- end query-database -->

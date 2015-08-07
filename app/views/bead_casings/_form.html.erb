@@ -1,0 +1,21 @@
+<%= form_for(@bead_casing) do |f| %>
+  <% if @bead_casing.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@bead_casing.errors.count, "error") %> prohibited this bead_casing from being saved:</h2>
+
+      <ul>
+      <% @bead_casing.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :artifact_id %><br />
+    <%= f.text_field :artifact_id %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

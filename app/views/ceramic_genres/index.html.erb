@@ -1,0 +1,23 @@
+<h1>Listing ceramic_genres</h1>
+
+<table>
+  <tr>
+    <th>Ceramic genre</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @ceramic_genres.each do |ceramic_genre| %>
+  <tr>
+    <td><%= ceramic_genre.ceramic_genre %></td>
+    <td><%= link_to 'Show', ceramic_genre %></td>
+    <td><%= link_to 'Edit', edit_ceramic_genre_path(ceramic_genre) %></td>
+    <td><%= link_to 'Destroy', ceramic_genre, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Ceramic genre', new_ceramic_genre_path %>

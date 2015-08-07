@@ -1,0 +1,130 @@
+<script>
+$(document).ready(function(){
+	$("#per_page").change(function() {
+	     this.form.submit();
+	});
+	if ($('.ceramics-list .delete-tr').exists()) {
+		$('.ceramics-list .delete-tr').click(function(){
+			id_to_delete = $(this).attr('id');
+			completeness_for_delete = $(this).parents('.holder-for-delete');
+		});
+	}
+	if ($('#alert-modal').exists()) {
+		$('#alert-modal').on('hidden.bs.modal', function (e) {
+			completeness_for_delete = "";
+		})
+		$('#alert-modal .delete-list').click(function(){
+			if (completeness_for_delete) {
+				completeness_for_delete.remove();
+			}
+			$.ajax({
+			  url: "/users/"+id_to_delete,
+			  type: "DELETE"
+			});
+			$('.alert-success').slideDown();
+			setTimeout(function(){
+				$('.alert-success').slideUp();
+			}, 3000)
+			$('#alert-modal').modal('hide')
+		});
+	}
+});
+</script>
+<div class="list-head">
+	<div class="page-header page-header-005">
+		<h1>Users List</h1>
+		<%= link_to 'Add New', new_user_path, {:class => 'add-new'}%>
+	</div><!-- page-header -->
+  <%= render 'layouts/messages' %>
+	<div class="list-panel">
+		<div class="block">
+			<!-- <span class="page-info">Page <%= @page %> of <%= @total_pages %></span> -->
+			<div class="search">
+				<%= form_tag({:controller => 'users', :action => 'index'}, :method => 'get') do %>
+					<fieldset>
+						<input type="hidden" name="artifacts" value="<%= params[:artifacts] %>">
+						<input type="hidden" name="per_page" value="<%= params[:per_page] != nil ? params[:per_page] : 25 %>">
+						<input type="text" class="text" value="<%= params[:query] != nil ? params[:query] : '' %>" name="query"/>
+						<input type="submit" class="btn submit" value="Search" />
+					</fieldset>
+				<% end %>
+			</div><!-- end search -->
+		</div><!-- end block -->
+		</div>
+		<div class="list-panel">
+		<div class="filter">
+			<%= form_tag({:controller => 'users', :action => 'index'}, :method => 'get', :id => 'list_selection') do %>
+				<input type="hidden" name="query" value="<%= params[:query] %>">
+				<fieldset>
+					<ul class="radio-block total-found">
+						<li>
+							<%= @total %> items found
+						</li>
+					</ul>
+					<div class="top-pagination">
+						<%= paginate @users, :window => 2 %>
+					</div>
+					<div class="select-block per-page">
+						<label for="per_page">Results per Page</label>
+						<select id="per_page" class="per-page sel-001" name="per_page">
+							<%= options_for_select(['25','50','100'], params[:per_page])%>
+						</select>
+					</div><!-- end select-block -->
+				</fieldset>
+			<% end %>
+		</div><!-- end filter -->
+	</div><!-- end list-panel -->
+</div><!-- end list-head -->
+<div class="ceramics-list">
+
+	<table>
+	  <tr>
+	    <th class="cell-02">User ID</th>
+	    <th class="cell-03">Organization</th>
+	  </tr>
+
+	<% @users.each do |user| %>
+	  <tr class="holder-for-delete">
+		  <% if current_user.is_admin? %>
+			<td class="cell-02"><p><%= link_to user.userid, :action => :edit, :id => user.id %></p>
+				<ul>
+					<li><%= link_to 'Edit', edit_user_path(user) %></li>
+					<li><a href="#" id="<%= user[:id] %>" data-toggle="modal" data-target="#alert-modal" class="delete-tr">Delete</a></li>
+				</ul>
+			</td>
+		<% else %>
+			<td class="cell-02"><p><%= user.userid %></p></td>
+		<% end %>
+			<td class="cell-03"><%= user.project_institution.Institution if user.project_institution != nil %></td>
+	  </tr>
+	<% end %>
+	</table>
+</div>
+
+<%= paginate @users %>
+
+<br />
+
+<div class="modal alert-modal fade" id="alert-modal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title">Alert</h4>
+            </div>
+            <div class="modal-body">
+                <p class="txt">Are you sure you want to delete?</p>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-default" data-dismiss="modal">Cancel</button>
+                <button class="btn btn-warning delete-list">Delete</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- alert-modal -->
+
+
+<%#= link_to 'New Ceramic', new_ceramic_path %>
+
+
+<%#= link_to 'Destroy', project, method: :delete, data: { confirm: 'Are you sure?' } %>

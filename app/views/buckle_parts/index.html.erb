@@ -1,0 +1,23 @@
+<h1>Listing buckle_parts</h1>
+
+<table>
+  <tr>
+    <th>Buckle part</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @buckle_parts.each do |buckle_part| %>
+  <tr>
+    <td><%= buckle_part.buckle_part %></td>
+    <td><%= link_to 'Show', buckle_part %></td>
+    <td><%= link_to 'Edit', edit_buckle_part_path(buckle_part) %></td>
+    <td><%= link_to 'Destroy', buckle_part, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Buckle part', new_buckle_part_path %>

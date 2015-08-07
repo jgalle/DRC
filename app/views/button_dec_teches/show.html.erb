@@ -1,0 +1,35 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Artifact:</b>
+  <%= @button_dec_tech.artifact_id %>
+</p>
+
+<p>
+  <b>Button decoration:</b>
+  <%= @button_dec_tech.button_decoration_id %>
+</p>
+
+<p>
+  <b>Jewel inlay material:</b>
+  <%= @button_dec_tech.jewel_inlay_material_id %>
+</p>
+
+<p>
+  <b>Mun app color:</b>
+  <%= @button_dec_tech.mun_app_color_id %>
+</p>
+
+<p>
+  <b>Decorative motif:</b>
+  <%= @button_dec_tech.decorative_motif %>
+</p>
+
+<p>
+  <b>Generate context artifact id--skip stylesheets:</b>
+  <%= @button_dec_tech.generate_context_artifact_id--skip_stylesheets %>
+</p>
+
+
+<%= link_to 'Edit', edit_button_dec_tech_path(@button_dec_tech) %> |
+<%= link_to 'Back', button_dec_teches_path %>

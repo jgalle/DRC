@@ -1,0 +1,154 @@
+<script>
+$(document).ready(function(){
+	$("#list_selection input").change(function() {
+	     this.form.submit();
+	});
+	$("#list_selection select").change(function() {
+	     this.form.submit();
+	});
+	if ($('.ceramics-list .delete-tr').exists()) {
+		$('.ceramics-list .delete-tr').click(function(){
+			id_to_delete = $(this).attr('id');
+			completeness_for_delete = $(this).parents('.holder-for-delete');
+		});
+	}
+	if ($('#alert-modal').exists()) {
+		$('#alert-modal').on('hidden.bs.modal', function (e) {
+			completeness_for_delete = "";
+		})
+		$('#alert-modal .delete-list').click(function(){
+			if (completeness_for_delete) {
+				completeness_for_delete.remove();
+			}
+			$.ajax({
+			  url: "/projects/"+id_to_delete,
+			  type: "DELETE"
+			});
+			$('.alert-success').slideDown();
+			setTimeout(function(){
+				$('.alert-success').slideUp();
+			}, 3000)
+			$('#alert-modal').modal('hide')
+		});
+	}
+});
+</script>
+<div class="list-head">
+	<div class="page-header page-header-005">
+		<h1>Project List</h1>
+		<% if current_user.is_super_admin? %>
+			<%= link_to('Add New', new_project_path, {:class => 'add-new'})%>
+		<% end %>
+	</div><!-- page-header -->
+	<div class="alert alert-success success-deleted" style="display:none">
+		<p>Successfully deleted project!</p>
+	</div><!-- end alert -->
+	<div class="list-panel">
+		<div class="block">
+			<!-- <span class="page-info">Page <%= @page %> of <%= @total_pages %></span> -->
+			<div class="search">
+				<%= form_tag({:controller => 'projects', :action => 'index'}, :method => 'get') do %>
+					<fieldset>
+						<input type="hidden" name="artifacts" value="<%= params[:artifacts] %>">
+						<input type="hidden" name="per_page" value="<%= params[:per_page] != nil ? params[:per_page] : 25 %>">
+						<input type="text" class="text" value="<%= params[:query] != nil ? params[:query] : '' %>" name="query"/>
+						<input type="submit" class="btn submit" value="Search" />
+					</fieldset>
+				<% end %>
+			</div><!-- end search -->
+		</div><!-- end block -->
+		</div>
+		<div class="list-panel">
+		<div class="filter">
+			<%= form_tag({:controller => 'projects', :action => 'index'}, :method => 'get', :id => 'list_selection') do %>
+				<input type="hidden" name="query" value="<%= params[:query] %>">
+				<fieldset>
+					<ul class="radio-block total-found">
+						<li>
+							<%= @total %> items found
+						</li>
+					</ul>
+					<div class="top-pagination">
+						<%= paginate @projects, :window => 2 %>
+					</div>
+					<div class="select-block per-page">
+						<label for="per_page">Results per Page</label>
+						<select id="per_page" class="per-page sel-001" name="per_page">
+							<%= options_for_select(['25','50','100'], params[:per_page])%>
+						</select>
+					</div><!-- end select-block -->
+				</fieldset>
+			<% end %>
+		</div><!-- end filter -->
+	</div><!-- end list-panel -->
+</div><!-- end list-head -->
+<div class="ceramics-list">
+
+	<table class="bordered">
+	  <tr>
+	    <th class="cell-02">Project ID</th>
+	    <th class="cell-03">Project Name</th>
+	    <th class="cell-04">Plantation Name</th>
+	    <th class="cell-05">Region</th>
+	    <th class="cell-06">Institution</th>
+	    <th class="cell-07">Place Name</th>
+	    <th class="cell-08">Date Updated</th>
+	  </tr>
+
+		<% projects = current_user.projects %>
+		<% edit_projects = current_user.edit_projects %>
+		<% deletable_projects = current_user.deletable_projects %>
+		<% is_admin = current_user.is_admin? %>
+
+	<% @projects.each do |project| %>
+	  <tr class="holder-for-delete">
+			<td class="cell-02">
+				<p>
+					<% if current_user.edit_projects.include?(project) or current_user.is_admin? %>
+						<%= link_to project.ProjectID, edit_project_path(project) %>
+					<% else %>
+						<%= project.ProjectID %>
+					<% end %>
+				</p>
+				<% if current_user.edit_projects.include?(project) or current_user.is_admin? %>
+				<ul>
+					<li><%= link_to 'Edit', edit_project_path(project) %></li>
+					<% if current_user.is_admin? %>
+					<li><a href="#" id="<%= project[:id] %>" data-toggle="modal" data-target="#alert-modal" class="delete-tr">Delete</a></li>
+					<% end %>
+				</ul>
+				<% end %>
+			</td>
+	 		<td class="cell-03"><%= project.project_name.ProjectName if project.project_name != nil  %></td>
+			<td class="cell-04"><%= project.plantation.PlantationName if project.plantation != nil %></td>
+		 	<td class="cell-05"><%= project.project_region.Region if project.project_region != nil %></td>
+			<td class="cell-06"><%= project.project_institution.Institution if project.project_institution != nil %></td>
+			<td class="cell-07"><%= project.project_place_name.PlaceName if project.project_place_name != nil %></td>
+			<td class="cell-08"><%= project.DateChanged !=nil ? project.DateChanged.strftime("%m/%d/%Y") : project.DateAdded.strftime("%m/%d/%Y") %></td>
+	  </tr>
+	<% end %>
+	</table>
+</div>
+
+<%= paginate @projects %>
+
+<br />
+
+
+<div class="modal alert-modal fade" id="alert-modal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title">Alert</h4>
+            </div>
+            <div class="modal-body">
+                <p class="txt">Are you sure you want to delete?</p>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-default" data-dismiss="modal">Cancel</button>
+                <button class="btn btn-warning delete-list">Delete</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- alert-modal -->

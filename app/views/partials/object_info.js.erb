@@ -1,0 +1,2 @@
+$('.new-image-image:last').html('<%= j image_tag(@gen_object.images.first.ImageFileLocation, :width => '91px', :height => '91px') if @gen_object.images.size > 0 %>');
+$('.new-object-details:last').html('<%= j render 'partials/object_info', gen_object: @gen_object %>');

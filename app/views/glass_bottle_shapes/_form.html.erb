@@ -1,0 +1,21 @@
+<%= form_for(@glass_bottle_shape) do |f| %>
+  <% if @glass_bottle_shape.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@glass_bottle_shape.errors.count, "error") %> prohibited this glass_bottle_shape from being saved:</h2>
+
+      <ul>
+      <% @glass_bottle_shape.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :glass_bottle_shape %><br />
+    <%= f.text_field :glass_bottle_shape %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

@@ -1,0 +1,58 @@
+<table class="data">
+	<% @even = true %>
+	<% @messages = {} %>
+	<% if !defined? all_messages %>
+		<%#= render collection: current_user.mailbox.inbox.limit(25), partial: 'message_header' %>
+		<% current_user.mailbox.inbox.limit(25).each do |message| %>
+			<% message.receipts_for(current_user).inbox.each do |receipt| %>
+				<% @messages[message.id] = {date: message.created_at, subject: message.subject, user: message.last_sender.userid, attachment: receipt.message.attachment, message: message} %>
+			<% end %>
+		<% end %>
+		<% @messages_sort = @messages.sort_by {|m| m[1][:date]}%>
+		<% if defined? date_descend %>
+			<% @messages_sort = @messages.sort_by {|m| m[1][:date]}%>
+			<%= render :partial => 'message_list', :locals => {:messages_sort => @messages_sort.reverse }%>
+		<% elsif defined? date_ascend %>
+			<% @messages_sort = @messages.sort_by {|m| m[1][:date]}%>
+			<%= render :partial => 'message_list', :locals => {:messages_sort => @messages_sort }%>
+		<% elsif defined? from_descend %>
+			<% @messages_sort = @messages.sort_by {|m| [m[1][:user], m[1][:date]]}%>
+			<%= render :partial => 'message_list', :locals => {:messages_sort => @messages_sort }%>
+		<% elsif defined? from_ascend %>
+			<% @messages_sort = @messages.sort_by {|m| [m[1][:user], m[1][:date]]}%>
+			<%= render :partial => 'message_list', :locals => {:messages_sort => @messages_sort.reverse }%>
+		<% elsif defined? subject_descend %>
+			<% @messages_sort = @messages.sort_by {|m| [m[1][:subject], m[1][:date]]}%>
+			<%= render :partial => 'message_list', :locals => {:messages_sort => @messages_sort }%>
+		<% elsif defined? subject_ascend %>
+			<% @messages_sort = @messages.sort_by {|m| [m[1][:subject], m[1][:date]]}%>
+			<%= render :partial => 'message_list', :locals => {:messages_sort => @messages_sort.reverse }%>
+		<% end %>
+	<% else %>
+		<%#= render collection: current_user.mailbox.inbox, partial: 'message_header' %>
+		<% current_user.mailbox.inbox.each do |message| %>
+			<% message.receipts_for(current_user).inbox.each do |receipt| %>
+				<% @messages[message.id] = {date: message.created_at, subject: message.subject, user: message.last_sender.userid, attachment: receipt.message.attachment, message: message} %>
+			<% end %>
+		<% end %>
+		<% if defined? date_descend %>
+			<% @messages_sort = @messages.sort_by {|m| m[1][:date]}%>
+			<%= render :partial => 'message_list', :locals => {:messages_sort => @messages_sort.reverse }%>
+		<% elsif defined? date_ascend %>
+			<% @messages_sort = @messages.sort_by {|m| m[1][:date]}%>
+			<%= render :partial => 'message_list', :locals => {:messages_sort => @messages_sort }%>
+		<% elsif defined? from_descend %>
+			<% @messages_sort = @messages.sort_by {|m| [m[1][:user], m[1][:date]]}%>
+			<%= render :partial => 'message_list', :locals => {:messages_sort => @messages_sort }%>
+		<% elsif defined? from_ascend %>
+			<% @messages_sort = @messages.sort_by {|m| [m[1][:user], m[1][:date]]}%>
+			<%= render :partial => 'message_list', :locals => {:messages_sort => @messages_sort.reverse }%>
+		<% elsif defined? subject_descend %>
+			<% @messages_sort = @messages.sort_by {|m| [m[1][:subject], m[1][:date]]}%>
+			<%= render :partial => 'message_list', :locals => {:messages_sort => @messages_sort }%>
+		<% elsif defined? subject_ascend %>
+			<% @messages_sort = @messages.sort_by {|m| [m[1][:subject], m[1][:date]]}%>
+			<%= render :partial => 'message_list', :locals => {:messages_sort => @messages_sort.reverse }%>
+		<% end %>
+	<% end %>
+</table>

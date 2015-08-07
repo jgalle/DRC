@@ -1,0 +1,904 @@
+<script>
+$(function() {
+	sitesContain();
+});
+</script>
+<div class="page-header page-header-004 query-database popover-area">
+		<div class="frame">
+			<div class="clearfix">
+				<% if params[:daacs] != nil and params[:daacs] != '' %>
+					<div class="dropdown options-drop back-to-queries">
+												<a href="http://www.daacs.org/query-the-database/" id="back-to-queries" class="btn btn-info ie-fix">Back to Queries Page</a>
+					</div>
+				<% end %>
+				
+			</div>
+		</div><!-- frame -->
+		<div class="">
+	<h1>Query the Database</h1>
+							<% pd = PopupDialog.find(34) %>
+	<p>Artifact Query 3: Detailed Iventory <a id="aq5-popover" class="btn what-is-this" data-content="<%= pd.content %>" data-placement="right" data-toggle="popover" data-container="body" type="button" data-original-title="What Does This Query Do?" title="" tabindex="0" role="button" data-trigger="focus">What does this query do?</a></p>
+	</div>
+</div><!-- page-header -->
+<div class="query-database popover-area">
+	<%= form_tag({:action => 'aq_three_results'}, {:onreset=>"setTimeout(function(){sitesContain()},100)"}) do %>
+	<!-- <form action="#" onreset="setTimeout(function(){sitesContain()},100)"> -->
+		<input type="hidden" name="daacs" value="<%= params[:daacs] %>">
+		<fieldset>
+			<div class="tabs">
+				<ul class="nav nav-tabs">
+					<li class="active"><a href="#tab-step1" data-toggle="tab">Step 1</a></li>
+					<li><a href="#tab-step2" data-toggle="tab">Step 2</a></li>
+					<li><a href="#tab-step3" data-toggle="tab">Step 3</a></li>
+				</ul><!-- end nav-tabs --> 
+				<div class="tab-content" id="query-steps">
+
+				<div class="block tab-pane active" id="tab-step1">
+				<div class="heading">
+					<h2>
+							<% pd = PopupDialog.find(35) %>
+							<%= pd.title %>
+					<a class="btn" data-content="<%= pd.content %>" data-placement="right" data-toggle="popover" data-container="body" type="button" data-original-title="<%= pd.title %>" title="<%= pd.title %>" tabindex="0" role="button" data-trigger="focus"> Popover on left </a>
+				</h2>
+				</div><!-- end heading -->
+				<div class="section">
+					<div class="wrap">
+						<div class="panel-group" id="accordion1">
+							<div class="panel panel-default">
+								<div class="panel-heading">
+									<h4 class="panel-title"><a data-toggle="collapse" data-parent="#accordion1" href="#collapse-bead" class="<%= (((params[:button_selected] != nil and params[:button_selected] != '') or (params[:buckle_selected] != nil and params[:buckle_selected] != '') or (params[:bone_selected] != nil and params[:bone_selected] != '') or (params[:ceramic_selected] != nil and params[:ceramic_selected] != '') or (params[:glass_selected] != nil and params[:glass_selected] != '') or (params[:gen_artifact_selected] != nil and params[:gen_artifact_selected] != '') or (params[:tobacco_pipe_selected] != nil and params[:tobacco_pipe_selected] != '') or (params[:utensil_selected] != nil and params[:utensil_selected] != ''))) ? 'collapsed' : 'in' %>"><label><div class="custom-radio"><i class="<%= (((params[:button_selected] != nil and params[:button_selected] != '') or (params[:buckle_selected] != nil and params[:buckle_selected] != '') or (params[:bone_selected] != nil and params[:bone_selected] != '') or (params[:ceramic_selected] != nil and params[:ceramic_selected] != '') or (params[:glass_selected] != nil and params[:glass_selected] != '') or (params[:gen_artifact_selected] != nil and params[:gen_artifact_selected] != '') or (params[:tobacco_pipe_selected] != nil and params[:tobacco_pipe_selected] != '') or (params[:utensil_selected] != nil and params[:utensil_selected] != ''))) ? '' : 'custom-radio-selected' %>"></i></div> Bead</label></a></h4>
+								</div>
+							<% pd = PopupDialog.find(36) %>
+								<a class="btn btn-right" data-content="<%= pd.content %>" data-placement="left" data-toggle="popover" data-container="body" type="button" data-original-title="<%= pd.title %>" title="" tabindex="0" role="button" data-trigger="focus"> Popover on left </a>
+								<div id="collapse-bead" class="panel-collapse collapse <%= (((params[:button_selected] != nil and params[:button_selected] != '') or (params[:buckle_selected] != nil and params[:buckle_selected] != '') or (params[:bone_selected] != nil and params[:bone_selected] != '') or (params[:ceramic_selected] != nil and params[:ceramic_selected] != '') or (params[:glass_selected] != nil and params[:glass_selected] != '') or (params[:gen_artifact_selected] != nil and params[:gen_artifact_selected] != '') or (params[:tobacco_pipe_selected] != nil and params[:tobacco_pipe_selected] != '') or (params[:utensil_selected] != nil and params[:utensil_selected] != ''))) ? 'collapsed' : 'in' %> ">
+									<div class="panel-body">
+										<div class="collapse-block">
+											<div class="box"  id="beads_attributes">
+												<div class="check-block">
+													<label><input type="checkbox" onchange="checkAllWithClass(this, 'feature-types')" class="check">Select All</label>
+												</div>
+												<div class="scrollable-area"> 
+													<ul> 
+														<% num = 0 %>
+														<% third = (@bead_items.size/3).to_i%>
+														<% @bead_items.each do |item| %>
+														<li> <%# debugger %>
+															<input name="beads[]" value="<%= item %>" type="checkbox" id="lbl-<%= (num+=1).to_s.rjust(3,'0') %>" class="check feature-types" <%= (params[:beads] != nil and params[:beads].include? item) ? 'checked' : '' %> /> <label for="lbl-<%= num.to_s.rjust(3,'0') %>"><%= item.gsub(/([A-Z])/,' \1').gsub('I D', 'ID').gsub('D A A C S', 'DAACS') %></label> 
+														</li> 
+														<% if num%(third+1) == 0 %>
+															</ul>
+															<ul>
+														<% end %>
+														<% end %>
+													</ul> 
+												</div><!-- end scrollable-area -->
+											</div><!-- end box -->
+															<input type="hidden" class="accordion1-type-selected" name="bead_selected" value="<%= (((params[:button_selected] != nil and params[:button_selected] != '') or (params[:buckle_selected] != nil and params[:buckle_selected] != '') or (params[:bone_selected] != nil and params[:bone_selected] != '') or (params[:ceramic_selected] != nil and params[:ceramic_selected] != '') or (params[:glass_selected] != nil and params[:glass_selected] != '') or (params[:gen_artifact_selected] != nil and params[:gen_artifact_selected] != '') or (params[:tobacco_pipe_selected] != nil and params[:tobacco_pipe_selected] != '') or (params[:utensil_selected] != nil and params[:utensil_selected] != '')))  ? '' : 'in' %>">
+										</div><!-- end collapse-context -->
+									</div><!-- end panel-body -->
+								</div><!-- end #collapse-beads -->
+							</div><!-- end panel -->
+
+							<div class="panel ">
+								<div class="panel-heading">
+									<h4 class="panel-title"><a data-toggle="collapse" data-parent="#accordion1" href="#collapse-buckle" class="<%= (params[:buckle_selected] == nil or params[:buckle_selected] == '') ? 'collapsed' : 'in' %>"><label><div class="custom-radio"><i class="<%= (params[:buckle_selected] != nil and params[:buckle_selected] != '') ? 'custom-radio-selected' : '' %>"></i></div> Buckle</label></a></h4>
+								</div>
+							<% pd = PopupDialog.find(37) %>
+								<a class="btn btn-right" data-content="<%= pd.content %>" data-placement="left" data-toggle="popover" data-container="body" type="button" data-original-title="<%= pd.title %>" title="" tabindex="0" role="button" data-trigger="focus"> Popover on left </a>
+								<div id="collapse-buckle" class="panel-collapse collapse <%= (params[:buckle_selected] == nil or params[:buckle_selected] == '') ? 'collapsed' : 'in' %> ">
+									<div class="panel-body">
+										<div class="collapse-block">
+											<div class="box"  id="buckles_attributes">
+												<div class="check-block">
+													<label><input type="checkbox" onchange="checkAllWithClass(this, 'feature-types')" class="check">Select All</label>
+												</div>
+												<div class="scrollable-area"> 
+													<ul> 
+														<% num = 0 %>
+														<% third = (@buckle_items.size/3).to_i%>
+														<% @buckle_items.each do |item| %>
+														<li> <%# debugger %>
+															<input name="buckles[]" value="<%= item %>" type="checkbox" id="lbl-<%= (num+=1).to_s.rjust(3,'0') %>" class="check feature-types" <%= (params[:buckles] != nil and params[:buckles].include? item) ? 'checked' : '' %> /> <label for="lbl-<%= num.to_s.rjust(3,'0') %>"><%= item.gsub(/([A-Z])/,' \1').gsub('I D', 'ID').gsub('D A A C S', 'DAACS') %></label> 
+														</li> 
+														<% if num%(third+1) == 0 %>
+															</ul>
+															<ul>
+														<% end %>
+														<% end %>
+													</ul> 
+												</div><!-- end scrollable-area -->
+											</div><!-- end box -->
+															<input type="hidden" class="accordion1-type-selected" name="buckle_selected" value="<%= (params[:buckle_selected] != nil and params[:buckle_selected] != '')  ? 'in' : '' %>">
+										</div><!-- end collapse-context -->
+									</div><!-- end panel-body -->
+								</div><!-- end #collapse-beads -->
+							</div><!-- end panel -->
+
+							<div class="panel ">
+								<div class="panel-heading">
+									<h4 class="panel-title"><a data-toggle="collapse" data-parent="#accordion1" href="#collapse-button" class="<%= (params[:button_selected] == nil or params[:button_selected] == '') ? 'collapsed' : 'in' %>"><label><div class="custom-radio"><i class="<%= (params[:button_selected] != nil and params[:button_selected] != '') ? 'custom-radio-selected' : '' %>"></i></div> Button</label></a></h4>
+								</div>
+							<% pd = PopupDialog.find(38) %>
+								<a class="btn btn-right" data-content="<%= pd.content %>" data-placement="left" data-toggle="popover" data-container="body" type="button" data-original-title="<%= pd.title %>" title="" tabindex="0" role="button" data-trigger="focus"> Popover on left </a>
+								<div id="collapse-button" class="panel-collapse collapse <%= (params[:button_selected] == nil or params[:button_selected] == '') ? 'collapsed' : 'in' %> ">
+									<div class="panel-body">
+										<div class="collapse-block">
+											<div class="box"  id="buttons_attributes">
+												<div class="check-block">
+													<label><input type="checkbox" onchange="checkAllWithClass(this, 'feature-types')" class="check">Select All</label>
+												</div>
+												<div class="scrollable-area"> 
+													<ul> 
+														<% num = 0 %>
+														<% third = (@button_items.size/3).to_i%>
+														<% @button_items.each do |item| %>
+														<li> <%# debugger %>
+															<input name="buttons[]" value="<%= item %>" type="checkbox" id="lbl-<%= (num+=1).to_s.rjust(3,'0') %>" class="check feature-types" <%= (params[:buttons] != nil and params[:buttons].include? item) ? 'checked' : '' %> /> <label for="lbl-<%= num.to_s.rjust(3,'0') %>"><%= item.gsub(/([A-Z])/,' \1').gsub('I D', 'ID').gsub('D A A C S', 'DAACS') %></label> 
+														</li> 
+														<% if num%(third+1) == 0 %>
+															</ul>
+															<ul>
+														<% end %>
+														<% end %>
+													</ul> 
+												</div><!-- end scrollable-area -->
+											</div><!-- end box -->
+															<input type="hidden" class="accordion1-type-selected" name="button_selected" value="<%= (params[:button_selected] != nil and params[:button_selected] != '')  ? 'in' : '' %>">
+										</div><!-- end collapse-context -->
+									</div><!-- end panel-body -->
+								</div><!-- end #collapse-beads -->
+							</div><!-- end panel -->
+							
+							<div class="panel">
+                                <div class="panel-heading">
+                                    <h4 class="panel-title"><a data-toggle="collapse" data-parent="#accordion1" href="#collapse-ceramics" class="<%= (params[:ceramic_selected] == nil or params[:ceramic_selected] == '') ? 'collapsed' : 'in' %>"><label><div class="custom-radio"><i class="<%= (params[:ceramic_selected] != nil and params[:ceramic_selected] != '') ? 'custom-radio-selected' : '' %>"></i></div> Ceramics</label></a></h4>
+                                </div>
+							<% pd = PopupDialog.find(39) %>
+								<a class="btn btn-right" data-content="<%= pd.content %>" data-placement="left" data-toggle="popover" data-container="body" type="button" data-original-title="<%= pd.title %>" title="" tabindex="0" role="button" data-trigger="focus"> Popover on left </a>
+                                <div id="collapse-ceramics" class="panel-collapse collapse <%= (params[:ceramic_selected] == nil or params[:ceramic_selected] == '') ? 'collapsed' : 'in' %>">
+                                    <div class="panel-body">
+                                        <div class="collapse-block">
+											<div class="check-block-container dropup">
+												<a href="#ceramic_attributes" class="toggle-header">Select Ceramic Attributes <i class="caret"></i></a>
+												<div class="box" id="ceramic_attributes">
+													<div class="check-block">
+														<label><input type="checkbox" onchange="checkAll(this)" class="check">Select All</label>
+													</div>
+													<div class="scrollable-area"> 
+														<ul>
+															<% num = 0 %>
+															<% third = (@ceramic_items.size/3).to_i%>
+															<% @ceramic_items.each do |item| %>
+															<li> <%# debugger %>
+																<input name="ceramic_fields[]" value="<%= item %>" type="checkbox" id="lbl-<%= (num+=1).to_s.rjust(3,'0') %>" class="check" <%= (params[:ceramic_fields] != nil and params[:ceramic_fields].include? item) ? 'checked' : '' %> /> <label for="lbl-<%= num.to_s.rjust(3,'0') %>"><%= item.gsub(/([A-Z])/,' \1').gsub('I D', 'ID').gsub('D A A C S', 'DAACS') %></label> 
+															</li> 
+															<% if num%(third+1) == 0 %>
+																</ul>
+																<ul>
+															<% end %>
+															<% end %>
+		 												</ul> 
+													</div><!-- end scrollable-area -->
+												</div><!-- end box -->
+											</div>
+											<a href="#ware_attributes" class="toggle-header">Subset results by Ware  <i class="caret"></i></a>
+											
+											<div class="box" id="ware_attributes">
+											<div class="check-block-container dropup">
+												<a href="#coarse_ew_attributes" class="toggle-header">Coarse EW <i class="caret"></i></a>
+												<div class="box" id="coarse_ew_attributes">
+													<div class="check-block">
+														<label><input type="checkbox" onchange="checkAll(this)" class="check">Select All</label>
+													</div>
+													<div class="scrollable-area"> 
+														<ul>
+															<% items = CeramicWare.where(:CeramicMaterialID => 8).order('"Ware"') %>
+															<% num = 0 %>
+															<% third = (items.size/3).to_i%>
+															<% items.each do |item| %>
+															<li> <%# debugger %>
+																<input name="ceramic_coarse_ew_fields[]" value="<%= item.Ware.gsub("'","''") %>" type="checkbox" id="lbl-<%= (num+=1).to_s.rjust(3,'0') %>" class="check" <%= (params[:ceramic_coarse_ew_fields] != nil and params[:ceramic_coarse_ew_fields].include? item.Ware.gsub("'","''")) ? 'checked' : '' %> /> <label for="lbl-<%= num.to_s.rjust(3,'0') %>"><%= item.Ware %></label> 
+															</li> 
+															<% if num%(third+1) == 0 %>
+																</ul>
+																<ul>
+															<% end %>
+															<% end %>
+		 												</ul> 
+													</div><!-- end scrollable-area -->
+												</div><!-- end box -->
+											</div>
+
+											<div class="check-block-container dropup">
+												<a href="#porcelain_attributes" class="toggle-header">Porcelain <i class="caret"></i></a>
+												<div class="box" id="porcelain_attributes">
+													<div class="check-block">
+														<label><input type="checkbox" onchange="checkAll(this)" class="check">Select All</label>
+													</div>
+													<div class="scrollable-area"> 
+														<ul>
+															<% items = CeramicWare.where(:CeramicMaterialID => 2).order('"Ware"') %>
+															<% num = 0 %>
+															<% third = (items.size/3).to_i%>
+															<% items.each do |item| %>
+															<li> <%# debugger %>
+																<input name="ceramic_porcelain_fields[]" value="<%= item.Ware %>" type="checkbox" id="lbl-<%= (num+=1).to_s.rjust(3,'0') %>" class="check" <%= (params[:ceramic_porcelain_fields] != nil and params[:ceramic_porcelain_fields].include? item.Ware) ? 'checked' : '' %> /> <label for="lbl-<%= num.to_s.rjust(3,'0') %>"><%= item.Ware %></label> 
+															</li> 
+															<% if num%(third+1) == 0 %>
+																</ul>
+																<ul>
+															<% end %>
+															<% end %>
+		 												</ul> 
+													</div><!-- end scrollable-area -->
+												</div><!-- end box -->
+											</div>
+
+											<div class="check-block-container dropup">
+												<a href="#refined_ew_attributes" class="toggle-header">Refined EW <i class="caret"></i></a>
+												<div class="box" id="refined_ew_attributes">
+													<div class="check-block">
+														<label><input type="checkbox" onchange="checkAll(this)" class="check">Select All</label>
+													</div>
+													<div class="scrollable-area"> 
+														<ul>
+															<% items = CeramicWare.where(:CeramicMaterialID => 1).order('"Ware"') %>
+															<% num = 0 %>
+															<% third = (items.size/3).to_i%>
+															<% items.each do |item| %>
+															<li> <%# debugger %>
+																<input name="ceramic_refined_ew_fields[]" value="<%= item.Ware %>" type="checkbox" id="lbl-<%= (num+=1).to_s.rjust(3,'0') %>" class="check" <%= (params[:ceramic_refined_ew_fields] != nil and params[:ceramic_refined_ew_fields].include? item.Ware) ? 'checked' : '' %> /> <label for="lbl-<%= num.to_s.rjust(3,'0') %>"><%= item.Ware %></label> 
+															</li> 
+															<% if num%(third+1) == 0 %>
+																</ul>
+																<ul>
+															<% end %>
+															<% end %>
+		 												</ul> 
+													</div><!-- end scrollable-area -->
+												</div><!-- end box -->
+											</div>
+
+											<div class="check-block-container dropup">
+												<a href="#stoneware_attributes" class="toggle-header">Stoneware <i class="caret"></i></a>
+												<div class="box" id="stoneware_attributes">
+													<div class="check-block">
+														<label><input type="checkbox" onchange="checkAll(this)" class="check">Select All</label>
+													</div>
+													<div class="scrollable-area"> 
+														<ul>
+															<% items = CeramicWare.where(:CeramicMaterialID => 3).order('"Ware"') %>
+															<% num = 0 %>
+															<% third = (items.size/3).to_i%>
+															<% items.each do |item| %>
+															<li> <%# debugger %>
+																<input name="ceramic_stoneware_fields[]" value="<%= item.Ware %>" type="checkbox" id="lbl-<%= (num+=1).to_s.rjust(3,'0') %>" class="check" <%= (params[:ceramic_stoneware_fields] != nil and params[:ceramic_stoneware_fields].include? item.Ware) ? 'checked' : '' %> /> <label for="lbl-<%= num.to_s.rjust(3,'0') %>"><%= item.Ware %></label> 
+															</li> 
+															<% if num%(third+1) == 0 %>
+																</ul>
+																<ul>
+															<% end %>
+															<% end %>
+		 												</ul> 
+													</div><!-- end scrollable-area -->
+												</div><!-- end box -->
+											</div>
+											</div>
+											<div class="check-block-container dropup">
+												<a href="#form_attributes" class="toggle-header">Subset results by Form <i class="caret"></i></a>
+												<div class="box" id="form_attributes">
+													<div class="check-block">
+														<label><input type="checkbox" onchange="checkAll(this)" class="check">Select All</label>
+													</div>
+													<div class="scrollable-area"> 
+														<ul>
+															<% items = CeramicForm.all.order('"CeramicForm"')%>
+															<%# items = ['Basket', 'Bottle', 'Bottle, blacking', 'Bowl', 'Bowl, punch', 'Bowl, slop', 'Box', 'Castor', 'Chafing Dish', 'Chamberpot', 'Coffee Pot', 'Colander', 'Cup', 'Cup, lidded', 'Dish (>10" diameter)', 'Drinking Pot', 'Drug Jar/Salve Pot', 'Flower Pot', 'Gaming Piece', 'Griddle', 'Inkwell', 'Jar', 'Jar, mustard', 'Jug', 'Kiln Furniture', 'Lid', 'Milk Pan', 'Mold, jelly', 'Mug/Can', 'Not Applicable', 'Not Mended', 'Not Recorded', 'Patty Pan', 'Pipkin', 'Pitcher/Ewer', 'Plate', 'Platter', 'Porringer', 'Pot/Butter Pot', 'Saucer', 'Sea Kale Pot', 'Serving Dish, misc.', 'Storage Jar']%>
+															<% num = 0 %>
+															<% third = (items.size/3).to_i%>
+															<% items.each do |item| %>
+															<li> <%# debugger %>
+																<input name="ceramic_form_fields[]" value="<%= item.CeramicForm %>" type="checkbox" id="lbl-<%= (num+=1).to_s.rjust(3,'0') %>" class="check" <%= (params[:ceramic_form_fields] != nil and params[:ceramic_form_fields].include? item.CeramicForm) ? 'checked' : '' %> /> <label for="lbl-<%= num.to_s.rjust(3,'0') %>"><%= item.CeramicForm %></label> 
+															</li> 
+															<% if num%(third+1) == 0 %>
+																</ul>
+																<ul>
+															<% end %>
+															<% end %>
+		 												</ul> 
+													</div><!-- end scrollable-area -->
+												</div><!-- end box -->
+												<input type="hidden" class="accordion1-type-selected" name="ceramic_selected" value="<%= (params[:ceramic_selected] != nil and params[:ceramic_selected] != '')  ? 'in' : '' %>">
+												
+											</div>
+
+                                        </div><!-- end collapse-block -->
+                                    </div><!-- end panel-body -->
+                                </div><!-- end #collapse-ceramics -->
+                            </div><!-- end panel -->
+
+							<div class="panel">
+                                <div class="panel-heading">
+                                    <h4 class="panel-title"><a data-toggle="collapse" data-parent="#accordion1" href="#collapse-glass" class="<%= (params[:glass_selected] == nil or params[:glass_selected] == '') ? 'collapsed' : 'in' %>"><label><div class="custom-radio"><i class="<%= (params[:glass_selected] != nil and params[:glass_selected] != '') ? 'custom-radio-selected' : '' %>"></i></div> Glass</label></a></h4>
+                                </div>
+							<% pd = PopupDialog.find(41) %>
+								<a class="btn btn-right" data-content="<%= pd.content %>" data-placement="left" data-toggle="popover" data-container="body" type="button" data-original-title="<%= pd.title %>" title="" tabindex="0" role="button" data-trigger="focus"> Popover on left </a>
+                                <div id="collapse-glass" class="panel-collapse collapse <%= (params[:glass_selected] == nil or params[:glass_selected] == '') ? 'collapsed' : 'in' %>">
+                                    <div class="panel-body">
+                                        <div class="collapse-block">
+											<div class="check-block-container dropup">
+												<a href="#glass_attributes" class="toggle-header">Select Glass Attributes <i class="caret"></i></a>
+												<div class="box" id="glass_attributes">
+													<div class="check-block">
+														<label><input type="checkbox" onchange="checkAll(this)" class="check">Select All</label>
+													</div>
+													<div class="scrollable-area"> 
+														<ul>
+															<% num = 0 %>
+															<% third = (@glass_items.size/3).to_i%>
+															<% @glass_items.each do |item| %>
+															<li> <%# debugger %>
+																<input name="glass_fields[]" value="<%= item %>" type="checkbox" id="lbl-<%= (num+=1).to_s.rjust(3,'0') %>" class="check" <%= (params[:glass_fields] != nil and params[:glass_fields].include? item) ? 'checked' : '' %> /> <label for="lbl-<%= num.to_s.rjust(3,'0') %>"><%= item.gsub(/([A-Z])/,' \1').gsub('I D', 'ID').gsub('D A A C S', 'DAACS') %></label> 
+															</li> 
+															<% if num%(third+1) == 0 %>
+																</ul>
+																<ul>
+															<% end %>
+															<% end %>
+		 												</ul> 
+													</div><!-- end scrollable-area -->
+												</div><!-- end box -->
+											</div>
+
+											<div class="check-block-container dropup">
+												<a href="#material_attributes" class="toggle-header">Subset results by Material <i class="caret"></i></a>
+												<div class="box" id="material_attributes">
+													<div class="check-block">
+														<label><input type="checkbox" onchange="checkAll(this)" class="check">Select All</label>
+													</div>
+													<div class="scrollable-area"> 
+														<ul>
+															<% items = GlassMaterial.all.order('"GlassMaterial"') %>
+															<% num = 0 %>
+															<% third = (items.size/3).to_i%>
+															<% items.each do |item| %>
+															<li> <%# debugger %>
+																<input name="glass_material_fields[]" value="<%= item.GlassMaterial.gsub("'","''") %>" type="checkbox" id="lbl-<%= (num+=1).to_s.rjust(3,'0') %>" class="check" <%= (params[:glass_material_fields] != nil and params[:glass_material_fields].include? item.GlassMaterial.gsub("'","''")) ? 'checked' : '' %> /> <label for="lbl-<%= num.to_s.rjust(3,'0') %>"><%= item.GlassMaterial %></label> 
+															</li> 
+															<% if num%(third+1) == 0 %>
+																</ul>
+																<ul>
+															<% end %>
+															<% end %>
+		 												</ul> 
+													</div><!-- end scrollable-area -->
+												</div><!-- end box -->
+											</div>
+
+											<div class="check-block-container dropup">
+												<a href="#glass_form_attributes" class="toggle-header">Subset results by Form <i class="caret"></i></a>
+												<div class="box" id="glass_form_attributes">
+													<div class="check-block">
+														<label><input type="checkbox" onchange="checkAll(this)" class="check">Select All</label>
+													</div>
+													<div class="scrollable-area"> 
+														<ul>
+															<% items = GlassForm.all.order('"GlassForm"')%>
+															<%# items = ['Basket', 'Bottle', 'Bottle, blacking', 'Bowl', 'Bowl, punch', 'Bowl, slop', 'Box', 'Castor', 'Chafing Dish', 'Chamberpot', 'Coffee Pot', 'Colander', 'Cup', 'Cup, lidded', 'Dish (>10" diameter)', 'Drinking Pot', 'Drug Jar/Salve Pot', 'Flower Pot', 'Gaming Piece', 'Griddle', 'Inkwell', 'Jar', 'Jar, mustard', 'Jug', 'Kiln Furniture', 'Lid', 'Milk Pan', 'Mold, jelly', 'Mug/Can', 'Not Applicable', 'Not Mended', 'Not Recorded', 'Patty Pan', 'Pipkin', 'Pitcher/Ewer', 'Plate', 'Platter', 'Porringer', 'Pot/Butter Pot', 'Saucer', 'Sea Kale Pot', 'Serving Dish, misc.', 'Storage Jar']%>
+															<% num = 0 %>
+															<% third = (items.size/3).to_i%>
+															<% items.each do |item| %>
+															<li> <%# debugger %>
+																<input name="glass_form_fields[]" value="<%= item.GlassForm %>" type="checkbox" id="lbl-<%= (num+=1).to_s.rjust(3,'0') %>" class="check" <%= (params[:glass_form_fields] != nil and params[:glass_form_fields].include? item.GlassForm) ? 'checked' : '' %> /> <label for="lbl-<%= num.to_s.rjust(3,'0') %>"><%= item.GlassForm %></label> 
+															</li> 
+															<% if num%(third+1) == 0 %>
+																</ul>
+																<ul>
+															<% end %>
+															<% end %>
+		 												</ul> 
+													</div><!-- end scrollable-area -->
+												</div><!-- end box -->
+												<input type="hidden" class="accordion1-type-selected" name="glass_selected" value="<%= (params[:glass_selected] != nil and params[:glass_selected] != '')  ? 'in' : '' %>">
+												
+											</div>
+
+                                        </div><!-- end collapse-block -->
+                                    </div><!-- end panel-body -->
+                                </div><!-- end #collapse-ceramics -->
+                            </div><!-- end panel -->
+
+							<div class="panel">
+                                <div class="panel-heading">
+                                    <h4 class="panel-title"><a data-toggle="collapse" data-parent="#accordion1" href="#collapse-bone" class="<%= (params[:bone_selected] == nil or params[:bone_selected] == '') ? 'collapsed' : 'in' %>"><label><div class="custom-radio"><i class="<%= (params[:bone_selected] != nil and params[:bone_selected] != '') ? 'custom-radio-selected' : '' %>"></i></div> Faunal</label></a></h4>
+                                </div>
+							<% pd = PopupDialog.find(40) %>
+								<a class="btn btn-right" data-content="<%= pd.content %>" data-placement="left" data-toggle="popover" data-container="body" type="button" data-original-title="<%= pd.title %>" title="" tabindex="0" role="button" data-trigger="focus"> Popover on left </a>
+                                <div id="collapse-bone" class="panel-collapse collapse <%= (params[:bone_selected] == nil or params[:bone_selected] == '') ? 'collapsed' : 'in' %>">
+                                    <div class="panel-body">
+                                        <div class="collapse-block">
+											<div class="check-block-container dropup">
+												<a href="#bone_attributes" class="toggle-header">Select Faunal Attributes <i class="caret"></i></a>
+												<div class="box" id="bone_attributes">
+													<div class="check-block">
+														<label><input type="checkbox" onchange="checkAll(this)" class="check">Select All</label>
+													</div>
+													<div class="scrollable-area"> 
+														<ul>
+															<% num = 0 %>
+															<% third = (@bone_items.size/3).to_i%>
+															<% @bone_items.each do |item| %>
+															<li> <%# debugger %>
+																<input name="bone_fields[]" value="<%= item %>" type="checkbox" id="lbl-<%= (num+=1).to_s.rjust(3,'0') %>" class="check" <%= (params[:bone_fields] != nil and params[:bone_fields].include? item) ? 'checked' : '' %> /> <label for="lbl-<%= num.to_s.rjust(3,'0') %>"><%= item.gsub(/([A-Z])/,' \1').gsub('I D', 'ID').gsub('D A A C S', 'DAACS') %></label> 
+															</li> 
+															<% if num%(third+1) == 0 %>
+																</ul>
+																<ul>
+															<% end %>
+															<% end %>
+		 												</ul> 
+													</div><!-- end scrollable-area -->
+												</div><!-- end box -->
+												<input type="hidden" class="accordion1-type-selected" name="bone_selected" value="<%= (params[:bone_selected] != nil and params[:bone_selected] != '')  ? 'in' : '' %>">
+												
+											</div>
+
+                                        </div><!-- end collapse-block -->
+                                    </div><!-- end panel-body -->
+                                </div><!-- end #collapse-ceramics -->
+                            </div><!-- end panel -->
+
+							<div class="panel">
+                                <div class="panel-heading">
+                                    <h4 class="panel-title"><a data-toggle="collapse" data-parent="#accordion1" href="#collapse-tobacco-pipe" class="<%= (params[:tobacco_pipe_selected] == nil or params[:tobacco_pipe_selected] == '') ? 'collapsed' : 'in' %>"><label><div class="custom-radio"><i class="<%= (params[:tobacco_pipe_selected] != nil and params[:tobacco_pipe_selected] != '') ? 'custom-radio-selected' : '' %>"></i></div> Tobacco Pipe</label></a></h4>
+                                </div>
+							<% pd = PopupDialog.find(42) %>
+								<a class="btn btn-right" data-content="<%= pd.content %>" data-placement="left" data-toggle="popover" data-container="body" type="button" data-original-title="<%= pd.title %>" title="" tabindex="0" role="button" data-trigger="focus"> Popover on left </a>
+                                <div id="collapse-tobacco-pipe" class="panel-collapse collapse <%= (params[:tobacco_pipe_selected] == nil or params[:tobacco_pipe_selected] == '') ? 'collapsed' : 'in' %>">
+                                    <div class="panel-body">
+                                        <div class="collapse-block">
+											<div class="check-block-container dropup">
+												<a href="#tobacco_pipe_attributes" class="toggle-header">Select Tobacco Pipe Attributes <i class="caret"></i></a>
+												<div class="box" id="tobacco_pipe_attributes">
+													<div class="check-block">
+														<label><input type="checkbox" onchange="checkAll(this)" class="check">Select All</label>
+													</div>
+													<div class="scrollable-area"> 
+														<ul>
+															<% num = 0 %>
+															<% third = (@tobacco_pipe_items.size/3).to_i%>
+															<% @tobacco_pipe_items.each do |item| %>
+															<li> <%# debugger %>
+																<input name="tobacco_pipe_fields[]" value="<%= item %>" type="checkbox" id="lbl-<%= (num+=1).to_s.rjust(3,'0') %>" class="check" <%= (params[:tobacco_pipe_fields] != nil and params[:tobacco_pipe_fields].include? item) ? 'checked' : '' %> /> <label for="lbl-<%= num.to_s.rjust(3,'0') %>"><%= item.gsub(/([A-Z])/,' \1').gsub('I D', 'ID').gsub('D A A C S', 'DAACS') %></label> 
+															</li> 
+															<% if num%(third+1) == 0 %>
+																</ul>
+																<ul>
+															<% end %>
+															<% end %>
+		 												</ul> 
+													</div><!-- end scrollable-area -->
+												</div><!-- end box -->
+												<input type="hidden" class="accordion1-type-selected" name="tobacco_pipe_selected" value="<%= (params[:tobacco_pipe_selected] != nil and params[:tobacco_pipe_selected] != '')  ? 'in' : '' %>">
+												
+											</div>
+
+                                        </div><!-- end collapse-block -->
+                                    </div><!-- end panel-body -->
+                                </div><!-- end #collapse-ceramics -->
+                            </div><!-- end panel -->
+							
+							<div class="panel">
+                                <div class="panel-heading">
+                                    <h4 class="panel-title"><a data-toggle="collapse" data-parent="#accordion1" href="#collapse-gen-artifacts" class="<%= (params[:gen_artifact_selected] == nil or params[:gen_artifact_selected] == '') ? 'collapsed' : 'in' %>"><label><div class="custom-radio"><i class="<%= (params[:gen_artifact_selected] != nil and params[:gen_artifact_selected] != '') ? 'custom-radio-selected' : '' %>"></i></div> All Other Artifacts</label></a></h4>
+                                </div>
+							<% pd = PopupDialog.find(44) %>
+								<a class="btn btn-right" data-content="<%= pd.content %>" data-placement="left" data-toggle="popover" data-container="body" type="button" data-original-title="<%= pd.title %>" title="" tabindex="0" role="button" data-trigger="focus"> Popover on left </a>
+                                <div id="collapse-gen-artifacts" class="panel-collapse collapse <%= (params[:gen_artifact_selected] == nil or params[:gen_artifact_selected] == '') ? 'collapsed' : 'in' %>">
+                                    <div class="panel-body">
+                                        <div class="collapse-block">
+											<div class="check-block-container dropup">
+												<a href="#gen_artifact_attributes" class="toggle-header">Select Attributes <i class="caret"></i></a>
+												<div class="box" id="gen_artifact_attributes">
+													<div class="check-block">
+														<label><input type="checkbox" onchange="checkAll(this)" class="check">Select All</label>
+													</div>
+													<div class="scrollable-area"> 
+														<ul>
+															<% num = 0 %>
+															<% third = (@gen_artifact_items.size/3).to_i%>
+															<% @gen_artifact_items.each do |item| %>
+															<li> <%# debugger %>
+																<input name="gen_artifact_fields[]" value="<%= item %>" type="checkbox" id="lbl-<%= (num+=1).to_s.rjust(3,'0') %>" class="check" <%= (params[:gen_artifact_fields] != nil and params[:gen_artifact_fields].include? item) ? 'checked' : '' %> /> <label for="lbl-<%= num.to_s.rjust(3,'0') %>"><%= item.gsub(/([A-Z])/,' \1').gsub('I D', 'ID').gsub('D A A C S', 'DAACS') %></label> 
+															</li> 
+															<% if num%(third+1) == 0 %>
+																</ul>
+																<ul>
+															<% end %>
+															<% end %>
+		 												</ul> 
+													</div><!-- end scrollable-area -->
+												</div><!-- end box -->
+											</div>
+
+											<div class="check-block-container dropup">
+												<a href="#ga_material_attributes" class="toggle-header">Subset results by Material <i class="caret"></i></a>
+												<div class="box" id="ga_material_attributes">
+													<div class="check-block">
+														<label><input type="checkbox" onchange="checkAll(this)" class="check">Select All</label>
+													</div>
+													<div class="scrollable-area"> 
+														<ul>
+															<% items = GenArtifactMaterialType.all.order('"GenArtifactMaterialType"') %>
+															<% num = 0 %>
+															<% third = (items.size/3).to_i%>
+															<% items.each do |item| %>
+															<li> <%# debugger %>
+																<input name="gen_artifact_material_fields[]" value="<%= item.GenArtifactMaterialType.gsub("'","''") %>" type="checkbox" id="lbl-<%= (num+=1).to_s.rjust(3,'0') %>" class="check" <%= (params[:gen_artifact_material_fields] != nil and params[:gen_artifact_material_fields].include? item.GenArtifactMaterialType.gsub("'","''")) ? 'checked' : '' %> /> <label for="lbl-<%= num.to_s.rjust(3,'0') %>"><%= item.GenArtifactMaterialType %></label> 
+															</li> 
+															<% if num%(third+1) == 0 %>
+																</ul>
+																<ul>
+															<% end %>
+															<% end %>
+		 												</ul> 
+													</div><!-- end scrollable-area -->
+												</div><!-- end box -->
+											</div>
+
+											<div class="check-block-container dropup">
+												<a href="#ga_form_attributes" class="toggle-header">Subset results by Form <i class="caret"></i></a>
+												<div class="box" id="ga_form_attributes">
+													<div class="check-block">
+														<label><input type="checkbox" onchange="checkAll(this)" class="check">Select All</label>
+													</div>
+													<div class="scrollable-area"> 
+														<ul>
+															<% items = GenArtifactForm.all.order('"GenArtifactForm"')%>
+															<%# items = ['Basket', 'Bottle', 'Bottle, blacking', 'Bowl', 'Bowl, punch', 'Bowl, slop', 'Box', 'Castor', 'Chafing Dish', 'Chamberpot', 'Coffee Pot', 'Colander', 'Cup', 'Cup, lidded', 'Dish (>10" diameter)', 'Drinking Pot', 'Drug Jar/Salve Pot', 'Flower Pot', 'Gaming Piece', 'Griddle', 'Inkwell', 'Jar', 'Jar, mustard', 'Jug', 'Kiln Furniture', 'Lid', 'Milk Pan', 'Mold, jelly', 'Mug/Can', 'Not Applicable', 'Not Mended', 'Not Recorded', 'Patty Pan', 'Pipkin', 'Pitcher/Ewer', 'Plate', 'Platter', 'Porringer', 'Pot/Butter Pot', 'Saucer', 'Sea Kale Pot', 'Serving Dish, misc.', 'Storage Jar']%>
+															<% num = 0 %>
+															<% third = (items.size/3).to_i%>
+															<% items.each do |item| %>
+															<li> <%# debugger %>
+																<input name="gen_artifact_form_fields[]" value="<%= item.GenArtifactForm %>" type="checkbox" id="lbl-<%= (num+=1).to_s.rjust(3,'0') %>" class="check" <%= (params[:gen_artifact_form_fields] != nil and params[:gen_artifact_form_fields].include? item.GenArtifactForm) ? 'checked' : '' %> /> <label for="lbl-<%= num.to_s.rjust(3,'0') %>"><%= item.GenArtifactForm %></label> 
+															</li> 
+															<% if num%(third+1) == 0 %>
+																</ul>
+																<ul>
+															<% end %>
+															<% end %>
+		 												</ul> 
+													</div><!-- end scrollable-area -->
+												</div><!-- end box -->
+												<input type="hidden" class="accordion1-type-selected" name="gen_artifact_selected" value="<%= (params[:gen_artifact_selected] != nil and params[:gen_artifact_selected] != '')  ? 'in' : '' %>">
+												
+											</div>
+
+                                        </div><!-- end collapse-block -->
+                                    </div><!-- end panel-body -->
+                                </div><!-- end #collapse-ceramics -->
+                            </div><!-- end panel -->
+							
+						</div>		
+					</div>
+				</div>
+				<input type="hidden" id="subset_by" name="subset_by" value="context" />
+				</div><!-- end block -->
+
+				<div class="block tab-pane" id="tab-step2">
+				<div class="heading">
+					<h2>							<% pd = PopupDialog.find(45) %>
+					<%= pd.title %><a class="btn" data-content="<%= pd.content %>" data-placement="right" data-toggle="popover" data-container="body" type="button" data-original-title="<%= pd.title %>" title="<%= pd.title %>" tabindex="0" role="button" data-trigger="focus"> Popover on left </a>
+					</h2>
+				</div><!-- end heading -->
+				<div class="section">
+					<div class="wrap">
+						<div class="panel-group" id="accordion2">
+							<div class="panel panel-default">
+								<div class="panel-heading">
+									<h4 class="panel-title"><a data-toggle="collapse" data-parent="#accordion2" href="#collapse-context" class="<%= (((params[:feature_group_selected] != nil and params[:feature_group_selected] != '') or (params[:feature_number_selected] != nil and params[:feature_number_selected] != '') or (params[:feature_types_selected] != nil and params[:feature_types_selected] != '') or (params[:phase_selected] != nil and params[:phase_selected] != '') or (params[:strat_group_selected] != nil and params[:strat_group_selected] != '') or (params[:site_selected] != nil and params[:site_selected] != '') or (params[:unit_types] != nil and params[:unit_types] != ''))) ? 'collapsed' : 'in' %>"><label><div class="custom-radio"><i class="<%= (((params[:feature_group_selected] != nil and params[:feature_group_selected] != '') or (params[:feature_number_selected] != nil and params[:feature_number_selected] != '') or (params[:feature_types_selected] != nil and params[:feature_types_selected] != '') or (params[:phase_selected] != nil and params[:phase_selected] != '') or (params[:strat_group_selected] != nil and params[:strat_group_selected] != '') or (params[:site_selected] != nil and params[:site_selected] != '') or (params[:unit_types] != nil and params[:unit_types] != ''))) ? '' : 'custom-radio-selected' %>"></i></div> Context</label></a></h4>
+								</div>
+							<% pd = PopupDialog.find(46) %>
+								<a class="btn btn-right" data-content="<%= pd.content %>" data-placement="left" data-toggle="popover" data-container="body" type="button" data-original-title="<%= pd.title %>" title="" tabindex="0" role="button" data-trigger="focus"> Popover on left </a>
+								<div id="collapse-context" class="panel-collapse collapse <%= (((params[:feature_group_selected] != nil and params[:feature_group_selected] != '') or (params[:feature_number_selected] != nil and params[:feature_number_selected] != '') or (params[:feature_types_selected] != nil and params[:feature_types_selected] != '') or (params[:phase_selected] != nil and params[:phase_selected] != '') or (params[:strat_group_selected] != nil and params[:strat_group_selected] != '') or (params[:site_selected] != nil and params[:site_selected] != '') or (params[:unit_types] != nil and params[:unit_types] != ''))) ? 'collapsed' : 'in' %> ">
+									<div class="panel-body">
+										<div class="collapse-block">
+											<div class="section section-002">
+												<div class="columns">
+													<div class="left-column">
+														<p><label for="lbl-027">Write in one Context per line. You may use the wildcard character *.</label></p>
+														<div class="for-example">
+															<h3>For Example:</h3>
+															<ul>
+																<li>747AA2</li>
+																<li>756TPS</li>
+															</ul>
+														</div><!-- end for-example -->
+													</div><!-- end left-column -->
+													<div class="right-column">
+														<textarea name="context" class="form-control query-text-values" cols="30" rows="10" id="lbl-027"><%= params[:context] %></textarea>
+														<input type="hidden" class="type-selected" name="context_selected" value="<%= (((params[:feature_group] != nil and params[:feature_group] != '') or (params[:feature_number] != nil and params[:feature_number] != '') or (params[:feature_types] != nil and params[:feature_types] != '') or (params[:phase] != nil and params[:phase] != '') or (params[:strat_group] != nil and params[:strat_group] != '') or (params[:unit_types] != nil and params[:unit_types] != '') or (params[:unit_types] != nil and params[:unit_types] != ''))) ? '' : 'in' %>">
+													</div><!-- end right-column -->
+												</div><!-- end columns -->
+											</div><!-- end section -->
+										</div><!-- end collapse-context -->
+									</div><!-- end panel-body -->
+								</div><!-- end #collapse-beads -->
+							</div><!-- end panel -->
+							<div class="panel">
+                                <div class="panel-heading">
+                                    <h4 class="panel-title"><a data-toggle="collapse" data-parent="#accordion2" href="#collapse-feature-group" class="<%= (params[:feature_group_selected] == nil or params[:feature_group_selected] == '') ? 'collapsed' : 'in' %>"><label><div class="custom-radio"><i class="<%= (params[:feature_group_selected] != nil and params[:feature_group_selected] != '') ? 'custom-radio-selected' : '' %>"></i></div> Feature Group</label></a></h4>
+                                </div>
+							<% pd = PopupDialog.find(49) %>
+                                <a class="btn btn-right" data-content="<%= pd.content %>" data-placement="left" data-toggle="popover" data-container="body" type="button" data-original-title="<%= pd.title %>" title="Feature Number" tabindex="0" role="button" data-trigger="focus"> Popover on left </a>
+                                <div id="collapse-feature-group" class="panel-collapse collapse <%= (params[:feature_group_selected] == nil or params[:feature_group_selected] == '') ? 'collapsed' : 'in' %>">
+                                    <div class="panel-body">
+                                        <div class="collapse-block">
+											<div class="collapse-block">
+												<div class="section section-002">
+													<div class="columns">
+														<div class="left-column">
+															<p><label for="lbl-027">Write in one feature group per line. You may use the wildcard character *.</label></p>
+															<div class="for-example">
+																<h3>For Example:</h3>
+																<ul>
+																	<li>FG01</li>
+																	<li>FG02</li>
+																</ul>
+															</div><!-- end for-example -->
+														</div><!-- end left-column -->
+														<div class="right-column">
+															<textarea name="feature_group" class="form-control query-text-values" cols="30" rows="10" id="lbl-027"><%= params[:feature_group] %></textarea>
+															<input type="hidden" class="type-selected" name="feature_group_selected" value="<%= (params[:feature_group] != nil and params[:feature_group] != '') ? 'in' : '' %>">
+														</div><!-- end right-column -->
+													</div><!-- end columns -->
+												</div><!-- end section -->
+											</div><!-- end collapse-context -->
+                                        </div><!-- end collapse-block -->
+                                    </div><!-- end panel-body -->
+                                </div><!-- end #collapse-feature-number -->
+                            </div><!-- end panel -->
+							<div class="panel">
+                                <div class="panel-heading">
+                                    <h4 class="panel-title"><a data-toggle="collapse" data-parent="#accordion2" href="#collapse-feature-number" class="<%= (params[:feature_number_selected] == nil or params[:feature_number_selected] == '') ? 'collapsed' : 'in' %>"><label><div class="custom-radio"><i class="<%= (params[:feature_number_selected] != nil and params[:feature_number_selected] != '') ? 'custom-radio-selected' : '' %>"></i></div> Feature Number</label></a></h4>
+                                </div>
+							<% pd = PopupDialog.find(48) %>
+                                <a class="btn btn-right" data-content="<%= pd.content %>" data-placement="left" data-toggle="popover" data-container="body" type="button" data-original-title="<%= pd.title %>" title="Feature Number" tabindex="0" role="button" data-trigger="focus"> Popover on left </a>
+                                <div id="collapse-feature-number" class="panel-collapse collapse <%= (params[:feature_number_selected] == nil or params[:feature_number_selected] == '') ? 'collapsed' : 'in' %>">
+                                    <div class="panel-body">
+                                        <div class="collapse-block">
+											<div class="collapse-block">
+												<div class="section section-002">
+													<div class="columns">
+														<div class="left-column">
+															<p><label for="lbl-027">Write in one feature number per line. You may use the wildcard character *.</label></p>
+															<div class="for-example">
+																<h3>For Example:</h3>
+																<ul>
+																	<li>00.42</li>
+																	<li>98.16</li>
+																	<li>99.1*</li>
+																</ul>
+															</div><!-- end for-example -->
+														</div><!-- end left-column -->
+														<div class="right-column">
+															<textarea name="feature_number" class="form-control query-text-values" cols="30" rows="10" id="lbl-027"><%= params[:feature_number] %></textarea>
+															<input type="hidden" class="type-selected" name="feature_number_selected" value="<%= (params[:feature_number] != nil and params[:feature_number] != '') ? 'in' : '' %>">
+														</div><!-- end right-column -->
+													</div><!-- end columns -->
+												</div><!-- end section -->
+											</div><!-- end collapse-context -->
+                                        </div><!-- end collapse-block -->
+                                    </div><!-- end panel-body -->
+                                </div><!-- end #collapse-feature-number -->
+                            </div><!-- end panel -->
+							<div class="panel">
+                                <div class="panel-heading">
+                                    <h4 class="panel-title"><a data-toggle="collapse" data-parent="#accordion2" href="#collapse-feature-type" class="<%= (params[:feature_types_selected] == nil or params[:feature_types_selected] == '') ? 'collapsed' : '' %>"><label><div class="custom-radio"><i class="<%= (params[:feature_types_selected] != nil and params[:feature_types_selected] != '') ? 'custom-radio-selected' : '' %>"></i></div> Feature Type</label></a></h4>
+                                </div>
+							<% pd = PopupDialog.find(47) %>
+                                <a class="btn btn-right" data-content="<%= pd.content %>" data-placement="left" data-toggle="popover" data-container="body" type="button" data-original-title="<%= pd.title %>" title="Feature Type" tabindex="0" role="button" data-trigger="focus"> Popover on left </a>
+                                <div id="collapse-feature-type" class="panel-collapse <%= (params[:feature_types_selected] == nil or params[:feature_types_selected] == '') ? 'collapse' : '' %>">
+                                    <div class="panel-body">
+                                        <div class="collapse-block">
+											<div class="box">
+												<div class="check-block">
+													<label><input type="checkbox" onchange="checkAllWithClass(this, 'feature-types')" class="check">Select All</label>
+												</div>
+											<div class="scrollable-area"> 
+												<ul> 
+													<% items = ContextFeatureType.all.order(:FeatureType)%>
+													<% num = 0 %>
+													<% third = (items.size/3).to_i%>
+													<% items.each do |item| %>
+													<li> <%# debugger %>
+														<input name="feature_types[]" value="<%= item.FeatureType %>" type="checkbox" id="lbl-<%= (num+=1).to_s.rjust(3,'0') %>" class="check feature-types" <%= (params[:feature_types] != nil and params[:feature_types].include? item.FeatureType) ? 'checked' : '' %> /> <label for="lbl-<%= num.to_s.rjust(3,'0') %>"><%= item.FeatureType %></label> 
+													</li> 
+													<% if num%(third+1) == 0 %>
+														</ul>
+														<ul>
+													<% end %>
+													<% end %>
+ 												</ul> </div><!-- end scrollable-area --></div><!-- end box -->
+															<input type="hidden" class="type-selected" name="feature_types_selected" value="<%= (params[:feature_types] != nil and params[:feature_types] != '') ? 'in' : '' %>">
+
+                                        </div><!-- end collapse-block -->
+                                    </div><!-- end panel-body -->
+                                </div><!-- end #collapse-feature-type -->
+                            </div><!-- end panel -->
+							<div class="panel">
+                                <div class="panel-heading">
+                                    <h4 class="panel-title"><a data-toggle="collapse" data-parent="#accordion2" href="#collapse-phase" class="<%= (params[:phase_selected] == nil or params[:phase_selected] == '') ? 'collapsed' : '' %>"><label><div class="custom-radio"><i class="<%= (params[:phase_selected] != nil and params[:phase_selected] != '') ? 'custom-radio-selected' : '' %>"></i></div> Phase</label></a></h4>
+                                </div>
+							<% pd = PopupDialog.find(51) %>
+                                <a class="btn btn-right" data-content="<%= pd.content %>" data-placement="left" data-toggle="popover" data-container="body" type="button" data-original-title="<%= pd.title %>" title="Phase" tabindex="0" role="button" data-trigger="focus"> Popover on left </a>
+                                <div id="collapse-phase" class="panel-collapse <%= (params[:phase_selected] == nil or params[:phase_selected] == '') ? 'collapse' : '' %>">
+                                    <div class="panel-body">
+                                        <div class="collapse-block">
+                                            <div class="collapse-block">
+												<div class="section section-002">
+													<div class="columns">
+														<div class="left-column">
+															<p><label for="lbl-027">Write in one phase per line. You may use the wildcard character *.</label></p>
+															<div class="for-example">
+																<h3>For Example:</h3>
+																<ul>
+																	<li>P01</li>
+																	<li>P02</li>
+																	<li>P1*</li>
+																</ul>
+															</div><!-- end for-example -->
+														</div><!-- end left-column -->
+														<div class="right-column">
+															<textarea name="phase" class="form-control query-text-values" cols="30" rows="10" id="lbl-027"><%= params[:phase] %></textarea>
+															<input type="hidden" class="type-selected" name="phase_selected" value="<%= (params[:phase] != nil and params[:phase] != '') ? 'in' : '' %>">
+														</div><!-- end right-column -->
+													</div><!-- end columns -->
+												</div><!-- end section -->
+											</div><!-- end collapse-context -->
+                                        </div><!-- end collapse-block -->
+                                    </div><!-- end panel-body -->
+                                </div><!-- end #collapse-phase -->
+                            </div><!-- end panel -->
+							<div class="panel">
+                                <div class="panel-heading">
+                                    <h4 class="panel-title"><a data-toggle="collapse" data-parent="#accordion2" href="#collapse-stratigraphic-group" class="<%= (params[:strat_group_selected] == nil or params[:strat_group_selected] == '') ? 'collapsed' : '' %>"><label><div class="custom-radio"><i class="<%= (params[:strat_group_selected] != nil and params[:strat_group_selected] != '') ? 'custom-radio-selected' : '' %>"></i></div> Stratigraphic Group</label></a></h4>
+                                </div>
+							<% pd = PopupDialog.find(50) %>
+                                <a class="btn btn-right" data-content="<%= pd.content %>" data-placement="left" data-toggle="popover" data-container="body" type="button" data-original-title="<%= pd.title %>" title="Stratigraphic Group" tabindex="0" role="button" data-trigger="focus"> Popover on left </a>
+                                <div id="collapse-stratigraphic-group" class="panel-collapse <%= (params[:strat_group_selected] == nil or params[:strat_group_selected] == '') ? 'collapse' : '' %>">
+                                    <div class="panel-body">
+                                        <div class="collapse-block">
+                                            <div class="collapse-block">
+												<div class="section section-002">
+													<div class="columns">
+														<div class="left-column">
+															<p><label for="lbl-027">Write in one stratigraphic group per line. You may use the wildcard character *.</label></p>
+															<div class="for-example">
+																<h3>For Example:</h3>
+																<ul>
+																	<li>SG01</li>
+																	<li>SG02</li>
+																	<li>SG1*</li>
+																</ul>
+															</div><!-- end for-example -->
+														</div><!-- end left-column -->
+														<div class="right-column">
+															<textarea name="strat_group" class="form-control query-text-values" cols="30" rows="10" id="lbl-027"><%= params[:strat_group] %></textarea>
+															<input type="hidden" class="type-selected" name="strat_group_selected" value="<%= (params[:strat_group] != nil and params[:strat_group] != '') ? 'in' : '' %>">
+														</div><!-- end right-column -->
+													</div><!-- end columns -->
+												</div><!-- end section -->
+											</div><!-- end collapse-context -->
+                                        </div><!-- end collapse-block -->
+                                    </div><!-- end panel-body -->
+                                </div><!-- end #collapse-stratigraphic-group -->
+                            </div><!-- end panel -->
+						</div>		
+					</div>
+				</div>
+				<input type="hidden" id="subset_by" name="subset_by" value="context" />
+				</div><!-- end block -->
+
+			<div class="block tab-pane" id="tab-step3">
+				<div class="heading">
+					<div class="check-block">
+						<input type="checkbox" id="lbl-028" onchange="checkAll(this)" class="check" />
+						<label for="lbl-028">Select All</label>
+					</div><!-- end chech-block -->
+							<% pd = PopupDialog.find(52) %>
+					<h2><%= pd.title %><a class="btn" data-content="<%= pd.content %>" data-placement="right" data-toggle="popover" data-container="body" type="button" data-original-title="<%= pd.title %>" title="<%= pd.title %>" tabindex="0" role="button" data-trigger="focus"> Popover on left </a></h2>
+				</div><!-- end heading -->
+				<div class="section section-003">
+					<%= render :partial => 'site_selection' %>
+					<div id="query-selection">
+							<div class="query-info">
+								<h4>Query Selections</h4>
+								<table class="table table-bordered">
+									<thead>
+										<th>Step 1: Attributes</th>
+										<th>Step 2: Subset Data By</th>
+										<th>Step 3: Sites</th>
+									</thead>
+									<tbody>
+										<td>
+											<span id="artifact_type_list">
+												<% if params[:button_selected] != nil and params[:button_selected] != '' %>
+												Button:
+												<% elsif params[:buckle_selected] != nil and params[:buckle_selected] != '' %>
+												Buckle:
+												<% elsif params[:bone_selected] != nil and params[:bone_selected] != '' %>
+												Faunal:
+												<% elsif params[:ceramic_selected] != nil and params[:ceramic_selected] != '' %>
+												Ceramic:
+												<% elsif params[:glass_selected] != nil and params[:glass_selected] != '' %>
+												Glass:
+												<% elsif params[:gen_artifact_selected] != nil and params[:gen_artifact_selected] != '' %>
+												Gen Artifact:
+												<% elsif params[:tobacco_pipe_selected] != nil and params[:tobacco_pipe_selected] != '' %>
+												Tobacco Pipe:
+												<% elsif params[:utensil_selected] != nil and params[:utensil_selected] != '' %>
+												Utensil:
+												<% else %>
+												Bead:
+												<% end %>
+												
+											</span>
+											<span id="selected-attributes">None</span>
+										</td>
+										<td>
+											<span id="subset_data_by_list">
+												<% if params[:context_selected] != nil and params[:context_selected] != '' %>
+												Context:
+												<% elsif params[:feature_group_selected] != nil and params[:feature_group_selected] != '' %>
+												Feature Group:
+												<% elsif params[:feature_number_selected] != nil and params[:feature_number_selected] != '' %>
+												Feature Number:
+												<% elsif params[:feature_types_selected] != nil and params[:feature_types_selected] != '' %>
+												Feature Type:
+												<% elsif params[:strat_group_selected] != nil and params[:strat_group_selected] != '' %>
+												Stratigraphic Group:
+												<% elsif params[:site_selected] != nil and params[:site_selected] != '' %>
+												Site
+												<% else %>
+												Context:
+												<% end %>
+											</span>
+											<span id="subset_values">
+												<% if params[:context_selected] != nil and params[:context_selected] != '' %>
+												<%= params[:context] %>
+												<% elsif params[:feature_group_selected] != nil and params[:feature_group_selected] != '' %>
+												<%= params[:feature_group] %>
+												<% elsif params[:feature_number_selected] != nil and params[:feature_number_selected] != '' %>
+												<%= params[:feature_number] %>
+												<% elsif params[:strat_group_selected] != nil and params[:strat_group_selected] != '' %>
+												<%= params[:strat_group] %>
+												<% end %>											
+												
+											</span></td>
+										<td>
+											<span id="sites_contain">
+											</span>
+										</td>
+									</tbody>
+								</table>
+							</div>
+					</div><!-- end #query-selection -->
+
+					<div class="buttons">
+						<div class="c">
+							<div class="box">
+								<input type="reset" class="reset" value="Reset" />
+								<input type="submit" class="btn submit" value="Submit" />
+							</div><!-- end box -->
+						</div><!-- end c -->
+					</div><!-- end buttons -->
+					
+				</div><!-- end section -->
+			</div><!-- end block -->
+		</fieldset>
+		
+		
+	<!-- </form> -->
+	<% end %>
+</div><!-- end query-database -->

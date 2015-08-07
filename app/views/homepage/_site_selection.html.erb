@@ -1,0 +1,190 @@
+<% states = {    AK: "Alaska", 
+                AL: "Alabama", 
+                AR: "Arkansas", 
+                AS: "American Samoa", 
+                AZ: "Arizona", 
+                CA: "California", 
+                CO: "Colorado", 
+                CT: "Connecticut", 
+                DC: "District of Columbia", 
+                DE: "Delaware", 
+                FL: "Florida", 
+                GA: "Georgia", 
+                GU: "Guam", 
+                HI: "Hawaii", 
+                IA: "Iowa", 
+                ID: "Idaho", 
+                IL: "Illinois", 
+                IN: "Indiana", 
+                KS: "Kansas", 
+                KY: "Kentucky", 
+                LA: "Louisiana", 
+                MA: "Massachusetts", 
+                MD: "Maryland", 
+                ME: "Maine", 
+                MI: "Michigan", 
+                MN: "Minnesota", 
+                MO: "Missouri", 
+                MS: "Mississippi", 
+                MT: "Montana", 
+                NC: "North Carolina", 
+                ND: "North Dakota", 
+                NE: "Nebraska", 
+                NH: "New Hampshire", 
+                NJ: "New Jersey", 
+                NM: "New Mexico", 
+                NV: "Nevada", 
+                NY: "New York", 
+                OH: "Ohio", 
+                OK: "Oklahoma", 
+                OR: "Oregon", 
+                PA: "Pennsylvania", 
+                PR: "Puerto Rico", 
+                RI: "Rhode Island", 
+                SC: "South Carolina", 
+                SD: "South Dakota", 
+                TN: "Tennessee", 
+                TX: "Texas", 
+                UT: "Utah", 
+                VA: "Virginia", 
+                VI: "Virgin Islands", 
+                VT: "Vermont", 
+                WA: "Washington", 
+                WI: "Wisconsin", 
+                WV: "West Virginia", 
+                WY: "Wyoming" 
+        }
+		%>
+<div class="tabs">
+	<ul class="nav nav-tabs">
+		<% num = 0 %>
+		<% ProjectRegion.all.order('"Region"').each do |region| %>
+		<% if params['daacs'] != nil and params['daacs'] != '' %>
+			<% projects = region.projects.includes(:project_name, :project_country, :plantation).references(:project_name, :project_country).order('"tblProjectCountry"."ProjectCountry"','"tblProject"."State"', '"tblPlantation"."PlantationName"','"tblProjectName"."ProjectName"').where('"tblProject"."ProjectID" != \'9997\' and "tblProject"."ProjectID" != \'9998\' and "Published" = 1').count() %>
+		<% else %>
+			<% projects = region.projects.includes(:project_name, :project_country, :plantation).references(:project_name, :project_country).order('"tblProjectCountry"."ProjectCountry"','"tblProject"."State"','"tblPlantation"."PlantationName"','"tblProjectName"."ProjectName"').where('"tblProject"."ProjectID" != \'9997\' and "tblProject"."ProjectID" != \'9998\'').count() %>
+		<% end %><%# debugger%>
+		
+			<% if projects > 0 %>
+			<li <%= h('class=active') if (num+=1) == 1 %>><a href="#tab-<%= num.to_s.rjust(3,'0') %>" data-toggle="tab"><%= region.Region %></a></li>
+			<% end %>
+		<% end %>
+		<!-- <li><a href="#tab-002" data-toggle="tab">Jamaica</a></li>
+		<li><a href="#tab-003" data-toggle="tab">Nevis &amp; St. Kitts</a></li>
+		<li><a href="#tab-004" data-toggle="tab">South Carolina</a></li>
+		<li><a href="#tab-005" data-toggle="tab">Tennessee</a></li> -->
+	</ul><!-- end nav-tabs -->
+	<div class="tab-content" id="sites-checkboxs">
+		<div class="tab-pane active" id="tab-001">
+			<div class="cols">
+				<% tab = 1 %>
+				<% num = 0 %>
+				<% col = 1 %>
+				<% deb = false %>
+					<div class="check-block-region">
+						<input type="checkbox" id="lbl-028" onchange="checkAllWithClass(this, 'tab_<%=tab%>')" class="check" />
+						<label for="lbl-028">Select All in Region</label>
+					</div><!-- end chech-block -->
+				<div class="col col-<%= col.to_s.rjust(2,'0') %>">
+				<% ProjectRegion.all.order('"Region"').each do |region| %>
+					<% if params['daacs'] != nil and params['daacs'] != '' %>
+						<% project_list = region.projects.includes(:project_name, :project_country, :plantation).references(:project_name, :project_country).order('"tblProjectCountry"."ProjectCountry"','"tblProject"."State"', '"tblPlantation"."PlantationName"','"tblProjectName"."ProjectName"').where('"tblProject"."ProjectID" != \'9997\' and "tblProject"."ProjectID" != \'9998\' and "Published" = 1') %>
+					<% else %>
+						<% project_list = region.projects.includes(:project_name, :project_country, :plantation).references(:project_name, :project_country).order('"tblProjectCountry"."ProjectCountry"','"tblProject"."State"','"tblPlantation"."PlantationName"','"tblProjectName"."ProjectName"').where('"tblProject"."ProjectID" != \'9997\' and "tblProject"."ProjectID" != \'9998\'') %>
+					<% end %><%# debugger%>
+					<% if project_list.size >= 0 %>
+						<% h={};project_list.map {|o| h[o.ProjectCountryID]=1} %>
+						<% third = ((project_list.size.to_f+h.keys.size) / 3.0).ceil %><%# puts '=========='+third; #debugger%>
+						<% places = {}%>
+						<%# debugger %>
+						<% project_list.each do |p| %>
+						<%# deb=true if p.ProjectID == '1229' %>
+							<% if p.project_country != nil %>
+								<% if p.project_country.ProjectCountry != 'United States' %>
+									<% if places[p.project_country.ProjectCountry] == nil %> 	
+										<% places[p.project_country.ProjectCountry] = {} %>
+									<% end %>
+									<% if p.plantation != nil %>
+										<% if places[p.project_country.ProjectCountry][p.plantation.PlantationName] == nil %>
+											<% places[p.project_country.ProjectCountry][p.plantation.PlantationName] = [] %>
+										<% end %>
+										<% places[p.project_country.ProjectCountry][p.plantation.PlantationName] << p %>
+									<% end %>
+								<% else %>
+									<% state = p.State != nil ? states[p.State.to_sym] : "N/A" %>
+									<% if places[state] == nil %> 	
+										<% places[state] = {} %>
+									<% end %>
+							
+									<% if p.plantation != nil %>
+										<% if places[state][p.plantation.PlantationName] == nil %>
+											<% places[state][p.plantation.PlantationName] = [] %>
+										<% end %>
+										<% places[state][p.plantation.PlantationName] << p %>
+									<% end %>
+								<% end %>
+							<% else%>
+								<% if places['N/A'] == nil %> 	
+									<% places['N/A'] = [] %>
+								<% end %>
+						
+								<% if places[p.project_country.ProjectCountry][p.plantation.PlantationName] == nil %>
+									<% places[p.project_country.ProjectCountry][p.plantation.PlantationName] = [] %>
+								<% end %>
+								<% places['N/A'][p.plantation.PlantationName] << p %>
+								<% end %>
+						<% end %>
+						<%# debugger if deb == true %>
+						<% places.each do |place, plantations| %>
+							<h2 class="place-names"><%= place %></h2>
+							<% site_num = 1 %>
+							<% num += 1%>
+							<% plantations.each do |plantation, projects| %>
+								<% if projects.size > 0 %>
+									<% if plantation != 'Not Applicable' %>
+										<h3><%= plantation %></h3>
+									<% else %>
+										<h3>Not Associated with a Plantation</h3>
+									<% end %>
+									<% num += projects.size %>
+									<ul>
+										<% projects.each do |project| %>
+										<%# num += 1 %>
+										<li>
+											<input type="checkbox" name="sites[]" value="<%= project.id %>" id="<%=project.project_name.ProjectName.gsub(' ','_') %>" class="check tab_<%= tab %>" <%= (params[:sites] != nil and params[:sites].include? project.id) ? 'checked' : '' %> />
+											<label for="<%=project.project_name.ProjectName.gsub(' ','_') %>"><%= project.project_name.ProjectName %></label>
+										</li>
+										<% end %>
+									</ul>
+									<% if num >= third %>
+										</div><!-- site_num end col -->
+										<div class="col col-<%= (col+=1).to_s.rjust(2,'0') %>">
+											<% num = 0 %>
+									<% end %>
+								<% end %>
+							<% end %>
+						<% end %>
+						<% col = 1 %>
+						<% num = 0 %>
+						</div><!-- col-->
+						</div><!-- cols -->
+					</div><!-- end tab-pane -->
+					<div class="tab-pane" id="tab-<%= (tab+=1).to_s.rjust(3,'0') %>">
+						<div class="cols">
+							<div class="check-block-region">
+								<input type="checkbox" id="lbl-028" onchange="checkAllWithClass(this, 'tab_<%=tab%>')" class="check" />
+								<label for="lbl-028">Select All in Region</label>
+							</div><!-- end chech-block -->
+							
+							<div class="col col-<%= col.to_s.rjust(2,'0') %>">
+					<% end %>
+				<% end %>
+				</div><!-- end col -->
+			</div><!-- end cols -->
+
+		</div><!-- end tab-pane -->
+        <!-- <dl>
+            <dt>Selected Sites:</dt><dd id="sites_contain">None</dd>
+        </dl> -->
+	</div><!-- tab-content -->
+</div><!-- end tabs -->

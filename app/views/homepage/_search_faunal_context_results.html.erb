@@ -1,0 +1,14 @@
+<table class="bordered">
+  <tr>
+	  <% params[:faunal_fields].each do |field| %>
+    <th class="cell-01a"><%= field.gsub('"','') %></th>
+	<% end %>
+  </tr>
+<% @bones.each do |artifact| %>
+  <tr class="holder-for-delete">
+	  <% params[:faunal_fields].each do |field| %>
+		<td class="cell-01a"><%= artifact.send(field) rescue '='%></td>
+		<% end %>
+  </tr>
+<% end %>
+</table>

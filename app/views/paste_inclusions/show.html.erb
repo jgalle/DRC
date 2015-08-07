@@ -1,0 +1,15 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Artifact:</b>
+  <%= @paste_inclusion.artifact_id %>
+</p>
+
+<p>
+  <b>Paste inclusion:</b>
+  <%= @paste_inclusion.paste_inclusion %>
+</p>
+
+
+<%= link_to 'Edit', edit_paste_inclusion_path(@paste_inclusion) %> |
+<%= link_to 'Back', paste_inclusions_path %>

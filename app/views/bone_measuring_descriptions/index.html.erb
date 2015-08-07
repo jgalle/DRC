@@ -1,0 +1,23 @@
+<h1>Listing bone_measuring_descriptions</h1>
+
+<table>
+  <tr>
+    <th>Measuring description</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @bone_measuring_descriptions.each do |bone_measuring_description| %>
+  <tr>
+    <td><%= bone_measuring_description.measuring_description %></td>
+    <td><%= link_to 'Show', bone_measuring_description %></td>
+    <td><%= link_to 'Edit', edit_bone_measuring_description_path(bone_measuring_description) %></td>
+    <td><%= link_to 'Destroy', bone_measuring_description, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Bone measuring description', new_bone_measuring_description_path %>

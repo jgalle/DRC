@@ -1,0 +1,365 @@
+<%= form_for(@project) do |f| %>
+<table class="table">
+	<tbody>
+		<tr>
+			<td>
+				<table class="table">
+					<tr>
+						<td>
+			    		<%= f.label 'Project ID' %>
+						</td>
+						<td>
+			    		<%= f.text_field :project_id, :disabled => true %>
+						</td>
+					</tr>
+					<tr>
+						<td>
+					    <%= f.label :Institution %>
+						</td>
+						<td>
+					    <%= collection_select(:project, :institution_id, ProjectInstitution.all, :id, :institution, {}, :disabled => 'disabled') %>
+						</td>
+					</tr>
+					<tr>
+						<td>
+					    <%= f.label 'Project Name' %>
+						</td>
+						<td>
+					    <%= collection_select(:project, :project_name_id, ProjectName.all, :id, :project_name, {}, :disabled => 'disabled') %>
+						</td>
+					</tr>
+					<tr>
+						<td>
+					    <%= f.label :Region %>
+						</td>
+						<td>
+					    <%= collection_select(:project, :region_id, ProjectRegion.all, :id, :region, {}, :disabled => 'disabled') %>
+						</td>
+					</tr>
+					<tr>
+						<td>
+					    <%= f.label :Country %>
+						</td>
+						<td>
+					    <%= collection_select(:project, :project_country_id, ProjectCountry.all, :id, :project_country, {}, :disabled => 'disabled') %>
+						</td>
+					</tr>
+					<tr>
+						<td>
+			    		<%= f.label 'State' %>
+						</td>
+						<td>
+			    		<%= f.text_field :state, :disabled => true %>
+						</td>
+					</tr>
+					<tr>
+						<td>
+					    <%= f.label :County %>
+						</td>
+						<td>
+					    <%= collection_select(:project, :county_id, ProjectCounty.all, :id, :county, {}, :disabled => 'disabled') %>
+						</td>
+					</tr>
+					<tr>
+						<td>
+					    <%= f.label 'Place Name' %>
+						</td>
+						<td>
+					    <%= collection_select(:project, :place_name_id, ProjectPlaceName.all, :id, :place_name, {}, :disabled => 'disabled') %>
+						</td>
+					</tr>
+					<tr>
+						<td>
+					    <%= f.label 'Plantation Name' %>
+						</td>
+						<td>
+					    <%= collection_select(:project, :plantation_id, Plantation.all, :id, :plantation_name, {}, :disabled => 'disabled') %>
+						</td>
+					</tr>
+					<tr>
+						<td>
+			    		<%= f.label 'Beginning Date' %>
+						</td>
+						<td>
+			    		<%= f.text_field :beginning_date, :disabled => true %>
+						</td>
+					</tr>
+					<tr>
+						<td>
+			    		<%= f.label 'End Date' %>
+						</td>
+						<td>
+			    		<%= f.text_field :end_date, :disabled => true %>
+						</td>
+					</tr>
+					<tr>
+						<td>
+			    		<%= f.label 'State Site Number' %>
+						</td>
+						<td>
+			    		<%= f.text_field :state_site_number, :disabled => true %>
+						</td>
+					</tr>
+				</table>
+			</td>
+			<td>
+				<table>
+					<tr>
+						<td>
+					    <%= f.label 'Unit of Measure' %>
+						</td>
+						<td>
+					    <%= collection_select(:project, :unitof_measure_id, ProjectUnitofMeasure.all, :id, :unitof_measurement, {}, :disabled => 'disabled') %>
+						</td>
+						<tr>
+							<td>
+						    <%= f.label :Drainage %>
+							</td>
+							<td>
+						    <%= collection_select(:project, :drainage_id, ProjectDrainage.all, :id, :drainage, {}, :disabled => 'disabled') %>
+							</td>
+						</tr>
+					</tr>
+					<tr>
+						<td>
+			    		<%= f.label 'Site Soils' %>
+						</td>
+						<td>
+			    		<%= f.text_field :site_soils, :disabled => true %>
+						</td>
+					</tr>
+					<tr>
+						<td>
+			    		<%= f.label 'Nearest water source' %>
+						</td>
+						<td>
+			    		<%= f.text_field :nearest_water_source, :disabled => true %>
+						</td>
+					</tr>
+					<tr>
+						<td>
+			    		<%= f.label 'Distance from water source' %>
+						</td>
+						<td>
+			    		<%= f.text_field :distancefrom_water_source, :disabled => true %>
+						</td>
+					</tr>
+					<tr>
+						<td>
+					    <%= f.label 'Elevation type' %>
+						</td>
+						<td>
+					    <%= collection_select(:project, :elevation_type_id, ProjectElevationType.all, :id, :elevation_type, {}, :disabled => 'disabled') %>
+						</td>
+					</tr>
+					<tr>
+						<td>
+			    		<%= f.label 'Azimuth orientation of local grid' %>
+						</td>
+						<td>
+			    		<%= f.text_field :azimuth_orientation, :disabled => true %>
+						</td>
+					</tr>
+					<tr>
+						<td>
+			    		<%= f.label 'Total area excavated' %>
+						</td>
+						<td>
+			    		<%= f.text_field :total_area_excavated, :disabled => true %>
+						</td>
+					</tr>
+					<tr>
+						<td>
+			    		<%= f.label 'Total Convex hull' %>
+						</td>
+						<td>
+			    		<%= f.text_field :total_convex_hull, :disabled => true %>
+						</td>
+					</tr>
+					<tr>
+						<td>
+			    		<%= f.label 'Dates excavated' %>
+						</td>
+						<td>
+			    		<%= f.text_field :dates_excavated, :disabled => true %>
+						</td>
+					</tr>
+					<tr>
+						<td>
+			    		<%= f.label 'Artifact repository' %>
+						</td>
+						<td>
+			    		<%= f.text_field :artifact_repository, :disabled => true %>
+						</td>
+					</tr>
+				</table>
+			</td>
+			<td>
+				<table>
+					<tr>
+						<td>
+			    		<%= f.label 'Project tag' %>
+						</td>
+						<td>
+			    		<%= f.check_box :project_tag, :disabled => true %>
+						</td>
+					</tr>
+					<tr>
+						<td>
+					    <%= f.label 'Level of treatment' %>
+						</td>
+						<td>
+					    <%= collection_select(:project, :levelof_treatment_id, ProjectLevelofTreatment.all, :id, :levelof_treatment, {}, :disabled => 'disabled') %>
+						</td>
+					</tr>
+				</table>
+		 </tr>
+	</tbody>
+</table>
+
+<ul class="nav nav-tabs" id="artifact_tabs">
+  <li class="active"><a href="#editors" data-toggle="tab">Editor and Notes</a></li>
+  <li><a href="#geo_datum" data-toggle="tab">Geo Datum</a></li>
+  <li><a href="#images" data-toggle="tab">Site Map</a></li>
+</ul>
+
+<div class="tab-content">
+	<div id="editors" class="tab-pane active">
+		<table class="table">
+			<tr>
+				<td>
+					<table class="table">
+						<tr>
+							<td>
+						    <%= f.label 'Added by' %>
+							</td>
+							<td>
+									<input disabled value="<%= @project.created_by.editor if @project.created_by != nil %>">
+							</td>
+						</tr>
+						<tr>
+							<td>
+						    <%= f.label 'Date Added' %>
+							</td>
+							<td>
+									<input disabled value="<%= @project.date_added %>">
+							</td>
+						</tr>
+						<tr>
+							<td>
+						    <%= f.label 'Changed by' %>
+							</td>
+							<td>
+									<input disabled value="<%= @project.updated_by.editor if @project.updated_by != nil%>">
+							</td>
+						</tr>
+						<tr>
+							<td>
+						    <%= f.label 'Date changed' %>
+							</td>
+							<td>
+									<input disabled value="<%= @project.date_changed %>">
+							</td>
+						</tr>
+					</table>
+				</td>
+				<td>
+					<table class="table">
+						<tr>
+							<td>
+						    <%= f.label 'Project notes' %>
+							</td>
+							<td>
+								<%= f.text_area :project_notes, :rows => 3, :disabled => true%>
+							</td>
+						</tr>
+						<tr>
+							<td>
+						    <%= f.label 'Site Abstract' %>
+							</td>
+							<td>
+								<%= f.text_area :site_abstract, :rows => 3, :disabled => true%>
+							</td>
+						</tr>
+					</table>
+				</td>
+			</tr>
+		</table>
+	</div>
+
+	<div id="geo_datum" class="tab-pane">
+		<table>
+			<tr>
+				<td>
+			    <%= f.label 'Geo Datum' %>
+				</td>
+				<td>
+			    <%= collection_select(:project, :geo_datum_id, ProjectGeoDatum.all, :id, :geo_datum, {}, :disabled => 'disabled') %>
+				</td>
+			</tr>
+			<tr>
+				<td>
+			    <%= f.label 'Geo Coordinate system' %>
+				</td>
+				<td>
+			    <%= collection_select(:project, :geo_coordinate_system_id, ProjectGeoCoordinateSystem.all, :id, :geo_coordinate_system, {}, :disabled => 'disabled') %>
+				</td>
+			</tr>
+			<tr>
+				<td>
+	    		<%= f.label 'Northing Geo coordinate of local datum' %>
+				</td>
+				<td>
+	    		<%= f.text_field :northing_geo_coordinateof_local_datum, :disabled => true %>
+				</td>
+			</tr>
+			<tr>
+				<td>
+	    		<%= f.label 'Easting Geo coordinate of local datum' %>
+				</td>
+				<td>
+	    		<%= f.text_field :easting_geo_coordinateof_local_datum, :disabled => true %>
+				</td>
+			</tr>
+			<tr>
+				<td>
+	    		<%= f.label 'Vertical Geo coordinate of local datum' %>
+				</td>
+				<td>
+	    		<%= f.text_field :vertical_geo_coordinateof_local_datum, :disabled => true %>
+				</td>
+			</tr>
+		</table>
+	</div>
+	
+	<div id="images" class="tab-pane">
+		<table class="table">
+			<tr>
+				<th>
+					Location
+				</th>
+				<th>
+					Type
+				</th>
+				<th>
+					Description
+				</th>
+				<th>
+					Institution
+				</th>
+				<th>
+					Catalogue number
+				</th>
+			</tr>	
+			<%= f.fields_for :images do |image| %>
+				<%= render 'image_fields', f: image%>
+			<% end %>
+		</table>
+		<%#= link_to_add_fields "Add Image", f, :images %>
+	</div>
+	
+</div>
+<% end %>
+
+<%= link_to 'Edit', edit_project_path(@project) %> |
+<%= link_to 'Back', projects_path %>

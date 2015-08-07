@@ -1,0 +1,23 @@
+<h1>Listing ceramic_dec_tech_sty_elements</h1>
+
+<table>
+  <tr>
+    <th>Ceramic dec tech sty element</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @ceramic_dec_tech_sty_elements.each do |ceramic_dec_tech_sty_element| %>
+  <tr>
+    <td><%= ceramic_dec_tech_sty_element.ceramic_dec_tech_sty_element %></td>
+    <td><%= link_to 'Show', ceramic_dec_tech_sty_element %></td>
+    <td><%= link_to 'Edit', edit_ceramic_dec_tech_sty_element_path(ceramic_dec_tech_sty_element) %></td>
+    <td><%= link_to 'Destroy', ceramic_dec_tech_sty_element, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Ceramic dec tech sty element', new_ceramic_dec_tech_sty_element_path %>

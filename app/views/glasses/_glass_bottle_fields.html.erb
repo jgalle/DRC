@@ -1,0 +1,21 @@
+                    <div class="block <%= @bottle_colored == true ? 'colored' : '' %>">
+                        <div class="three-columns three-with-delete">
+                            <div class="row-area">
+                                <div class="col">
+																	<%= f.label('GlassBottleElementID', 'Element')%>
+																	<%= f.collection_select('GlassBottleElementID', GlassBottleElement.all.order('"GlassBottleElement"'), :id, 'GlassBottleElement', {:include_blank => '--select--'}, {'data-placeholder' => '--select--', :class => 'form-control'})%>
+                                </div>
+                                <div class="col">
+																	<%= f.label('GlassBottleShapeID', 'Shape')%>
+																	<%= f.collection_select('GlassBottleShapeID', GlassBottleShape.all.order('"GlassBottleShape"'), :id, 'GlassBottleShape', {:include_blank => '--select--'}, {'data-placeholder' => '--select--', :class => 'form-control'})%>
+                                </div>
+                                <div class="col">
+																	<%= f.label('GlassBottleManuTechID', 'Manufacturing Technique')%>
+																	<%= f.collection_select('GlassBottleManuTechID', GlassBottleManuTech.all.order('"GlassBottleManuTech"'), :id, 'GlassBottleManuTech', {:include_blank => '--select--'}, {'data-placeholder' => '--select--', :class => 'form-control'})%>
+                                </div>
+								<%= f.hidden_field :_destroy %>
+								<a href="#" data-toggle="modal" data-target="#bottle-alert-modal" class="bottle-delete-link delete" tabindex="-1">Delete</a>
+							</div>
+                        </div><!-- selects -->
+<div class="number" style="display:none">_NUM_</div>
+                    </div><!-- block -->

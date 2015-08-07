@@ -1,0 +1,15 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Context sample:</b>
+  <%= @generate_context_artifact.context_sample_id %>
+</p>
+
+<p>
+  <b>Artifact:</b>
+  <%= @generate_context_artifact.artifact_id %>
+</p>
+
+
+<%= link_to 'Edit', edit_generate_context_artifact_path(@generate_context_artifact) %> |
+<%= link_to 'Back', generate_context_artifacts_path %>

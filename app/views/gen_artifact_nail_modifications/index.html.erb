@@ -1,0 +1,23 @@
+<h1>Listing gen_artifact_nail_modifications</h1>
+
+<table>
+  <tr>
+    <th>Nail modification</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @gen_artifact_nail_modifications.each do |gen_artifact_nail_modification| %>
+  <tr>
+    <td><%= gen_artifact_nail_modification.nail_modification %></td>
+    <td><%= link_to 'Show', gen_artifact_nail_modification %></td>
+    <td><%= link_to 'Edit', edit_gen_artifact_nail_modification_path(gen_artifact_nail_modification) %></td>
+    <td><%= link_to 'Destroy', gen_artifact_nail_modification, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Gen artifact nail modification', new_gen_artifact_nail_modification_path %>

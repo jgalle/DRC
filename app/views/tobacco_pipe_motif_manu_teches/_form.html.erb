@@ -1,0 +1,21 @@
+<%= form_for(@tobacco_pipe_motif_manu_tech) do |f| %>
+  <% if @tobacco_pipe_motif_manu_tech.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@tobacco_pipe_motif_manu_tech.errors.count, "error") %> prohibited this tobacco_pipe_motif_manu_tech from being saved:</h2>
+
+      <ul>
+      <% @tobacco_pipe_motif_manu_tech.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :MotifManuTech %><br>
+    <%= f.text_field :MotifManuTech %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

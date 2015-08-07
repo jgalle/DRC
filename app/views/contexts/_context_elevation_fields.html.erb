@@ -1,0 +1,21 @@
+                    <div class="block <%= @elevation_colored == true ? 'colored' : '' %>">
+                        <div class="three-columns three-with-delete">
+                            <div class="row-area">
+                                <div class="col">
+																	<%= f.label('OpeningClosingID', 'Opening/Closing')%>
+																	<%= f.collection_select('OpeningClosingID', ContextOpenClose.all.order('"OpeningClosing"'), :id, 'OpeningClosing', {:include_blank => '--select--'}, {'data-placeholder' => '--select--', :class => 'form-control'})%>
+                                </div>
+                                <div class="col">
+																	<%= f.label('ContextElevationLocID', 'Elevation Location')%>
+																	<%= f.collection_select('ContextElevationLocID', ContextElevationLocation.all.order('"ContextElevationLoc"'), :id, 'ContextElevationLoc', {:include_blank => '--select--'}, {'data-placeholder' => '--select--', :class => 'form-control'})%>
+                                </div>
+                                <div class="col">
+																	<%= f.label('ElevationAmount', 'Elevation')%>
+																	<%= f.text_field('ElevationAmount', {:class => 'form-control'})%>
+                                </div>
+								<%= f.hidden_field :_destroy %>
+								<a href="#" data-toggle="modal" data-target="#elevation-alert-modal" class="elevation-delete-link delete" tabindex="-1">Delete</a>
+							</div>
+                        </div><!-- selects -->
+<div class="number" style="display:none">_NUM_</div>
+                    </div><!-- block -->

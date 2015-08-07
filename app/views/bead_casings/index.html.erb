@@ -1,0 +1,23 @@
+<h1>Listing bead_casings</h1>
+
+<table>
+  <tr>
+    <th>Artifact</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @bead_casings.each do |bead_casing| %>
+  <tr>
+    <td><%= bead_casing.artifact_id %></td>
+    <td><%= link_to 'Show', bead_casing %></td>
+    <td><%= link_to 'Edit', edit_bead_casing_path(bead_casing) %></td>
+    <td><%= link_to 'Destroy', bead_casing, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Bead casing', new_bead_casing_path %>

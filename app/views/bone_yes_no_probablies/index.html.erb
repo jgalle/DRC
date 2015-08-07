@@ -1,0 +1,23 @@
+<h1>Listing bone_yes_no_probablies</h1>
+
+<table>
+  <tr>
+    <th>Yes no</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @bone_yes_no_probablies.each do |bone_yes_no_probably| %>
+  <tr>
+    <td><%= bone_yes_no_probably.yes_no %></td>
+    <td><%= link_to 'Show', bone_yes_no_probably %></td>
+    <td><%= link_to 'Edit', edit_bone_yes_no_probably_path(bone_yes_no_probably) %></td>
+    <td><%= link_to 'Destroy', bone_yes_no_probably, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Bone yes no probably', new_bone_yes_no_probably_path %>

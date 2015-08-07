@@ -1,0 +1,27 @@
+<div class="block <%= @decoration_colored == true ? 'colored' : '' %>">
+<ul class="images">
+	<li>
+		<div class="img">
+			<% if f.object.image != nil %>
+				<%= link_to(image_tag(f.object.image.ImageFileLocation, {:width => 91, :height => 91}), f.object.image.ImageFileLocation, 'data-toggle' => 'lightbox')%>
+			<% else %>
+			<span class="new-image-image">&nbsp;</span>
+			<% end %>
+		</div>
+		<div class="desc">
+			<% if f.object.image != nil %>
+				<%= render 'partials/image_info', image: f.object.image %>
+				<%= f.hidden_field :ImageID %>
+			<% else %>
+				<span class="new-image-details">&nbsp;</span>
+				<%= f.hidden_field :ImageID, {:class => 'new-image-id'} %>
+				<%= f.hidden_field :ArtifactID, :value => '-' %>
+			<% end %>
+			<!-- <a href="#" data-toggle="modal" data-target="#edit-image" class="btn btn-edit">Edit</a> -->
+			<%= f.hidden_field :_destroy %>
+			<a href="#" data-toggle="modal" data-target="#image-alert-modal" class="image-delete-link delete">Delete</a>
+		</div>
+	</li>
+</ul>
+<div class="number" style="display:none">_NUM_</div>
+</div>

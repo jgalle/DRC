@@ -1,0 +1,23 @@
+<h1>Listing ceramic_materials</h1>
+
+<table>
+  <tr>
+    <th>Ceramic material</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @ceramic_materials.each do |ceramic_material| %>
+  <tr>
+    <td><%= ceramic_material.ceramic_material %></td>
+    <td><%= link_to 'Show', ceramic_material %></td>
+    <td><%= link_to 'Edit', edit_ceramic_material_path(ceramic_material) %></td>
+    <td><%= link_to 'Destroy', ceramic_material, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Ceramic material', new_ceramic_material_path %>

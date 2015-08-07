@@ -1,0 +1,41 @@
+<%= form_for(@glass_bottle) do |f| %>
+  <% if @glass_bottle.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@glass_bottle.errors.count, "error") %> prohibited this glass_bottle from being saved:</h2>
+
+      <ul>
+      <% @glass_bottle.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :artifact_id %><br />
+    <%= f.text_field :artifact_id %>
+  </div>
+  <div class="field">
+    <%= f.label :glass_bottle_element_id %><br />
+    <%= f.text_field :glass_bottle_element_id %>
+  </div>
+  <div class="field">
+    <%= f.label :glass_bottle_shape_id %><br />
+    <%= f.text_field :glass_bottle_shape_id %>
+  </div>
+  <div class="field">
+    <%= f.label :glass_bottle_manu_tech_id %><br />
+    <%= f.text_field :glass_bottle_manu_tech_id %>
+  </div>
+  <div class="field">
+    <%= f.label :glass_bottle_treatment_id %><br />
+    <%= f.text_field :glass_bottle_treatment_id %>
+  </div>
+  <div class="field">
+    <%= f.label :generate_context_artifact_id--skip_stylesheets %><br />
+    <%= f.text_field :generate_context_artifact_id--skip_stylesheets %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

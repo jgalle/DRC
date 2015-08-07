@@ -1,0 +1,16 @@
+                    <div class="options-box <%= @completeness_colored == true ? 'colored' : '' %>">
+                                <div class="col">
+																	<%= f.label('CeramicCompletenessID', 'Completeness')%>
+																	<%= f.collection_select('CeramicCompletenessID', CeramicCompleteness.all.order('"CeramicCompleteness"'), :id, 'CeramicCompleteness', {:include_blank => '--select--'}, {'data-placeholder' => '--select--', :class => 'form-control'})%>
+                                </div>
+                                <div class="col">
+																	<%= f.label('ColonoSherdThickness', 'Thickness')%>
+																	<div class="clearfix">
+																		<%= f.text_field('ColonoSherdThickness', {:class => 'form-control'})%>
+																		<%= f.label('ColonoSherdThickness', 'mm', {:class => 'lbl'})%>
+																	</div>
+                                </div>
+																<%= f.hidden_field :_destroy %>
+																<a href="#" data-toggle="modal" data-target="#inclusion-alert-modal" class="inclusion-delete-link delete" tabindex="-1">Delete</a>
+<div class="number" style="display:none">_NUM_</div>
+                    </div><!-- block -->

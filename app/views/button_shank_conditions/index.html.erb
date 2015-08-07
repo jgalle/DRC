@@ -1,0 +1,23 @@
+<h1>Listing button_shank_conditions</h1>
+
+<table>
+  <tr>
+    <th>Shank condition</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @button_shank_conditions.each do |button_shank_condition| %>
+  <tr>
+    <td><%= button_shank_condition.shank_condition %></td>
+    <td><%= link_to 'Show', button_shank_condition %></td>
+    <td><%= link_to 'Edit', edit_button_shank_condition_path(button_shank_condition) %></td>
+    <td><%= link_to 'Destroy', button_shank_condition, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Button shank condition', new_button_shank_condition_path %>

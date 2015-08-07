@@ -1,0 +1,27 @@
+<h1>Listing context_stp_sediments</h1>
+
+<table>
+  <tr>
+    <th>Fine sediment texture</th>
+    <th>Mun sed color</th>
+    <th>Percentage</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @context_stp_sediments.each do |context_stp_sediment| %>
+  <tr>
+    <td><%= context_stp_sediment.fine_sediment_texture_id %></td>
+    <td><%= context_stp_sediment.mun_sed_color_id %></td>
+    <td><%= context_stp_sediment.percentage_id %></td>
+    <td><%= link_to 'Show', context_stp_sediment %></td>
+    <td><%= link_to 'Edit', edit_context_stp_sediment_path(context_stp_sediment) %></td>
+    <td><%= link_to 'Destroy', context_stp_sediment, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Context stp sediment', new_context_stp_sediment_path %>

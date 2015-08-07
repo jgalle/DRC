@@ -1,0 +1,23 @@
+<h1>Listing buckle_materials</h1>
+
+<table>
+  <tr>
+    <th>Buckle material</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @buckle_materials.each do |buckle_material| %>
+  <tr>
+    <td><%= buckle_material.buckle_material %></td>
+    <td><%= link_to 'Show', buckle_material %></td>
+    <td><%= link_to 'Edit', edit_buckle_material_path(buckle_material) %></td>
+    <td><%= link_to 'Destroy', buckle_material, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Buckle material', new_buckle_material_path %>

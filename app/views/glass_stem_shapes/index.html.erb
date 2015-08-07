@@ -1,0 +1,23 @@
+<h1>Listing glass_stem_shapes</h1>
+
+<table>
+  <tr>
+    <th>Stem shape</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @glass_stem_shapes.each do |glass_stem_shape| %>
+  <tr>
+    <td><%= glass_stem_shape.stem_shape %></td>
+    <td><%= link_to 'Show', glass_stem_shape %></td>
+    <td><%= link_to 'Edit', edit_glass_stem_shape_path(glass_stem_shape) %></td>
+    <td><%= link_to 'Destroy', glass_stem_shape, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Glass stem shape', new_glass_stem_shape_path %>

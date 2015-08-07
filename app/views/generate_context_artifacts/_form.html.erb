@@ -1,0 +1,25 @@
+<%= form_for(@generate_context_artifact) do |f| %>
+  <% if @generate_context_artifact.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@generate_context_artifact.errors.count, "error") %> prohibited this generate_context_artifact from being saved:</h2>
+
+      <ul>
+      <% @generate_context_artifact.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :context_sample_id %><br />
+    <%= f.text_field :context_sample_id %>
+  </div>
+  <div class="field">
+    <%= f.label :artifact_id %><br />
+    <%= f.text_field :artifact_id %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

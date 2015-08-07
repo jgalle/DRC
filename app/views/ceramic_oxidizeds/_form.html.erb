@@ -1,0 +1,21 @@
+<%= form_for(@ceramic_oxidized) do |f| %>
+  <% if @ceramic_oxidized.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@ceramic_oxidized.errors.count, "error") %> prohibited this ceramic_oxidized from being saved:</h2>
+
+      <ul>
+      <% @ceramic_oxidized.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :oxidized_versus_reduced %><br />
+    <%= f.text_field :oxidized_versus_reduced %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

@@ -1,0 +1,25 @@
+<%= form_for(@ceramic_mend) do |f| %>
+  <% if @ceramic_mend.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@ceramic_mend.errors.count, "error") %> prohibited this ceramic_mend from being saved:</h2>
+
+      <ul>
+      <% @ceramic_mend.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :generate_context_artifact_id %><br />
+    <%= f.text_field :generate_context_artifact_id %>
+  </div>
+  <div class="field">
+    <%= f.label :mends_generate_context_artifact_id %><br />
+    <%= f.text_field :mends_generate_context_artifact_id %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

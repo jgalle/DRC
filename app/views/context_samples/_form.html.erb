@@ -1,0 +1,53 @@
+<%= form_for(@context_sample) do |f| %>
+  <% if @context_sample.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@context_sample.errors.count, "error") %> prohibited this context_sample from being saved:</h2>
+
+      <ul>
+      <% @context_sample.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :recovery_method_id %><br />
+    <%= f.text_field :recovery_method_id %>
+  </div>
+  <div class="field">
+    <%= f.label :context_id %><br />
+    <%= f.text_field :context_id %>
+  </div>
+  <div class="field">
+    <%= f.label :sample_number %><br />
+    <%= f.text_field :sample_number %>
+  </div>
+  <div class="field">
+    <%= f.label :context_sample_id %><br />
+    <%= f.text_field :context_sample_id %>
+  </div>
+  <div class="field">
+    <%= f.label :sample_size %><br />
+    <%= f.text_field :sample_size %>
+  </div>
+  <div class="field">
+    <%= f.label :context_sample_type_id %><br />
+    <%= f.text_field :context_sample_type_id %>
+  </div>
+  <div class="field">
+    <%= f.label :screen_size_id %><br />
+    <%= f.text_field :screen_size_id %>
+  </div>
+  <div class="field">
+    <%= f.label :storage_box_number %><br />
+    <%= f.text_field :storage_box_number %>
+  </div>
+  <div class="field">
+    <%= f.label :box_comments %><br />
+    <%= f.text_field :box_comments %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

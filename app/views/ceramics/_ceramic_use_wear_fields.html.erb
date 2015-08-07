@@ -1,0 +1,21 @@
+                    <div class="block <%= @use_wear_colored == true ? 'colored' : '' %>">
+                        <div class="use-wear-selects">
+                            <div class="row-area">
+                                <div class="col">
+																	<%= f.label('UseWearLocationID', 'Wear Location')%>
+																	<%= f.collection_select('UseWearLocationID', CeramicUseWearLocation.all.order('"UseWearLocation"'), :id, 'UseWearLocation', {:include_blank => '--select--'}, {'data-placeholder' => '--select--', :class => 'form-control'})%>
+                                </div>
+                                <div class="col">
+																	<%= f.label('CeramicCompletenessID', 'Completeness')%>
+																	<%= f.collection_select('CeramicCompletenessID', CeramicCompleteness.all.order('"CeramicCompleteness"'), :id, 'CeramicCompleteness', {:include_blank => '--select--'}, {'data-placeholder' => '--select--', :class => 'form-control'})%>
+                                </div>
+                                <div class="col">
+																	<%= f.label('UseWearPatternID', 'Wear Pattern')%>
+																	<%= f.collection_select('UseWearPatternID', CeramicUseWearPattern.all.order('"UseWearPattern"'), :id, 'UseWearPattern', {:include_blank => '--select--'}, {'data-placeholder' => '--select--', :class => 'form-control'})%>
+                                </div>
+																<%= f.hidden_field :_destroy %>
+																<a href="#" data-toggle="modal" data-target="#use-wear-alert-modal" class="use-wear-delete-link delete" tabindex="-1">Delete</a>
+                            </div><!-- row-area -->
+                        </div><!-- selects -->
+<div class="number" style="display:none">_NUM_</div>
+                    </div><!-- block -->

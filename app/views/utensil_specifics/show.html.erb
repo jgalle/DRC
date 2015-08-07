@@ -1,0 +1,35 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Artifact:</b>
+  <%= @utensil_specific.artifact_id %>
+</p>
+
+<p>
+  <b>Untesil part:</b>
+  <%= @utensil_specific.untesil_part_id %>
+</p>
+
+<p>
+  <b>Utensil shape:</b>
+  <%= @utensil_specific.utensil_shape_id %>
+</p>
+
+<p>
+  <b>Utensil manu tech:</b>
+  <%= @utensil_specific.utensil_manu_tech_id %>
+</p>
+
+<p>
+  <b>Utensil material:</b>
+  <%= @utensil_specific.utensil_material_id %>
+</p>
+
+<p>
+  <b>Generate context artifact:</b>
+  <%= @utensil_specific.generate_context_artifact_id %>
+</p>
+
+
+<%= link_to 'Edit', edit_utensil_specific_path(@utensil_specific) %> |
+<%= link_to 'Back', utensil_specifics_path %>

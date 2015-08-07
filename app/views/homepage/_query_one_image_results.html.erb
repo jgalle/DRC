@@ -1,0 +1,33 @@
+	<table class="bordered">
+	  <tr>
+		  <% @display_fields.each do |field| %>
+			<th class="cell-"><%= field.gsub(/([A-Z])/,' \1').gsub('I D', 'ID').gsub('D A A C S', 'DAACS') %></th>
+		  <% end %>
+	  </tr>
+	  <% @images.each do |image| %>
+		  <tr>
+			  <% @display_fields.each do |field| %>
+				<td class="cell-"><%= image.send(field) %></td>
+			  <% end %>
+			  <% if params[:all] == nil %>
+			  <td>
+				  <% image.Images.split(';').uniq.each do |i| %>
+				  <% if i.split('.').last.downcase == 'pdf'%>
+				  	<%= link_to('View PDF',i, {:target => '_blank'})%>
+				<% elsif i.split('.').last.downcase == 'obj' %>
+				  <%= link_to('Download OBJ.',i, {:target => '_blank', :download => 'download.jpg'})%><br>
+				  Open and view 3D scan using <%= link_to('GLC Player', 'http://www.glc-player.net/download.php', {:target => '_blank'})%>.
+				
+				<% else %>
+				  <%= link_to(image_tag(i, {:width => '50px'}), i, 'data-toggle' => 'lightbox') %>
+				  <br>
+				  <%#= link_to('Download', :controller => 'images', :action => 'download', :id => image.ImageID)%>
+				  <%= link_to('Download',i, {:target => '_blank', :download => 'download.jpg'})%>
+				 <% end %>
+				  
+					 <% end %>
+			  </td>
+			  <% end %>
+	  	</tr>
+	  <% end %>
+	</table>

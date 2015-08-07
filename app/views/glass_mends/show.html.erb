@@ -1,0 +1,15 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Artifact:</b>
+  <%= @glass_mend.artifact_id %>
+</p>
+
+<p>
+  <b>Mends to artifact:</b>
+  <%= @glass_mend.mends_to_artifact_id %>
+</p>
+
+
+<%= link_to 'Edit', edit_glass_mend_path(@glass_mend) %> |
+<%= link_to 'Back', glass_mends_path %>

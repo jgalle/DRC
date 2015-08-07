@@ -1,0 +1,27 @@
+<h1>Listing image_file_formats</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Imagefileformat</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @image_file_formats.each do |image_file_format| %>
+      <tr>
+        <td><%= image_file_format.ImageFileFormat %></td>
+        <td><%= link_to 'Show', image_file_format %></td>
+        <td><%= link_to 'Edit', edit_image_file_format_path(image_file_format) %></td>
+        <td><%= link_to 'Destroy', image_file_format, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Image file format', new_image_file_format_path %>

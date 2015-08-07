@@ -1,0 +1,8 @@
+<%
+	doc = open('http://daacs.org/query-template.php') { |f| Hpricot(f) }
+	doc.search('head').append(stylesheet_link_tag("application", :media => "all"))
+	doc.search('head').append(javascript_include_tag("application"))
+	doc.search('head').append(csrf_meta_tags)
+	doc.search('body').append('<script type="text/javascript">customForm.customForms.replaceAll();</script>')
+%>
+<%= raw doc.to_s.gsub('[CONTENT]',"<div class=\"main-area container daacs-insert\">#{yield}</div>") %>

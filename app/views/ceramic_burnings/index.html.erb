@@ -1,0 +1,23 @@
+<h1>Listing ceramic_burnings</h1>
+
+<table>
+  <tr>
+    <th>Evidenceof burning</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @ceramic_burnings.each do |ceramic_burning| %>
+  <tr>
+    <td><%= ceramic_burning.evidenceof_burning %></td>
+    <td><%= link_to 'Show', ceramic_burning %></td>
+    <td><%= link_to 'Edit', edit_ceramic_burning_path(ceramic_burning) %></td>
+    <td><%= link_to 'Destroy', ceramic_burning, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Ceramic burning', new_ceramic_burning_path %>

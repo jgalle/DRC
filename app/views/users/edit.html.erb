@@ -1,0 +1,260 @@
+<script>
+	// active group to add projects
+	var current_group;
+	var content_to_remove;
+	
+	function get_current_group() {
+		return current_group;
+	}
+	
+	$(function() {
+		// $('#user_organization_id').change(function(){
+		// 	$.ajax({
+		// 		url:"<%= url_for :action => 'all_projects' %>",
+		// 		data:"id="+this.value,
+		// 		success: function(data) {
+		// 			$('#project_list').html(data);
+		// 		}
+		// 	})
+		// });
+		
+		$('.delete-record').click(function(){
+			$.ajax({
+			  url: "/users/<%= @user.id %>",
+			  type: "DELETE",
+				statusCode: {
+				    200: function() {
+							$('#delete-alert-modal').modal('hide')
+							window.location="/users#success-deleted"
+				    }
+				  }
+			});
+		});
+		
+		$(".project-add").click(function() {
+			$("#add-project").modal('hide');
+			var name = $(get_current_group()).parent().parent().prev().prev().prev().prev().attr('name');
+			$.ajax({
+				url:"<%= url_for :action => 'all_projects' %>",
+				data:"id="+$('#organization-selection')[0].value+'&name='+name,
+				success: function(data) {
+					$(get_current_group()).parent().parent().after(data);
+ 					// $('#project_list').html(data);
+					$('#organization-selection').val(0).trigger("chosen:updated");
+					
+				}
+			})
+		})
+
+		// add new nested form item
+		$('#permission-add').click(function (event) {
+			// alert(unsaved);
+			$('.permission-empty-relationship').hide();
+			unsaved = true;
+		  time = new Date().getTime();
+		  regexp = new RegExp($(this).data('id'), 'g');
+		  // $(this).before($(this).data('fields').replace(regexp, time));
+		  $('#permission-elements').append($(this).data('fields').replace(regexp, time).replace('_NUM_',time));
+			$('.permission-delete-link').click(function (event) {
+				content_to_remove = this;
+			});
+
+			$("select").each(function() {
+				if($(this).attr('id').indexOf("_NUM_") == -1) {
+					$(this).chosen();
+				}
+			});
+
+			customForm.customForms.replaceAll();
+			event.preventDefault();
+		});
+		
+		// remove nested form
+		$('.permission-delete').click(function (event) {
+			unsaved = true;
+			if(content_to_remove != null) {
+				$(content_to_remove).prev('input[type=hidden]').val('1');
+				$(content_to_remove).closest('.block').hide();
+			}
+			$('#permission-alert-modal').modal('hide')
+			event.preventDefault();
+		});
+
+		// grab contents that are about to be deleted
+		$('.permission-delete-link').click(function (event) {
+			content_to_remove = this;
+		});
+		
+
+	});
+	
+	
+</script>
+
+<div class="page-header">
+	<% if current_user.is_super_admin? %>
+		<%= link_to 'Back to Users', users_path, :class => 'back-link'%>
+	<% end %>
+	<h1>Edit User</h1>
+	
+	
+</div><!-- page-header -->
+<%= render 'layouts/messages', errors: @user.errors %>
+
+<div class="edit-user ie-fix">
+	<%= form_for(@user) do |f| %>
+		<fieldset>
+			<div class="clearfix">
+				<div class="col-left">
+					<%= f.label :first_name %>
+					<%= f.text_field :first_name, {:class => 'form-control ie-fix'} %>
+					<%= f.label :last_name %>
+					<%= f.text_field :last_name, {:class => 'form-control ie-fix'} %>
+					<%= f.label :userid %>
+					<% if current_user.is_super_admin? %>
+						<%= f.text_field :userid, {:class => 'form-control ie-fix'} %>
+					<% else %>
+						<%= f.text_field :userid, {:readonly => true, :class => 'form-control ie-fix'} %>
+					<% end %>
+					<%= f.label :email %>
+					<%= f.text_field :email, {:class => 'form-control ie-fix'} %>
+					<%= f.label :organization %>
+					<% if current_user.is_super_admin? %>
+						<%= f.select :organization_id, ProjectInstitution.all.map{|o| [o.Institution, o.id]}, {:include_blank => true, :prompt => true}, {:class => 'form-control ie-fix user-organization'} %>
+					<% else %>
+					<%= text_field_tag('org',"#{@user.project_institution.Institution if @user.project_institution != nil}", {:disabled => true, :class => 'form-control'}) %>
+					<% end %>
+					<%= f.label :password %>
+					<%= f.password_field :password, {:class => 'form-control ie-fix'} %>
+					<%= f.label :password_confirmation %>
+					<%= f.password_field :password_confirmation, {:class => 'form-control ie-fix'} %>
+				</div><!-- col-left -->
+				
+				<% if current_user.is_admin? %>
+				<div class="col-right">
+					<div class="block ie-fix" style="display:none">
+						<div class="heading ie-fix">
+							<h2>Permissions</h2>
+						</div><!-- heading -->
+						<% status = [['Super Administrator', 4], ['DAACS Senior Cataloger', 3], ['Institution Administrator', 2], ['Project Cataloger', 1], ['Read-Only User', 0]]%>
+						<%= f.label :permissions %>
+						<%= f.select :user_level, status, {}, {:class => 'form-control ie-fix'} %>
+					</div><!-- block -->
+					<div class="add-project-block ie-fix">
+						<div class="box">
+							<a href="#" data-toggle="modal" data-target="#add-project" class="add-new">Add New Permission Group</a>
+						</div><!-- box -->
+					</div>
+					<% @institutions.each do |id, institute| %>
+						<div class="block ie-fix project" style="display:none">
+							<div class="heading ie-fix">
+								<div class="check-block">
+									<input type="checkbox"  onchange="checkAll(this)" id="lbl-028" class="check" />
+									<label for="lbl-028">Select All</label>
+								</div><!-- end chech-block -->
+								<h2><%= institute.Institution %> Projects</h2>
+							</div><!-- heading -->
+							<div id="project_list">
+								<ul class="list">
+									<% Project.includes(:project_name).where(["\"InstitutionID\" = ?", id]).order('"tblProjectName"."ProjectName" asc').each do |project| -%>
+									    <li>
+									      <%= check_box_tag :project_ids, project.id, @user.projects.include?(project), :name => 'user[project_ids][]' -%>
+									      <%= project.project_name.ProjectName %>
+									    </li>
+									  <% end -%>
+								</ul>
+							</div>
+						
+						</div><!-- block -->
+					<% end %>
+					
+					<% if current_user.is_admin? %>
+					<section class="section">
+						<div class="heading">
+							<h2>Permission Group</h2>
+						</div>
+						<div class="permissions">
+							<div id="permission-elements">
+							<% if @user.user_permissions.any? %>
+								<% num = 0 %>
+								<%= f.fields_for :user_permissions do |mat| %>
+									<%= render 'user_permission_fields', f: mat, num: num %>
+									<% num += 1 %>
+								<% end %>
+							<% else %>
+							<span class="permission-empty-relationship">Click Add for new entries.</span>
+								<%#= render_new_nested_fields f, :gen_artifact_materials %>
+							<% end %>
+							</div>
+							<div class="clearfix">
+								<%= link_to_add_fields "Add Permission", f, :user_permissions, {:id=>"permission-add", :class => "btn btn-info btn-add"} %>
+							</div>
+						</div><!-- stylistic-elements -->
+						</section>
+						<% end %>
+				</div><!-- col-right -->
+				<% end %>
+			</div>
+			<button class="edit-user-save btn-info ie-fix">Save</button>
+		</fieldset>
+<% end %>
+</div><!-- edit-user -->
+<div class="modal alert-modal fade" id="add-project" tabindex="-1" role="dialog" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+				<h4 class="modal-title">Add Project Group</h4>
+			</div>
+			<div class="modal-body">
+				<p class="txt">
+					<select id="organization-selection" class="form-control ie-fix user-organization">
+						<option></option>
+						<%= options_for_select ProjectInstitution.all.map{|o| [o.Institution, o.id]}  %>
+					</select>
+						
+				</p>
+			</div>
+			<div class="modal-footer">
+				<button class="btn btn-default" data-dismiss="modal">Cancel</button>
+				<button class="btn btn-warning project-add">Add</button>
+			</div>
+		</div><!-- /.modal-content -->
+	</div><!-- /.modal-dialog -->
+</div><!-- alert-modal -->
+
+<div class="modal alert-modal fade" id="delete-alert-modal" tabindex="-1" role="dialog" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+				<h4 class="modal-title">Alert</h4>
+			</div>
+			<div class="modal-body">
+				<p class="txt">Are you sure you want to delete?</p>
+			</div>
+			<div class="modal-footer">
+				<button class="btn btn-default" data-dismiss="modal">Cancel</button>
+				<button class="btn btn-warning delete-record">Delete</button>
+			</div>
+		</div><!-- /.modal-content -->
+	</div><!-- /.modal-dialog -->
+</div><!-- alert-modal -->
+
+<div class="modal alert-modal fade" id="permission-alert-modal" tabindex="-1" role="dialog" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+				<h4 class="modal-title">Alert</h4>
+			</div>
+			<div class="modal-body">
+				<p class="txt">Are you sure you want to delete?</p>
+			</div>
+			<div class="modal-footer">
+				<button class="btn btn-default" data-dismiss="modal">Cancel</button>
+				<button class="btn btn-warning permission-delete">Delete</button>
+			</div>
+		</div><!-- /.modal-content -->
+	</div><!-- /.modal-dialog -->
+</div><!-- alert-modal -->

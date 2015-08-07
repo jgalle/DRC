@@ -1,0 +1,21 @@
+<h1>Listing project_countries</h1>
+
+<table>
+  <tr>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @project_countries.each do |project_country| %>
+  <tr>
+    <td><%= link_to 'Show', project_country %></td>
+    <td><%= link_to 'Edit', edit_project_country_path(project_country) %></td>
+    <td><%= link_to 'Destroy', project_country, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Project country', new_project_country_path %>

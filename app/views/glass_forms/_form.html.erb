@@ -1,0 +1,21 @@
+<%= form_for(@glass_form) do |f| %>
+  <% if @glass_form.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@glass_form.errors.count, "error") %> prohibited this glass_form from being saved:</h2>
+
+      <ul>
+      <% @glass_form.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :glass_form %><br />
+    <%= f.text_field :glass_form %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

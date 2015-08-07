@@ -1,0 +1,21 @@
+<%= form_for(@utensil_handle_decoration) do |f| %>
+  <% if @utensil_handle_decoration.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@utensil_handle_decoration.errors.count, "error") %> prohibited this utensil_handle_decoration from being saved:</h2>
+
+      <ul>
+      <% @utensil_handle_decoration.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :handle_decoration %><br />
+    <%= f.text_field :handle_decoration %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

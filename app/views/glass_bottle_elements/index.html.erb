@@ -1,0 +1,23 @@
+<h1>Listing glass_bottle_elements</h1>
+
+<table>
+  <tr>
+    <th>Glass bottle element</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @glass_bottle_elements.each do |glass_bottle_element| %>
+  <tr>
+    <td><%= glass_bottle_element.glass_bottle_element %></td>
+    <td><%= link_to 'Show', glass_bottle_element %></td>
+    <td><%= link_to 'Edit', edit_glass_bottle_element_path(glass_bottle_element) %></td>
+    <td><%= link_to 'Destroy', glass_bottle_element, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Glass bottle element', new_glass_bottle_element_path %>

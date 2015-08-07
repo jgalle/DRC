@@ -1,0 +1,27 @@
+<h1>Listing context_stp_levels</h1>
+
+<table>
+  <tr>
+    <th>Stplevel</th>
+    <th>Stpclosing</th>
+    <th>Context</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @context_stp_levels.each do |context_stp_level| %>
+  <tr>
+    <td><%= context_stp_level.stplevel %></td>
+    <td><%= context_stp_level.stpclosing %></td>
+    <td><%= context_stp_level.context_id %></td>
+    <td><%= link_to 'Show', context_stp_level %></td>
+    <td><%= link_to 'Edit', edit_context_stp_level_path(context_stp_level) %></td>
+    <td><%= link_to 'Destroy', context_stp_level, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Context stp level', new_context_stp_level_path %>

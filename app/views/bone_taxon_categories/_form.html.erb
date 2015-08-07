@@ -1,0 +1,21 @@
+<%= form_for(@bone_taxon_category) do |f| %>
+  <% if @bone_taxon_category.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@bone_taxon_category.errors.count, "error") %> prohibited this bone_taxon_category from being saved:</h2>
+
+      <ul>
+      <% @bone_taxon_category.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :taxon_category %><br />
+    <%= f.text_field :taxon_category %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

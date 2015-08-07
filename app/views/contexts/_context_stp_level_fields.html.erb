@@ -1,0 +1,87 @@
+                    <div class="block <%= @stp_description_colored == true ? 'colored' : '' %>">
+                        <div class="three-columns three-with-delete">
+                            <div class="row-area">
+                                <div class="col">
+																	<%= f.label('STPLevel', 'Level')%>
+																	<%= f.text_field('STPLevel',{:class => 'form-control'})%>
+                                </div>
+                                <div class="col">
+																	<%= f.label('STPClosing', 'Closing')%>
+																	<%= f.text_field('STPClosing', {:class => 'form-control'})%>
+                                </div>
+								<%= f.hidden_field :_destroy %>
+								<a href="#" data-toggle="modal" data-target="#stp-description-alert-modal" class="stp-description-delete-link delete" tabindex="-1">Delete</a>
+							</div>
+                        </div><!-- selects -->
+<div class="number" style="display:none">_NUM_</div>
+
+<section class="inner-block">
+	<div class="heading">
+		<h2>Shovel Test Pit Sediments</h2>
+	</div>
+	<div class="stp-sediments">
+		<div class="stp-sediment-elements">
+		<% @stp_sediment_colored = true %>
+		<% if !defined? new_field %>
+			<%= f.fields_for :context_stp_sediments do |cs| %>
+				<%= render 'context_stp_sediment_fields', f: cs %>
+				<% @stp_sediment_colored = @stp_sediment_colored == true ? false : true %>
+				<%# debugger %>
+			<% end %>
+			<% if @stp_sediment_colored == false %>
+				<script>
+					stp_sediment_color = false;
+				</script>
+			<% else %>
+				<script>
+					stp_sediment_color = true;
+				</script>
+			<% end %>
+		<% else %>
+		<span class="stp-sediment-empty-relationship">Click Add for new entries.</span>
+			<%#= render_new_nested_fields f, :context_stp_sediments %>
+		<% end %>
+		<% @stp_sediment_color = false %>
+		</div>
+		<div class="clearfix stylistic-before-holder">
+			<%= link_to_add_fields "Add STP Sediment", f, :context_stp_sediments, {:id=>"", :class => "btn btn-info btn-add stp-sediment-add"} %>
+			<!-- <span id="stylistic-add-measurement" class="btn btn-info btn-add">Add stylistic element</span> -->
+		</div>
+	</div><!-- stylistic-elements -->
+</section>
+<section class="inner-block">
+	<div class="heading">
+		<h2>Shovel Test Pit Inclusions</h2>
+	</div>
+	<div class="stp-inclusions">
+		<div class="stp-inclusion-elements">
+		<% @stp_inclusion_colored = true %>
+		<% if !defined? new_field %>
+			<%= f.fields_for :context_stp_inclusions do |cs| %>
+				<%= render 'context_stp_inclusion_fields', f: cs %>
+				<% @stp_inclusion_colored = @stp_inclusion_colored == true ? false : true %>
+				<%# debugger %>
+			<% end %>
+			<% if @stp_inclusion_colored == false %>
+				<script>
+					stp_inclusion_color = false;
+				</script>
+			<% else %>
+				<script>
+					stp_inclusion_color = true;
+				</script>
+			<% end %>
+		<% else %>
+		<span class="stp-inclusion-empty-relationship">Click Add for new entries.</span>
+			<%#= render_new_nested_fields f, :context_stp_inclusions %>
+		<% end %>
+		<% @stp_inclusion_color = false %>
+		</div>
+		<div class="clearfix stylistic-before-holder">
+			<%= link_to_add_fields "Add STP Inclusion", f, :context_stp_inclusions, {:id=>"", :class => "btn btn-info btn-add stp-inclusion-add"} %>
+			<!-- <span id="stylistic-add-measurement" class="btn btn-info btn-add">Add stylistic element</span> -->
+		</div>
+	</div><!-- stylistic-elements -->
+</section>
+
+                    </div><!-- block -->

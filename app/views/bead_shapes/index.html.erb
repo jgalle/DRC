@@ -1,0 +1,23 @@
+<h1>Listing bead_shapes</h1>
+
+<table>
+  <tr>
+    <th>Bead shape</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @bead_shapes.each do |bead_shape| %>
+  <tr>
+    <td><%= bead_shape.bead_shape %></td>
+    <td><%= link_to 'Show', bead_shape %></td>
+    <td><%= link_to 'Edit', edit_bead_shape_path(bead_shape) %></td>
+    <td><%= link_to 'Destroy', bead_shape, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Bead shape', new_bead_shape_path %>

@@ -1,0 +1,13 @@
+<dl>
+	<dt>Image Name:</dt><dd><%= image.ImageFileLocation.split('/').last if image.ImageFileLocation != nil %></dd>
+	<dt>Image Type:</dt><dd><%= image.image_type.ImageType if image.image_type != nil %></dd>
+	<dt>Image Description:</dt><dd><%= image.ImageDescription %></dd>
+	<dt>Insitution/Source:</dt><dd><%= image.project_institution.Institution if image.project_institution != nil %></dd>
+</dl>
+<dl>
+	<dt>Catalog Number:</dt><dd><%= (image.CatalogueNumber != nil and image.CatalogueNumber != '') ? image.CatalogueNumber : ' - ' %></dd>
+	<dt>Document ID:</dt><dd><%= (image.DocumentID != nil and image.DocumentID != '') ? image.DocumentID : ' - ' %></dd>
+	<% user = User.where('editor_id = ?', image.EditorIDN).first %>
+	<dt>Added By:</dt><dd><%= user != nil ? "#{user.first_name != nil ? user.first_name+' '+user.last_name : user.userid}" : ' - '%></dd>
+	<dt>Date Added:</dt><dd><%=h image.DateAdded !=nil ? image.DateAdded.to_formatted_s(:db) : " - "%></dd>
+</dl>

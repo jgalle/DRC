@@ -1,0 +1,21 @@
+                    <div class="block <%= @stp_inclusion_colored == true ? 'colored' : '' %>">
+						<%= f.hidden_field :_destroy %>
+						<a href="#" data-toggle="modal" data-target="#stp-inclusion-alert-modal" class="stp-inclusion-delete-link delete" tabindex="-1">Delete</a>
+                        <div class="stp-three-columns three-columns three-with-delete">
+                            <div class="row-area">
+                                <div class="col">
+																	<%= f.label('InclusionDescriptionID', 'Inclusion Description')%>
+																	<%= f.collection_select('InclusionDescriptionID', ContextInclusionDescription.all.order('"InclusionDescription"'), :id, 'InclusionDescription', {:include_blank => '--select--'}, {'data-placeholder' => '--select--', :class => 'form-control'})%>
+                                </div>
+                                <div class="col">
+																	<%= f.label('InclusionSizeID', 'Inclusion Size')%>
+																	<%= f.collection_select('InclusionSizeID', ContextInclusionSize.all.order('"InclusionSize"'), :id, 'InclusionSize', {:include_blank => '--select--'}, {'data-placeholder' => '--select--', :class => 'form-control'})%>
+                                </div>
+                                <div class="col">
+																	<%= f.label('PercentageID', 'Pecentage')%>
+																	<%= f.collection_select('PercentageID', ContextPercentage.all.order('"Percentage"'), :id, 'Percentage', {:include_blank => '--select--'}, {'data-placeholder' => '--select--', :class => 'form-control'})%>
+                                </div>
+							</div>
+                        </div><!-- selects -->
+<div class="number" style="display:none">_NUM_</div>
+                    </div><!-- block -->

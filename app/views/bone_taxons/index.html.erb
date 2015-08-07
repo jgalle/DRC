@@ -1,0 +1,49 @@
+<h1>Listing bone_taxons</h1>
+
+<table>
+  <tr>
+    <th>Taxon</th>
+    <th>Latin</th>
+    <th>English</th>
+    <th>Taxon category</th>
+    <th>Mt wt ad</th>
+    <th>Mt wt im</th>
+    <th>Txn order</th>
+    <th>Taxon group category</th>
+    <th>Class category</th>
+    <th>Biomass category</th>
+    <th>Pg cow sg</th>
+    <th>Idor unid</th>
+    <th>Wildor domestic</th>
+    <th>Bone type</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @bone_taxons.each do |bone_taxon| %>
+  <tr>
+    <td><%= bone_taxon.taxon %></td>
+    <td><%= bone_taxon.latin %></td>
+    <td><%= bone_taxon.english %></td>
+    <td><%= bone_taxon.taxon_category_id %></td>
+    <td><%= bone_taxon.mt_wt_ad %></td>
+    <td><%= bone_taxon.mt_wt_im %></td>
+    <td><%= bone_taxon.txn_order %></td>
+    <td><%= bone_taxon.taxon_group_category %></td>
+    <td><%= bone_taxon.class_category %></td>
+    <td><%= bone_taxon.biomass_category %></td>
+    <td><%= bone_taxon.pg_cow_sg %></td>
+    <td><%= bone_taxon.idor_unid %></td>
+    <td><%= bone_taxon.wildor_domestic %></td>
+    <td><%= bone_taxon.bone_type %></td>
+    <td><%= link_to 'Show', bone_taxon %></td>
+    <td><%= link_to 'Edit', edit_bone_taxon_path(bone_taxon) %></td>
+    <td><%= link_to 'Destroy', bone_taxon, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Bone taxon', new_bone_taxon_path %>

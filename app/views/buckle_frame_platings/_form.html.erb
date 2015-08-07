@@ -1,0 +1,21 @@
+<%= form_for(@buckle_frame_plating) do |f| %>
+  <% if @buckle_frame_plating.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@buckle_frame_plating.errors.count, "error") %> prohibited this buckle_frame_plating from being saved:</h2>
+
+      <ul>
+      <% @buckle_frame_plating.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :frame_plating %><br />
+    <%= f.text_field :frame_plating %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

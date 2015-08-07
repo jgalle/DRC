@@ -1,0 +1,21 @@
+<%= form_for(@context_recovery_method) do |f| %>
+  <% if @context_recovery_method.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@context_recovery_method.errors.count, "error") %> prohibited this context_recovery_method from being saved:</h2>
+
+      <ul>
+      <% @context_recovery_method.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :recovery_method %><br />
+    <%= f.text_field :recovery_method %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

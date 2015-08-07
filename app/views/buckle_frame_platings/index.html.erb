@@ -1,0 +1,23 @@
+<h1>Listing buckle_frame_platings</h1>
+
+<table>
+  <tr>
+    <th>Frame plating</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @buckle_frame_platings.each do |buckle_frame_plating| %>
+  <tr>
+    <td><%= buckle_frame_plating.frame_plating %></td>
+    <td><%= link_to 'Show', buckle_frame_plating %></td>
+    <td><%= link_to 'Edit', edit_buckle_frame_plating_path(buckle_frame_plating) %></td>
+    <td><%= link_to 'Destroy', buckle_frame_plating, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Buckle frame plating', new_buckle_frame_plating_path %>

@@ -1,0 +1,27 @@
+<h1>Listing context_strat_rels</h1>
+
+<table>
+  <tr>
+    <th>Context</th>
+    <th>Context auto</th>
+    <th>Strat rel type</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @context_strat_rels.each do |context_strat_rel| %>
+  <tr>
+    <td><%= context_strat_rel.context %></td>
+    <td><%= context_strat_rel.context_auto_id %></td>
+    <td><%= context_strat_rel.strat_rel_type_id %></td>
+    <td><%= link_to 'Show', context_strat_rel %></td>
+    <td><%= link_to 'Edit', edit_context_strat_rel_path(context_strat_rel) %></td>
+    <td><%= link_to 'Destroy', context_strat_rel, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Context strat rel', new_context_strat_rel_path %>

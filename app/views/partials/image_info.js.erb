@@ -1,0 +1,2 @@
+$('.new-image-image:last').html('<%= j image_tag(@image.ImageFileLocation, :width => '91px', :height => '91px') %>');
+$('.new-image-details:last').html('<%= j render 'partials/image_info', image: @image %>');

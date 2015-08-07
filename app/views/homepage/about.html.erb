@@ -1,0 +1,27 @@
+<div class="visual">
+	<!-- <div class="frame">
+		<img src="<%= asset_path('About_LtTeal.png') %>" alt="#">
+	</div> -->
+	<h1><span>About</span></h1>
+</div><!-- visual -->
+<div class="page">
+	<h1>The DAACS Research Consortium</h1>
+	<p>
+		<img src="<%= asset_path('about2.jpg')%>" class="left-aligned" alt="">
+		The DAACS Research Consortium (DRC) is a novel kind of collaboration among scholars based in scattered academic and research institutions, built on the foundation offered by the Digital Archaeological Archive of Comparative Slavery (DAACS) and its website (<%= link_to 'http://www.daacs.org', 'http://www.daacs.org' %>). The DRC is designed to advance DAACS’ two primary goals: to foster inter-site, comparative archeological research that will advance our historical understanding of the slavery-based societies that evolved in the Atlantic World during the early-modern era; and to serve as a useful model for the use of the web to encourage new kinds of scholarly collaboration and data sharing among archaeologists working in a single culture-historical context. DAACS is based at Monticello with major grant funding from the Mellon Foundation, the National Endowment for the Humanities (NEH), a NEH-seeded endowment, and the Thomas Jefferson Foundation.  The Andrew W. Mellon Foundation’s Scholarly Communications and Information Technology Program has funded the initial two-year start-up phase of the DAACS Research Consortium.</p>
+
+	<p>The DRC responds to inquiries from university and museum-based scholars and graduate students interested in adopting DAACS software for their own archaeological research.  Adoption here means not just downloading data from the DAACS website to compare with data generated independently by researchers using their own spreadsheet or database applications. Rather it means being able to enter their own data into the DAACS database application and to take advantage of the analytical and collaborative opportunities that ensue. 
+		<img src="<%= asset_path('about3.jpg')%>" class="right-aligned" alt="">
+		DAACS’s partners in the DRC include <%= link_to 'faculty and their students', 'http://www.daacs.org' %> at six leading graduate programs focusing on the archaeological study of early-modern Atlantic slave societies. The consortium also includes <%= link_to 'scholars from four research institutions', 'http://www.daacs.org' %> that hold major archaeological collections from those societies. In collaboration with technology partners at The University of Virginia’s <%= link_to 'Institute for Advanced Technology in the Humanities', 'http://www.iath.virginia.edu' %> and <%= link_to 'Convoy, Inc.', 'http://www.weareconvoy.com' %>, DAACS developed a first-of-its-kind web-based database application, using open-source software tools (primarily Ruby-on-Rails and PostgreSQL), to allow our geographically dispersed collaborators to digitize, analyze, and share their archaeological data with one another and with the wider archaeological community via the DAACS website. </p>
+
+	<p>To help ensure collaborator contributions conform to the community-developed standards on which the analytical potential of DAACS data depends, DRC partners and their research assistants trained at Monticello’s DAACS laboratory on the web-application’s data structures and classification and measurement protocols.  The DRC also offers training, especially for graduate students, in relational database technology, SQL programming, and analytical methods to discover and make sense of hidden patterns of variation in DAACS data. Each of our collaborators is working to complete a <%= link_to 'case study', 'http://www.daacs.org/research' %> in which they use the new database application and their training to digitize and analyze artifacts and context records from a project of their choosing and, with the help of DAACS staff, launch the data on the DAACS website by March 2015. </p>
+
+		<p>
+			<img src="<%= asset_path('about5.jpg')%>" class="left-aligned" alt="">
+			This project represents Phase 1 of what we hope is a longer-term project. We envisage a second phase consisting of a pre- and post-doctoral fellowship program, integrated with annual training sessions, data analysis workshops, and research seminars hosted by DAACS for a wider pool of consortium participants. The second phase would enlarge and further strengthen the collaborative research network fostered by the first. Together, both phases of the DRC will leverage the technical resources and analytical expertise developed by DAACS over the past decade to advance levels of analytical sophistication and collaboration among scholars using archaeological evidence to document and explain the evolution of slave societies.</p>
+			<br>
+			<br>
+
+		<p>Read more about current DRC partners <%= link_to 'here', :action => 'partners' %> and explore their case study sites <%= link_to 'here', 'http://www.daacs.org/research' %>.  <%= link_to 'Contact', 'mailto:jgalle@monticello.org' %> us if you would like to learn more about how to participate in the DAACS Research Consortium.</p>
+
+</div>	

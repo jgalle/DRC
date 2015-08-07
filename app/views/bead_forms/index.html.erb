@@ -1,0 +1,23 @@
+<h1>Listing bead_forms</h1>
+
+<table>
+  <tr>
+    <th>Bead form</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @bead_forms.each do |bead_form| %>
+  <tr>
+    <td><%= bead_form.bead_form %></td>
+    <td><%= link_to 'Show', bead_form %></td>
+    <td><%= link_to 'Edit', edit_bead_form_path(bead_form) %></td>
+    <td><%= link_to 'Destroy', bead_form, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Bead form', new_bead_form_path %>

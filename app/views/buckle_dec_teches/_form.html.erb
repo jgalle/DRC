@@ -1,0 +1,33 @@
+<%= form_for(@buckle_dec_tech) do |f| %>
+  <% if @buckle_dec_tech.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@buckle_dec_tech.errors.count, "error") %> prohibited this buckle_dec_tech from being saved:</h2>
+
+      <ul>
+      <% @buckle_dec_tech.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :buckle_dec_tech_type_id %><br />
+    <%= f.text_field :buckle_dec_tech_type_id %>
+  </div>
+  <div class="field">
+    <%= f.label :artifact_id %><br />
+    <%= f.text_field :artifact_id %>
+  </div>
+  <div class="field">
+    <%= f.label :buckle_dec_motif_id %><br />
+    <%= f.text_field :buckle_dec_motif_id %>
+  </div>
+  <div class="field">
+    <%= f.label :generate_context_artifact_id %><br />
+    <%= f.text_field :generate_context_artifact_id %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

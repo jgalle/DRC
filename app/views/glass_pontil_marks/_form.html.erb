@@ -1,0 +1,21 @@
+<%= form_for(@glass_pontil_mark) do |f| %>
+  <% if @glass_pontil_mark.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@glass_pontil_mark.errors.count, "error") %> prohibited this glass_pontil_mark from being saved:</h2>
+
+      <ul>
+      <% @glass_pontil_mark.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :pontil_mark %><br />
+    <%= f.text_field :pontil_mark %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

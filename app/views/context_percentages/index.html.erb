@@ -1,0 +1,23 @@
+<h1>Listing context_percentages</h1>
+
+<table>
+  <tr>
+    <th>Percentage</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @context_percentages.each do |context_percentage| %>
+  <tr>
+    <td><%= context_percentage.percentage %></td>
+    <td><%= link_to 'Show', context_percentage %></td>
+    <td><%= link_to 'Edit', edit_context_percentage_path(context_percentage) %></td>
+    <td><%= link_to 'Destroy', context_percentage, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Context percentage', new_context_percentage_path %>

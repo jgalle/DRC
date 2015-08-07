@@ -1,0 +1,15 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Artifact:</b>
+  <%= @gen_object_artifact.artifact_id %>
+</p>
+
+<p>
+  <b>Object:</b>
+  <%= @gen_object_artifact.object_id %>
+</p>
+
+
+<%= link_to 'Edit', edit_gen_object_artifact_path(@gen_object_artifact) %> |
+<%= link_to 'Back', gen_object_artifacts_path %>

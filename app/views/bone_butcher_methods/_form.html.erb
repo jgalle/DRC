@@ -1,0 +1,21 @@
+<%= form_for(@bone_butcher_method) do |f| %>
+  <% if @bone_butcher_method.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@bone_butcher_method.errors.count, "error") %> prohibited this bone_butcher_method from being saved:</h2>
+
+      <ul>
+      <% @bone_butcher_method.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :butcher_method %><br />
+    <%= f.text_field :butcher_method %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

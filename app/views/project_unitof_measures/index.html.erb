@@ -1,0 +1,23 @@
+<h1>Listing project_unitof_measures</h1>
+
+<table>
+  <tr>
+    <th>Unitof measurement</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @project_unitof_measures.each do |project_unitof_measure| %>
+  <tr>
+    <td><%= project_unitof_measure.unitof_measurement %></td>
+    <td><%= link_to 'Show', project_unitof_measure %></td>
+    <td><%= link_to 'Edit', edit_project_unitof_measure_path(project_unitof_measure) %></td>
+    <td><%= link_to 'Destroy', project_unitof_measure, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Project unitof measure', new_project_unitof_measure_path %>

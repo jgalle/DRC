@@ -1,0 +1,23 @@
+<h1>Listing tobacco_pipe_text_mark_types</h1>
+
+<table>
+  <tr>
+    <th>Pipe text mark type</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @tobacco_pipe_text_mark_types.each do |tobacco_pipe_text_mark_type| %>
+  <tr>
+    <td><%= tobacco_pipe_text_mark_type.pipe_text_mark_type %></td>
+    <td><%= link_to 'Show', tobacco_pipe_text_mark_type %></td>
+    <td><%= link_to 'Edit', edit_tobacco_pipe_text_mark_type_path(tobacco_pipe_text_mark_type) %></td>
+    <td><%= link_to 'Destroy', tobacco_pipe_text_mark_type, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Tobacco pipe text mark type', new_tobacco_pipe_text_mark_type_path %>

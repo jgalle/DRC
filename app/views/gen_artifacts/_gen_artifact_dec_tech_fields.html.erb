@@ -1,0 +1,21 @@
+                    <div class="block <%= @decoration_colored == true ? 'colored' : '' %>">
+                        <div class="three-columns three-with-delete">
+                            <div class="row-area">
+                                <div class="col">
+																	<%= f.label('GenArtifactDecTechTypeID', 'Decoration Technique')%>
+																	<%= f.collection_select('GenArtifactDecTechTypeID', GenArtifactDecTechType.all.order('"GenArtifactDecTechType"'), :id, 'GenArtifactDecTechType', {:include_blank => '--select--'}, {'data-placeholder' => '--select--', :class => 'form-control'})%>
+                                </div>
+                                <div class="col">
+																	<%= f.label('GenArtDecTechBasicColorID', 'Applied Color')%>
+																	<%= f.collection_select('GenArtDecTechBasicColorID', BasicColor.all.order('"BasicColor"'), :id, 'BasicColor', {:include_blank => '--select--'}, {'data-placeholder' => '--select--', :class => 'form-control'})%>
+                                </div>
+                                <div class="col">
+																	<%= f.label('DecorationNotes', 'Decoration Notes')%>
+																	<%= f.text_area('DecorationNotes', {:class => 'form-control'})%>
+                                </div>
+								<%= f.hidden_field :_destroy %>
+								<a href="#" data-toggle="modal" data-target="#decoration-alert-modal" class="decoration-delete-link delete" tabindex="-1">Delete</a>
+							</div>
+                        </div><!-- selects -->
+<div class="number" style="display:none">_NUM_</div>
+                    </div><!-- block -->

@@ -1,0 +1,37 @@
+<%= form_for(@bone_summary) do |f| %>
+  <% if @bone_summary.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@bone_summary.errors.count, "error") %> prohibited this bone_summary from being saved:</h2>
+
+      <ul>
+      <% @bone_summary.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :meta_content %><br />
+    <%= f.text_field :meta_content %>
+  </div>
+  <div class="field">
+    <%= f.label :phase %><br />
+    <%= f.text_field :phase %>
+  </div>
+  <div class="field">
+    <%= f.label :taxon %><br />
+    <%= f.text_field :taxon %>
+  </div>
+  <div class="field">
+    <%= f.label :mniad %><br />
+    <%= f.text_field :mniad %>
+  </div>
+  <div class="field">
+    <%= f.label :mnim %><br />
+    <%= f.text_field :mnim %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

@@ -1,0 +1,34 @@
+                    <div class="block <%= @sediment_colored == true ? 'colored' : '' %>">
+                        <div class="three-columns with-delete">
+                            <div class="row-area">
+                                <div class="col">
+																	<%= f.label('FineSedimentTextureID', 'Fine Sediment Texture')%>
+																	<%= f.collection_select('FineSedimentTextureID', ContextFineSedimentTexture.all.order('"FineSedimentTexture"'), :id, 'FineSedimentTexture', {:include_blank => '--select--'}, {'data-placeholder' => '--select--', :class => 'form-control'})%>
+                                </div>
+                                <div class="col">
+																	<%= f.label('MunSedColorID', 'Munsell Color')%>
+																	<%= f.collection_select('MunSedColorID', SedimentColor.all.order('"MunsellSedimentColor"'), :id, 'MunsellSedimentColor', {:include_blank => '--select--'}, {'data-placeholder' => '--select--', :class => 'form-control'})%>
+                                </div>
+								<%= f.hidden_field :_destroy %>
+								<a href="#" data-toggle="modal" data-target="#sediment-alert-modal" class="sediment-delete-link delete" tabindex="-1">Delete</a>
+							</div>
+							<div class="row-area">
+                                <div class="col-span-two">
+																	<%= f.label('ExcavatorSedimentColorDescription', 'Excavator Sediment Color Description')%>
+																	<%= f.text_field('ExcavatorSedimentColorDescription', {:class => 'form-control'})%>
+                                </div>
+                            </div><!-- row-area -->
+                            <div class="row-area">
+                                <div class="col">
+																	<%= f.label('RankOrder', 'Rank')%>
+																	<%= f.collection_select('RankOrder', ContextRankOrder.all.order('"RankOrder"'), :id, 'RankOrder', {:include_blank => '--select--'}, {'data-placeholder' => '--select--', :class => 'form-control'})%>
+                                </div>
+                                <div class="col">
+																	<%= f.label('PercentageID', 'Percentage')%>
+																	<%= f.collection_select('PercentageID', ContextPercentage.all.order('"Percentage"'), :id, 'Percentage', {:include_blank => '--select--'}, {'data-placeholder' => '--select--', :class => 'form-control'})%>
+                                </div>
+                            </div><!-- row-area -->
+                        </div><!-- selects -->
+<div class="number" style="display:none">_NUM_</div>
+                    </div><!-- block -->
+

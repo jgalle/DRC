@@ -1,0 +1,153 @@
+<script>
+$(document).ready(function(){
+	// $(".pagination li a").click(function(e){
+	// 	e.preventDefault();
+	// 	if ($(this).attr("href").indexOf('page=') > 0) {
+	// 		var tp_id = $(this).attr("href").split('page=')[1].split('&')[0];
+	// 	} else {
+	// 		var tp_id = 1;
+	// 	}
+	// 	$('#pagination_search').append("<input type='hidden' name='page' value='" + tp_id +"' >");
+	// 	$('#pagination_search').submit();
+	// });
+
+	
+	
+	$('.new-bead-type').click(function() {
+		// alert('a');
+		$('#artifact_selection').val('bead');
+		$('#artifact_selection').trigger('chosen:updated')
+		
+	})
+	
+	var completeness_for_delete;
+	var id_to_delete;
+	
+	$("#list_selection input").change(function() {
+	     this.form.submit();
+	});
+	$("#list_selection select").change(function() {
+	     this.form.submit();
+	});
+	if ($('.ceramics-list .delete-tr').exists()) {
+		$('.ceramics-list .delete-tr').click(function(){
+			id_to_delete = $(this).attr('id');
+			completeness_for_delete = $(this).parents('.holder-for-delete');
+		});
+	}
+	if ($('#alert-modal').exists()) {
+		$('#alert-modal').on('hidden.bs.modal', function (e) {
+			completeness_for_delete = "";
+		})
+		$('#alert-modal .delete-list').click(function(){
+			if (completeness_for_delete) {
+				completeness_for_delete.remove();
+			}
+			$.ajax({
+			  url: "/beads/"+id_to_delete,
+			  type: "DELETE"
+			});
+			$('.alert-success').slideDown();
+			setTimeout(function(){
+				$('.alert-success').slideUp();
+			}, 3000)
+			$('#alert-modal').modal('hide')
+		});
+	}
+	
+	// $('#per_page').chosen({width: 100px});
+});
+</script>
+<div class="list-head">
+	<div class="page-header page-header-003">
+		<div class="frame">
+			<div class="clearfix">
+				<div class="dropdown options-drop">
+					<a class="btn" data-toggle="dropdown" href="#">Options</a>
+					<ul class="dropdown-menu" role="menu">
+						<li><%= link_to 'New Query', :action => 'faunal_query_one' %></li>
+						<li><a href="#" onclick="$('#edit_search').submit()">Modify Query</a><%#= link_to 'Modify Query', :action => 'artifact_query_five', :params => params %></li>
+						<%# params[:all] = true %>
+						<li><a href="#" onclick="$('#download_search').submit()">Download Data</a></li>
+						<!-- <li><%= link_to 'Download Data', :action => 'search_one', :params => params, :format => :xls, :method => :post %></li> -->
+					</ul>
+				</div>
+			</div>
+		</div><!-- frame -->
+		<div class="block">
+			<h1>Query Results</h1>
+			<p>Faunal Query 1: Basic Inventory</p>
+		</div><!-- end block -->
+	</div><!-- page-header -->
+	<div class="alert alert-success success-deleted" style="display:none">
+		<p>Successfully deleted artifact!</p>
+	</div><!-- end alert -->
+	<div class="list-panel">
+		<div class="filter query-results">
+			<table class="parameters">
+				<tr>
+					<th class="cell-01">Sites:</th>
+				</tr>
+				<tr>
+					<td>
+						<%= params[:sites].map{|s| Project.find(s).project_name.ProjectName}.join(', ')%>
+					</td>
+				</tr>
+			</table><!-- end parameters -->
+		</div><!-- end block -->
+		</div>
+		<div class="list-panel">
+		<div class="filter">
+			<%= form_tag({:action => 'search_faunal_one'}, :id => 'list_selection', :method => :post) do %>
+				<input type="hidden" name="per_page" value="<%= params[:per_page] != nil ? params[:per_page] : 25 %>">
+				<% params[:sites].each do |site| %>
+				    <%= hidden_field_tag "sites[]", site %>
+				<% end %>
+				<fieldset>
+					<ul class="radio-block total-found">
+						<li>
+							<%= @total %> items found
+						</li>
+					</ul>
+					<div class="top-pagination">
+						<%#= paginate(@beads, :window => 2, :method_type => :post, :remote => true) %>
+						<%= paginate(@bones, :window => 2) %>
+					</div>
+					<div class="select-block per-page">
+						<label for="per_page">Results per Page</label>
+						<select id="per_page" class="per-page sel-001" name="per_page">
+							<%= options_for_select(['25','50','100'], params[:per_page])%>
+						</select>
+					</div><!-- end select-block -->
+				</fieldset>
+			<% end %>
+		</div><!-- end filter -->
+	</div><!-- end list-panel -->
+</div><!-- end list-head -->
+<div class="ceramics-list">
+	<%= render partial: 'search_faunal_one_results' %>
+</div>
+
+<%= paginate @bones, :window => 2 %>
+
+<br />
+
+<%= form_tag({:action => 'search_faunal_one'}, :id => 'pagination_search') do %>
+<input type="hidden" name="per_page" value="<%= @per_page %>">
+	<% params[:sites].each do |site| %>
+	    <%= hidden_field_tag "sites[]", site %>
+	<% end %>
+<% end %>
+<%= form_tag({:action => 'search_faunal_one'}, :id => 'download_search', :method => :post) do %>
+	<input type="hidden" name="format" value="xls">
+	<input type="hidden" name="all" value="true">
+	<% params[:sites].each do |site| %>
+	    <%= hidden_field_tag "sites[]", site %>
+	<% end %>
+<% end %>
+<%= form_tag({:action => 'faunal_query_one'}, :id => 'edit_search') do %>
+	<% params[:sites].each do |site| %>
+	    <%= hidden_field_tag "sites[]", site %>
+	<% end %>
+	
+<% end %>

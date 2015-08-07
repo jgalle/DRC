@@ -1,0 +1,15 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Object completeness:</b>
+  <%= @gen_object_completeness.object_completeness %>
+</p>
+
+<p>
+  <b>Object type:</b>
+  <%= @gen_object_completeness.object_type_id %>
+</p>
+
+
+<%= link_to 'Edit', edit_gen_object_completeness_path(@gen_object_completeness) %> |
+<%= link_to 'Back', gen_object_completenesses_path %>

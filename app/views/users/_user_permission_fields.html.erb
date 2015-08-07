@@ -1,0 +1,39 @@
+<div class="block">
+<% time = Time.now.to_i %>
+	<% status = [['Super Administrator', 4], ['DAACS Senior Cataloger', 3], ['Institution Administrator', 2], ['Project Cataloger', 1], ['Read-Only User', 0]]%>
+	<%= f.label 'User Level:' %>
+	<%= f.select :user_level, status, {}, {:class => 'form-control ie-fix'} %>
+	<%= f.hidden_field :_destroy %>
+	<a href="#" data-toggle="modal" data-target="#permission-alert-modal" class="permission-delete-link delete" tabindex="-1">Delete</a>
+	
+<div class="add-project-block ie-fix" id="<%= time %>">
+	<div class="box">
+		<a href="#" data-toggle="modal" data-target="#add-project" onclick="current_group=this;console.log(this)" class="add-new">Add New Project Group</a>
+	</div><!-- box -->
+</div>
+<% @institutions = {} %>
+	<% f.object.projects.map{|p| @institutions[p.InstitutionID] = ProjectInstitution.find p.InstitutionID} %>
+	<% @institutions.each do |id, institute| %>
+		<div class="block box ie-fix project">
+			<div class="heading ie-fix">
+				<div class="check-block">
+					<input type="checkbox"  onchange="checkAll(this)" id="lbl-028" class="check" />
+					<label for="lbl-028">Select All</label>
+				</div><!-- end chech-block -->
+				<h2><%= institute.Institution %> Projects</h2>
+			</div><!-- heading -->
+			<div id="project_list">
+				<ul class="list">
+					<% Project.includes(:project_name).where(["\"InstitutionID\" = ?", id]).order('"tblProjectName"."ProjectName" asc').each do |project| -%>
+					    <li>
+					      <%= check_box_tag :project_ids, project.id, f.object.projects.include?(project), :name => "user[user_permissions_attributes][#{num}][project_ids][]" -%>
+					      <%= project.project_name.ProjectName %>
+					    </li>
+					  <% end -%>
+				</ul>
+			</div>
+
+		</div><!-- block -->
+	<% end %>
+
+</div>

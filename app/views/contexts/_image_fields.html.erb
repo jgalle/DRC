@@ -1,0 +1,17 @@
+<tr>
+	<td>
+		<%= f.text_field :image_file_location %>
+	</td>
+	<td>
+    <%= f.collection_select(:image_type_id, ImageType.all, :id, :image_type, :prompt => true) %>
+	</td>
+	<td>
+		<%= f.text_field :image_description %>
+	</td>
+	<td>
+		<%= f.text_field :institution %>
+	</td>
+	<td>
+		<%= f.text_field :catalogue_number %>
+	</td>
+</tr>

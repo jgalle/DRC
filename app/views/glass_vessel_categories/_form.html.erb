@@ -1,0 +1,21 @@
+<%= form_for(@glass_vessel_category) do |f| %>
+  <% if @glass_vessel_category.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@glass_vessel_category.errors.count, "error") %> prohibited this glass_vessel_category from being saved:</h2>
+
+      <ul>
+      <% @glass_vessel_category.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :glass_vessel_category %><br />
+    <%= f.text_field :glass_vessel_category %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

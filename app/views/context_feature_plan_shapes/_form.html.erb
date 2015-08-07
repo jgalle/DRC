@@ -1,0 +1,21 @@
+<%= form_for(@context_feature_plan_shape) do |f| %>
+  <% if @context_feature_plan_shape.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@context_feature_plan_shape.errors.count, "error") %> prohibited this context_feature_plan_shape from being saved:</h2>
+
+      <ul>
+      <% @context_feature_plan_shape.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :plan_shape %><br />
+    <%= f.text_field :plan_shape %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

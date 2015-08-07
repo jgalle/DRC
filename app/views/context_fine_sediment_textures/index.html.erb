@@ -1,0 +1,23 @@
+<h1>Listing context_fine_sediment_textures</h1>
+
+<table>
+  <tr>
+    <th>Fine sediment texture</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @context_fine_sediment_textures.each do |context_fine_sediment_texture| %>
+  <tr>
+    <td><%= context_fine_sediment_texture.fine_sediment_texture %></td>
+    <td><%= link_to 'Show', context_fine_sediment_texture %></td>
+    <td><%= link_to 'Edit', edit_context_fine_sediment_texture_path(context_fine_sediment_texture) %></td>
+    <td><%= link_to 'Destroy', context_fine_sediment_texture, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Context fine sediment texture', new_context_fine_sediment_texture_path %>

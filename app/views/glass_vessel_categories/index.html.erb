@@ -1,0 +1,23 @@
+<h1>Listing glass_vessel_categories</h1>
+
+<table>
+  <tr>
+    <th>Glass vessel category</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @glass_vessel_categories.each do |glass_vessel_category| %>
+  <tr>
+    <td><%= glass_vessel_category.glass_vessel_category %></td>
+    <td><%= link_to 'Show', glass_vessel_category %></td>
+    <td><%= link_to 'Edit', edit_glass_vessel_category_path(glass_vessel_category) %></td>
+    <td><%= link_to 'Destroy', glass_vessel_category, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Glass vessel category', new_glass_vessel_category_path %>

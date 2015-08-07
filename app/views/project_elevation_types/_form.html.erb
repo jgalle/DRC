@@ -1,0 +1,21 @@
+<%= form_for(@project_elevation_type) do |f| %>
+  <% if @project_elevation_type.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@project_elevation_type.errors.count, "error") %> prohibited this project_elevation_type from being saved:</h2>
+
+      <ul>
+      <% @project_elevation_type.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :elevation_type %><br />
+    <%= f.text_field :elevation_type %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

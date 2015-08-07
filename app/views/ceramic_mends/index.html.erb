@@ -1,0 +1,25 @@
+<h1>Listing ceramic_mends</h1>
+
+<table>
+  <tr>
+    <th>Generate context artifact</th>
+    <th>Mends generate context artifact</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @ceramic_mends.each do |ceramic_mend| %>
+  <tr>
+    <td><%= ceramic_mend.generate_context_artifact_id %></td>
+    <td><%= ceramic_mend.mends_generate_context_artifact_id %></td>
+    <td><%= link_to 'Show', ceramic_mend %></td>
+    <td><%= link_to 'Edit', edit_ceramic_mend_path(ceramic_mend) %></td>
+    <td><%= link_to 'Destroy', ceramic_mend, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Ceramic mend', new_ceramic_mend_path %>

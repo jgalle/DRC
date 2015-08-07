@@ -1,0 +1,37 @@
+<%= form_for(@bone_measure) do |f| %>
+  <% if @bone_measure.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@bone_measure.errors.count, "error") %> prohibited this bone_measure from being saved:</h2>
+
+      <ul>
+      <% @bone_measure.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :artifact_id %><br />
+    <%= f.text_field :artifact_id %>
+  </div>
+  <div class="field">
+    <%= f.label :measuring_description_id %><br />
+    <%= f.text_field :measuring_description_id %>
+  </div>
+  <div class="field">
+    <%= f.label :measurement %><br />
+    <%= f.text_field :measurement %>
+  </div>
+  <div class="field">
+    <%= f.label :accurate %><br />
+    <%= f.text_field :accurate %>
+  </div>
+  <div class="field">
+    <%= f.label :generate_context_artifact_id %><br />
+    <%= f.text_field :generate_context_artifact_id %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

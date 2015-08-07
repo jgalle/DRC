@@ -1,0 +1,27 @@
+<h1>Listing image_forms</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Imageform</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @image_forms.each do |image_form| %>
+      <tr>
+        <td><%= image_form.ImageForm %></td>
+        <td><%= link_to 'Show', image_form %></td>
+        <td><%= link_to 'Edit', edit_image_form_path(image_form) %></td>
+        <td><%= link_to 'Destroy', image_form, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Image form', new_image_form_path %>

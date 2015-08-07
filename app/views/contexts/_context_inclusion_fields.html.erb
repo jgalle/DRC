@@ -1,0 +1,28 @@
+                    <div class="block <%= @inclusion_colored == true ? 'colored' : '' %>">
+                        <div class="three-columns with-delete">
+                            <div class="row-area">
+                                <div class="col">
+																	<%= f.label('InclusionDescriptionID', 'Inclusion Description')%>
+																	<%= f.collection_select('InclusionDescriptionID', ContextInclusionDescription.all.order('"InclusionDescription"'), :id, 'InclusionDescription', {:include_blank => '--select--'}, {'data-placeholder' => '--select--', :class => 'form-control'})%>
+                                </div>
+                                <div class="col">
+																	<%= f.label('InclusionSizeID', 'Inclusion Size')%>
+																	<%= f.collection_select('InclusionSizeID', ContextInclusionSize.all.order('"InclusionSize"'), :id, 'InclusionSize', {:include_blank => '--select--'}, {'data-placeholder' => '--select--', :class => 'form-control'})%>
+                                </div>
+								<%= f.hidden_field :_destroy %>
+								<a href="#" data-toggle="modal" data-target="#inclusion-alert-modal" class="inclusion-delete-link delete" tabindex="-1">Delete</a>
+							</div>
+                            <div class="row-area">
+                                <div class="col">
+																	<%= f.label('RankOrder', 'Rank')%>
+																	<%= f.collection_select('RankOrder', ContextRankOrder.all.order('"RankOrder"'), :id, 'RankOrder', {:include_blank => '--select--'}, {'data-placeholder' => '--select--', :class => 'form-control'})%>
+                                </div>
+                                <div class="col">
+																	<%= f.label('PercentageID', 'Percentage')%>
+																	<%= f.collection_select('PercentageID', ContextPercentage.all.order('"Percentage"'), :id, 'Percentage', {:include_blank => '--select--'}, {'data-placeholder' => '--select--', :class => 'form-control'})%>
+                                </div>
+                            </div><!-- row-area -->
+                        </div><!-- selects -->
+<div class="number" style="display:none">_NUM_</div>
+                    </div><!-- block -->
+

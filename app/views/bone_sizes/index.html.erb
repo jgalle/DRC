@@ -1,0 +1,23 @@
+<h1>Listing bone_sizes</h1>
+
+<table>
+  <tr>
+    <th>Bone size</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @bone_sizes.each do |bone_size| %>
+  <tr>
+    <td><%= bone_size.bone_size %></td>
+    <td><%= link_to 'Show', bone_size %></td>
+    <td><%= link_to 'Edit', edit_bone_size_path(bone_size) %></td>
+    <td><%= link_to 'Destroy', bone_size, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Bone size', new_bone_size_path %>

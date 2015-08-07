@@ -1,0 +1,28 @@
+<div class="modal-list ceramics-list">
+	<%= form_tag({:action => 'contexts'}, :method => 'get', :remote => true) do %>
+		<fieldset>
+			<input type="text" class="text" value="<%= params[:query] != nil ? params[:query] : '' %>" name="query"/>
+			<input id="context-search" type="submit" class="btn submit" value="Search" />
+		</fieldset>
+	<% end %>
+	<div class="feature-table">
+		<table>
+		  <tr>
+		    <th class="cell-02">Context ID</th>
+		    <th class="cell-03">Unit Type</th>
+		    <th class="cell-04">Deposit Type</th>
+				<th class="cell-05">Date Added</th>
+		  </tr>
+		<% if defined? @contexts %>
+		<% @contexts.each do |context| %>
+		  <tr class="holder-for-delete">
+				<td><input type="radio" class="context-choices" name="context" value="<%= context.ContextID %>"> <%= context.ContextID %></td>
+		 		<td class="cell-03"><%= context.context_unit_type.UnitType if context.context_unit_type != nil  %></td>
+				<td class="cell-04"><%= context.context_deposit_type.DepositType if context.context_deposit_type != nil %></td>
+				<td class="cell-08"><%= context.DateAdded.strftime("%m/%d/%Y") if context.DateAdded != nil %></td>
+		  </tr>
+		<% end %>
+		<% end %>
+		</table>
+	</div>
+</div><!-- end search -->

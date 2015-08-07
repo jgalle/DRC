@@ -1,0 +1,20 @@
+<%= render :partial => 'homepage/home_content'%>
+<aside id="sidebar">
+	<div class="signed">
+		<div class="sign-out">
+			<%= form_for(resource, :as => resource_name, :url => session_path(resource_name)) do |f| %>
+				<fieldset>
+					<h3>Sign In</h3>
+				  <%= f.text_field :userid, {:class => 'text'}%>
+				  <div class="password"><%= f.password_field :password, {:class => 'text'} %></div>
+					<!-- <input type="text" class="text" value="User Name" name="userid">
+					<div class="password"><input type="password" class="text" value="Password" name="password"></div> -->
+					<div class="clearfix">
+						<button class="btn btn-primary ie-fix">Sign In</button>
+					</div>
+				</fieldset>
+			<% end %>
+		</div><!-- sign-out -->
+	</div><!-- signed -->
+	<%= render :partial => 'homepage/sidebar_links' %>
+</aside><!-- sidebar -->

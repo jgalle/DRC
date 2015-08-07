@@ -1,0 +1,393 @@
+<div class="page-header page-header-004 query-database popover-area">
+		<div class="frame">
+			<div class="clearfix">
+				<% if params[:daacs] != nil and params[:daacs] != '' %>
+					<div class="dropdown options-drop back-to-queries">
+												<a href="http://www.daacs.org/query-the-database/" id="back-to-queries" class="btn btn-info ie-fix">Back to Queries Page</a>
+					</div>
+				<% end %>
+				
+			</div>
+		</div><!-- frame -->
+		<div class="">
+	<h1>Query the Database</h1>
+							<% pd = PopupDialog.find(23) %>
+	<p>Artifact Query 2: Select Artifact Attributes by Category <a id="aq5-popover" class="btn what-is-this" data-content="<%= pd.content %>" data-placement="right" data-toggle="popover" data-container="body" type="button" data-original-title="What Does This Query Do?" title="" tabindex="0" role="button" data-trigger="focus">What does this query do?</a></p>
+	</div>
+</div><!-- page-header -->
+<div class="query-database popover-area">
+	<%= form_tag({:action => 'aq_two_results'}, {:onreset=>"setTimeout(function(){sitesContain()},100)"}) do %>
+	<!-- <form action="#" onreset="setTimeout(function(){sitesContain()},100)"> -->
+		<input type="hidden" name="daacs" value="<%= params[:daacs] %>">
+		<fieldset>
+			<div class="tabs">
+				<ul class="nav nav-tabs">
+					<li class="active"><a href="#tab-step2" data-toggle="tab">Step 1</a></li>
+					<li><a href="#tab-step3" data-toggle="tab">Step 2</a></li>
+				</ul><!-- end nav-tabs --> 
+				<div class="tab-content" id="query-steps">
+
+				<div class="block tab-pane active" id="tab-step2">
+				<div class="heading">
+							<% pd = PopupDialog.find(24) %>
+					<h2><%= pd.title %>
+					<a class="btn" data-content="<%= pd.content %>" data-placement="right" data-toggle="popover" data-container="body" type="button" data-original-title="<%= pd.title %>" title="<%= pd.title %>" tabindex="0" role="button" data-trigger="focus" tabindex="0" role="button" data-trigger="focus"> Popover on left </a></h2>
+				</div><!-- end heading -->
+				<div class="section">
+					<div class="wrap">
+						<div class="panel-group" id="accordion2">
+							<div class="panel panel-default">
+								<div class="panel-heading">
+									<h4 class="panel-title"><a data-toggle="collapse" data-parent="#accordion2" href="#collapse-context" class="<%= (((params[:feature_group_selected] != nil and params[:feature_group_selected] != '') or (params[:feature_number_selected] != nil and params[:feature_number_selected] != '') or (params[:feature_types_selected] != nil and params[:feature_types_selected] != '') or (params[:phase_selected] != nil and params[:phase_selected] != '') or (params[:strat_group_selected] != nil and params[:strat_group_selected] != '') or (params[:site_selected] != nil and params[:site_selected] != '') or (params[:unit_types_selected] != nil and params[:unit_types_selected] != ''))) ? 'collapsed' : 'in' %>"><label><div class="custom-radio"><i class="<%= (((params[:feature_group_selected] != nil and params[:feature_group_selected] != '') or (params[:feature_number_selected] != nil and params[:feature_number_selected] != '') or (params[:feature_types_selected] != nil and params[:feature_types_selected] != '') or (params[:phase_selected] != nil and params[:phase_selected] != '') or (params[:strat_group_selected] != nil and params[:strat_group_selected] != '') or (params[:site_selected] != nil and params[:site_selected] != '') or (params[:unit_types_selected] != nil and params[:unit_types_selected] != ''))) ? '' : 'custom-radio-selected' %>"></i></div> Context</label></a></h4>
+								</div>
+							<% pd = PopupDialog.find(25) %>
+								<a class="btn btn-right" data-content="<%= pd.content %>" data-placement="left" data-toggle="popover" data-container="body" type="button" data-original-title="<%= pd.title %>" title="" tabindex="0" role="button" data-trigger="focus"> Popover on left </a>
+								<div id="collapse-context" class="panel-collapse collapse <%= (((params[:feature_group_selected] != nil and params[:feature_group_selected] != '') or (params[:feature_number_selected] != nil and params[:feature_number_selected] != '') or (params[:feature_types_selected] != nil and params[:feature_types_selected] != '') or (params[:phase_selected] != nil and params[:phase_selected] != '') or (params[:strat_group_selected] != nil and params[:strat_group_selected] != '') or (params[:site_selected] != nil and params[:site_selected] != '') or (params[:unit_types_selected] != nil and params[:unit_types_selected] != ''))) ? 'collapsed' : 'in' %> ">
+									<div class="panel-body">
+										<div class="collapse-block">
+											<div class="section section-002">
+												<div class="columns">
+													<div class="left-column">
+														<p><label for="lbl-027">Write in one Context per line. You may use the wildcard character *.</label></p>
+														<div class="for-example">
+															<h3>For Example:</h3>
+															<ul>
+																<li>747AA2</li>
+																<li>756TPS</li>
+															</ul>
+														</div><!-- end for-example -->
+													</div><!-- end left-column -->
+													<div class="right-column">
+														<textarea name="context" class="form-control query-text-values" cols="30" rows="10" id="lbl-027"><%= params[:context] %></textarea>
+														<input type="hidden" class="type-selected" name="context_selected" value="<%= (((params[:feature_group] != nil and params[:feature_group] != '') or (params[:feature_number] != nil and params[:feature_number] != '') or (params[:feature_types] != nil and params[:feature_types] != '') or (params[:phase] != nil and params[:phase] != '') or (params[:strat_group] != nil and params[:strat_group] != '') or (params[:unit_types] != nil and params[:unit_types] != '') or (params[:unit_types] != nil and params[:unit_types] != '') or (params[:site_selected] != nil and params[:site_selected] != '') )) ? '' : 'in' %>">
+													</div><!-- end right-column -->
+												</div><!-- end columns -->
+											</div><!-- end section -->
+										</div><!-- end collapse-context -->
+									</div><!-- end panel-body -->
+								</div><!-- end #collapse-beads -->
+							</div><!-- end panel -->
+							<div class="panel">
+                                <div class="panel-heading">
+                                    <h4 class="panel-title"><a data-toggle="collapse" data-parent="#accordion2" href="#collapse-feature-group" class="<%= (params[:feature_group_selected] == nil or params[:feature_group_selected] == '') ? 'collapsed' : 'in' %>"><label><div class="custom-radio"><i class="<%= (params[:feature_group_selected] != nil and params[:feature_group_selected] != '') ? 'custom-radio-selected' : '' %>"></i></div> Feature Group</label></a></h4>
+                                </div>
+							<% pd = PopupDialog.find(28) %>
+                                <a class="btn btn-right" data-content="<%= pd.content %>" data-placement="left" data-toggle="popover" data-container="body" type="button" data-original-title="<%= pd.title %>" title="Feature Number" tabindex="0" role="button" data-trigger="focus"> Popover on left </a>
+                                <div id="collapse-feature-group" class="panel-collapse collapse <%= (params[:feature_group_selected] == nil or params[:feature_group_selected] == '') ? 'collapsed' : 'in' %>">
+                                    <div class="panel-body">
+                                        <div class="collapse-block">
+											<div class="collapse-block">
+												<div class="section section-002">
+													<div class="columns">
+														<div class="left-column">
+															<p><label for="lbl-027">Write in one feature group per line. You may use the wildcard character *.</label></p>
+															<div class="for-example">
+																<h3>For Example:</h3>
+																<ul>
+																	<li>FG01</li>
+																	<li>FG02</li>
+																</ul>
+															</div><!-- end for-example -->
+														</div><!-- end left-column -->
+														<div class="right-column">
+															<textarea name="feature_group" class="form-control query-text-values" cols="30" rows="10" id="lbl-027"><%= params[:feature_group] %></textarea>
+															<input type="hidden" class="type-selected" name="feature_group_selected" value="<%= (params[:feature_group] != nil and params[:feature_group] != '') ? 'in' : '' %>">
+														</div><!-- end right-column -->
+													</div><!-- end columns -->
+												</div><!-- end section -->
+											</div><!-- end collapse-context -->
+                                        </div><!-- end collapse-block -->
+                                    </div><!-- end panel-body -->
+                                </div><!-- end #collapse-feature-number -->
+                            </div><!-- end panel -->
+							<div class="panel">
+                                <div class="panel-heading">
+                                    <h4 class="panel-title"><a data-toggle="collapse" data-parent="#accordion2" href="#collapse-feature-number" class="<%= (params[:feature_number_selected] == nil or params[:feature_number_selected] == '') ? 'collapsed' : 'in' %>"><label><div class="custom-radio"><i class="<%= (params[:feature_number_selected] != nil and params[:feature_number_selected] != '') ? 'custom-radio-selected' : '' %>"></i></div> Feature Number</label></a></h4>
+                                </div>
+							<% pd = PopupDialog.find(26) %>
+                                <a class="btn btn-right" data-content="<%= pd.content %>" data-placement="left" data-toggle="popover" data-container="body" type="button" data-original-title="<%= pd.title %>" title="Feature Number" tabindex="0" role="button" data-trigger="focus"> Popover on left </a>
+                                <div id="collapse-feature-number" class="panel-collapse collapse <%= (params[:feature_number_selected] == nil or params[:feature_number_selected] == '') ? 'collapsed' : 'in' %>">
+                                    <div class="panel-body">
+                                        <div class="collapse-block">
+											<div class="collapse-block">
+												<div class="section section-002">
+													<div class="columns">
+														<div class="left-column">
+															<p><label for="lbl-027">Write in one feature number per line. You may use the wildcard character *.</label></p>
+															<div class="for-example">
+																<h3>For Example:</h3>
+																<ul>
+																	<li>00.42</li>
+																	<li>98.16</li>
+																	<li>99.1*</li>
+																</ul>
+															</div><!-- end for-example -->
+														</div><!-- end left-column -->
+														<div class="right-column">
+															<textarea name="feature_number" class="form-control query-text-values" cols="30" rows="10" id="lbl-027"><%= params[:feature_number] %></textarea>
+															<input type="hidden" class="type-selected" name="feature_number_selected" value="<%= (params[:feature_number] != nil and params[:feature_number] != '') ? 'in' : '' %>">
+														</div><!-- end right-column -->
+													</div><!-- end columns -->
+												</div><!-- end section -->
+											</div><!-- end collapse-context -->
+                                        </div><!-- end collapse-block -->
+                                    </div><!-- end panel-body -->
+                                </div><!-- end #collapse-feature-number -->
+                            </div><!-- end panel -->
+							<div class="panel">
+                                <div class="panel-heading">
+                                    <h4 class="panel-title"><a data-toggle="collapse" data-parent="#accordion2" href="#collapse-feature-type" class="<%= (params[:feature_types_selected] == nil or params[:feature_types_selected] == '') ? 'collapsed' : '' %>"><label><div class="custom-radio"><i class="<%= (params[:feature_types_selected] != nil and params[:feature_types_selected] != '') ? 'custom-radio-selected' : '' %>"></i></div> Feature Type</label></a></h4>
+                                </div>
+							<% pd = PopupDialog.find(26) %>
+                                <a class="btn btn-right" data-content="<%= pd.content %>" data-placement="left" data-toggle="popover" data-container="body" type="button" data-original-title="<%= pd.title %>" title="Feature Type" tabindex="0" role="button" data-trigger="focus"> Popover on left </a>
+                                <div id="collapse-feature-type" class="panel-collapse <%= (params[:feature_types_selected] == nil or params[:feature_types_selected] == '') ? 'collapse' : '' %>">
+                                    <div class="panel-body">
+                                        <div class="collapse-block">
+											<div class="box">
+												<div class="check-block">
+													<label><input type="checkbox" onchange="checkAllWithClass(this, 'feature-types')" class="check">Select All</label>
+												</div>
+											<div class="scrollable-area"> 
+												
+												<ul> 
+													<% items = ContextFeatureType.all.order(:FeatureType)%>
+													<% num = 0 %>
+													<% third = (items.size/3).to_i%>
+													<% items.each do |item| %>
+													<li> <%# debugger %>
+														<input name="feature_types[]" value="<%= item.FeatureType %>" type="checkbox" id="lbl-<%= (num+=1).to_s.rjust(3,'0') %>" class="check feature-types" <%= (params[:feature_types] != nil and params[:feature_types].include? item.FeatureType) ? 'checked' : '' %> /> <label for="lbl-<%= num.to_s.rjust(3,'0') %>"><%= item.FeatureType %></label> 
+													</li> 
+													<% if num%(third+1) == 0 %>
+														</ul>
+														<ul>
+													<% end %>
+													<% end %>
+ 												</ul> </div><!-- end scrollable-area --></div><!-- end box -->
+															<input type="hidden" class="type-selected" name="feature_types_selected" value="<%= (params[:feature_types] != nil and params[:feature_types] != '') ? 'in' : '' %>">
+
+                                        </div><!-- end collapse-block -->
+                                    </div><!-- end panel-body -->
+                                </div><!-- end #collapse-feature-type -->
+                            </div><!-- end panel -->
+							<div class="panel">
+                                <div class="panel-heading">
+                                    <h4 class="panel-title"><a data-toggle="collapse" data-parent="#accordion2" href="#collapse-phase" class="<%= (params[:phase_selected] == nil or params[:phase_selected] == '') ? 'collapsed' : '' %>"><label><div class="custom-radio"><i class="<%= (params[:phase_selected] != nil and params[:phase_selected] != '') ? 'custom-radio-selected' : '' %>"></i></div> Phase</label></a></h4>
+                                </div>
+							<% pd = PopupDialog.find(30) %>
+                                <a class="btn btn-right" data-content="<%= pd.content %>" data-placement="left" data-toggle="popover" data-container="body" type="button" data-original-title="<%= pd.title %>" title="Phase" tabindex="0" role="button" data-trigger="focus"> Popover on left </a>
+                                <div id="collapse-phase" class="panel-collapse <%= (params[:phase_selected] == nil or params[:phase_selected] == '') ? 'collapse' : '' %>">
+                                    <div class="panel-body">
+                                        <div class="collapse-block">
+                                            <div class="collapse-block">
+												<div class="section section-002">
+													<div class="columns">
+														<div class="left-column">
+															<p><label for="lbl-027">Write in one phase per line. You may use the wildcard character *.</label></p>
+															<div class="for-example">
+																<h3>For Example:</h3>
+																<ul>
+																	<li>P01</li>
+																	<li>P02</li>
+																	<li>P1*</li>
+																</ul>
+															</div><!-- end for-example -->
+														</div><!-- end left-column -->
+														<div class="right-column">
+															<textarea name="phase" class="form-control query-text-values" cols="30" rows="10" id="lbl-027"><%= params[:phase] %></textarea>
+															<input type="hidden" class="type-selected" name="phase_selected" value="<%= (params[:phase] != nil and params[:phase] != '') ? 'in' : '' %>">
+														</div><!-- end right-column -->
+													</div><!-- end columns -->
+												</div><!-- end section -->
+											</div><!-- end collapse-context -->
+                                        </div><!-- end collapse-block -->
+                                    </div><!-- end panel-body -->
+                                </div><!-- end #collapse-phase -->
+                            </div><!-- end panel -->
+							<div class="panel">
+                                <div class="panel-heading">
+                                    <h4 class="panel-title"><a data-toggle="collapse" data-parent="#accordion2" href="#collapse-stratigraphic-group" class="<%= (params[:strat_group_selected] == nil or params[:strat_group_selected] == '') ? 'collapsed' : '' %>"><label><div class="custom-radio"><i class="<%= (params[:strat_group_selected] != nil and params[:strat_group_selected] != '') ? 'custom-radio-selected' : '' %>"></i></div> Stratigraphic Group</label></a></h4>
+                                </div>
+							<% pd = PopupDialog.find(29) %>
+                                <a class="btn btn-right" data-content="<%= pd.content %>" data-placement="left" data-toggle="popover" data-container="body" type="button" data-original-title="<%= pd.title %>" title="Stratigraphic Group" tabindex="0" role="button" data-trigger="focus"> Popover on left </a>
+                                <div id="collapse-stratigraphic-group" class="panel-collapse <%= (params[:strat_group_selected] == nil or params[:strat_group_selected] == '') ? 'collapse' : '' %>">
+                                    <div class="panel-body">
+                                        <div class="collapse-block">
+                                            <div class="collapse-block">
+												<div class="section section-002">
+													<div class="columns">
+														<div class="left-column">
+															<p><label for="lbl-027">Write in one stratigraphic group per line. You may use the wildcard character *.</label></p>
+															<div class="for-example">
+																<h3>For Example:</h3>
+																<ul>
+																	<li>SG01</li>
+																	<li>SG02</li>
+																	<li>SG1*</li>
+																</ul>
+															</div><!-- end for-example -->
+														</div><!-- end left-column -->
+														<div class="right-column">
+															<textarea name="strat_group" class="form-control query-text-values" cols="30" rows="10" id="lbl-027"><%= params[:strat_group] %></textarea>
+															<input type="hidden" class="type-selected" name="strat_group_selected" value="<%= (params[:strat_group] != nil and params[:strat_group] != '') ? 'in' : '' %>">
+														</div><!-- end right-column -->
+													</div><!-- end columns -->
+												</div><!-- end section -->
+											</div><!-- end collapse-context -->
+                                        </div><!-- end collapse-block -->
+                                    </div><!-- end panel-body -->
+                                </div><!-- end #collapse-stratigraphic-group -->
+                            </div><!-- end panel -->
+							
+							<div class="panel">
+                                <div class="panel-heading">
+                                    <h4 class="panel-title"><a data-toggle="collapse" data-parent="#accordion2" href="#collapse-unit-type" class="<%= (params[:unit_types_selected] == nil or params[:unit_types_selected] == '') ? 'collapsed' : '' %>"><label><div class="custom-radio"><i class="<%= (params[:unit_types_selected] != nil and params[:unit_types_selected] != '') ? 'custom-radio-selected' : '' %>"></i></div> Unit Type</label></a></h4>
+                                </div>
+							<% pd = PopupDialog.find(32) %>
+                                <a class="btn btn-right" data-content="<%= pd.content %>" data-placement="left" data-toggle="popover" data-container="body" type="button" data-original-title="<%= pd.title %>" title="Unit Type" tabindex="0" role="button" data-trigger="focus"> Popover on left </a>
+                                <div id="collapse-unit-type" class="panel-collapse <%= (params[:unit_types_selected] == nil or params[:unit_types_selected] == '') ? 'collapse' : '' %>">
+                                    <div class="panel-body">
+                                        <div class="collapse-block">
+											<div class="box">
+												<div class="check-block">
+													<label><input type="checkbox" onchange="checkAllWithClass(this, 'unit-types')" class="check">Select All</label>
+												</div>
+											<div class="scrollable-area"> 
+												<ul> 
+													<% items = ContextUnitType.all.order(:UnitType)%>
+													<% num = 0 %>
+													<% third = (items.size/3).to_i%>
+													<% items.each do |item| %>
+													<li> <%# debugger %>
+														<input name="unit_types[]" value="<%= item.UnitType %>" type="checkbox" id="lbl-<%= (num+=1).to_s.rjust(3,'0') %>" class="check unit-types" <%= (params[:unit_types] != nil and params[:unit_types].include? item.UnitType) ? 'checked' : '' %> /> <label for="lbl-<%= num.to_s.rjust(3,'0') %>"><%= item.UnitType %></label> 
+													</li> 
+													<% if num%(third+1) == 0 %>
+														</ul>
+														<ul>
+													<% end %>
+													<% end %>
+ 												</ul> </div><!-- end scrollable-area --></div><!-- end box -->
+															<input type="hidden" class="type-selected" name="unit_types_selected" value="<%= (params[:unit_types] != nil and params[:unit_types] != '') ? 'in' : '' %>">
+
+                                        </div><!-- end collapse-block -->
+                                    </div><!-- end panel-body -->
+                                </div><!-- end #collapse-feature-type -->
+                            </div><!-- end panel -->
+							<div class="panel">
+                                <div class="panel-heading">
+                                    <h4 class="panel-title"><a data-toggle="collapse" data-parent="#accordion2" href="#collapse-site-group" class="<%= (params[:site_selected] == nil or params[:site_selected] == '') ? 'collapsed' : '' %>"><label><div class="custom-radio"><i class="<%= (params[:site_selected] != nil and params[:site_selected] != '') ? 'custom-radio-selected' : '' %>"></i></div> Site</label></a></h4>
+                                </div>
+							<% pd = PopupDialog.find(31) %>
+                                <a class="btn btn-right" data-content="<%= pd.content %>" data-placement="left" data-toggle="popover" data-container="body" type="button" data-original-title="<%= pd.title %>" title="Site" tabindex="0" role="button" data-trigger="focus"> Popover on left </a>
+                                <div id="collapse-site-group" class="panel-collapse <%= (params[:site_selected] == nil or params[:site_selected] == '') ? 'collapse' : '' %>">
+                                    <div class="panel-body">
+                                        <div class="collapse-block">
+                                            <div class="collapse-block">
+												<div class="section section-002">
+													<div class="columns">
+														<div class="left-column">
+															<p><label for="lbl-027">Return all Site data</label></p>
+															<div class="for-example">
+
+															</div><!-- end for-example -->
+														</div><!-- end left-column -->
+														<div class="right-column">
+															<input type="hidden" class="type-selected" name="site_selected" value="<%= (params[:site_selected] != nil and params[:site_selected] != '') ? 'in' : '' %>">
+														</div><!-- end right-column -->
+													</div><!-- end columns -->
+												</div><!-- end section -->
+											</div><!-- end collapse-context -->
+                                        </div><!-- end collapse-block -->
+                                    </div><!-- end panel-body -->
+                                </div><!-- end #collapse-stratigraphic-group -->
+                            </div><!-- end panel -->
+ 							
+						</div>		
+						
+					</div>
+				</div>
+				<input type="hidden" id="subset_by" name="subset_by" value="context" />
+				</div><!-- end block -->
+			<div class="block tab-pane" id="tab-step3">
+				<div class="heading">
+					<div class="check-block">
+						<input type="checkbox" id="lbl-028" onchange="checkAll(this)" class="check" />
+						<label for="lbl-028">Select All</label>
+					</div><!-- end chech-block -->
+							<% pd = PopupDialog.find(33) %>
+					<h2><%= pd.title %><a class="btn" data-content="<%= pd.content %>" data-placement="right" data-toggle="popover" data-container="body" type="button" data-original-title="<%= pd.title %>" title="<%= pd.title %>" tabindex="0" role="button" data-trigger="focus"> Popover on left </a></h2>
+				</div><!-- end heading -->
+				<div class="section section-003">
+					<%= render :partial => 'site_selection' %>
+					<div id="query-selection">
+							<div class="query-info">
+								<h4>Query Selections</h4>
+								<table class="table table-bordered">
+									<thead>
+										<th>Step 1: Subset Data By</th>
+										<th>Step 2: Sites</th>
+									</thead>
+									<tbody>
+										<td><span id="subset_data_by_list">
+											<% if params[:context_selected] != nil and params[:context_selected] != '' %>
+											Context:
+											<% elsif params[:feature_group_selected] != nil and params[:feature_group_selected] != '' %>
+											Feature Group:
+											<% elsif params[:feature_number_selected] != nil and params[:feature_number_selected] != '' %>
+											Feature Number:
+											<% elsif params[:feature_types_selected] != nil and params[:feature_types_selected] != '' %>
+											Feature Type:
+
+											<% elsif params[:unit_types_selected] != nil and params[:unit_types_selected] != '' %>
+											Unit Type:
+											<% elsif params[:strat_group_selected] != nil and params[:strat_group_selected] != '' %>
+											Stratigraphic Group:
+											<% elsif params[:site_selected] != nil and params[:site_selected] != '' %>
+											Site
+											<% else %>
+											Context:
+											<% end %>
+											
+										</span>
+									<span id="subset_values">
+										<% if params[:context_selected] != nil and params[:context_selected] != '' %>
+										<%= params[:context] %>
+										<% elsif params[:feature_group_selected] != nil and params[:feature_group_selected] != '' %>
+										<%= params[:feature_group] %>
+										<% elsif params[:feature_number_selected] != nil and params[:feature_number_selected] != '' %>
+										<%= params[:feature_number] %>
+										<% elsif params[:strat_group_selected] != nil and params[:strat_group_selected] != '' %>
+										<%= params[:strat_group] %>
+										<% elsif params[:feature_types_selected] != nil and params[:feature_types_selected] != '' %>
+											<%= params[:feature_types].join(', ') if params[:feature_types] != nil %>
+										<% elsif params[:unit_types_selected] != nil and params[:unit_types_selected] != '' %>
+											<%= params[:unit_types].join(', ') if params[:unit_types] != nil %>
+										<% end %>											
+										
+									</span></td>
+										<td><span id="sites_contain">
+											<% if params[:sites] != nil and params[:sites] != '' %>
+											<%= params[:sites].join(', ') %>
+											<% end %>
+										</span></td>
+									</tbody>
+								</table>
+							</div>
+					</div><!-- end #query-selection -->
+
+					<div class="buttons">
+						<div class="c">
+							<div class="box">
+								<input type="reset" class="reset" value="Reset" />
+								<input type="submit" class="btn submit" value="Submit" />
+							</div><!-- end box -->
+						</div><!-- end c -->
+					</div><!-- end buttons -->
+					
+				</div><!-- end section -->
+			</div><!-- end block -->
+		</fieldset>
+		
+		
+	<!-- </form> -->
+	<% end %>
+</div><!-- end query-database -->

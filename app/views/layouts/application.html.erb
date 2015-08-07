@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>DAACS Research Consortium: <%= defined?(@page_title) != nil ? @page_title : 'Exploring Slavery in the Atlantic World' %></title>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<%= stylesheet_link_tag "application", :media => "all" %>
+  <%= javascript_include_tag "application" %>
+  <%= csrf_meta_tags %>
+  
+	<!--[if lt IE 9]>
+		<script type="text/javascript" src="js/html5.js"></script>
+		<script type="text/javascript" src="js/respond.min.js"></script>
+		<script type="text/javascript" src="js/PIE.js"></script>
+		<link rel="stylesheet" media="all" type="text/css" href="css/ie.css">
+	<![endif]-->
+	<script>
+	$(function() {	
+		// add new nested form item
+		$('#image-add').click(function (event) {
+			// alert(unsaved);
+			// $('.casing-empty-relationship').hide();
+			unsaved = true;
+		  time = new Date().getTime();
+		  regexp = new RegExp($(this).data('id'), 'g');	
+			$('#image-elements').append($(this).data('fields').replace(regexp, time).replace('_NUM_',time));
+		
+			$("select").each(function() {
+				if($(this).attr('id').indexOf("_NUM_") == -1) {
+					$(this).chosen();
+				}
+			});
+		
+			$('#new-image-alert-modal').modal();
+			customForm.customForms.replaceAll();
+			event.preventDefault();
+		});
+
+		$('#object-add').click(function (event) {
+			// alert(unsaved);
+			// $('.casing-empty-relationship').hide();
+			unsaved = true;
+		  time = new Date().getTime();
+		  regexp = new RegExp($(this).data('id'), 'g');	
+			$('#object-elements').append($(this).data('fields').replace(regexp, time).replace('_NUM_',time));
+		
+			$("select").each(function() {
+				if($(this).attr('id').indexOf("_NUM_") == -1) {
+					$(this).chosen();
+				}
+			});
+		
+			$('#new-object-alert-modal').modal();
+			customForm.customForms.replaceAll();
+			event.preventDefault();
+		});
+		
+		var content_to_remove;
+
+
+		// remove nested form
+		$('.image-delete').click(function (event) {
+			unsaved = true;
+			if(content_to_remove != null) {
+				$(content_to_remove).prev('input[type=hidden]').val('1');
+				$(content_to_remove).closest('.block').hide();
+			}
+			$('#image-alert-modal').modal('hide')
+			event.preventDefault();
+		});
+
+		// grab contents that are about to be deleted
+		$(document).on('click', '.image-delete-link', function (event) {
+			content_to_remove = this;
+		});
+
+		$('.object-delete').click(function (event) {
+			unsaved = true;
+			if(content_to_remove != null) {
+				$(content_to_remove).prev('input[type=hidden]').val('1');
+				$(content_to_remove).closest('.block').hide();
+			}
+			$('#object-alert-modal').modal('hide')
+			event.preventDefault();
+		});
+
+		// grab contents that are about to be deleted
+		$(document).on('click', '.object-delete-link', function (event) {
+			content_to_remove = this;
+		});
+		
+		<% if ['beads', 'bones', 'buckles', 'buttons', 'ceramics', 'glasses', 'gen_artifacts', 'tobacco_pipes', 'utensils', 'gen_objects', 'contexts', 'projects'].include? params[:controller] %> 
+		$('.add-image-value').click(function (event) {
+			unsaved = true;
+			$('#new-image-alert-modal').modal('hide');
+			// $('#image-button').html($('.image-choices:checked').val());
+			$('.new-image-id:last').val($('.image-choices:checked').val());
+			$.ajax({
+			  url: "<%= url_for(:action => 'image_info') %>?image_id="+$('.image-choices:checked').val(),
+			  type: "GET"
+			});
+
+			event.preventDefault();
+		});
+
+		$('.add-object-value').click(function (event) {
+			unsaved = true;
+			$('#new-object-alert-modal').modal('hide');
+			// $('#image-button').html($('.image-choices:checked').val());
+			$('.new-object-id:last').val($('.gen_object-choices:checked').val());
+			$.ajax({
+			  url: "<%= url_for(:action => 'object_info') %>?object_id="+$('.gen_object-choices:checked').val(),
+			  type: "GET"
+			});
+
+			event.preventDefault();
+		});
+		<% end %>
+		
+	});	
+	</script>
+</head>
+<body>
+	<div id="wrapper">
+		<div class="top-bar">
+			<div class="container">
+				<div class="user">
+					<span>welcome, <%= current_user.first_name if current_user != nil %> <%= current_user.last_name if current_user != nil  %></span>
+				</div><!-- user -->
+				<ul class="links">
+					<li><%= link_to'dashboard', :controller => 'homepage', :action => 'dashboard'%></li>
+					<li><a href="#">My Info</a></li>
+					<li><a href="#">Help</a></li>
+					<li><% if user_signed_in? %>
+				    <%= link_to 'Sign Out', destroy_user_session_path, :method=>'delete' %>
+				  <% else %>
+				    <%= link_to 'Login', new_user_session_path %>
+				  <% end %>
+				  </li>
+				</ul><!-- links -->
+			</div><!-- container -->
+		</div><!-- top-bar -->
+		<header>
+			<div class="container">
+				<strong class="logo"><a href="/">daacs research consortium</a></strong>
+				<nav>
+					<ul>
+						<li>
+							<a data-toggle="dropdown" class="arrow" href="#">Data Entry</a>
+							<div class="dropdown-menu" role="menu">
+								<ul>
+									<li><%= link_to 'Projects', projects_path %></li>
+									<li><%= link_to 'Contexts', contexts_path %></li>
+									<li><%= link_to 'Features', context_features_path %></li>
+									<li><%= link_to 'Gen Artifacts', gen_artifacts_path %></li>
+									<li><%= link_to 'Ceramics', ceramics_path %></li>
+								</ul>
+								<ul>
+									<li><%= link_to 'Glass Vessels', glasses_path %></li>
+									<li><%= link_to 'Beads', beads_path %></li>
+									<li><%= link_to 'Buckles', buckles_path %></li>
+									<li><%= link_to 'Buttons', buttons_path %></li>
+									<li><%= link_to 'Pipes', tobacco_pipes_path %></li>
+								</ul>
+								<ul>
+									<li><%= link_to 'Utensil', utensils_path %></li>
+									<li><%= link_to 'Faunal', bones_path %></li>
+									<li><%= link_to 'Images', images_path %></li>
+									<li><%= link_to 'Objects', gen_objects_path %></li>
+									<li><%= link_to 'Boxes', artifact_boxes_path %></li>
+								</ul>
+							</div>
+						</li>
+						<li>
+							<%= link_to 'Query the database', :controller => 'homepage', :action => 'query' %>
+						</li>
+						<li>
+							<a data-toggle="dropdown" class="arrow" href="#">tools</a>
+							<div class="dropdown-menu drop-3" role="menu">
+								<ul>
+									<li><a href="#">Organizations</a></li>
+									<% if current_user != nil and current_user.is_admin? %>
+									<li><%= link_to 'Users', users_path %></li>
+									<% end %>
+									<li><a href="#">Messages</a></li>
+									<!-- <li><a href="#">Files</a></li> -->
+									<li><a href="/homepage/files">Files/Forms</a></li>
+									<li><a href="#" data-toggle="modal" data-target="#active-users-alert-modal" >Active Users</a></li>
+								</ul>
+								<ul>
+									<li><%= link_to('My Account', edit_user_path(current_user)) if current_user != nil %></li>
+									<li><a href="/homepage/readings">Readings</a></li>
+									<li><a href="/homepage/sqlqueries">SQL Queries</a></li>
+									<% if current_user != nil and current_user.user_level > 3 %>
+									<li><a href="#">Lookup Tables</a></li>
+									<% end %>
+									<% if current_user != nil and current_user.user_level > 3 %>
+									<!-- <li><%= link_to 'Articles', articles_path %></li> -->
+									<% end %>
+								</ul>
+							</div>
+						</li>
+					</ul>
+				</nav>
+			</div><!-- container -->
+		</header><!-- header -->
+		<div class="main-area container">
+      <%= yield %>
+
+		</div><!-- main-area -->
+		<footer>
+			<div class="container">
+				<ul class="logos">
+					<li><span><a href="http://www.daacs.org/"><img class="logo-01" src="<%= asset_path('DAACS_logo.png')%> " alt="#"></a></span></li>
+					<li><span><a href="http://www.iath.virginia.edu/"><img class="logo-02" src="<%= asset_path('logo-02.png') %>" alt="#"></a></span></li>
+					<li><span><a href="http://www.monticello.org/"><img class="logo-03" src="<%= asset_path('TJF_logo.png') %>" alt="#"></a></span></li>
+					<li><span><a href="http://www.mellon.org/"><img class="logo-04" src="<%= asset_path('Mellon_logo.png') %>" alt="#"></a></span></li>
+				</ul>
+				<div class="frame">
+					<ul class="footer-nav">
+						<li><a href="#">About</a></li>
+						<li><a href="#">Project Team</a></li>
+						<li><a href="#">Partners</a></li>
+						<li><a href="#">Sponsors</a></li>
+					</ul>
+					<p class="copy">Copyright 2013 Thomas Jefferson Foundation.  This work is licensed under a Creative Commons Attribution-NoDerivs 3.0 United States License</p>
+				</div>
+			</div><!-- container -->
+		</footer><!-- footer -->
+	</div><!-- wrapper -->
+	<div class="modal fade" id="add-new" tabindex="-1" role="dialog" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content new-artifact">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+					<h4 class="modal-title">Add New Artifact</h4>
+				</div>
+				<!-- <form id="artifact-creation" action="#"> -->
+				<%= form_tag({:controller => 'contexts', :action => 'create_new_artifact'}, {:method => 'get', :id => 'artifact-creation'}) do%>
+					<fieldset>
+						<div class="modal-body">
+							<ul class="steps">
+								<li>
+									<strong class="ttl">Step 1:</strong>
+									<label for="artifact_selection">Choose artifact type</label>
+									<select name="data-type" class="form-control" id="artifact_selection" data-placeholder="--select--">
+										<option></option>
+										<option value="gen_artifacts">Gen Artifact</option>
+										<option value="ceramics">Ceramic</option>
+										<option value="glass">Glass</option>
+										<option value="bead">Bead</option>
+										<option value="buckle">Buckle</option>
+										<option value="button">Button</option>
+										<option value="pipe">Tobacco Pipe</option>
+										<option value="utensil">Utensil</option>
+										<option value="bone">Faunal</option>
+										<option value="image">Image</option>
+										<option value="object">Object</option>
+										<option value="box">Box</option>
+									</select>
+								</li>
+								<li>
+									<strong class="ttl">Step 2:</strong>
+									<label for="project_selection">Choose Project Name</label>
+									<select class="form-control" id="project_selection" data-placeholder="--select--">
+										<option></option>
+										<% if current_user != nil %>
+											<% if current_user.is_admin? %>
+												<% Project.all.includes(:project_name).references(:project_name).order('"tblProjectName"."ProjectName" asc').each do |project| %>
+													<option value="<%= project.id %>"><%= project.project_name.ProjectName %></option>
+												<% end %>
+											<% else %>
+												<% current_user.edit_projects.each do |project| %>
+													<option value="<%= project.id %>"><%= project.project_name.ProjectName %></option>
+												<% end %>
+											<% end %>
+										<% end %>
+									</select>
+								</li>
+								<li>
+									<strong class="ttl">Step 3:</strong>
+									<label for="context_selection">Choose Context Sample</label>
+									<span id="context_selection"></span>
+									<!-- <select class="form-control" id="context_selection">
+									</select> -->
+								</li>
+							</ul>
+						</div>
+						<div class="modal-footer">
+							<input type="hidden" id="complete-form" value="false">
+							<button class="btn btn-warning artifact-creation">CREATE</button>
+						</div>
+					</fieldset>
+				<% end %>
+				<!-- </form> -->
+			</div><!-- /.modal-content -->
+		</div><!-- /.modal-dialog -->
+	</div><!-- add-new -->
+	
+	<% if ['beads', 'bones', 'buckles', 'buttons', 'ceramics', 'glasses', 'gen_artifacts', 'tobacco_pipes', 'utensils', 'gen_objects', 'contexts', 'projects'].include? params[:controller] %>
+	<div class="modal alert-modal fade" id="image-alert-modal" tabindex="-1" role="dialog" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+					<h4 class="modal-title">Alert</h4>
+				</div>
+				<div class="modal-body">
+					<p class="txt">Are you sure you want to delete?</p>
+				</div>
+				<div class="modal-footer">
+					<button class="btn btn-default" data-dismiss="modal">Cancel</button>
+					<button class="btn btn-warning image-delete">Delete</button>
+				</div>
+			</div><!-- /.modal-content -->
+		</div><!-- /.modal-dialog -->
+	</div><!-- alert-modal -->
+
+	<div class="modal alert-modal fade" id="new-image-alert-modal" tabindex="-1" role="dialog" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+					<h4 class="modal-title">Images</h4>
+				</div>
+				<div class="modal-body image-query">
+					<%= render :partial => 'partials/images'%>
+				</div>
+				<div class="modal-footer">
+					<button class="btn btn-default" data-dismiss="modal">Cancel</button>
+					<button class="btn btn-warning add-image-value">Select</button>
+				</div>
+			</div><!-- /.modal-content -->
+		</div><!-- /.modal-dialog -->
+	</div><!-- alert-modal -->
+
+	<div class="modal alert-modal fade" id="object-alert-modal" tabindex="-1" role="dialog" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+					<h4 class="modal-title">Alert</h4>
+				</div>
+				<div class="modal-body">
+					<p class="txt">Are you sure you want to delete?</p>
+				</div>
+				<div class="modal-footer">
+					<button class="btn btn-default" data-dismiss="modal">Cancel</button>
+					<button class="btn btn-warning object-delete">Delete</button>
+				</div>
+			</div><!-- /.modal-content -->
+		</div><!-- /.modal-dialog -->
+	</div><!-- alert-modal -->
+
+	<div class="modal alert-modal fade" id="new-object-alert-modal" tabindex="-1" role="dialog" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+					<h4 class="modal-title">Objects</h4>
+				</div>
+				<div class="modal-body object-query">
+					<%= render :partial => 'partials/gen_objects'%>
+				</div>
+				<div class="modal-footer">
+					<button class="btn btn-default" data-dismiss="modal">Cancel</button>
+					<button class="btn btn-warning add-object-value">Select</button>
+				</div>
+			</div><!-- /.modal-content -->
+		</div><!-- /.modal-dialog -->
+	</div><!-- alert-modal -->
+	<% end %>
+
+	<div class="modal alert-modal fade" id="active-users-alert-modal" tabindex="-1" role="dialog" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+					<h4 class="modal-title">Active Users in the last hour</h4>
+				</div>
+				<div class="modal-body context-query">
+					<div class="modal-list ceramics-list">
+						<table>
+						<% User.where('last_seen_at > ?', 1.hour.ago).order(:userid).each do |user| %>
+							<tr>
+								<td>
+									<%= user.userid %>
+								</td>
+								<td>
+									<%= "#{user.first_name} #{user.last_name}" %>
+								</td>
+							</tr>
+						<% end %>
+						</table>				
+					</div>
+				</div>
+				<div class="modal-footer">
+					<button class="btn btn-default" data-dismiss="modal">Cancel</button>
+				</div>
+			</div><!-- /.modal-content -->
+		</div><!-- /.modal-dialog -->
+	</div><!-- alert-modal -->
+
+	<div class="modal alert-modal fade" id="saving-modal" tabindex="-1" role="dialog" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+						Saving Record...
+			</div><!-- /.modal-content -->
+		</div><!-- /.modal-dialog -->
+	</div><!-- alert-modal -->
+
+	<%#= javascript_include_tag 'chosen.jquery.js' %>
+	<%#= javascript_include_tag 'bootstrap.min.js' %>
+	<%#= javascript_include_tag 'custom-form.js' %>
+	<%#= javascript_include_tag 'custom-form.scrollable.js' %>
+	<%#= javascript_include_tag 'custom-form.file.js' %>
+	<%#= javascript_include_tag 'jquery.mousewheel-3.0.6.pack.js' %>
+	<%#= javascript_include_tag 'jquery.fancybox.pack.js' %>
+	<%#= javascript_include_tag 'scripts.js' %>
+	<script type="text/javascript">
+			customForm.customForms.replaceAll();
+	</script>
+	
+</body>
+</html>

@@ -1,0 +1,21 @@
+<%= form_for(@tobacco_pipe_bowl_completeness) do |f| %>
+  <% if @tobacco_pipe_bowl_completeness.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@tobacco_pipe_bowl_completeness.errors.count, "error") %> prohibited this tobacco_pipe_bowl_completeness from being saved:</h2>
+
+      <ul>
+      <% @tobacco_pipe_bowl_completeness.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :tobacco_bowl_completeness %><br />
+    <%= f.text_field :tobacco_bowl_completeness %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

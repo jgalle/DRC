@@ -1,0 +1,23 @@
+<h1>Listing bone_tooth_wears</h1>
+
+<table>
+  <tr>
+    <th>Tooth wear</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @bone_tooth_wears.each do |bone_tooth_wear| %>
+  <tr>
+    <td><%= bone_tooth_wear.tooth_wear %></td>
+    <td><%= link_to 'Show', bone_tooth_wear %></td>
+    <td><%= link_to 'Edit', edit_bone_tooth_wear_path(bone_tooth_wear) %></td>
+    <td><%= link_to 'Destroy', bone_tooth_wear, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Bone tooth wear', new_bone_tooth_wear_path %>

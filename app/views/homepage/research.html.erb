@@ -1,0 +1,17 @@
+<div class="visual">
+	<!-- <div class="frame">
+		<img src="<%= asset_path('Research_Orange.png') %>" alt="#">
+	</div> -->
+	<h1><span>Research</span></h1>
+</div><!-- visual -->
+<ul class="sponsors">
+	<% Article.all.each do |article| %>
+	<li>
+		<a href="<%= article_path(article) %>">
+			<%= image_tag(article.thumbnail, {:class=>"article-img"})%>
+			<h2><%= article.title %></h2>
+		</a>	
+		<p><%= article.summary %> <%= link_to'Read More', article_path(article)%></p>
+	</li>
+	<% end %>
+</ul><!-- sponsors -->

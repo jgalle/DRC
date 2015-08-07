@@ -1,0 +1,25 @@
+<h1>Listing gen_object_dec_patterns</h1>
+
+<table>
+  <tr>
+    <th>Object dec pattern</th>
+    <th>Object type</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @gen_object_dec_patterns.each do |gen_object_dec_pattern| %>
+  <tr>
+    <td><%= gen_object_dec_pattern.object_dec_pattern %></td>
+    <td><%= gen_object_dec_pattern.object_type_id %></td>
+    <td><%= link_to 'Show', gen_object_dec_pattern %></td>
+    <td><%= link_to 'Edit', edit_gen_object_dec_pattern_path(gen_object_dec_pattern) %></td>
+    <td><%= link_to 'Destroy', gen_object_dec_pattern, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Gen object dec pattern', new_gen_object_dec_pattern_path %>

@@ -1,0 +1,21 @@
+<%= form_for(@bone_tooth_type) do |f| %>
+  <% if @bone_tooth_type.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@bone_tooth_type.errors.count, "error") %> prohibited this bone_tooth_type from being saved:</h2>
+
+      <ul>
+      <% @bone_tooth_type.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :tooth_type %><br />
+    <%= f.text_field :tooth_type %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

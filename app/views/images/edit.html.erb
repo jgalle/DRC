@@ -1,0 +1,303 @@
+<script>
+	$(function() {
+		$('#button-record-save').click(function (event) {
+			console.log('local save');
+			// $('#active_tag').val($("ul li.active a").attr('href'));
+			$('.edit_image').submit();
+			$('.new_image').submit();
+		});
+		$('.delete-record').click(function(){
+			$.ajax({
+			  url: "/images/<%= @image.id %>",
+			  type: "DELETE",
+				statusCode: {
+				    200: function() {
+							$('#delete-alert-modal').modal('hide')
+							window.location="/images#success-deleted"
+				    }
+				  }
+			});
+		});
+		
+		$("#image_ImageTypeID").chosen().change(function() {
+			<% ImageType.all.each do |obj| %>
+				if($(this).val() == '<%= obj.ImageTypeID %>') {
+					$("#image_ImageSubtypeID").html('');;
+					$("#image_ImageSubtypeID").append('<option></option>');
+					<% ImageSubtype.where(:ImageTypeID => obj.ImageTypeID).order(:ImageSubtype).each do |mat| %>
+						$("#image_ImageSubtypeID").append('<option value="<%= mat.id %>"><%= mat.ImageSubtype %></option>');
+					<% end %>
+					$("#image_ImageFormID").html('');;
+					$("#image_ImageMaterialID").html('');;
+
+				}
+			<% end %>
+
+			$("#image_ImageSubtypeID").trigger("chosen:updated");
+			$("#image_ImageFormID").trigger("chosen:updated");
+			$("#image_ImageMaterialID").trigger("chosen:updated");
+		});
+
+		$("#image_ImageSubtypeID").chosen().change(function() {
+			<% ImageSubtype.all.each do |obj| %>
+				if($(this).val() == '<%= obj.ImageSubtypeID %>') {
+					$("#image_ImageFormID").html('');
+					$("#image_ImageFormID").append('<option></option>');
+					<% ImageForm.where(:ImageSubtypeID => obj.ImageSubtypeID).order(:ImageForm).each do |mat| %>
+						$("#image_ImageFormID").append('<option value="<%= mat.id %>"><%= raw mat.ImageForm %></option>');
+					<% end %>
+					$("#image_ImageMaterialID").html('');
+					$("#image_ImageMaterialID").append('<option></option>');
+					<% ImageMaterial.where(:ImageSubtypeID => obj.ImageSubtypeID).order(:ImageMaterial).each do |mat| %>
+						$("#image_ImageMaterialID").append('<option value="<%= mat.id %>"><%= raw mat.ImageMaterial %></option>');
+					<% end %>
+
+				}
+			<% end %>
+
+			$("#image_ImageFormID").trigger("chosen:updated");
+			$("#image_ImageMaterialID").trigger("chosen:updated");
+		});
+	});
+</script>
+<div class="page-header page-header-01">
+	<div class="frame">
+		<div class="clearfix">
+			<%= link_to 'Back to List', images_path, :class => 'back-link'%>
+		</div>
+		<% if @images_in_project != nil %>
+		<div class="paging">
+			<% if @images_in_project.index(@image) != nil %>
+			<% if @images_in_project.index(@image) < (@images_in_project.size-1) %>
+				<%= link_to 'Next', edit_image_path(@images_in_project[@images_in_project.index(@image)+1].id), {:class => 'next'}%>
+			<% end %>
+			<span class="caption"><%= @images_in_project.index(@image)+1 %> of <%= @images_in_project.size %></span>
+			<% if @images_in_project.index(@image) > 0%>
+				<%= link_to 'Previous', edit_image_path(@images_in_project[@images_in_project.index(@image)-1].id), {:class => 'prev'}%>
+			<% end %>
+			<% end %>
+		</div><!-- paging -->
+		<% end %>
+	</div><!-- frame -->
+	<h1>Image</h1>
+	<% if current_user.is_editor? %>
+	<%= link_to('Add New', new_image_path, {:class => 'add-new'})%>
+	<% end %>
+</div><!-- page-header -->
+<%= render 'layouts/messages', errors: @image.errors %>
+<div class="clearfix">
+	<%= form_for(@image, {:class => 'edit_image'}) do |f|%>
+	<input type="hidden" name="active_tag" id="active_tag">
+		<fieldset>
+			<aside id="aside">
+				<h2 class="visible-md visible-lg">Record Details</h2>
+				<% if current_user.is_editor? %>				
+				<div class="box">
+					<%= link_to('Add New record', new_image_path, {:class => 'add-new'})%>
+				</div><!-- box -->
+				<div class="box">
+					<button id="button-record-save" class="btn btn-success btn-save ie-fix"><span>Save</span></button>
+					<%= image_tag('fancybox_loading.gif', :style => 'display:none', :id => 'loading-icon') %>
+					<div class="area clearfix">
+						<% if current_user.is_admin? %>
+						<a href="#" data-toggle="modal" data-target="#delete-alert-modal" class="delete">Delete</a>
+						<% end %>
+					</div>
+				</div><!-- box -->
+				<% end %>
+				<div class="details-bar">
+					<a href="#" data-toggle="dropdown" class="open-close"></a>
+					<div class="drop dropdown-menu" role="menu">
+						<div class="info-box">
+							<dl>
+								<dt class="visible-md visible-lg">Image ID:</dt><dd class="visible-md visible-lg"><%= @image.ImageID != nil ? @image.ImageID : ' - ' %></dd>
+							</dl>
+						</div><!-- info-box -->
+						<div class="aside-accordion" id="aside-accordion">
+							<div class="panel">
+								<h2 class="visible-md visible-lg"><a class="collapsed" data-toggle="collapse" data-parent="#aside-accordion" href="#collapse-02">Cataloger Details</a></h2>
+								<div id="collapse-02" class="panel-collapse collapse">
+									<div class="details-box">
+										<dl>
+											<% user = User.where('editor_id = ?', @image.EditorIDN).first %>
+											<dt>Added By:</dt><dd><%= user != nil ? "#{(user.first_name != nil and user.first_name != '') ? user.first_name+' '+user.last_name : user.userid}" : ' - '%></dd>
+											<dt>Date Added:</dt><dd><%=h @image.DateAdded !=nil ? @image.DateAdded.strftime('%m/%d/%Y %H:%M:%S') : " - "%></dd>
+										</dl>
+										<dl>
+											<% user = User.where('editor_id = ?', @image.EditorID).first %>
+											<dt>Changed By:</dt><dd><%= user != nil ? "#{(user.first_name != nil and user.first_name != '') ? user.first_name+' '+user.last_name : user.userid}" : ' - '%></dd>
+											<dt>Date Changed:</dt><dd><%=h @image.DateChanged !=nil ? @image.DateChanged.strftime('%m/%d/%Y %H:%M:%S') : " - "%></dd>
+										</dl>
+										<div class="clearfix">
+											<a href="#" class="link">Change Log</a>
+										</div>
+									</div><!-- details-box -->
+								</div>
+							</div>
+						</div><!-- accordion -->
+					</div>
+				</div><!-- details-bar -->
+			</aside><!-- aside -->
+			<section class="tabs">
+				<ul class="nav nav-tabs">
+					<li class="active"><a href="#tab-01" data-toggle="tab">General</a></li>
+					<li><a href="#tab-02" data-toggle="tab">Projects</a></li>
+				</ul><!-- nav-tabs -->
+				<div class="tab-content">
+					<div class="tab-pane active" id="tab-01">
+						<section class="section">
+							<div class="heading">
+								<h2>General</h2>
+							</div>
+							<div class="two-columns">
+								<div class="row-area">
+									<div class="col">
+											<%= f.label('ImageTypeID', 'Image Type')%>
+											<div class="frame">
+												<%= f.collection_select('ImageTypeID', ImageType.all.order('"ImageType"'), :id, 'ImageType', {:include_blank => '--select--'}, {'data-placeholder' => '--select--', :class => 'form-control'})%>
+											</div>
+									</div>
+									<div class="col">
+										<%= f.label('ImageSubtypeID', 'Image Subtype')%>
+										<div class="frame">
+											<%= f.collection_select('ImageSubtypeID', ImageSubtype.where(:ImageTypeID => @image.ImageTypeID).order('"ImageSubtype"'), :id, 'ImageSubtype', {:include_blank => '--select--'}, {'data-placeholder' => '--select--', :class => 'form-control'})%>
+										</div>
+									</div>
+								</div><!-- row-area -->
+								<div class="row-area">
+									<div class="col">
+										<%= f.label('ImageFormID', 'Artifact Form')%>
+										<div class="frame">
+											<%= f.collection_select('ImageFormID', ImageForm.where(:ImageSubtypeID => @image.ImageSubtypeID).order('"ImageForm"'), :id, 'ImageForm', {:include_blank => '--select--'}, {'data-placeholder' => '--select--', :class => 'form-control'})%>
+										</div>
+									</div>
+									<div class="col">
+										<%= f.label('ImageMaterialID', 'Artifact Material')%>
+										<div class="frame">
+											<%= f.collection_select('ImageMaterialID', ImageMaterial.where(:ImageSubtypeID => @image.ImageSubtypeID).order('"ImageMaterial"'), :id, 'ImageMaterial', {:include_blank => '--select--'}, {'data-placeholder' => '--select--', :class => 'form-control'})%>
+										</div>
+									</div>
+									</div><!-- row-area -->
+									<div class="row-area">
+										<div class="col">
+											<%= f.label('ImageDescription', 'Image Description')%>
+											<div class="frame">
+												<%= f.text_field(:ImageDescription, {:maxlength => 50, :class => 'form-control'})%>
+											</div>
+										</div>
+										<div class="col">
+											<%= f.label('CatalogueNumber', 'Catalogue Number')%>
+											<div class="frame">
+												<%= f.text_field('CatalogueNumber', {:maxlength => 50, :class => 'form-control'})%>
+											</div>
+										</div>
+										</div><!-- row-area -->
+								<div class="row-area">
+									<div class="col">
+										<%= f.label('InstitutionID', 'Institution')%>
+										<div class="frame">
+										<%= f.collection_select('InstitutionID', ProjectInstitution.all.order('"Institution"'), :id, 'Institution', {:include_blank => '--select--'}, {'data-placeholder' => '--select--', :class => 'form-control'})%>
+										</div>
+									</div>
+									<div class="col">
+										<%= f.label('DocumentID', 'Document ID')%>
+										<div class="frame">
+											<%= f.text_field('DocumentID', {:maxlength => 11, :class => 'form-control'})%>
+										</div>
+									</div>
+								</div><!-- row-area -->
+								<div class="row-area">
+									<div class="col">
+										<%= f.label('ImageCitation', 'Image Citation')%>
+										<div class="frame">
+											<%= f.text_area('ImageCitation', {:maxlength => 500, :class => 'form-control'})%>
+										</div>
+									</div>
+									<div class="col">
+										<%= f.label('ImageFileFormatID', 'Image Format')%>
+										<div class="frame">
+											<%= f.collection_select('ImageFileFormatID', ImageFileFormat.all.order('"ImageFileFormat"'), :id, 'ImageFileFormat', {:include_blank => '--select--'}, {'data-placeholder' => '--select--', :class => 'form-control'})%>
+										</div>
+									</div>
+								</div><!-- row-area -->
+								<div class="row-area">
+									<div class="col">
+										<%= f.label('Filename')%>
+										<div class="frame">
+										
+											<%= @image.ImageFileLocation.split('/').last if @image.ImageFileLocation != nil %>
+											<%= f.file_field :photo, {:class => 'form-control'} %>
+</div>											
+										  
+												<%#= f.text_field(@image.ImageFileLocation.split('/').last, {:readonly => true, :maxlength => 254, :class => "form-control"})%>
+									</div>
+									<div class="col">
+										<%= f.label('Preview')%>
+										<div class="frame">
+											<%= link_to(image_tag(@image.ImageFileLocation, :class => 'edit-thumbnail'), @image.ImageFileLocation, 'data-toggle' => 'lightbox') %>
+										</div>
+									</div>
+								</div><!-- row-area -->
+							</div><!-- material-form -->
+						</section><!-- section -->
+					</div><!-- tab-01 -->
+					<div class="tab-pane" id="tab-02">
+						<section class="section">
+							<div class="heading">
+								<h2>Projects</h2>
+							</div>
+							<div class="one-column">
+								<div class="row-area">
+									<div class="col">
+										<%= hidden_field_tag("image[project_ids][]", nil) %>
+								        <% current_user.edit_projects.sort.each do |project| %>
+								            <label>
+												<%= check_box_tag("image[project_ids][]", project.id, project.id.in?(@image.projects.collect(&:id))) %> 
+												<%= project.ProjectID %> - <%= project.project_name.ProjectName %>
+											</label>
+								        <% end %>
+									</div>
+								</div>
+							</div>
+						</section>
+					</div>
+				</div><!-- tab-content -->
+			</section><!-- tabs -->
+		</fieldset>
+	<% end %>
+</div>
+<div class="modal alert-modal fade" id="dec-tech-alert-modal" tabindex="-1" role="dialog" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+				<h4 class="modal-title">Alert</h4>
+			</div>
+			<div class="modal-body">
+				<p class="txt">Are you sure you want to delete?</p>
+			</div>
+			<div class="modal-footer">
+				<button class="btn btn-default" data-dismiss="modal">Cancel</button>
+				<button class="btn btn-warning dec-tech-delete">Delete</button>
+			</div>
+		</div><!-- /.modal-content -->
+	</div><!-- /.modal-dialog -->
+</div><!-- alert-modal -->
+
+<div class="modal alert-modal fade" id="delete-alert-modal" tabindex="-1" role="dialog" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+				<h4 class="modal-title">Alert</h4>
+			</div>
+			<div class="modal-body">
+				<p class="txt">Are you sure you want to delete?</p>
+			</div>
+			<div class="modal-footer">
+				<button class="btn btn-default" data-dismiss="modal">Cancel</button>
+				<button class="btn btn-warning delete-record">Delete</button>
+			</div>
+		</div><!-- /.modal-content -->
+	</div><!-- /.modal-dialog -->
+</div><!-- alert-modal -->

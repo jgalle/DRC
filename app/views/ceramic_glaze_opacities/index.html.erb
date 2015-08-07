@@ -1,0 +1,23 @@
+<h1>Listing ceramic_glaze_opacities</h1>
+
+<table>
+  <tr>
+    <th>Ceramic glaze opacity</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @ceramic_glaze_opacities.each do |ceramic_glaze_opacity| %>
+  <tr>
+    <td><%= ceramic_glaze_opacity.ceramic_glaze_opacity %></td>
+    <td><%= link_to 'Show', ceramic_glaze_opacity %></td>
+    <td><%= link_to 'Edit', edit_ceramic_glaze_opacity_path(ceramic_glaze_opacity) %></td>
+    <td><%= link_to 'Destroy', ceramic_glaze_opacity, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Ceramic glaze opacity', new_ceramic_glaze_opacity_path %>

@@ -1,0 +1,30 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Meta content:</b>
+  <%= @bone_summary.meta_content %>
+</p>
+
+<p>
+  <b>Phase:</b>
+  <%= @bone_summary.phase %>
+</p>
+
+<p>
+  <b>Taxon:</b>
+  <%= @bone_summary.taxon %>
+</p>
+
+<p>
+  <b>Mniad:</b>
+  <%= @bone_summary.mniad %>
+</p>
+
+<p>
+  <b>Mnim:</b>
+  <%= @bone_summary.mnim %>
+</p>
+
+
+<%= link_to 'Edit', edit_bone_summary_path(@bone_summary) %> |
+<%= link_to 'Back', bone_summaries_path %>

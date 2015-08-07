@@ -1,0 +1,17 @@
+<%= form_for(@ceramic_sty_elem_ware) do |f| %>
+  <% if @ceramic_sty_elem_ware.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@ceramic_sty_elem_ware.errors.count, "error") %> prohibited this ceramic_sty_elem_ware from being saved:</h2>
+
+      <ul>
+      <% @ceramic_sty_elem_ware.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

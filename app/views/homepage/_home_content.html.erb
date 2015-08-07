@@ -1,0 +1,26 @@
+<section id="content">
+	<div class="feature">
+		<img src="<%= asset_path('Cover_DSF6557_v2.jpg') %>" alt="#">
+		<div class="block">
+			<div class="title">
+				<div class="frame">
+					Exploring Slavery in the Atlantic World
+				</div>
+			</div><!-- title -->
+			<p>Archaeologists are working together to share data and advance our understanding of the experience of enslaved people in the early-modern Atlantic World. The DAACS Research Consortium facilitates collaborative scholarship in the humanities and social sciences, especially in archaeology, across institutional and spatial boundaries.</p>
+			<a href="/homepage/about" class="btn btn-info ie-fix">Read More</a>
+		</div><!-- block -->
+	</div><!-- feature -->
+	<div class="featurettes row">
+		<% Article.where('position <= ?', 4).order('position').each do |article| %>
+		<div class="col-md-4">
+			<a href="<%= article_path(article) %>">
+				<%= image_tag(article.thumbnail)%>
+				<!-- <img src="<%= asset_path('img-02.jpg') %>" alt="#"> -->
+				<h3><%= article.title %></h3>
+				<p><%= article.subtitle %></p>
+			</a>
+		</div>
+		<% end %>
+	</div><!-- featurettes -->
+</section><!-- content -->

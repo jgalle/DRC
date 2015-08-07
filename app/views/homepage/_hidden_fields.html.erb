@@ -1,0 +1,226 @@
+				<input type="hidden" name="artifact_type" value="<%= params[:artifact_type] %>">
+				<input type="hidden" name="context" value="<%= params[:context] %>">
+				<input type="hidden" name="feature_number" value="<%= params[:feature_number] %>">
+				<input type="hidden" name="feature_type" value="<%= params[:feature_type] %>">
+				<input type="hidden" name="feature_group" value="<%= params[:feature_group] %>">
+				<input type="hidden" name="phase" value="<%= params[:phase] %>">
+				<input type="hidden" name="strat_group" value="<%= params[:strat_group] %>">
+				<input type="hidden" name="context_selected" value="<%= params[:context_selected] %>">
+				<input type="hidden" name="feature_number_selected" value="<%= params[:feature_number_selected] %>">
+				<input type="hidden" name="feature_types_selected" value="<%= params[:feature_types_selected] %>">
+				<input type="hidden" name="feature_group_selected" value="<%= params[:feature_group_selected] %>">
+				<input type="hidden" name="phase_selected" value="<%= params[:phase_selected] %>">
+				<input type="hidden" name="strat_group_selected" value="<%= params[:strat_group_selected] %>">
+				<input type="hidden" name="site_selected" value="<%= params[:site_selected] %>">
+				<input type="hidden" name="bead_selected" value="<%= params[:bead_selected] %>">
+				<input type="hidden" name="buckle_selected" value="<%= params[:buckle_selected] %>">
+				<input type="hidden" name="button_selected" value="<%= params[:button_selected] %>">
+				<input type="hidden" name="ceramic_selected" value="<%= params[:ceramic_selected] %>">
+				<input type="hidden" name="glass_selected" value="<%= params[:glass_selected] %>">
+				<input type="hidden" name="bone_selected" value="<%= params[:bone_selected] %>">
+				<input type="hidden" name="gen_artifact_selected" value="<%= params[:gen_artifact_selected] %>">
+				<input type="hidden" name="utensil_selected" value="<%= params[:utensil_selected] %>">
+				<input type="hidden" name="tobacco_pipe_selected" value="<%= params[:tobacco_pipe_selected] %>">
+				<input type="hidden" name="unit_types_selected" value="<%= params[:unit_types_selected] %>">
+				<input type="hidden" name="object_id" value="<%= params[:object_id] %>">
+				<input type="hidden" name="object_types_selected" value="<%= params[:object_types_selected] %>">
+				<input type="hidden" name="object_forms_selected" value="<%= params[:object_forms_selected] %>">
+				<input type="hidden" name="wares_selected" value="<%= params[:wares_selected] %>">
+				<input type="hidden" name="subtype_selected" value="<%= params[:subtype_selected] %>">
+				<input type="hidden" name="form_selected" value="<%= params[:form_selected] %>">
+				<input type="hidden" name="feature_type_selected" value="<%= params[:feature_type_selected] %>">
+				<input type="hidden" name="feature_number_selected" value="<%= params[:feature_number_selected] %>">
+				<input type="hidden" name="project_selected" value="<%= params[:project_selected] %>">
+				<input type="hidden" name="unit_type_selected" value="<%= params[:unit_type_selected] %>">
+				<input type="hidden" name="quadrat_selected" value="<%= params[:quadrat_selected] %>">
+				<input type="hidden" name="sediment_selected" value="<%= params[:sediment_selected] %>">
+				<input type="hidden" name="feature_selected" value="<%= params[:feature_selected] %>">
+				<input type="hidden" name="context_sample_selected" value="<%= params[:context_sample_selected] %>">
+				<input type="hidden" name="strat_group_selected" value="<%= params[:strat_group_selected] %>">
+				<input type="hidden" name="stp_selected" value="<%= params[:stp_selected] %>">
+				<input type="hidden" name="elevation_selected" value="<%= params[:elevation_selected] %>">
+				<input type="hidden" name="project_selected" value="<%= params[:project_selected] %>">
+				<input type="hidden" name="project" value="<%= params[:project] %>">
+				<input type="hidden" name="inst_obj_number_selected" value="<%= params[:inst_obj_number_selected] %>">
+				<input type="hidden" name="inst_obj_number" value="<%= params[:inst_obj_number] %>">
+				<% if params[:attributes] != nil %>
+					<% params[:attributes].each do |b| %>
+						<input type="hidden" name="attributes[]" value="<%= b %>">
+					<% end %>
+				<% end %>
+				<% if params[:beads] != nil %>
+					<% params[:beads].each do |b| %>
+						<input type="hidden" name="beads[]" value="<%= b %>">
+					<% end %>
+				<% end %>
+				<% if params[:buckles] != nil %>
+					<% params[:buckles].each do |b| %>
+						<input type="hidden" name="buckles[]" value="<%= b %>">
+					<% end %>
+				<% end %>
+				<% if params[:buttons] != nil %>
+					<% params[:buttons].each do |b| %>
+						<input type="hidden" name="buttons[]" value="<%= b %>">
+					<% end %>
+				<% end %>
+				<input type="hidden" name="daacs" value="<%= params[:daacs] %>">
+				<% if params[:sites] != nil %>
+					<% params[:sites].each do |site| %>
+					    <%= hidden_field_tag "sites[]", site %>
+					<% end %>
+				<% end %>
+				<% if params[:bead_fields] != nil %>
+					<% params[:bead_fields].each do |f| %>
+						<input type="hidden" name="bead_fields[]" value="<%= f %>">
+					<% end %>
+				<% end %>
+				<% if params[:bone_fields] != nil %>
+					<% params[:bone_fields].each do |f| %>
+						<input type="hidden" name="bone_fields[]" value="<%= f %>">
+					<% end %>
+				<% end %>
+				<% if params[:faunal_fields] != nil %>
+					<% params[:faunal_fields].each do |f| %>
+						<input type="hidden" name="faunal_fields[]" value="<%= f %>">
+					<% end %>
+				<% end %>
+				<% if params[:buckle_fields] != nil %>
+					<% params[:buckle_fields].each do |f| %>
+						<input type="hidden" name="buckle_fields[]" value="<%= f %>">
+					<% end %>
+				<% end %>
+				<% if params[:button_fields] != nil %>
+					<% params[:button_fields].each do |f| %>
+						<input type="hidden" name="button_fields[]" value="<%= f %>">
+					<% end %>
+				<% end %>
+				<% if params[:ceramic_fields] != nil %>
+					<% params[:ceramic_fields].each do |f| %>
+						<input type="hidden" name="ceramic_fields[]" value="<%= f %>">
+					<% end %>
+				<% end %>
+				<% if params[:ceramic_coarse_ew_fields] != nil %>
+					<% params[:ceramic_coarse_ew_fields].each do |f| %>
+						<input type="hidden" name="ceramic_coarse_ew_fields[]" value="<%= f %>">
+					<% end %>
+				<% end %>
+				<% if params[:ceramic_porcelain_fields] != nil %>
+					<% params[:ceramic_porcelain_fields].each do |f| %>
+						<input type="hidden" name="ceramic_porcelain_fields[]" value="<%= f %>">
+					<% end %>
+				<% end %>
+				<% if params[:ceramic_refined_ew_fields] != nil %>
+					<% params[:ceramic_refined_ew_fields].each do |f| %>
+						<input type="hidden" name="ceramic_refined_ew_fields[]" value="<%= f %>">
+					<% end %>
+				<% end %>
+				<% if params[:ceramic_stoneware_fields] != nil %>
+					<% params[:ceramic_stoneware_fields].each do |f| %>
+						<input type="hidden" name="ceramic_stoneware_fields[]" value="<%= f %>">
+					<% end %>
+				<% end %>
+				<% if params[:ceramic_form_fields] != nil %>
+					<% params[:ceramic_form_fields].each do |f| %>
+						<input type="hidden" name="ceramic_form_fields[]" value="<%= f %>">
+					<% end %>
+				<% end %>
+				<% if params[:glass_fields] != nil %>
+					<% params[:glass_fields].each do |f| %>
+						<input type="hidden" name="glass_fields[]" value="<%= f %>">
+					<% end %>
+				<% end %>
+				<% if params[:glass_material_fields] != nil %>
+					<% params[:glass_material_fields].each do |f| %>
+						<input type="hidden" name="glass_material_fields[]" value="<%= f %>">
+					<% end %>
+				<% end %>
+				<% if params[:glass_form_fields] != nil %>
+					<% params[:glass_form_fields].each do |f| %>
+						<input type="hidden" name="glass_form_fields[]" value="<%= f %>">
+					<% end %>
+				<% end %>
+				<% if params[:gen_artifact_fields] != nil %>
+					<% params[:gen_artifact_fields].each do |f| %>
+						<input type="hidden" name="gen_artifact_fields[]" value="<%= f %>">
+					<% end %>
+				<% end %>
+				<% if params[:gen_artifact_material_fields] != nil %>
+					<% params[:gen_artifact_material_fields].each do |f| %>
+						<input type="hidden" name="gen_artifact_material_fields[]" value="<%= f %>">
+					<% end %>
+				<% end %>
+				<% if params[:gen_artifact_form_fields] != nil %>
+					<% params[:gen_artifact_form_fields].each do |f| %>
+						<input type="hidden" name="gen_artifact_form_fields[]" value="<%= f %>">
+					<% end %>
+				<% end %>
+				<% if params[:tobacco_pipe_fields] != nil %>
+					<% params[:tobacco_pipe_fields].each do |f| %>
+						<input type="hidden" name="tobacco_pipe_fields[]" value="<%= f %>">
+					<% end %>
+				<% end %>
+				<% if params[:utensil_fields] != nil %>
+					<% params[:utensil_fields].each do |f| %>
+						<input type="hidden" name="utensil_fields[]" value="<%= f %>">
+					<% end %>
+				<% end %>
+				<% if params[:feature_types] != nil %>
+					<% params[:feature_types].each do |feature_type| %>
+					    <%= hidden_field_tag "feature_types[]", feature_type %>
+					<% end %>
+				<% end %>
+				<% if params[:unit_types] != nil %>
+					<% params[:unit_types].each do |unit_type| %>
+					    <%= hidden_field_tag "unit_types[]", unit_type %>
+					<% end %>
+				<% end %>
+				<% if params[:object_types] != nil %>
+					<% params[:object_types].each do |object_type| %>
+					    <%= hidden_field_tag "object_types[]", object_type %>
+					<% end %>
+				<% end %>
+				<% if params[:object_forms] != nil %>
+					<% params[:object_forms].each do |object_form| %>
+					    <%= hidden_field_tag "object_forms[]", object_form %>
+					<% end %>
+				<% end %>
+				<% if params[:wares] != nil %>
+					<% params[:wares].each do |ware| %>
+					    <%= hidden_field_tag "wares[]", ware %>
+					<% end %>
+				<% end %>
+				<% if params[:types] != nil %>
+					<% params[:types].each do |type| %>
+					    <%= hidden_field_tag "types[]", type %>
+					<% end %>
+				<% end %>
+				<% if params[:subtypes] != nil %>
+					<% params[:subtypes].each do |type| %>
+					    <%= hidden_field_tag "subtypes[]", type %>
+					<% end %>
+				<% end %>
+				<% if params[:forms] != nil %>
+					<% params[:forms].each do |type| %>
+					    <%= hidden_field_tag "forms[]", type %>
+					<% end %>
+				<% end %>
+				<% if params[:feature_types] != nil %>
+					<% params[:feature_types].each do |type| %>
+					    <%= hidden_field_tag "feature_types[]", type %>
+					<% end %>
+				<% end %>
+				<% if params[:feature_numbers] != nil %>
+					<% params[:feature_numbers].each do |type| %>
+					    <%= hidden_field_tag "feature_numbers[]", type %>
+					<% end %>
+				<% end %>
+				<% if params[:projects] != nil %>
+					<% params[:projects].each do |type| %>
+					    <%= hidden_field_tag "projects[]", type %>
+					<% end %>
+				<% end %>
+				<% if params[:unit_types] != nil %>
+					<% params[:unit_types].each do |type| %>
+					    <%= hidden_field_tag "unit_types[]", type %>
+					<% end %>
+				<% end %>

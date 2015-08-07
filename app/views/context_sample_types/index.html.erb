@@ -1,0 +1,23 @@
+<h1>Listing context_sample_types</h1>
+
+<table>
+  <tr>
+    <th>Sample type</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @context_sample_types.each do |context_sample_type| %>
+  <tr>
+    <td><%= context_sample_type.sample_type %></td>
+    <td><%= link_to 'Show', context_sample_type %></td>
+    <td><%= link_to 'Edit', edit_context_sample_type_path(context_sample_type) %></td>
+    <td><%= link_to 'Destroy', context_sample_type, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Context sample type', new_context_sample_type_path %>

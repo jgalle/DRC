@@ -1,0 +1,5 @@
+.select-options .item-selected a {background:#6288c8 !important;}
+.modal-dialog {width:774px !important;}
+.modal-backdrop.in {filter: alpha(opacity=0);}
+.modal-content button.close {filter: alpha(opacity=100);}
+.modal-00001 .modal-dialog {width:557px !important;}

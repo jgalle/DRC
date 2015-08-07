@@ -1,0 +1,21 @@
+<%= form_for(@button_jewel_inlay_material) do |f| %>
+  <% if @button_jewel_inlay_material.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@button_jewel_inlay_material.errors.count, "error") %> prohibited this button_jewel_inlay_material from being saved:</h2>
+
+      <ul>
+      <% @button_jewel_inlay_material.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :jewel_inlay_material %><br />
+    <%= f.text_field :jewel_inlay_material %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

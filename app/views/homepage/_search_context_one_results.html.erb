@@ -1,0 +1,42 @@
+<table class="bordered">
+  <tr>
+    <th class="cell-01a">Project Name</th>
+    <th class="cell-02">Context</th>
+    <th class="cell-03">Quadrat ID</th>
+    <th class="cell-04">Deposit Type</th>
+    <th class="cell-05">Feature Type</th>
+    <th class="cell-06">Feature Number</th>
+    <th class="cell-07">Feature Group Interpretation</th>
+    <th class="cell-08">Feature Group Number</th>
+    <th class="cell-09">Stratigraphic Group</th>
+    <th class="cell-10">Phase</th>
+    <th class="cell-11">Unit Type</th>
+    <th class="cell-12">Context Length</th>
+    <th class="cell-13">Max. Lithostratigraphic Thickness</th>
+    <th class="cell-14">Quadrat Size</th>
+    <th class="cell-15">Artifact Presence</th>
+    <th class="cell-16">Recovery Method</th>
+  </tr>
+<% @contexts.each do |context| %>
+  <tr class="holder-for-delete">
+		<td class="cell-01a"><%= context.ProjectName %></td>
+		<td class="cell-02"><%= context.Context %></td>
+		<td class="cell-02"><%= context.QuadratID %></td>
+		<td class="cell-04"><%= context.context_deposit_type != nil ? context.context_deposit_type.DepositType : '-'%></td>
+		<td class="cell-04"><%= context.context_feature_type != nil ? context.context_feature_type.FeatureType : '-'%></td>
+		<td class="cell-02"><%= context.FeatureNumber %></td>
+		<td class="cell-02"><%= context.DAACSStratigraphicGroupInterpretation %></td>
+		<td class="cell-02">?<%#= context %></td>
+		<td class="cell-02"><%= context.DAACSStratigraphicGroup %></td>
+		<td class="cell-02">?<%#= context.Phase %></td>
+		<td class="cell-04"><%= context.context_unit_type != nil ? context.context_unit_type.UnitType : '-'%></td>
+		<td class="cell-02"><%= context.ContextLength %></td>
+		<td class="cell-02"><%= context.ContextWidth %></td>
+		<td class="cell-02"><%= context.MaximumLithostratigraphicThickness %></td>
+		<td class="cell-02"><%= context.UnitSize %></td>
+		<td class="cell-02"><%= context.ArtifactPresence %></td>
+		<td class="cell-02">?<%#= context.MaximumLithostratigraphicThickness %></td>
+		
+  </tr>
+<% end %>
+</table>

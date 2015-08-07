@@ -1,0 +1,23 @@
+<h1>Listing utensil_shapes</h1>
+
+<table>
+  <tr>
+    <th>Utensil shape</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @utensil_shapes.each do |utensil_shape| %>
+  <tr>
+    <td><%= utensil_shape.utensil_shape %></td>
+    <td><%= link_to 'Show', utensil_shape %></td>
+    <td><%= link_to 'Edit', edit_utensil_shape_path(utensil_shape) %></td>
+    <td><%= link_to 'Destroy', utensil_shape, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Utensil shape', new_utensil_shape_path %>

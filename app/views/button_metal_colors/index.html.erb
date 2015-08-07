@@ -1,0 +1,23 @@
+<h1>Listing button_metal_colors</h1>
+
+<table>
+  <tr>
+    <th>Button metal color</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @button_metal_colors.each do |button_metal_color| %>
+  <tr>
+    <td><%= button_metal_color.button_metal_color %></td>
+    <td><%= link_to 'Show', button_metal_color %></td>
+    <td><%= link_to 'Edit', edit_button_metal_color_path(button_metal_color) %></td>
+    <td><%= link_to 'Destroy', button_metal_color, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Button metal color', new_button_metal_color_path %>

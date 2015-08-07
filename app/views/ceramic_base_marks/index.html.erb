@@ -1,0 +1,23 @@
+<h1>Listing ceramic_base_marks</h1>
+
+<table>
+  <tr>
+    <th>Base mark</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @ceramic_base_marks.each do |ceramic_base_mark| %>
+  <tr>
+    <td><%= ceramic_base_mark.base_mark %></td>
+    <td><%= link_to 'Show', ceramic_base_mark %></td>
+    <td><%= link_to 'Edit', edit_ceramic_base_mark_path(ceramic_base_mark) %></td>
+    <td><%= link_to 'Destroy', ceramic_base_mark, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Ceramic base mark', new_ceramic_base_mark_path %>

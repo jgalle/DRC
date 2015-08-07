@@ -1,0 +1,57 @@
+<%= form_for(@buckle_form) do |f| %>
+  <% if @buckle_form.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@buckle_form.errors.count, "error") %> prohibited this buckle_form from being saved:</h2>
+
+      <ul>
+      <% @buckle_form.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :article_id %><br />
+    <%= f.text_field :article_id %>
+  </div>
+  <div class="field">
+    <%= f.label :buckle_part_id %><br />
+    <%= f.text_field :buckle_part_id %>
+  </div>
+  <div class="field">
+    <%= f.label :buckle_material_id %><br />
+    <%= f.text_field :buckle_material_id %>
+  </div>
+  <div class="field">
+    <%= f.label :buckle_manu_tech_id %><br />
+    <%= f.text_field :buckle_manu_tech_id %>
+  </div>
+  <div class="field">
+    <%= f.label :buckle_shape_id %><br />
+    <%= f.text_field :buckle_shape_id %>
+  </div>
+  <div class="field">
+    <%= f.label :buckle_element_id %><br />
+    <%= f.text_field :buckle_element_id %>
+  </div>
+  <div class="field">
+    <%= f.label :generate_context_artifact_id %><br />
+    <%= f.text_field :generate_context_artifact_id %>
+  </div>
+  <div class="field">
+    <%= f.label :length %><br />
+    <%= f.text_field :length %>
+  </div>
+  <div class="field">
+    <%= f.label :width %><br />
+    <%= f.text_field :width %>
+  </div>
+  <div class="field">
+    <%= f.label :pin_centerpoint_measure %><br />
+    <%= f.text_field :pin_centerpoint_measure %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

@@ -1,0 +1,178 @@
+<div class="page-header page-header-002">
+	<h1>Query the Database</h1>
+	<p>Please choose the type of query you wish to use to search the database</p>
+</div><!-- page-header -->
+<div class="query-area">
+	<div class="panel-group popover-area" id="accordion">
+		<div class="panel panel-default">
+			<div class="panel-heading">
+				<h4 class="panel-title"><a data-toggle="collapse" data-parent="#accordion" href="#collapse-01">Artifact Queries</a></h4>
+			</div>
+			<div id="collapse-01" class="panel-collapse collapse in">
+				<div class="panel-body">
+					<ul>
+						<li>
+							<% pd = PopupDialog.find(1) %>
+							<%= link_to('Artifact Query 1: Basic Inventory', :action => 'aq_one') %>
+							<a class="btn" data-content="<%= pd.content %>" data-placement="bottom" data-toggle="popover" data-container="body" type="button" data-original-title="<%= pd.title %>" title="<%= pd.title %>" tabindex="0" role="button" data-trigger="focus"> Popover on left </a>
+						</li>
+						<li>
+							<% pd = PopupDialog.find(2) %>
+							<%= link_to('Artifact Query 2: Detailed Inventory', :action => 'aq_two') %>
+							<a class="btn" data-content="<%= pd.content %>" data-placement="bottom" data-toggle="popover" data-container="body" type="button" data-original-title="<%= pd.title %>" title="<%= pd.title %>" tabindex="0" role="button" data-trigger="focus"> Popover on left </a>
+						</li>
+						<li>
+							<% pd = PopupDialog.find(3) %>
+							<%= link_to('Artifact Query 3: Detailed inventory for chosen level of aggregation by site', :action => 'aq_three') %>
+							<a class="btn" data-content="<%= pd.content %>" data-placement="bottom" data-toggle="popover" data-container="body" type="button" data-original-title="<%= pd.title %>" title="<%= pd.title %>" tabindex="0" role="button" data-trigger="focus"> Popover on left </a>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+		<div class="panel panel-default">
+			<div class="panel-heading">
+				<h4 class="panel-title"><a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapse-02">Context Queries</a></h4>
+			</div>
+			<div id="collapse-02" class="panel-collapse collapse">
+				<div class="panel-body">
+					<ul>
+						<li>
+							<% pd = PopupDialog.find(4) %>
+							<%= link_to('Context Query 1: Basic Inventory', :action => 'query_context_one') %>
+							<a class="btn" data-content="<%= pd.content %>" data-placement="bottom" data-toggle="popover" data-container="body" type="button" data-original-title="<%= pd.title %>" title="<%= pd.title %>" tabindex="0" role="button" data-trigger="focus"> Popover on left </a>
+						</li>
+						<li>
+							<% pd = PopupDialog.find(5) %>
+							<%= link_to('Context Query 2: Detailed Inventory', :action => 'query_context_two') %>
+							<a class="btn" data-content="<%= pd.content %>" data-placement="bottom" data-toggle="popover" data-container="body" type="button" data-original-title="<%= pd.title %>" title="<% pd.title %>" tabindex="0" role="button" data-trigger="focus"> Popover on left </a>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+		<!-- <div class="panel panel-default">
+			<div class="panel-heading">
+				<h4 class="panel-title"><a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapse-04">Faunal Queries</a></h4>
+			</div>
+			<div id="collapse-04" class="panel-collapse collapse">
+				<div class="panel-body">
+					<ul>
+						<li>
+							<% pd = PopupDialog.find(6) %>
+							<%= link_to('Faunal Query 1: Basic Faunal Inventory by Site', :action => 'faunal_query_one') %>
+							<a class="btn" data-content="<%= pd.content %>" data-placement="bottom" data-toggle="popover" data-container="body" type="button" data-original-title="<%= pd.title %>" title="<%= pd.title %>"> Popover on left </a>
+						</li>
+						<li>
+							<% pd = PopupDialog.find(7) %>
+							<%= link_to('Faunal Query 2:', :action => 'query_faunal_two') %>
+							<a class="btn" data-content="<%= pd.content %>" data-placement="bottom" data-toggle="popover" data-container="body" type="button" data-original-title="<%= pd.title %>" title="<%= pd.title %>"> Popover on left </a>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</div> -->
+		<div class="panel panel-default">
+			<div class="panel-heading">
+				<h4 class="panel-title"><a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapse-05a">Object Queries</a></h4>
+			</div>
+			<div id="collapse-05a" class="panel-collapse collapse">
+				<div class="panel-body">
+					<ul>
+						<li>
+							<% pd = PopupDialog.find(6) %>
+							<%= link_to('Object Query 1: Basic Object Data', :action => 'query_objects') %>
+							<a class="btn" data-content="<%= pd.content %>" data-placement="bottom" data-toggle="popover" data-container="body" type="button" data-original-title="<%= pd.title %>" title="<%= pd.title %>" tabindex="0" role="button" data-trigger="focus"> Popover on left </a>
+						</li>
+						<li>
+							<% pd = PopupDialog.find(7) %>
+							<%= link_to('Object Query 2: Detailed Object Data', :action => 'query_objects_two') %>
+							<a class="btn" data-content="<%= pd.content %>" data-placement="bottom" data-toggle="popover" data-container="body" type="button" data-original-title="<%= pd.title %>" title="<%= pd.title %>" tabindex="0" role="button" data-trigger="focus"> Popover on left </a>
+						</li>
+						<li>
+							<% pd = PopupDialog.find(108) %>
+							<%= link_to('Object Query 3: ', :action => 'query_objects_three') %>
+							<a class="btn" data-content="<%= pd.content %>" data-placement="bottom" data-toggle="popover" data-container="body" type="button" data-original-title="<%= pd.title %>" title="<%= pd.title %>" tabindex="0" role="button" data-trigger="focus"> Popover on left </a>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+		<div class="panel panel-default">
+			<div class="panel-heading">
+				<h4 class="panel-title"><a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapse-05">Image Queries</a></h4>
+			</div>
+			<div id="collapse-05" class="panel-collapse collapse">
+				<div class="panel-body">
+					<ul>
+						<li>
+							<% pd = PopupDialog.find(8) %>
+							<%= link_to('Image Query 1: Image Inventory', :action => 'query_one_image') %>
+							<a class="btn" data-content="<%= pd.content %>" data-placement="bottom" data-toggle="popover" data-container="body" type="button" data-original-title="<%= pd.title %>" title="<%= pd.title %>" tabindex="0" role="button" data-trigger="focus"> Popover on left </a>
+						</li>
+						<li>
+							<% pd = PopupDialog.find(9) %>
+							<%= link_to('Image Query 2: Image Type', :action => 'query_two_image') %>
+							<a class="btn" data-content="<%= pd.content %>" data-placement="bottom" data-toggle="popover" data-container="body" type="button" data-original-title="<%= pd.title %>" title="<%= pd.title %>" tabindex="0" role="button" data-trigger="focus"> Popover on left </a>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+		<div class="panel panel-default">
+			<div class="panel-heading">
+				<h4 class="panel-title"><a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapse-06">Mean Ceramic Date</a></h4>
+			</div>
+			<div id="collapse-06" class="panel-collapse collapse">
+				<div class="panel-body">
+					<ul>
+						<li>
+							<% pd = PopupDialog.find(10) %>
+							<%= link_to('Mean Ceramic Date Query 1: Mean Ceramic Dates for contexts feature numbers, feature groups, stratigraphic groups, or phases. Choose the site(s) and the level at which you would like to group the contexts.', :action => 'mcd_one') %>
+							<a class="btn" data-content="<%= pd.content %>" data-placement="bottom" data-toggle="popover" data-container="body" type="button" data-original-title="<%= pd.title %>" title="<%= pd.title %>" tabindex="0" role="button" data-trigger="focus"> Popover on left </a>
+						</li>
+						<li>
+							<% pd = PopupDialog.find(11) %>
+							<%= link_to('Mean Ceramic Date Query 2: Ware-Type Frequencies', :action => 'mcd_two') %>
+							<a class="btn" data-content="<%= pd.content %>" data-placement="bottom" data-toggle="popover" data-container="body" type="button" data-original-title="<%= pd.title %>" title="<%= pd.title %>" tabindex="0" role="button" data-trigger="focus"> Popover on left </a>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+		<div class="panel panel-default">
+			<div class="panel-heading">
+				<h4 class="panel-title"><a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapse-07">Site Information</a></h4>
+			</div>
+			<div id="collapse-07" class="panel-collapse collapse">
+				<div class="panel-body">
+					<ul>
+						<li>
+							<% pd = PopupDialog.find(12) %>
+							<%= link_to('Site Information Query 1: Data on Sites', :action => 'query_sites') %>
+							<a class="btn" data-content="<%= pd.content %>" data-placement="bottom" data-toggle="popover" data-container="body" type="button" data-original-title="<%= pd.title %>" title="<%= pd.title %>" tabindex="0" role="button" data-trigger="focus"> Popover on left </a>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+		<% if params[:daacs] == nil or params[:daacs] == '' %>
+		<!-- <div class="panel panel-default">
+			<div class="panel-heading">
+				<h4 class="panel-title"><a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapse-08">Artifact Box</a></h4>
+			</div>
+			<div id="collapse-08" class="panel-collapse collapse">
+				<div class="panel-body">
+					<ul>
+						<li>
+							<% pd = PopupDialog.find(6) %>
+							<a href="#">Artifact Box Query 1: Artifact Box Information</a>
+							<a class="btn" data-content="<%= pd.content %>" data-placement="bottom" data-toggle="popover" data-container="body" type="button" data-original-title="<%= pd.title %>" title="<%= pd.title %>"> Popover on left </a>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</div> -->
+		<% end %>
+	</div>
+</div><!-- end query-area -->

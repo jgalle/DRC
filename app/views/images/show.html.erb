@@ -1,0 +1,45 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Image file location:</b>
+  <%= @image.image_file_location %>
+</p>
+
+<p>
+  <b>Image type:</b>
+  <%= @image.image_type_id %>
+</p>
+
+<p>
+  <b>Image description:</b>
+  <%= @image.image_description %>
+</p>
+
+<p>
+  <b>Institution:</b>
+  <%= @image.institution %>
+</p>
+
+<p>
+  <b>Catalogue number:</b>
+  <%= @image.catalogue_number %>
+</p>
+
+<p>
+  <b>Editor idn:</b>
+  <%= @image.editor_idn %>
+</p>
+
+<p>
+  <b>Date added:</b>
+  <%= @image.date_added %>
+</p>
+
+<p>
+  <b>Document:</b>
+  <%= @image.document_id %>
+</p>
+
+
+<%= link_to 'Edit', edit_image_path(@image) %> |
+<%= link_to 'Back', images_path %>

@@ -1,0 +1,17 @@
+<%= form_for(@context_elevation) do |f| %>
+  <% if @context_elevation.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@context_elevation.errors.count, "error") %> prohibited this context_elevation from being saved:</h2>
+
+      <ul>
+      <% @context_elevation.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

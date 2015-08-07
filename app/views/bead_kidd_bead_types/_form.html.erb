@@ -1,0 +1,21 @@
+<%= form_for(@bead_kidd_bead_type) do |f| %>
+  <% if @bead_kidd_bead_type.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@bead_kidd_bead_type.errors.count, "error") %> prohibited this bead_kidd_bead_type from being saved:</h2>
+
+      <ul>
+      <% @bead_kidd_bead_type.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :kidd_bead_type %><br />
+    <%= f.text_field :kidd_bead_type %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

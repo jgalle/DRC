@@ -1,0 +1,17 @@
+$('.date-sort-default').show();
+$('.date-sort-ascending').hide();
+$('.date-sort-descending').hide();
+$('.user-sort-default').show();
+$('.user-sort-ascending').hide();
+$('.user-sort-descending').hide();
+$('.subject-sort-default').hide();
+$('.subject-sort-ascending').hide();
+$('.subject-sort-descending').show();
+if ($('.date-sort-default').attr('data-all') != null) {
+	$('#message-list').html('<%= escape_javascript("#{render :partial => 'messages', :locals => {:subject_descend => true, :all_messages => true}}").html_safe %>');
+	console.log('desc all');
+} else {
+	$('#message-list').html('<%= escape_javascript("#{render :partial => 'messages', :locals => {:subject_descend => true}}").html_safe %>');
+	console.log('desc');
+}
+console.log('sorted');

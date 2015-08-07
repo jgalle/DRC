@@ -1,0 +1,23 @@
+<h1>Listing bone_fusions</h1>
+
+<table>
+  <tr>
+    <th>Bone fusion</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @bone_fusions.each do |bone_fusion| %>
+  <tr>
+    <td><%= bone_fusion.bone_fusion %></td>
+    <td><%= link_to 'Show', bone_fusion %></td>
+    <td><%= link_to 'Edit', edit_bone_fusion_path(bone_fusion) %></td>
+    <td><%= link_to 'Destroy', bone_fusion, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Bone fusion', new_bone_fusion_path %>

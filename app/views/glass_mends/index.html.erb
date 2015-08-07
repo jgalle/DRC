@@ -1,0 +1,25 @@
+<h1>Listing glass_mends</h1>
+
+<table>
+  <tr>
+    <th>Artifact</th>
+    <th>Mends to artifact</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @glass_mends.each do |glass_mend| %>
+  <tr>
+    <td><%= glass_mend.artifact_id %></td>
+    <td><%= glass_mend.mends_to_artifact_id %></td>
+    <td><%= link_to 'Show', glass_mend %></td>
+    <td><%= link_to 'Edit', edit_glass_mend_path(glass_mend) %></td>
+    <td><%= link_to 'Destroy', glass_mend, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Glass mend', new_glass_mend_path %>

@@ -1,0 +1,31 @@
+                    <div class="block <%= @decoration_colored == true ? 'colored' : '' %>">
+                      <div class="three-columns three-with-delete">
+                          <div class="row-area">
+                                <div class="col">
+																	<%= f.label('ButtonDecorationID', 'Decorative Technique')%>
+																	<%= f.collection_select('ButtonDecorationID', ButtonDecoration.all.order('"ButtonDecoration"'), :id, 'ButtonDecoration', {:include_blank => '--select--'}, {'data-placeholder' => '--select--', :class => 'form-control'})%>
+                                </div>
+                                <div class="col">
+																	<%= f.label('ButtonDecTechBasicColorID', 'Applied Color')%>
+																	<div class="clearfix">
+																		<%= f.collection_select('ButtonDecTechBasicColorID', BasicColor.all.order('"BasicColor"'), :id, 'BasicColor', {:include_blank => '--select--'}, {'data-placeholder' => '--select--', :class => 'form-control'})%>
+																	</div>
+                                </div>
+   																<%= f.hidden_field :_destroy %>
+																<a href="#" data-toggle="modal" data-target="#decoration-alert-modal" class="decoration-delete-link delete" tabindex="-1">Delete</a>
+														</div>
+	                          <div class="row-area">
+	                                <div class="col">
+																		<%= f.label('JewelInlayMaterialID', 'Jewel/Inlay Material')%>
+																		<%= f.collection_select('JewelInlayMaterialID', ButtonJewelInlayMaterial.all.order('"JewelInlayMaterial"'), :id, 'JewelInlayMaterial', {:include_blank => '--select--'}, {'data-placeholder' => '--select--', :class => 'form-control'})%>
+	                                </div>
+	                                <div class="col">
+																		<%= f.label('DecorativeMotif', 'Decorative Motif')%>
+																		<div class="clearfix">
+																			<%= f.text_area('DecorativeMotif', {:maxlength => 4000, :class => 'form-control'})%>
+																		</div>
+	                                </div>
+															</div>
+													</div>
+<div class="number" style="display:none">_NUM_</div>
+                    </div><!-- block -->

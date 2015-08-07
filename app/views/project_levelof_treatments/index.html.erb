@@ -1,0 +1,23 @@
+<h1>Listing project_levelof_treatments</h1>
+
+<table>
+  <tr>
+    <th>Levelof treatment</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @project_levelof_treatments.each do |project_levelof_treatment| %>
+  <tr>
+    <td><%= project_levelof_treatment.levelof_treatment %></td>
+    <td><%= link_to 'Show', project_levelof_treatment %></td>
+    <td><%= link_to 'Edit', edit_project_levelof_treatment_path(project_levelof_treatment) %></td>
+    <td><%= link_to 'Destroy', project_levelof_treatment, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Project levelof treatment', new_project_levelof_treatment_path %>

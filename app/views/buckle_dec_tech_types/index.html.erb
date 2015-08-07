@@ -1,0 +1,23 @@
+<h1>Listing buckle_dec_tech_types</h1>
+
+<table>
+  <tr>
+    <th>Buckle dec tech type</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @buckle_dec_tech_types.each do |buckle_dec_tech_type| %>
+  <tr>
+    <td><%= buckle_dec_tech_type.buckle_dec_tech_type %></td>
+    <td><%= link_to 'Show', buckle_dec_tech_type %></td>
+    <td><%= link_to 'Edit', edit_buckle_dec_tech_type_path(buckle_dec_tech_type) %></td>
+    <td><%= link_to 'Destroy', buckle_dec_tech_type, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Buckle dec tech type', new_buckle_dec_tech_type_path %>

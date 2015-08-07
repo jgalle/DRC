@@ -1,0 +1,25 @@
+<h1>Listing ceramic_sty_elem_individual_designs</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @ceramic_sty_elem_individual_designs.each do |ceramic_sty_elem_individual_design| %>
+      <tr>
+        <td><%= link_to 'Show', ceramic_sty_elem_individual_design %></td>
+        <td><%= link_to 'Edit', edit_ceramic_sty_elem_individual_design_path(ceramic_sty_elem_individual_design) %></td>
+        <td><%= link_to 'Destroy', ceramic_sty_elem_individual_design, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Ceramic sty elem individual design', new_ceramic_sty_elem_individual_design_path %>

@@ -1,0 +1,29 @@
+<h1>Listing glass_marks</h1>
+
+<table>
+  <tr>
+    <th>Artifact</th>
+    <th>Mark</th>
+    <th>Glass mark location</th>
+    <th>Generate context artifact</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @glass_marks.each do |glass_mark| %>
+  <tr>
+    <td><%= glass_mark.artifact_id %></td>
+    <td><%= glass_mark.mark %></td>
+    <td><%= glass_mark.glass_mark_location_id %></td>
+    <td><%= glass_mark.generate_context_artifact_id %></td>
+    <td><%= link_to 'Show', glass_mark %></td>
+    <td><%= link_to 'Edit', edit_glass_mark_path(glass_mark) %></td>
+    <td><%= link_to 'Destroy', glass_mark, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Glass mark', new_glass_mark_path %>

@@ -1,0 +1,21 @@
+<%= form_for(@image_file_format) do |f| %>
+  <% if @image_file_format.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@image_file_format.errors.count, "error") %> prohibited this image_file_format from being saved:</h2>
+
+      <ul>
+      <% @image_file_format.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :ImageFileFormat %><br>
+    <%= f.text_field :ImageFileFormat %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

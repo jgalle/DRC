@@ -1,0 +1,23 @@
+<h1>Listing utensil_materials</h1>
+
+<table>
+  <tr>
+    <th>Utensil material</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @utensil_materials.each do |utensil_material| %>
+  <tr>
+    <td><%= utensil_material.utensil_material %></td>
+    <td><%= link_to 'Show', utensil_material %></td>
+    <td><%= link_to 'Edit', edit_utensil_material_path(utensil_material) %></td>
+    <td><%= link_to 'Destroy', utensil_material, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Utensil material', new_utensil_material_path %>

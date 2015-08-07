@@ -1,0 +1,33 @@
+<%= form_for(@munsell_applied_color) do |f| %>
+  <% if @munsell_applied_color.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@munsell_applied_color.errors.count, "error") %> prohibited this munsell_applied_color from being saved:</h2>
+
+      <ul>
+      <% @munsell_applied_color.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :applied_color_written_description %><br />
+    <%= f.text_field :applied_color_written_description %>
+  </div>
+  <div class="field">
+    <%= f.label :munsell_range_applied_color %><br />
+    <%= f.text_field :munsell_range_applied_color %>
+  </div>
+  <div class="field">
+    <%= f.label :basic_color %><br />
+    <%= f.text_field :basic_color %>
+  </div>
+  <div class="field">
+    <%= f.label :color_type %><br />
+    <%= f.text_field :color_type %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

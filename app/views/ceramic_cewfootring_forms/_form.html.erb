@@ -1,0 +1,21 @@
+<%= form_for(@ceramic_cewfootring_form) do |f| %>
+  <% if @ceramic_cewfootring_form.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@ceramic_cewfootring_form.errors.count, "error") %> prohibited this ceramic_cewfootring_form from being saved:</h2>
+
+      <ul>
+      <% @ceramic_cewfootring_form.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :ceramic_cewfootring_form %><br />
+    <%= f.text_field :ceramic_cewfootring_form %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

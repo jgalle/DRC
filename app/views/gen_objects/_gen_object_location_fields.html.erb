@@ -1,0 +1,45 @@
+                    <div class="block <%= @object_location_color == true ? 'colored' : '' %>">
+                        <div class="three-columns three-with-delete">
+                            <div class="row-area">
+                                <div class="col">
+																	<%= f.label('LoanedTo', 'Loaned To')%>
+																	<%= f.text_area('LoanedTo', {:maxlength => 50, :class => 'form-control'})%>
+                                </div>
+                                <div class="col">
+																	<%= f.label('InstitutionContact', 'Institution Contact')%>
+																	<%= f.text_area('InstitutionContact', {:maxlength => 50, :class => 'form-control'})%>
+                                </div>
+                                <div class="col">
+																	<%= f.label('ExhibitName', 'Exhibit Name')%>
+																	<%= f.text_area('ExhibitName', {:maxlength => 50, :class => 'form-control'})%>
+                                </div>
+								<%= f.hidden_field :_destroy %>
+								<a href="#" data-toggle="modal" data-target="#object-location-alert-modal" class="object-location-delete-link delete" tabindex="-1">Delete</a>
+							</div>
+                            <div class="row-area">
+                                <div class="col">
+																	<%= f.label('LoanLength', 'Loan Length')%>
+																	<%= f.text_area('LoanLength', {:maxlength => 50, :class => 'form-control'})%>
+                                </div>
+                                <div class="col">
+																	<%= f.label('DateLoaned', 'Date Loaned')%>
+																	<%= f.text_area('DateLoaned', {:maxlength => 50, :class => 'form-control'})%>
+                                </div>
+                                <div class="col">
+																	<%= f.label('DateReturned', 'Date Returned')%>
+																	<%= f.text_area('DateReturned', {:maxlength => 50, :class => 'form-control'})%>
+                                </div>
+							</div>
+                            <div class="row-area">
+                                <div class="col">
+																	<%= f.label('ArtifactHandler', 'Artifact Handler')%>
+																	<%= f.text_area('ArtifactHandler', {:maxlength => 50, :class => 'form-control'})%>
+                                </div>
+                                <div class="col">
+																	<%= f.label('Notes', 'Notes')%>
+																	<%= f.text_area('Notes', { :class => 'form-control'})%>
+                                </div>
+							</div>
+                        </div><!-- selects -->
+<div class="number" style="display:none">_NUM_</div>
+                    </div><!-- block -->

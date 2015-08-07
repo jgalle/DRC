@@ -1,0 +1,57 @@
+<%= form_for(@tobacco_pipe_text_mark) do |f| %>
+  <% if @tobacco_pipe_text_mark.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@tobacco_pipe_text_mark.errors.count, "error") %> prohibited this tobacco_pipe_text_mark from being saved:</h2>
+
+      <ul>
+      <% @tobacco_pipe_text_mark.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :artifact_id %><br />
+    <%= f.text_field :artifact_id %>
+  </div>
+  <div class="field">
+    <%= f.label :text_mark_type_id %><br />
+    <%= f.text_field :text_mark_type_id %>
+  </div>
+  <div class="field">
+    <%= f.label :motif_text_location_id %><br />
+    <%= f.text_field :motif_text_location_id %>
+  </div>
+  <div class="field">
+    <%= f.label :pipe_text_frame_motif_id %><br />
+    <%= f.text_field :pipe_text_frame_motif_id %>
+  </div>
+  <div class="field">
+    <%= f.label :first_name %><br />
+    <%= f.text_field :first_name %>
+  </div>
+  <div class="field">
+    <%= f.label :last_name %><br />
+    <%= f.text_field :last_name %>
+  </div>
+  <div class="field">
+    <%= f.label :place_name %><br />
+    <%= f.text_field :place_name %>
+  </div>
+  <div class="field">
+    <%= f.label :slogan_other %><br />
+    <%= f.text_field :slogan_other %>
+  </div>
+  <div class="field">
+    <%= f.label :mark_notes %><br />
+    <%= f.text_field :mark_notes %>
+  </div>
+  <div class="field">
+    <%= f.label :generate_context_artifact_id--skip_stylesheets %><br />
+    <%= f.text_field :generate_context_artifact_id--skip_stylesheets %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

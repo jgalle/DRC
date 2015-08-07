@@ -1,0 +1,62 @@
+<table class="bordered">
+  <tr>
+    <th class="cell-01a">Project</th>
+    <th class="cell-02">Context</th>
+    <th class="cell-03">Artifact ID</th>
+    <th class="cell-04">Count</th>
+	<% params[:bead_fields].each do |f| %>
+    	<th class="cell-05"><%= f.split('|').first %></th>
+	<% end %>
+    <!-- <th class="cell-06">Manu Tech</th>
+    <th class="cell-07">Shape</th>	
+    <th class="cell-08">Color</th>
+    <th class="cell-09">Last Updated</th> -->
+  </tr>
+<% @beads.each do |artifact| %>
+  <tr class="holder-for-delete">
+		<td class="cell-01a"><%= artifact.project.project_name.ProjectName rescue '='%></td>
+		<td class="cell-02"><%= artifact.context.Context rescue '='%></td>
+		<td class="cell-03">
+			<p>
+					<%= artifact.ArtifactID %>
+			</p>
+		</td>
+		<td class="cell-04"><%= artifact.Quantity %></td>
+		<% params[:bead_fields].each do |f| %>
+			<% case f.split('|').last %>
+			<% when 'CompletenessID'%>
+	    		<td class="cell-05"><%= Completeness.find(artifact.send(f.split('|').last)).Completeness rescue '' %></td>
+			<% when 'BeadMaterialID'%>
+	    		<td class="cell-05"><%= BeadMaterial.find(artifact.send(f.split('|').last)).BeadMaterial rescue '' %></td>
+			<% when 'BeadManuTechID'%>
+	    		<td class="cell-05"><%= BeadManuTech.find(artifact.send(f.split('|').last)).BeadManuTech rescue ''%></td>
+			<% when 'StructureID'%>
+	    		<td class="cell-05"><%= BeadStructure.find(artifact.send(f.split('|').last)).Structure rescue '' %></td>
+			<% when 'BeadFormID'%>
+	    		<td class="cell-05"><%= BeadForm.find(artifact.send(f.split('|').last)).BeadForm rescue '' %></td>
+			<% when 'BeadShapeID'%>
+	    		<td class="cell-05"><%= BeadShape.find(artifact.send(f.split('|').last)).BeadShape rescue '' %></td>
+			<% when 'DiaphaneityID'%>
+	    		<td class="cell-05"><%= BeadDiaphaneity.find(artifact.send(f.split('|').last)).Diaphaneity rescue '' %></td>
+			<% when 'MendedID'%>
+	    		<td class="cell-05"><%= YesNo.find(artifact.send(f.split('|').last)).YesNo rescue '' %></td>
+			<% when 'DecorationYN'%>
+	    		<td class="cell-05"><%= YesNo.find(artifact.send(f.split('|').last)).YesNo rescue '' %></td>
+			<% when 'Burned'%>
+	    		<td class="cell-05"><%= YesNo.find(artifact.send(f.split('|').last)).YesNo rescue '' %></td>
+			<% when 'Patination'%>
+	    		<td class="cell-05"><%= YesNo.find(artifact.send(f.split('|').last)).YesNo rescue '' %></td>
+			<% when 'BeadWeatheredEroded'%>
+	    		<td class="cell-05"><%= YesNo.find(artifact.send(f.split('|').last)).YesNo rescue '' %></td>
+			<% when 'PMM'%>
+	    		<td class="cell-05"><%= YesNo.find(artifact.send(f.split('|').last)).YesNo rescue '' %></td>
+			<% when 'Images','Casting Layer Color', 'Decorative Technique' %>
+				<td class="cell-05">-</td>
+			<% else %>
+	    		<td class="cell-05"><%= artifact.send(f.split('|').last) %></td>
+			<% end %>
+		<% end %>
+		
+  </tr>
+<% end %>
+</table>

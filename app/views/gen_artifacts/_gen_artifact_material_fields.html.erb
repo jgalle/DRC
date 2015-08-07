@@ -1,0 +1,17 @@
+                    <div class="block <%= @material_colored == true ? 'colored' : '' %>">
+                        <div class="three-columns three-with-delete">
+                            <div class="row-area">
+                                <div class="col">
+																	<%= f.label('GenArtifactMaterialTypeID', 'Material')%>
+																	<%= f.collection_select('GenArtifactMaterialTypeID', GenArtifactMaterialType.all.order('"GenArtifactMaterialType"'), :id, 'GenArtifactMaterialType', {:include_blank => '--select--'}, {'data-placeholder' => '--select--', :class => 'form-control'})%>
+                                </div>
+                                <div class="col">
+																	<%= f.label('GenArtifactManuTechID', 'Manufacturing Technique')%>
+																	<%= f.collection_select('GenArtifactManuTechID', GenArtifactManuTech.all.order('"GenArtifactManuTech"'), :id, 'GenArtifactManuTech', {:include_blank => '--select--'}, {'data-placeholder' => '--select--', :class => 'form-control'})%>
+                                </div>
+								<%= f.hidden_field :_destroy %>
+								<a href="#" data-toggle="modal" data-target="#material-alert-modal" class="material-delete-link delete" tabindex="-1">Delete</a>
+							</div>
+                        </div><!-- selects -->
+<div class="number" style="display:none">_NUM_</div>
+                    </div><!-- block -->

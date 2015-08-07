@@ -1,0 +1,42 @@
+	<table class="bordered">
+	  <tr>
+		  <th>Object Image</th>
+		  <% @display_fields.each do |field| %>
+			<th class="cell-"><%= field.gsub(/([A-Z])/,' \1').gsub('I D', 'ID').gsub('D A A C S', 'DAACS') %></th>
+		  <% end %>
+	  </tr>
+	  <% @objects.each do |artifact| %>
+		  <tr>
+			  <% if params[:all] == nil %>
+			  <td>
+				  <% if GenObject.where(:ObjectID => artifact.ObjectID).first != nil %>
+					  <% GenObject.where(:ObjectID => artifact.ObjectID).first.images.each do |i| %>
+					  <% i = i.ImageFileLocation.to_s %>
+						  <% if i.split('.').last.downcase == 'pdf'%>
+						  	<%= link_to('View PDF',i, {:target => '_blank'})%>
+						<% elsif i.split('.').last.downcase == 'obj' %>
+						  <%= link_to('Download OBJ.',i, {:target => '_blank', :download => 'download.jpg'})%><br>
+						  Open and view 3D scan using <%= link_to('GLC Player', 'http://www.glc-player.net/download.php', {:target => '_blank'})%>.
+				
+						<% else %>
+						  <%= link_to(image_tag(i, {:width => '50px'}), i, 'data-toggle' => 'lightbox') %>
+						  <br>
+						  <%#= link_to('Download', :controller => 'images', :action => 'download', :id => image.ImageID)%>
+						  <%= link_to('Download',i, {:target => '_blank', :download => 'download.jpg'})%>
+						  <br>
+						 <% end %>
+					 <% end %>
+					 <% end %>
+				  </td>
+			  <% end %>
+			  <% @display_fields.each do |field| %>
+			  	<% if field != 'DecorativeTechnique' and field != 'DecorationNotes' and field != 'ObjectArtifactIDs' and field != 'ObjectDescription' and field != 'Notes'%>
+					<td class="cell-"><%= artifact.send(field) %></td>
+				<% else %>
+					<td class="wide-col cell-"><%= artifact.send(field) %></td>
+				<% end %>
+			  <% end %>
+			  
+	  	</tr>
+	  <% end %>
+	</table>

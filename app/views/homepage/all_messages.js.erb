@@ -1,0 +1,14 @@
+$('.date-sort-default').hide();
+$('.date-sort-ascending').hide();
+$('.date-sort-descending').show();
+$('.user-sort-default').show();
+$('.user-sort-ascending').hide();
+$('.user-sort-descending').hide();
+$('.subject-sort-default').show();
+$('.subject-sort-ascending').hide();
+$('.subject-sort-descending').hide();
+$('.date-sort-default').attr('data-all', true);
+$('#message-list').html('<%= escape_javascript("#{render :partial => 'messages', :locals => {:all_messages => true, :date_descend => true}}").html_safe %>');
+console.log(customForm);
+console.log('all');
+update_page();

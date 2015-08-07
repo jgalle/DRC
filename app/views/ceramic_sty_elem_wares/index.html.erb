@@ -1,0 +1,25 @@
+<h1>Listing ceramic_sty_elem_wares</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @ceramic_sty_elem_wares.each do |ceramic_sty_elem_ware| %>
+      <tr>
+        <td><%= link_to 'Show', ceramic_sty_elem_ware %></td>
+        <td><%= link_to 'Edit', edit_ceramic_sty_elem_ware_path(ceramic_sty_elem_ware) %></td>
+        <td><%= link_to 'Destroy', ceramic_sty_elem_ware, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Ceramic sty elem ware', new_ceramic_sty_elem_ware_path %>

@@ -1,0 +1,21 @@
+<%= form_for(@button_eye) do |f| %>
+  <% if @button_eye.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@button_eye.errors.count, "error") %> prohibited this button_eye from being saved:</h2>
+
+      <ul>
+      <% @button_eye.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :eye %><br />
+    <%= f.text_field :eye %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

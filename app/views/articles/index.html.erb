@@ -1,0 +1,103 @@
+<script>
+$(document).ready(function(){
+	var completeness_for_delete;
+	var id_to_delete;
+	
+	$("#list_selection input").change(function() {
+	     this.form.submit();
+	});
+	$("#list_selection select").change(function() {
+	     this.form.submit();
+	});
+	if ($('.ceramics-list .delete-tr').exists()) {
+		$('.ceramics-list .delete-tr').click(function(){
+			id_to_delete = $(this).attr('id');
+			completeness_for_delete = $(this).parents('.holder-for-delete');
+		});
+	}
+	if ($('#alert-modal').exists()) {
+		$('#alert-modal').on('hidden.bs.modal', function (e) {
+			completeness_for_delete = "";
+		})
+		$('#alert-modal .delete-list').click(function(){
+			if (completeness_for_delete) {
+				completeness_for_delete.remove();
+			}
+			$.ajax({
+			  url: "/articles/"+id_to_delete,
+			  type: "DELETE"
+			});
+			$('.alert-success').slideDown();
+			setTimeout(function(){
+				$('.alert-success').slideUp();
+			}, 3000)
+			$('#alert-modal').modal('hide')
+		});
+	}
+});
+</script>
+<div class="list-head">
+	<div class="page-header page-header-005">
+		<h1>Article List</h1>
+		<%= link_to 'New Article', new_article_path, {:class => 'add-new'} %>
+	</div><!-- page-header -->
+	<div class="alert alert-success success-deleted" style="display:none">
+		<p>Successfully deleted article! </p>
+	</div><!-- end alert -->
+</div><!-- end list-head -->
+<div class="ceramics-list">
+
+	<table>
+	  <tr>
+	    <th class="cell-02">Title</th>
+	    <th class="cell-03">Subtitle</th>
+	    <th class="cell-04">Position</th>
+	  </tr>
+
+	<% @articles.each do |article| %>
+	  <tr class="holder-for-delete">
+			<td class="cell-02">
+				<p>
+					<% if current_user.user_level > 3 %>
+						<%= link_to article.title, edit_article_path(article) %>
+					<% else %>
+						<%= article.title %>
+					<% end %>
+				</p>
+				<% if current_user.user_level > 3%>
+				<ul>
+					<li><%= link_to 'Edit', edit_article_path(article) %></li>
+					<% if current_user.user_level > 3%>
+					<li><a href="#" id="<%= article[:id] %>" data-toggle="modal" data-target="#alert-modal" class="delete-tr">Delete</a></li>
+					<% end %>
+				</ul>
+				<% end %>
+			</td>
+			<td class="cell-03"><%= article.subtitle %></td>
+	 		<td class="cell-04"><%= article.position %></td>
+	  </tr>
+	<% end %>
+	</table>
+</div>
+
+<br />
+
+<div class="modal alert-modal fade" id="alert-modal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title">Alert</h4>
+            </div>
+            <div class="modal-body">
+                <p class="txt">Are you sure you want to delete?</p>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-default" data-dismiss="modal">Cancel</button>
+                <button class="btn btn-warning delete-list">Delete</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- alert-modal -->
+
+<%#= link_to 'New Ceramic', new_ceramic_path %>

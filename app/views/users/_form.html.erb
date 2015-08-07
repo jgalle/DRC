@@ -1,0 +1,79 @@
+<script>
+	$(function() {
+		$('#user_organization_id').change(function(){
+			$.ajax({
+				url:"<%= url_for :action => 'all_projects' %>",
+				data:"id="+this.value,
+				success: function(data) {
+					$('#project_list').html(data);
+				}
+			})
+		});
+	});
+</script>
+
+<%= form_for(@user) do |f| %>
+	<table class="table">
+		<tr>
+			<td>
+				<table class="table">
+					<tr>
+						<td>
+							<%= f.label :userid %>
+							<%= f.text_field :userid %>
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<%= f.label :email %>
+							<%= f.text_field :email %>
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<%= f.label :password %>
+							<%= f.password_field :password %>
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<%= f.label :password_confirmation %>
+							<%= f.password_field :password_confirmation %>
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<%= f.label :organization %>
+							<%= f.select :organization_id, ProjectInstitution.all.map{|o| [o.institution, o.id]}, :include_blank => true, :prompt => true %>
+						</td>
+					</tr>
+				</table>
+			</td>
+			<td>
+				<table class="table">
+					<tr>
+						<td>
+							<%= f.label :permissions %>
+							<%= f.select :user_level, [1,2,3,4] %>
+						</td>
+					</tr>
+					
+					<tr>
+						<td>
+							<%= f.label :Projects %>
+							<div id="project_list">
+							<% Project.where(["institution_id = ?", @user.organization_id]).order('project_name.ProjectName').each do |project| -%>
+							    <div>
+							      <%= check_box_tag :project_ids, project.id, @user.projects.include?(project), :name => 'user[project_ids][]' -%>
+							      <%= project.project_name.project_name %>
+							    </div>
+							  <% end -%>
+							</div>
+						</td>
+					</tr>
+				</table>
+			</td>
+		</tr>
+	</table>
+	<%= f.submit %>
+<% end %>

@@ -1,0 +1,21 @@
+<%= form_for(@ceramic_completeness) do |f| %>
+  <% if @ceramic_completeness.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@ceramic_completeness.errors.count, "error") %> prohibited this ceramic_completeness from being saved:</h2>
+
+      <ul>
+      <% @ceramic_completeness.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :ceramic_completeness %><br />
+    <%= f.text_field :ceramic_completeness %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

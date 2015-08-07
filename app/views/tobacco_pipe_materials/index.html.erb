@@ -1,0 +1,23 @@
+<h1>Listing tobacco_pipe_materials</h1>
+
+<table>
+  <tr>
+    <th>Pipe material</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @tobacco_pipe_materials.each do |tobacco_pipe_material| %>
+  <tr>
+    <td><%= tobacco_pipe_material.pipe_material %></td>
+    <td><%= link_to 'Show', tobacco_pipe_material %></td>
+    <td><%= link_to 'Edit', edit_tobacco_pipe_material_path(tobacco_pipe_material) %></td>
+    <td><%= link_to 'Destroy', tobacco_pipe_material, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Tobacco pipe material', new_tobacco_pipe_material_path %>

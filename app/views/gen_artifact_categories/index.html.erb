@@ -1,0 +1,23 @@
+<h1>Listing gen_artifact_categories</h1>
+
+<table>
+  <tr>
+    <th>Gen artifact category</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @gen_artifact_categories.each do |gen_artifact_category| %>
+  <tr>
+    <td><%= gen_artifact_category.gen_artifact_category %></td>
+    <td><%= link_to 'Show', gen_artifact_category %></td>
+    <td><%= link_to 'Edit', edit_gen_artifact_category_path(gen_artifact_category) %></td>
+    <td><%= link_to 'Destroy', gen_artifact_category, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Gen artifact category', new_gen_artifact_category_path %>

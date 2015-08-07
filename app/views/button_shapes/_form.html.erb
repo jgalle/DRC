@@ -1,0 +1,21 @@
+<%= form_for(@button_shape) do |f| %>
+  <% if @button_shape.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@button_shape.errors.count, "error") %> prohibited this button_shape from being saved:</h2>
+
+      <ul>
+      <% @button_shape.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :ButtonShape %><br>
+    <%= f.text_field :ButtonShape %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

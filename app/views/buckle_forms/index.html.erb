@@ -1,0 +1,41 @@
+<h1>Listing buckle_forms</h1>
+
+<table>
+  <tr>
+    <th>Article</th>
+    <th>Buckle part</th>
+    <th>Buckle material</th>
+    <th>Buckle manu tech</th>
+    <th>Buckle shape</th>
+    <th>Buckle element</th>
+    <th>Generate context artifact</th>
+    <th>Length</th>
+    <th>Width</th>
+    <th>Pin centerpoint measure</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @buckle_forms.each do |buckle_form| %>
+  <tr>
+    <td><%= buckle_form.article_id %></td>
+    <td><%= buckle_form.buckle_part_id %></td>
+    <td><%= buckle_form.buckle_material_id %></td>
+    <td><%= buckle_form.buckle_manu_tech_id %></td>
+    <td><%= buckle_form.buckle_shape_id %></td>
+    <td><%= buckle_form.buckle_element_id %></td>
+    <td><%= buckle_form.generate_context_artifact_id %></td>
+    <td><%= buckle_form.length %></td>
+    <td><%= buckle_form.width %></td>
+    <td><%= buckle_form.pin_centerpoint_measure %></td>
+    <td><%= link_to 'Show', buckle_form %></td>
+    <td><%= link_to 'Edit', edit_buckle_form_path(buckle_form) %></td>
+    <td><%= link_to 'Destroy', buckle_form, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Buckle form', new_buckle_form_path %>

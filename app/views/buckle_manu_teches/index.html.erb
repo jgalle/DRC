@@ -1,0 +1,23 @@
+<h1>Listing buckle_manu_teches</h1>
+
+<table>
+  <tr>
+    <th>Buckle manu tech</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @buckle_manu_teches.each do |buckle_manu_tech| %>
+  <tr>
+    <td><%= buckle_manu_tech.buckle_manu_tech %></td>
+    <td><%= link_to 'Show', buckle_manu_tech %></td>
+    <td><%= link_to 'Edit', edit_buckle_manu_tech_path(buckle_manu_tech) %></td>
+    <td><%= link_to 'Destroy', buckle_manu_tech, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Buckle manu tech', new_buckle_manu_tech_path %>

@@ -1,0 +1,35 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Artifact:</b>
+  <%= @glass_bottle.artifact_id %>
+</p>
+
+<p>
+  <b>Glass bottle element:</b>
+  <%= @glass_bottle.glass_bottle_element_id %>
+</p>
+
+<p>
+  <b>Glass bottle shape:</b>
+  <%= @glass_bottle.glass_bottle_shape_id %>
+</p>
+
+<p>
+  <b>Glass bottle manu tech:</b>
+  <%= @glass_bottle.glass_bottle_manu_tech_id %>
+</p>
+
+<p>
+  <b>Glass bottle treatment:</b>
+  <%= @glass_bottle.glass_bottle_treatment_id %>
+</p>
+
+<p>
+  <b>Generate context artifact id--skip stylesheets:</b>
+  <%= @glass_bottle.generate_context_artifact_id--skip_stylesheets %>
+</p>
+
+
+<%= link_to 'Edit', edit_glass_bottle_path(@glass_bottle) %> |
+<%= link_to 'Back', glass_bottles_path %>

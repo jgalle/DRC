@@ -1,0 +1,33 @@
+<%= form_for(@bead_dec_tech) do |f| %>
+  <% if @bead_dec_tech.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@bead_dec_tech.errors.count, "error") %> prohibited this bead_dec_tech from being saved:</h2>
+
+      <ul>
+      <% @bead_dec_tech.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :artifact_id %><br />
+    <%= f.text_field :artifact_id %>
+  </div>
+  <div class="field">
+    <%= f.label :bead_decoration_id %><br />
+    <%= f.text_field :bead_decoration_id %>
+  </div>
+  <div class="field">
+    <%= f.label :mun_app_color_id %><br />
+    <%= f.text_field :mun_app_color_id %>
+  </div>
+  <div class="field">
+    <%= f.label :dec_description %><br />
+    <%= f.text_field :dec_description %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

@@ -1,0 +1,26 @@
+                    <div class="block <%= @measurement_colored == true ? 'colored' : '' %>">
+                      <div class="three-columns three-with-delete">
+                          <div class="row-area">
+                                <div class="col">
+																	<%= f.label('MeasuringDescriptionID', 'Measuring Description')%>
+																	<%= f.collection_select('MeasuringDescriptionID', BoneMeasuringDescription.all.order('"MeasuringDescription"'), :id, 'MeasuringDescription', {:include_blank => '--select--'}, {'data-placeholder' => '--select--', :class => 'form-control'})%>
+                                </div>
+                                <div class="col">
+																	<%= f.label('Measurement', 'Measurement')%>
+																	<div class="clearfix">
+																		<%= f.text_field('Measurement', {:class => 'form-control'})%>
+																	</div>
+                                </div>
+                                <div class="col">
+																	<%= f.label('Accurate', 'Accuracy?')%>
+																	<div class="clearfix">
+																		<%= f.collection_select('Accurate', BoneYesNoProbably.all.order('"YesNO"'), :id, 'YesNO', {:include_blank => '--select--'}, {'data-placeholder' => '--select--', :class => 'form-control'})%>
+																	</div>
+                                </div>
+																<%= f.hidden_field :_destroy %>
+																<a href="#" data-toggle="modal" data-target="#measurement-alert-modal" class="measurement-delete-link delete" tabindex="-1">Delete</a>
+														</div>
+													</div>
+												</div>
+<div class="number" style="display:none">_NUM_</div>
+                    </div><!-- block -->

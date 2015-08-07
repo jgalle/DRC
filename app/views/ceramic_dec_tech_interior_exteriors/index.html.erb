@@ -1,0 +1,23 @@
+<h1>Listing ceramic_dec_tech_interior_exteriors</h1>
+
+<table>
+  <tr>
+    <th>Interior exterior</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @ceramic_dec_tech_interior_exteriors.each do |ceramic_dec_tech_interior_exterior| %>
+  <tr>
+    <td><%= ceramic_dec_tech_interior_exterior.interior_exterior %></td>
+    <td><%= link_to 'Show', ceramic_dec_tech_interior_exterior %></td>
+    <td><%= link_to 'Edit', edit_ceramic_dec_tech_interior_exterior_path(ceramic_dec_tech_interior_exterior) %></td>
+    <td><%= link_to 'Destroy', ceramic_dec_tech_interior_exterior, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Ceramic dec tech interior exterior', new_ceramic_dec_tech_interior_exterior_path %>

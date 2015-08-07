@@ -1,0 +1,147 @@
+<div class="page-header page-header-004 query-database popover-area">
+	<h1>Query the Database</h1>
+	<p>Faunal Query 2a: Detailed Inventory by Context<a id="aq5-popover" class="btn what-is-this" data-content="This detailed query returns all data for a specific artifact type. You select the project and artifact type. In addition, you may choose specific context(s) or Unit Type(s) or Feature Number(s) or Feature Type (s) or Stratigraphic Group(s) or Phase(s) from which you would like to view data. Data are summarized at the context level." data-placement="right" data-toggle="popover" data-container="body" type="button" data-original-title="What Does This Query Do?" title="">What does this query do?</a></p>
+</div><!-- page-header -->
+<div class="query-database popover-area">
+	<%= form_tag({:action => 'search_faunal_context'}, {:onreset=>"setTimeout(function(){sitesContain()},100)"}) do %>
+	<!-- <form action="#" onreset="setTimeout(function(){sitesContain()},100)"> -->
+		<fieldset>
+			<div class="tabs">
+				<ul class="nav nav-tabs">
+					<li class="active"><a href="#tab-step1" data-toggle="tab">Step 1</a></li>
+					<li><a href="#tab-step2" data-toggle="tab">Step 2</a></li>
+					<li><a href="#tab-step3" data-toggle="tab">Step 3</a></li>
+				</ul><!-- end nav-tabs --> 
+				<div class="tab-content" id="query-steps">
+					<div class="block tab-pane active" id="tab-step1">
+						<div class="heading">
+							<h2>Step 1: Choose Attributes to Return</h2>
+						</div><!-- end heading -->
+						<div class="section section-001" id="artifact-attributes">
+														<div class="wrap">
+															<div class="panel-group" id="accordion">
+																<div class="panel panel-default">
+																	<div id="collapse-beads" class="panel-collapse collapse <%= (params[:buckle_fields] != nil or params[:button_fields] != nil or params[:ceramic_fields] != nil or params[:glass_fields] != nil or params[:tobacco_pipe_fields] != nil or params[:utensil_fields] != nil or params[:gen_artifact_fields] != nil) ? '' : 'in' %>">
+																		<div class="panel-body">
+																			<div class="collapse-block">
+																				<div class="check-block-container dropup">
+																					<div class="box" id="beads_attributes">
+																						<div class="check-block">
+																							<label><input type="checkbox" onchange="checkAll(this)" class="check">Select All</label>
+																						</div>
+																						<div class="scrollable-area"> 
+																	<% items = '"ProjectName", "ProjecID", "Context", "QuadratID", "DepositType", "UnitType", "FeatureType", "FeatureNumber", "Feature roup", "FeatureGroupInterpretation", "DAACSStratigraphicGroup", "DAACSStratigraphicGroupInterpretation", "DAACSPhase", "TotalCount"'%>
+																	<% items.split(', ').each do |item| %>
+																		<!-- <input name="faunal_fields[]" value="<%= item %>" type="hidden" > -->
+																	<% end %>
+																							<ul> 
+																	<% items = '"ProjectName", "ProjecID", "Context", "QuadratID", "DepositType", "UnitType", "FeatureType", "FeatureNumber", "Feature roup", "FeatureGroupInterpretation", "DAACSStratigraphicGroup", "DAACSStratigraphicGroupInterpretation", "DAACSPhase", "TotalCount", "Reliability", "TaxonEnglish", "TaxonLatin", "TaxonOrder", "TaxonCategory", "TaxonGroupCategory", "BodyPart", "Element", "Symmetry", "NISP", "BoneWeight", "BoneLocation", "BoneDescriptor", "BoneSize", "Fusion", "SexExpand", "ChewType", "ChewLocation", "FreshBreak", "ToothType", "ToothWear", "DiseaseTrauma", "Weathered?", "Burned?", "BoneCondition", "NumberCutMarks, "ButcherMethod", "ButcherLocation", "ButcherDirection", "CutType", "CutLocation", "CutDirection", "Meat WeightAdult", "Meat Weight mmature", "Notes", "Identifier", "DateIdentified", "MeasurementDescription", "Measurement", "Accurate"'%>
+																	<% num = 0 %>
+																	<% third = (items.split(', ').size/3).to_i%>
+																	<% items.split(', ').each do |item| %>
+																	<li> <%# debugger %>
+																		<input name="faunal_fields[]" value="<%= item %>" type="checkbox" id="lbl-<%= (num+=1).to_s.rjust(3,'0') %>" class="check" <%= (params[:faunal_fields] != nil and params[:faunal_fields].include? item) ? 'checked' : '' %> /> <label for="lbl-<%= num.to_s.rjust(3,'0') %>"><%= item.gsub('"','') %></label> 
+																	</li> 
+																	<% if num%(third+1) == 0 %>
+																		</ul>
+																		<ul>
+																	<% end %>
+																	<% end %>
+											 												</ul> 
+																						</div><!-- end scrollable-area -->
+																					</div><!-- end box -->
+																				</div>
+																			</div><!-- end collapse-block -->
+																		</div><!-- end panel-body -->
+																	</div><!-- end #collapse-beads -->
+																</div><!-- end panel -->
+															</div><!-- end panel-group -->
+														</div><!-- end wrap -->
+														<input type="hidden" id="artifact_type" name="artifact_type" value="context" />
+							
+						</div><!-- end section -->
+						<input type="hidden" id="artifact_type" name="artifact_type" value="beads" />
+			</div><!-- end block -->
+				<div class="block tab-pane" id="tab-step2">
+				<div class="heading">
+					<h2>STEP 2: CHOOSE ONE OR MORE CONTEXTSs</h2>
+				</div><!-- end heading -->
+				<div class="section">
+	<div class="panel-group" id="accordion2">
+		<div class="panel panel-default">
+			<div id="collapse-context" class="panel-collapse collapse <%= (((params[:feature_number] != nil and params[:feature_number] != '') or (params[:feature_types] != nil and params[:feature_types] != '') or (params[:phase] != nil and params[:phase] != '') or (params[:strat_graph] != nil and params[:strat_graph] != '') or (params[:unit_types] != nil and params[:unit_types] != '') or (params[:unit_types] != nil and params[:unit_types] != ''))) ? 'collapsed' : 'in' %> ">
+				<div class="panel-body">
+					<div class="collapse-block">
+						<div class="section section-002">
+							<div class="columns">
+								<div class="left-column">
+									<p><label for="lbl-027">Write in one Context per line. You may use the wildcard character *.</label></p>
+									<div class="for-example">
+										<h3>For Example:</h3>
+										<ul>
+											<li>747AA2</li>
+											<li>756TPS</li>
+										</ul>
+									</div><!-- end for-example -->
+								</div><!-- end left-column -->
+								<div class="right-column">
+									<textarea name="context" class="form-control" cols="30" rows="10" id="lbl-027"><%= params[:context] %></textarea>
+								</div><!-- end right-column -->
+							</div><!-- end columns -->
+						</div><!-- end section -->
+					</div><!-- end collapse-context -->
+				</div><!-- end panel-body -->
+			</div><!-- end #collapse-beads -->
+		</div><!-- end panel -->
+	</div>		
+				</div>
+				<input type="hidden" id="subset_by" name="subset_by" value="context" />
+				</div><!-- end block -->
+			<div class="block tab-pane" id="tab-step3">
+				<div class="heading">
+					<div class="check-block">
+						<input type="checkbox" id="lbl-028" onchange="checkAll(this)" class="check" />
+						<label for="lbl-028">Select All</label>
+					</div><!-- end chech-block -->
+					<h2>Step 3: Choose One or More Sites<button class="btn" data-content="A site is a spatial cluster of artifacts or other physical traces of past human activity and the surrounding sedimentary matrix. Only sites that have been investigated archaeologically are represented in the DAACS database." data-placement="right" data-toggle="popover" data-container="body" type="button" data-original-title="Help Tip" title="Help Tip"> Popover on left </button></h2>
+				</div><!-- end heading -->
+				<div class="section section-003">
+					<%= render :partial => 'site_selection' %>
+					<div id="query-selection">
+							<div class="query-info">
+								<h4>Query Selections</h4>
+								<table class="table table-bordered">
+									<thead>
+										<th>Step 1: Artifact Type &amp; Attributes</th>
+										<th>Step 2: Subset Data By</th>
+										<th>Step 3: Sites</th>
+									</thead>
+									<tbody>
+										<td>
+											Faunal:<span id="artifact_type_list">None</span>: 
+											<span id="selected-attributes">None</span>
+										</td>
+										<td>Context<span id="subset_data_by_list"></span></td>
+										<td><span id="sites_contain">None</span></td>
+									</tbody>
+								</table>
+							</div>
+					</div><!-- end #query-selection -->
+
+					<div class="buttons">
+						<div class="c">
+							<div class="box">
+								<input type="reset" class="reset" value="Reset" />
+								<input type="submit" class="btn submit" value="Submit" />
+							</div><!-- end box -->
+						</div><!-- end c -->
+					</div><!-- end buttons -->
+					
+				</div><!-- end section -->
+			</div><!-- end block -->
+		</fieldset>
+		
+		
+	<!-- </form> -->
+	<% end %>
+</div><!-- end query-database -->

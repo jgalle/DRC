@@ -1,0 +1,23 @@
+<h1>Listing gen_artifact_brick_sizes</h1>
+
+<table>
+  <tr>
+    <th>Brick size</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @gen_artifact_brick_sizes.each do |gen_artifact_brick_size| %>
+  <tr>
+    <td><%= gen_artifact_brick_size.brick_size %></td>
+    <td><%= link_to 'Show', gen_artifact_brick_size %></td>
+    <td><%= link_to 'Edit', edit_gen_artifact_brick_size_path(gen_artifact_brick_size) %></td>
+    <td><%= link_to 'Destroy', gen_artifact_brick_size, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Gen artifact brick size', new_gen_artifact_brick_size_path %>

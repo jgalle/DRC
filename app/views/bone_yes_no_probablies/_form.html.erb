@@ -1,0 +1,21 @@
+<%= form_for(@bone_yes_no_probably) do |f| %>
+  <% if @bone_yes_no_probably.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@bone_yes_no_probably.errors.count, "error") %> prohibited this bone_yes_no_probably from being saved:</h2>
+
+      <ul>
+      <% @bone_yes_no_probably.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :yes_no %><br />
+    <%= f.text_field :yes_no %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

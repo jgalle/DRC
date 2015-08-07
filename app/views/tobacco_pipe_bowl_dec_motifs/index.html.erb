@@ -1,0 +1,23 @@
+<h1>Listing tobacco_pipe_bowl_dec_motifs</h1>
+
+<table>
+  <tr>
+    <th>Tobacco bowl dec motif</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @tobacco_pipe_bowl_dec_motifs.each do |tobacco_pipe_bowl_dec_motif| %>
+  <tr>
+    <td><%= tobacco_pipe_bowl_dec_motif.tobacco_bowl_dec_motif %></td>
+    <td><%= link_to 'Show', tobacco_pipe_bowl_dec_motif %></td>
+    <td><%= link_to 'Edit', edit_tobacco_pipe_bowl_dec_motif_path(tobacco_pipe_bowl_dec_motif) %></td>
+    <td><%= link_to 'Destroy', tobacco_pipe_bowl_dec_motif, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Tobacco pipe bowl dec motif', new_tobacco_pipe_bowl_dec_motif_path %>

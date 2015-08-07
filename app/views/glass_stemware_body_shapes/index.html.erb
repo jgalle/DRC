@@ -1,0 +1,23 @@
+<h1>Listing glass_stemware_body_shapes</h1>
+
+<table>
+  <tr>
+    <th>Stemware body shape</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @glass_stemware_body_shapes.each do |glass_stemware_body_shape| %>
+  <tr>
+    <td><%= glass_stemware_body_shape.stemware_body_shape %></td>
+    <td><%= link_to 'Show', glass_stemware_body_shape %></td>
+    <td><%= link_to 'Edit', edit_glass_stemware_body_shape_path(glass_stemware_body_shape) %></td>
+    <td><%= link_to 'Destroy', glass_stemware_body_shape, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Glass stemware body shape', new_glass_stemware_body_shape_path %>

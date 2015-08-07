@@ -1,0 +1,94 @@
+                    <div class="block <%= @context_sample_colored == true ? 'colored' : '' %>">
+                        <div class="three-columns three-with-delete">
+                          <div class="row-area">
+                          </div><!-- row-area -->
+                            <div class="row-area">
+                              <div class="col">
+																<%= f.label('ContextSampleID', 'Context Sample ID')%>
+																<%= f.text_field('ContextSampleID', {:readonly => true, :class => 'form-control'})%>
+                              </div>
+                                <div class="col">
+																	<%= f.label('RecoveryMethodID', 'Recovery Method')%>
+																	<% if f.object.ContextSampleID == nil %>
+																	<%= f.collection_select('RecoveryMethodID', ContextRecoveryMethod.all.order('"RecoveryMethod"'), :id, 'RecoveryMethod', {:include_blank => '--select--'}, {'data-placeholder' => '--select--', :class => 'form-control'})%>
+																	<% else %>
+																	<%= f.hidden_field('RecoveryMethodID') %>
+																	<input disabled value= "<%= f.object.context_recovery_method.RecoveryMethod if f.object.context_recovery_method != nil %>" class="form-control">
+																	<% end %>
+                                </div>
+                                <div class="col">
+																	<%= f.label('SampleNumber', 'Sample Number')%>
+																	<% if f.object.ContextSampleID == nil %>
+																	<%= f.text_field('SampleNumber', {:class => 'form-control'})%>
+																	<% else %>
+																	<%= f.hidden_field('SampleNumber') %>
+																	<input disabled value= "<%= f.object.SampleNumber %>" class="form-control">
+																	<% end %>
+                                </div>
+															<% if f.object.generate_context_artifacts.size == 0 or current_user.is_super_admin? %>
+																<%= f.hidden_field :_destroy %>
+																<a href="#" data-toggle="modal" data-target="#context-sample-alert-modal" class="context-sample-delete-link delete" tabindex="-1">Delete</a>
+															<% end %>
+                            </div><!-- row-area -->
+                            <div class="row-area">
+                              <div class="col">
+																<%= f.label('SampleSize', 'Sample Size')%>
+																<%= f.text_field('SampleSize', {:class => 'form-control'})%>
+                              </div>
+                                <div class="col">
+																	<%= f.label('ContextSampleTypeID', 'Sample Type')%>
+																	<%= f.collection_select('ContextSampleTypeID', ContextSampleType.all.order('"ContextSampleType"'), :id, 'ContextSampleType', {:include_blank => '--select--'}, {'data-placeholder' => '--select--', :class => 'form-control'})%>
+                                </div>
+                                <div class="col">
+																	<%= f.label('ScreenSizeID', 'Screen Size')%>
+																	<%= f.collection_select('ScreenSizeID', ContextScreenSize.all.order('"ScreenSize"'), :id, 'ScreenSize', {:include_blank => '--select--'}, {'data-placeholder' => '--select--', :class => 'form-control'})%>
+                                </div>
+                            </div><!-- row-area -->
+                            <div class="row-area">
+                                <div class="col">
+																	<%= f.label('StorageBoxNumber', 'Storage Box Number')%>
+																	<%= f.text_field('StorageBoxNumber', {:class => 'form-control'})%>
+                                </div>
+                                <div class="col">
+																	<%= f.label('BoxComments', 'Box Comments')%>
+																	<%= f.text_area('BoxComments', {:class => 'form-control'})%>
+                                </div>
+                            </div><!-- row-area -->
+                        </div><!-- selects -->
+<div class="number" style="display:none">_NUM_</div>
+                    </div><!-- block -->
+					<section class="section">
+						<div class="heading">
+							<h2>Context Sample Locations</h2>
+						</div>
+						<div class="context-sample_locations">
+							<div id="context-sample-location-elements">
+							<% @context_sample_location_colored = true %><%#@f=f; debugger %>
+							<% if !defined? new_field %>
+								<%= f.fields_for :context_sample_locations do |cs| %>
+									<%= render 'context_sample_location_fields', f: cs %>
+									<% @context_sample_location_colored = @context_sample_location_colored == true ? false : true %>
+									<%# debugger %>
+								<% end %>
+								<% if @context_sample_location_colored == false %>
+									<script>
+										context_sample_location_color = false;
+									</script>
+								<% else %>
+									<script>
+										context_sample_location_color = true;
+									</script>
+								<% end %>
+							<% else %>
+							<span class="context-sample-location-empty-relationship">Click Add for new entries.</span>
+								<%#= render_new_nested_fields f, :context_sample_locations %>
+							<% end %>
+							<% @context_sample_location_colored = false %>
+							</div>
+							<div class="clearfix stylistic-before-holder">
+								<%= link_to_add_fields "Add Context Sample Location", f, :context_sample_locations, {:id=>"", :class => "btn btn-info btn-add context-sample-location-add"} %>
+								<!-- <span id="stylistic-add-measurement" class="btn btn-info btn-add">Add stylistic element</span> -->
+							</div>
+						</div><!-- stylistic-elements -->
+					</section>
+

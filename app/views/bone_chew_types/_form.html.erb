@@ -1,0 +1,21 @@
+<%= form_for(@bone_chew_type) do |f| %>
+  <% if @bone_chew_type.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@bone_chew_type.errors.count, "error") %> prohibited this bone_chew_type from being saved:</h2>
+
+      <ul>
+      <% @bone_chew_type.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :chew_type %><br />
+    <%= f.text_field :chew_type %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

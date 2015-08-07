@@ -1,0 +1,21 @@
+<%= form_for(@glass_stem_shape) do |f| %>
+  <% if @glass_stem_shape.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@glass_stem_shape.errors.count, "error") %> prohibited this glass_stem_shape from being saved:</h2>
+
+      <ul>
+      <% @glass_stem_shape.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :stem_shape %><br />
+    <%= f.text_field :stem_shape %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

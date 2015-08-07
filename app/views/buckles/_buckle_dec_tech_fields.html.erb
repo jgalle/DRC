@@ -1,0 +1,19 @@
+                    <div class="block <%= @decoration_colored == true ? 'colored' : '' %>">
+                      <div class="three-columns three-with-delete">
+                          <div class="row-area">
+                                <div class="col">
+																	<%= f.label('BuckleDecTechTypeID', 'Decorative Technique')%>
+																	<%= f.collection_select('BuckleDecTechTypeID', BuckleDecTechType.all.order('"BuckleDecTechType"'), :id, 'BuckleDecTechType', {:include_blank => '--select--'}, {'data-placeholder' => '--select--', :class => 'form-control'})%>
+                                </div>
+                                <div class="col">
+																	<%= f.label('BuckleDecMotifID', 'Decorative Motif')%>
+																	<div class="clearfix">
+																		<%= f.collection_select('BuckleDecMotifID', BuckleDecMotif.all.order('"BuckleDecMotif"'), :id, 'BuckleDecMotif', {:include_blank => '--select--'}, {'data-placeholder' => '--select--', :class => 'form-control'})%>
+																	</div>
+                                </div>
+   																<%= f.hidden_field :_destroy %>
+																<a href="#" data-toggle="modal" data-target="#decoration-alert-modal" class="decoration-delete-link delete" tabindex="-1">Delete</a>
+														</div>
+													</div>
+<div class="number" style="display:none">_NUM_</div>
+                    </div><!-- block -->

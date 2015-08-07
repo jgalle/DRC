@@ -1,0 +1,21 @@
+<%= form_for(@glass_stemware_foot_shape) do |f| %>
+  <% if @glass_stemware_foot_shape.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@glass_stemware_foot_shape.errors.count, "error") %> prohibited this glass_stemware_foot_shape from being saved:</h2>
+
+      <ul>
+      <% @glass_stemware_foot_shape.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :stemware_foot_shape %><br />
+    <%= f.text_field :stemware_foot_shape %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

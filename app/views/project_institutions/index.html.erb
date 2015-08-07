@@ -1,0 +1,23 @@
+<h1>Listing project_institutions</h1>
+
+<table>
+  <tr>
+    <th>Institution</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @project_institutions.each do |project_institution| %>
+  <tr>
+    <td><%= project_institution.institution %></td>
+    <td><%= link_to 'Show', project_institution %></td>
+    <td><%= link_to 'Edit', edit_project_institution_path(project_institution) %></td>
+    <td><%= link_to 'Destroy', project_institution, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Project institution', new_project_institution_path %>

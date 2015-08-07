@@ -1,0 +1,41 @@
+                    <div class="block <%= @specific_colored == true ? 'colored' : '' %>">
+                        <div class="three-columns three-with-delete">
+                            <div class="row-area">
+                                <div class="col">
+																	<%= f.label('UtensilPartID', 'Part')%>
+																	<%= f.collection_select('UtensilPartID', UtensilPart.all.order('"UtensilPart"'), :id, 'UtensilPart', {:include_blank => '--select--'}, {'data-placeholder' => '--select--', :class => 'form-control'})%>
+                                </div>
+                                <div class="col">
+																	<%= f.label('UtensilShapeID', 'Shape')%>
+																	<%= f.collection_select('UtensilShapeID', UtensilShape.all.order('"UtensilShape"'), :id, 'UtensilShape', {:include_blank => '--select--'}, {'data-placeholder' => '--select--', :class => 'form-control'})%>
+                                </div>
+                                <div class="col">
+																	<%= f.label('UtensilManuTechID', 'Manufacturing Technique')%>
+																	<%= f.collection_select('UtensilManuTechID', UtensilManuTech.all.order('"UtensilManuTech"'), :id, 'UtensilManuTech', {:include_blank => '--select--'}, {'data-placeholder' => '--select--', :class => 'form-control'})%>
+                                </div>
+																<%= f.hidden_field :_destroy %>
+																<a href="#" data-toggle="modal" data-target="#specific-alert-modal" class="specific-delete-link delete" tabindex="-1">Delete</a>
+														</div>
+                            <div class="row-area">
+                                <div class="col">
+																	<%= f.label('UtensilMaterialID', 'Material')%>
+																	<%= f.collection_select('UtensilMaterialID', UtensilMaterial.all.order('"UtensilMaterial"'), :id, 'UtensilMaterial', {:include_blank => '--select--'}, {'data-placeholder' => '--select--', :class => 'form-control'})%>
+                                </div>
+                                <div class="col">
+																	<%= f.label('PartLength', 'Length (mm)')%>
+																	<%= f.text_field('PartLength', {:class => 'form-control'})%>
+                                </div>
+                                <div class="col">
+																	<%= f.label('PartWidth', 'Width (mm)')%>
+																	<%= f.text_field('PartWidth', {:class => 'form-control'})%>
+                                </div>
+															</div>
+	                            <div class="row-area">
+	                                <div class="col">
+																		<%= f.label('PartHeight', 'Height (mm)')%>
+																		<%= f.text_field('PartHeight', {:class => 'form-control'})%>
+	                                </div>
+																</div>
+                        </div><!-- selects -->
+<div class="number" style="display:none">_NUM_</div>
+                    </div><!-- block -->

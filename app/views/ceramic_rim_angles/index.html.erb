@@ -1,0 +1,23 @@
+<h1>Listing ceramic_rim_angles</h1>
+
+<table>
+  <tr>
+    <th>Rim angle</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @ceramic_rim_angles.each do |ceramic_rim_angle| %>
+  <tr>
+    <td><%= ceramic_rim_angle.rim_angle %></td>
+    <td><%= link_to 'Show', ceramic_rim_angle %></td>
+    <td><%= link_to 'Edit', edit_ceramic_rim_angle_path(ceramic_rim_angle) %></td>
+    <td><%= link_to 'Destroy', ceramic_rim_angle, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Ceramic rim angle', new_ceramic_rim_angle_path %>

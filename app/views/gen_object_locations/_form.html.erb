@@ -1,0 +1,53 @@
+<%= form_for(@gen_object_location) do |f| %>
+  <% if @gen_object_location.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@gen_object_location.errors.count, "error") %> prohibited this gen_object_location from being saved:</h2>
+
+      <ul>
+      <% @gen_object_location.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :object_id %><br />
+    <%= f.text_field :object_id %>
+  </div>
+  <div class="field">
+    <%= f.label :loaned_to %><br />
+    <%= f.text_field :loaned_to %>
+  </div>
+  <div class="field">
+    <%= f.label :institution_contact %><br />
+    <%= f.text_field :institution_contact %>
+  </div>
+  <div class="field">
+    <%= f.label :exhibit_name %><br />
+    <%= f.text_field :exhibit_name %>
+  </div>
+  <div class="field">
+    <%= f.label :date_loaned %><br />
+    <%= f.text_field :date_loaned %>
+  </div>
+  <div class="field">
+    <%= f.label :date_returned %><br />
+    <%= f.text_field :date_returned %>
+  </div>
+  <div class="field">
+    <%= f.label :artifact_handler %><br />
+    <%= f.text_field :artifact_handler %>
+  </div>
+  <div class="field">
+    <%= f.label :notes %><br />
+    <%= f.text_field :notes %>
+  </div>
+  <div class="field">
+    <%= f.label :loan_length %><br />
+    <%= f.text_field :loan_length %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

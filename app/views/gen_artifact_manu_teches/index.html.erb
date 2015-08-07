@@ -1,0 +1,23 @@
+<h1>Listing gen_artifact_manu_teches</h1>
+
+<table>
+  <tr>
+    <th>Gen artifact manu tech</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @gen_artifact_manu_teches.each do |gen_artifact_manu_tech| %>
+  <tr>
+    <td><%= gen_artifact_manu_tech.gen_artifact_manu_tech %></td>
+    <td><%= link_to 'Show', gen_artifact_manu_tech %></td>
+    <td><%= link_to 'Edit', edit_gen_artifact_manu_tech_path(gen_artifact_manu_tech) %></td>
+    <td><%= link_to 'Destroy', gen_artifact_manu_tech, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Gen artifact manu tech', new_gen_artifact_manu_tech_path %>

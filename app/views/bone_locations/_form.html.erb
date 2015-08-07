@@ -1,0 +1,21 @@
+<%= form_for(@bone_location) do |f| %>
+  <% if @bone_location.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@bone_location.errors.count, "error") %> prohibited this bone_location from being saved:</h2>
+
+      <ul>
+      <% @bone_location.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :bone_location %><br />
+    <%= f.text_field :bone_location %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

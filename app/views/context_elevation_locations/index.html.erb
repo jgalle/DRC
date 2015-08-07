@@ -1,0 +1,23 @@
+<h1>Listing context_elevation_locations</h1>
+
+<table>
+  <tr>
+    <th>Context elevation loc</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @context_elevation_locations.each do |context_elevation_location| %>
+  <tr>
+    <td><%= context_elevation_location.context_elevation_loc %></td>
+    <td><%= link_to 'Show', context_elevation_location %></td>
+    <td><%= link_to 'Edit', edit_context_elevation_location_path(context_elevation_location) %></td>
+    <td><%= link_to 'Destroy', context_elevation_location, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Context elevation location', new_context_elevation_location_path %>

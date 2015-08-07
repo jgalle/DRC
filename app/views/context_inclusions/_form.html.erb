@@ -1,0 +1,37 @@
+<%= form_for(@context_inclusion) do |f| %>
+  <% if @context_inclusion.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@context_inclusion.errors.count, "error") %> prohibited this context_inclusion from being saved:</h2>
+
+      <ul>
+      <% @context_inclusion.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :context_id %><br />
+    <%= f.text_field :context_id %>
+  </div>
+  <div class="field">
+    <%= f.label :inclusion_description_id %><br />
+    <%= f.text_field :inclusion_description_id %>
+  </div>
+  <div class="field">
+    <%= f.label :inclusion_side_id %><br />
+    <%= f.text_field :inclusion_side_id %>
+  </div>
+  <div class="field">
+    <%= f.label :rank_order %><br />
+    <%= f.text_field :rank_order %>
+  </div>
+  <div class="field">
+    <%= f.label :percentage_id %><br />
+    <%= f.text_field :percentage_id %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

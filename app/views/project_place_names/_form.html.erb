@@ -1,0 +1,21 @@
+<%= form_for(@project_place_name) do |f| %>
+  <% if @project_place_name.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@project_place_name.errors.count, "error") %> prohibited this project_place_name from being saved:</h2>
+
+      <ul>
+      <% @project_place_name.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :place_name %><br />
+    <%= f.text_field :place_name %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

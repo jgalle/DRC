@@ -1,0 +1,21 @@
+<%= form_for(@ceramic_dec_tech_interior_exterior) do |f| %>
+  <% if @ceramic_dec_tech_interior_exterior.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@ceramic_dec_tech_interior_exterior.errors.count, "error") %> prohibited this ceramic_dec_tech_interior_exterior from being saved:</h2>
+
+      <ul>
+      <% @ceramic_dec_tech_interior_exterior.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :interior_exterior %><br />
+    <%= f.text_field :interior_exterior %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

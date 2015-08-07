@@ -1,0 +1,29 @@
+<h1>Listing munsell_applied_colors</h1>
+
+<table>
+  <tr>
+    <th>Applied color written description</th>
+    <th>Munsell range applied color</th>
+    <th>Basic color</th>
+    <th>Color type</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @munsell_applied_colors.each do |munsell_applied_color| %>
+  <tr>
+    <td><%= munsell_applied_color.applied_color_written_description %></td>
+    <td><%= munsell_applied_color.munsell_range_applied_color %></td>
+    <td><%= munsell_applied_color.basic_color %></td>
+    <td><%= munsell_applied_color.color_type %></td>
+    <td><%= link_to 'Show', munsell_applied_color %></td>
+    <td><%= link_to 'Edit', edit_munsell_applied_color_path(munsell_applied_color) %></td>
+    <td><%= link_to 'Destroy', munsell_applied_color, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Munsell applied color', new_munsell_applied_color_path %>

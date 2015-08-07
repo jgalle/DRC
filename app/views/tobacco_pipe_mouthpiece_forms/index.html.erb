@@ -1,0 +1,23 @@
+<h1>Listing tobacco_pipe_mouthpiece_forms</h1>
+
+<table>
+  <tr>
+    <th>Mouthpiece form</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @tobacco_pipe_mouthpiece_forms.each do |tobacco_pipe_mouthpiece_form| %>
+  <tr>
+    <td><%= tobacco_pipe_mouthpiece_form.mouthpiece_form %></td>
+    <td><%= link_to 'Show', tobacco_pipe_mouthpiece_form %></td>
+    <td><%= link_to 'Edit', edit_tobacco_pipe_mouthpiece_form_path(tobacco_pipe_mouthpiece_form) %></td>
+    <td><%= link_to 'Destroy', tobacco_pipe_mouthpiece_form, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Tobacco pipe mouthpiece form', new_tobacco_pipe_mouthpiece_form_path %>

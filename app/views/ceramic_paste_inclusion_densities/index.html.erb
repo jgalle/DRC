@@ -1,0 +1,23 @@
+<h1>Listing ceramic_paste_inclusion_densities</h1>
+
+<table>
+  <tr>
+    <th>Paste inclusion density</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @ceramic_paste_inclusion_densities.each do |ceramic_paste_inclusion_density| %>
+  <tr>
+    <td><%= ceramic_paste_inclusion_density.paste_inclusion_density %></td>
+    <td><%= link_to 'Show', ceramic_paste_inclusion_density %></td>
+    <td><%= link_to 'Edit', edit_ceramic_paste_inclusion_density_path(ceramic_paste_inclusion_density) %></td>
+    <td><%= link_to 'Destroy', ceramic_paste_inclusion_density, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Ceramic paste inclusion density', new_ceramic_paste_inclusion_density_path %>

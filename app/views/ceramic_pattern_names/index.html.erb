@@ -1,0 +1,23 @@
+<h1>Listing ceramic_pattern_names</h1>
+
+<table>
+  <tr>
+    <th>Pattern name</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @ceramic_pattern_names.each do |ceramic_pattern_name| %>
+  <tr>
+    <td><%= ceramic_pattern_name.pattern_name %></td>
+    <td><%= link_to 'Show', ceramic_pattern_name %></td>
+    <td><%= link_to 'Edit', edit_ceramic_pattern_name_path(ceramic_pattern_name) %></td>
+    <td><%= link_to 'Destroy', ceramic_pattern_name, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Ceramic pattern name', new_ceramic_pattern_name_path %>

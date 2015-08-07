@@ -1,0 +1,601 @@
+<%= form_for(@context) do |f| %>
+  <% if @context.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@context.errors.count, "error") %> prohibited this project from being saved:</h2>
+
+      <ul>
+      <% @context.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+	<table class="table">
+		<tbody>
+			<tr>
+				<td>
+					<table class="table">
+						<tr>
+							<td>
+				    		<%= f.label 'Context ID Number' %>
+							</td>
+							<td>
+				    		<%= f.text_field :context_id, :disabled => true %>
+							</td>
+						</tr>
+						<tr>
+							<td>
+				    		<%= f.label 'Project ID Number' %>
+							</td>
+							<td>
+								<% if @context.project != nil %>
+				    			<%= @context.project.id %>
+									<% if @context.project.project_name != nil %>
+					    			<input disabled value="<%= @context.project.project_name.project_name %>">
+									<% end %>
+								<% end %>
+							</td>
+						</tr>
+						<tr>
+							<td>
+				    		<%= f.label 'Context' %>
+							</td>
+							<td>
+				    		<%= f.text_field :context %>
+							</td>
+						</tr>
+						<tr>
+							<td>
+						    <%= f.label 'Was this Context Excavated?' %>
+							</td>
+							<td>
+						    <%= collection_select(:context, :excavated, YesNo.all, :id, :yes_no, :prompt => true) %>
+							</td>
+						</tr>
+						<tr>
+							<td>
+						    <%= f.label 'Level Type' %>
+							</td>
+							<td>
+						    <%= collection_select(:context, :level_type_id, ContextLevelType.all, :id, :level_type, :prompt => true) %>
+							</td>
+						</tr>
+						<tr>
+							<td>
+				    		<%= f.label 'Level Designation' %>
+							</td>
+							<td>
+				    		<%= f.text_field :level_designation %>
+							</td>
+						</tr>
+						<tr>
+							<td>
+						    <%= f.label 'Deposit Type' %>
+							</td>
+							<td>
+						    <%= collection_select(:context, :deposit_type_id, ContextDepositType.all, :id, :deposit_type, :prompt => true) %>
+							</td>
+						</tr>
+						<tr>
+							<td>
+						    <%= f.label 'Include in Distribution Map?' %>
+							</td>
+							<td>
+						    <%= collection_select(:context, :spatial_distribution, YesNo.all, :id, :yes_no, :prompt => true) %>
+							</td>
+						</tr>
+						<tr>
+							<td>
+						    <%= f.label 'Unit Type' %>
+							</td>
+							<td>
+						    <%= collection_select(:context, :unit_type_id, ContextUnitType.all, :id, :unit_type, :prompt => true) %>
+							</td>
+						</tr>
+						<tr>
+							<td>
+				    		<%= f.label 'Feature Number' %>
+							</td>
+							<td>
+				    		<%= f.text_field :feature_number, :disabled => true %>
+							</td>
+						</tr>
+						<tr>
+							<td>
+						    <%= f.label 'Feature Type' %>
+							</td>
+							<td>
+						    <%= collection_select(:context, :feature_type_id, ContextFeatureType.all, :id, :feature_type, {}, :disabled => 'disabled') %>
+							</td>
+						</tr>
+					</table>
+				</td>
+				<td>
+					<table>
+						<tr>
+							<td>
+				    		<%= f.label 'Context length' %>
+							</td>
+							<td>
+				    		<%= f.text_field :context_length %>
+							</td>
+						</tr>
+						<tr>
+							<td>
+				    		<%= f.label 'Context width' %>
+							</td>
+							<td>
+				    		<%= f.text_field :context_width %>
+							</td>
+						</tr>
+						<tr>
+							<td>
+				    		<%= f.label 'Max LS thickness' %>
+							</td>
+							<td>
+				    		<%= f.text_field :maximum_lithostratigraphic_thickness %>
+							</td>
+						</tr>
+						<tr>
+							<td>
+				    		<%= f.label 'Actual Measured Volume' %>
+							</td>
+							<td>
+				    		<%= f.text_field :actual_measured_volume %>
+							</td>
+						</tr>
+						<tr>
+							<td>
+				    		<%= f.label 'Quadrat ID' %>
+							</td>
+							<td>
+				    		<%= f.text_field :quadrat_id, :disabled => true %>
+							</td>
+						</tr>
+						<tr>
+							<td>
+				    		<%= f.label 'Quadrat length' %>
+							</td>
+							<td>
+				    		<%= f.text_field :quadrat_length %>
+							</td>
+						</tr>
+						<tr>
+							<td>
+				    		<%= f.label 'Quadrat width' %>
+							</td>
+							<td>
+				    		<%= f.text_field :quadrat_width %>
+							</td>
+						</tr>
+						<tr>
+							<td>
+						    <%= f.label 'Artifact Presence' %>
+							</td>
+							<td>
+						    <%= collection_select(:context, :artifact_presence, YesNo.all, :id, :yes_no, :prompt => true) %>
+							</td>
+						</tr>
+						<tr>
+							<td>
+				    		<%= f.label 'TPQ' %>
+							</td>
+							<td>
+				    		<%= f.text_field :tpq %>
+							</td>
+						</tr>
+						<tr>
+							<td>
+				    		<%= f.label 'TPQ notes' %>
+							</td>
+							<td>
+				    		<%= f.text_area :tpqnotes, :rows => 2 %>
+							</td>
+						</tr>
+					</table>
+				</td>
+				<td>
+					<table>
+					</table>
+			 </tr>
+		</tbody>
+	</table>
+
+	<ul class="nav nav-tabs" id="artifact_tabs">
+	  <li class="active"><a href="#editors" data-toggle="tab">Recording Information</a></li>
+	  <li><a href="#images" data-toggle="tab">Images</a></li>
+	  <li><a href="#master_context" data-toggle="tab">Master Context</a></li>
+	  <li><a href="#elevations" data-toggle="tab">Elevations</a></li>
+	  <li><a href="#quadrat" data-toggle="tab">Quadrat Boundary Data</a></li>
+	  <li><a href="#stp_data" data-toggle="tab">STP Data</a></li>
+	  <li><a href="#feature" data-toggle="tab">Feature</a></li>
+	  <li><a href="#sediments" data-toggle="tab">Sediments</a></li>
+	  <li><a href="#context_samples" data-toggle="tab">Context Samples</a></li>
+	</ul>
+	
+	<div class="tab-content">
+		<div id="editors" class="tab-pane active">
+			<table class="table">
+				<tr>
+					<td>
+						<table class="table">
+							<tr>
+								<td>
+							    <%= f.label 'Added by' %>
+								</td>
+								<td>
+										<input disabled value="<%= @context.created_by.editor if @context.created_by != nil %>">
+								</td>
+							</tr>
+							<tr>
+								<td>
+							    <%= f.label 'Date Added' %>
+								</td>
+								<td>
+										<input disabled value="<%= @context.date_added %>">
+								</td>
+							</tr>
+							<tr>
+								<td>
+							    <%= f.label 'Changed by' %>
+								</td>
+								<td>
+										<input disabled value="<%= @context.updated_by.editor if @context.updated_by != nil%>">
+								</td>
+							</tr>
+							<tr>
+								<td>
+							    <%= f.label 'Date changed' %>
+								</td>
+								<td>
+										<input disabled value="<%= @context.date_changed %>">
+								</td>
+							</tr>
+						</table>
+					</td>
+					<td>
+						<table class="table">
+							<tr>
+								<td>
+							    <%= f.label 'Excavator Description' %>
+								</td>
+								<td>
+									<%= f.text_area :excavator_description, :rows => 3%>
+								</td>
+							</tr>
+							<tr>
+								<td>
+							    <%= f.label 'Excavator Interpretation' %>
+								</td>
+								<td>
+									<%= f.text_area :excavator_interpretation, :rows => 3%>
+								</td>
+							</tr>
+							<tr>
+								<td>
+							    <%= f.label 'Data Entry Notes' %>
+								</td>
+								<td>
+									<%= f.text_area :data_entry_notes, :rows => 5%>
+								</td>
+							</tr>
+						</table>
+					</td>
+				</tr>
+			</table>
+		</div>
+
+		
+		<div id="images" class="tab-pane">
+			<table class="table">
+				<tr>
+					<td>
+		    		<%= f.label 'Plan Drawings' %>
+					</td>
+					<td>
+		    		<%= f.text_field :plan_drawings %>
+					</td>
+				</tr>
+				<tr>
+					<td>
+		    		<%= f.label 'Profile Drawings' %>
+					</td>
+					<td>
+		    		<%= f.text_field :profile_drawings %>
+					</td>
+				</tr>
+			</table>
+			<table class="table" id="image_list">
+				<tr>
+					<th>
+						Location
+					</th>
+					<th>
+						Type
+					</th>
+					<th>
+						Description
+					</th>
+					<th>
+						Institution
+					</th>
+					<th>
+						Catalogue number
+					</th>
+				</tr>
+				<%= f.fields_for :images do |image| %>
+					<%= render 'image_fields', f: image%>
+				<% end %>
+				<tr>
+					<td>
+					</td>
+				</tr>
+			</table>
+			<%= link_to_add_fields "Add Image", f, :images %>
+		</div>
+
+		<div id="master_context" class="tab-pane">
+			<table class="table">
+				<tr>
+					<td>
+		    		<%= f.label 'Master Context Information' %>
+					</td>
+					<td>
+		    		<%= f.text_field :master_context_interpretation %>
+					</td>
+				</tr>
+				<tr>
+					<td>
+		    		<%= f.label 'Master Context' %>
+					</td>
+					<td>
+		    		<%= f.text_field :master_context_number %>
+					</td>
+				</tr>
+				<tr>
+					<td>
+		    		<%= f.label 'DAACS Statigraphic Group Interpretation' %>
+					</td>
+					<td>
+		    		<%= f.text_field :daacsstratigraphic_group_interpretation %>
+					</td>
+				</tr>
+				<tr>
+					<td>
+		    		<%= f.label 'DAACS Phase' %>
+					</td>
+					<td>
+		    		<%= f.text_field :daacsphase %>
+					</td>
+				</tr>
+				<tr>
+					<td>
+		    		<%= f.label 'Excavator Phase' %>
+					</td>
+					<td>
+		    		<%= f.text_field :excavator_phase %>
+					</td>
+				</tr>
+				<tr>
+					<td>
+		    		<%= f.label 'CA Plowzone Phase' %>
+					</td>
+					<td>
+		    		<%= f.text_field :caplowzone_phase %>
+					</td>
+				</tr>
+			</table>
+		</div>
+		
+		<div id="elevations" class="tab-pane">
+			<table class="table">
+				<tr>
+					<td>
+						<table class="table">
+							<tr>
+								<th>
+									Opening/Closing
+								</th>
+								<th>
+									Elevation Location
+								</th>
+								<th>
+									Elavation Amount
+								</th>
+							</tr>	
+							<%= f.fields_for :context_elevations do |context_elevation| %>
+								<%= render 'context_elevation_fields', f: context_elevation%>
+							<% end %>
+						</table>
+						<%= link_to_add_fields "Add Elevation", f, :context_elevations %>
+					</td>
+					<td>
+						<table class="table">
+							<tr>
+								<th>
+									Stratigraphic Relationship
+								</th>
+								<th>
+									Context
+								</th>
+							</tr>	
+							<%= f.fields_for :context_strat_rels do |context_strat_rel| %>
+								<%= render 'context_strat_rel_fields', f: context_strat_rel%>
+							<% end %>
+						</table>
+						<%= link_to_add_fields "Add Statrigraphic Relationship", f, :context_strat_rels %>
+					</td>
+				</tr>
+			</table>
+		</div>
+
+		<div id="quadrat" class="tab-pane">
+			<table class="table">
+				<tr>
+					<td>
+						<table class="table">
+							<tr>
+								<th>
+									Northing
+								</th>
+								<th>
+									Easting
+								</th>
+							</tr>	
+							<%= f.fields_for :context_quadrat_boundaries do |context_quadrat_boundary| %>
+								<%= render 'context_quadrat_boundary_fields', f: context_quadrat_boundary%>
+							<% end %>
+						</table>
+						<%= link_to_add_fields "Add Quadrat Boundary", f, :context_quadrat_boundaries %>
+					</td>
+				</tr>
+			</table>
+		</div>
+
+		<div id="stp_data" class="tab-pane">
+			<table class="table">
+				<tr>
+					<td>
+		    		<%= f.label 'Easting' %>
+		    		<%= f.text_field :stpeasting %>
+		    		<%= f.label 'Northing' %>
+		    		<%= f.text_field :stpnorthing %>
+					</td>
+				</tr>
+				<tr>
+					<td colspan="4">
+						<table class="table">
+							<tr>
+								<th>
+									Level
+								</th>
+								<th>
+									Closing (BMG)
+								</th>
+							</tr>	
+							<%= f.fields_for :context_stp_levels do |context_stp_level| %>
+								<%= render 'context_stp_level_fields', f: context_stp_level%>
+							<% end %>
+						</table>
+						<%= link_to_add_fields "Add STP Level", f, :context_stp_levels %>
+					</td>
+				</tr>
+			</table>
+		</div>
+		
+		<div id="feature" class="tab-pane">
+			<table class="table">
+				<% if @context.context_features != nil%>
+				<%# debugger %>
+					<%= f.fields_for :context_features do |context_feature| %>
+						<%= render 'context_feature_fields', f: context_feature%>
+					<% end %>
+				<% end %>
+			</table>
+		</div>
+		
+		<div id="sediments" class="tab-pane">
+			<table class="table">
+				<tr>
+					<td>
+						Sediment Description
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<table class="table">
+							<tr>
+								<th>
+									Fine Sediment Texture
+								</th>
+								<th>
+									Munsell Color
+								</th>
+								<th>
+									Excavator Sediment Color Description
+								</th>
+								<th>
+									Rank Order
+								</th>
+								<th>
+									Percentage
+								</th>
+							</tr>	
+							<%= f.fields_for :context_fine_sediments do |context_fine_sediment| %>
+								<%= render 'context_fine_sediment_fields', f: context_fine_sediment%>
+							<% end %>
+						</table>
+						<%= link_to_add_fields "Add Sediment Description", f, :context_fine_sediments %>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Inclusions
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<table class="table">
+							<tr>
+								<th>
+									Inclusion Description
+								</th>
+								<th>
+									Inclusion Size
+								</th>
+								<th>
+									Rank Order
+								</th>
+								<th>
+									Percentage
+								</th>
+							</tr>	
+							<%= f.fields_for :context_inclusions do |context_inclusion| %>
+								<%= render 'context_inclusion_fields', f: context_inclusion%>
+							<% end %>
+						</table>
+						<%= link_to_add_fields "Add Inclusion", f, :context_inclusions %>
+					</td>
+				</tr>
+			</table>
+		</div>
+		
+		<div id="context_samples" class="tab-pane">
+			<table class="table">
+				<tr>
+					<td>
+						<table class="table">
+							<tr>
+								<th>
+									Recovery Method
+								</th>
+								<th>
+									Sample Number
+								</th>
+								<th>
+									Sample Size
+								</th>
+								<th>
+									Context Sample Type
+								</th>
+								<th>
+									Screen Size
+								</th>
+							</tr>	
+							<%= f.fields_for :context_samples do |context_sample| %>
+								<%= render 'context_sample_fields', f: context_sample%>
+							<% end %>
+						</table>
+						<%= link_to_add_fields "Add Context Sample", f, :context_samples %>
+					</td>
+				</tr>
+			</table>
+		</div>
+		
+	</div>
+
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

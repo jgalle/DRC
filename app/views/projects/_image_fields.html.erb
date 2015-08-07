@@ -1,0 +1,21 @@
+<tr class="fieldset">
+	<td>
+		<%= f.text_field :ImageFileLocation %>
+	</td>
+	<td>
+    <%= f.collection_select(:ImageTypeID, ImageType.all, :id, :ImageType, :prompt => true) %>
+	</td>
+	<td>
+		<%= f.text_field :ImageDescription %>
+	</td>
+	<td>
+		<%= f.text_field :Institution %>
+	</td>
+	<td>
+		<%= f.text_field :CatalogueNumber %>
+	</td>
+	<td>
+		<%= f.hidden_field :_destroy %>
+		<a href="#" data-toggle="modal" data-target="#image-alert-modal" class="image-delete-link delete">Delete</a>
+	</td>
+</tr>

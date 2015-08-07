@@ -1,0 +1,23 @@
+<h1>Listing gen_artifact_completenesses</h1>
+
+<table>
+  <tr>
+    <th>Gen artifact completeness</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @gen_artifact_completenesses.each do |gen_artifact_completeness| %>
+  <tr>
+    <td><%= gen_artifact_completeness.gen_artifact_completeness %></td>
+    <td><%= link_to 'Show', gen_artifact_completeness %></td>
+    <td><%= link_to 'Edit', edit_gen_artifact_completeness_path(gen_artifact_completeness) %></td>
+    <td><%= link_to 'Destroy', gen_artifact_completeness, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Gen artifact completeness', new_gen_artifact_completeness_path %>

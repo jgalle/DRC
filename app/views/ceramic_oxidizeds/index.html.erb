@@ -1,0 +1,23 @@
+<h1>Listing ceramic_oxidizeds</h1>
+
+<table>
+  <tr>
+    <th>Oxidized versus reduced</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @ceramic_oxidizeds.each do |ceramic_oxidized| %>
+  <tr>
+    <td><%= ceramic_oxidized.oxidized_versus_reduced %></td>
+    <td><%= link_to 'Show', ceramic_oxidized %></td>
+    <td><%= link_to 'Edit', edit_ceramic_oxidized_path(ceramic_oxidized) %></td>
+    <td><%= link_to 'Destroy', ceramic_oxidized, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Ceramic oxidized', new_ceramic_oxidized_path %>

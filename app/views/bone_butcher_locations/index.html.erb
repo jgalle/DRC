@@ -1,0 +1,23 @@
+<h1>Listing bone_butcher_locations</h1>
+
+<table>
+  <tr>
+    <th>Butcher location</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @bone_butcher_locations.each do |bone_butcher_location| %>
+  <tr>
+    <td><%= bone_butcher_location.butcher_location %></td>
+    <td><%= link_to 'Show', bone_butcher_location %></td>
+    <td><%= link_to 'Edit', edit_bone_butcher_location_path(bone_butcher_location) %></td>
+    <td><%= link_to 'Destroy', bone_butcher_location, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Bone butcher location', new_bone_butcher_location_path %>

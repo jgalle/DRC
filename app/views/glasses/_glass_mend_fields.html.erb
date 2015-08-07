@@ -1,0 +1,17 @@
+                    <div class="block <%= @mend_colored == true ? 'colored' : '' %>">
+                        <div class="mend-selects">
+                            <div class="row-area">
+                                <div class="col">
+									<%= f.label('MendsGenerateContextArtifactID', 'Mends To Artifact')%>
+									<% if !defined? read_only %>
+										<%= f.text_field('MendsToArtifactID', {'class'=>"form-control typeahead md-se-#{number}", 'placeholder'=>"Mends To Artifact", 'autocomplete'=>"off", 'spellcheck'=>"false", "dir"=>"auto"})%>
+									<% else %>
+										<%= f.text_field('MendsToArtifactID', {:readonly => true, 'class'=>"form-control"}) %>
+									<% end %>
+                                </div>
+								<%= f.hidden_field :_destroy %>
+								<a href="#" data-toggle="modal" data-target="#mend-alert-modal" class="mend-delete-link delete" tabindex="-1">Delete</a>
+                            </div><!-- row-area -->
+                        </div><!-- selects -->
+<div class="number" style="display:none">_NUM_</div>
+                    </div><!-- block -->

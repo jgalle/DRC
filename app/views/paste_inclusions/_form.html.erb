@@ -1,0 +1,25 @@
+<%= form_for(@paste_inclusion) do |f| %>
+  <% if @paste_inclusion.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@paste_inclusion.errors.count, "error") %> prohibited this paste_inclusion from being saved:</h2>
+
+      <ul>
+      <% @paste_inclusion.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :artifact_id %><br />
+    <%= f.text_field :artifact_id %>
+  </div>
+  <div class="field">
+    <%= f.label :paste_inclusion %><br />
+    <%= f.text_field :paste_inclusion %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

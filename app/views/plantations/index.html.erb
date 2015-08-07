@@ -1,0 +1,23 @@
+<h1>Listing plantations</h1>
+
+<table>
+  <tr>
+    <th>Plantation name</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @plantations.each do |plantation| %>
+  <tr>
+    <td><%= plantation.plantation_name %></td>
+    <td><%= link_to 'Show', plantation %></td>
+    <td><%= link_to 'Edit', edit_plantation_path(plantation) %></td>
+    <td><%= link_to 'Destroy', plantation, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Plantation', new_plantation_path %>

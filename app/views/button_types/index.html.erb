@@ -1,0 +1,23 @@
+<h1>Listing button_types</h1>
+
+<table>
+  <tr>
+    <th>Button type</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @button_types.each do |button_type| %>
+  <tr>
+    <td><%= button_type.button_type %></td>
+    <td><%= link_to 'Show', button_type %></td>
+    <td><%= link_to 'Edit', edit_button_type_path(button_type) %></td>
+    <td><%= link_to 'Destroy', button_type, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Button type', new_button_type_path %>

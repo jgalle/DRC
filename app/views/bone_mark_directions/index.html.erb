@@ -1,0 +1,23 @@
+<h1>Listing bone_mark_directions</h1>
+
+<table>
+  <tr>
+    <th>Mark direction</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @bone_mark_directions.each do |bone_mark_direction| %>
+  <tr>
+    <td><%= bone_mark_direction.mark_direction %></td>
+    <td><%= link_to 'Show', bone_mark_direction %></td>
+    <td><%= link_to 'Edit', edit_bone_mark_direction_path(bone_mark_direction) %></td>
+    <td><%= link_to 'Destroy', bone_mark_direction, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Bone mark direction', new_bone_mark_direction_path %>

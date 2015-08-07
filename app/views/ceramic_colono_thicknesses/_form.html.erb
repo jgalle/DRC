@@ -1,0 +1,29 @@
+<%= form_for(@ceramic_colono_thickness) do |f| %>
+  <% if @ceramic_colono_thickness.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@ceramic_colono_thickness.errors.count, "error") %> prohibited this ceramic_colono_thickness from being saved:</h2>
+
+      <ul>
+      <% @ceramic_colono_thickness.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :ceramic_completeness_id %><br />
+    <%= f.text_field :ceramic_completeness_id %>
+  </div>
+  <div class="field">
+    <%= f.label :colono_sherd_thickness %><br />
+    <%= f.text_field :colono_sherd_thickness %>
+  </div>
+  <div class="field">
+    <%= f.label :generate_context_artifact_id %><br />
+    <%= f.text_field :generate_context_artifact_id %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

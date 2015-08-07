@@ -1,0 +1,21 @@
+<%= form_for(@button_metal_color) do |f| %>
+  <% if @button_metal_color.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@button_metal_color.errors.count, "error") %> prohibited this button_metal_color from being saved:</h2>
+
+      <ul>
+      <% @button_metal_color.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :button_metal_color %><br />
+    <%= f.text_field :button_metal_color %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

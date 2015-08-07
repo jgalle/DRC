@@ -1,0 +1,29 @@
+<%= form_for(@context_stp_sediment) do |f| %>
+  <% if @context_stp_sediment.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@context_stp_sediment.errors.count, "error") %> prohibited this context_stp_sediment from being saved:</h2>
+
+      <ul>
+      <% @context_stp_sediment.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :fine_sediment_texture_id %><br />
+    <%= f.text_field :fine_sediment_texture_id %>
+  </div>
+  <div class="field">
+    <%= f.label :mun_sed_color_id %><br />
+    <%= f.text_field :mun_sed_color_id %>
+  </div>
+  <div class="field">
+    <%= f.label :percentage_id %><br />
+    <%= f.text_field :percentage_id %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

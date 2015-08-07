@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<%= stylesheet_link_tag "application", :media => "all" %>
+  <%= javascript_include_tag "application" %>
+  <%= csrf_meta_tags %>
+  
+<script type="text/javascript" src="http://use.typekit.net/wdb6trn.js"></script>
+  
+	<!--[if lt IE 9]>
+		<script type="text/javascript" src="js/html5.js"></script>
+		<script type="text/javascript" src="js/respond.min.js"></script>
+		<script type="text/javascript" src="js/PIE.js"></script>
+		<link rel="stylesheet" media="all" type="text/css" href="css/ie.css">
+	<![endif]-->
+</head>
+<body class="daacs-query">
+	<div class="wrapper-area">
+		<header class="header" role="banner">
+			<div class="container">
+				<p id="logo" class="h1"><a href="http://www.daacs.org" rel="nofollow">DAACS</a></p>
+				<p id="tagline">Digital Archaeological Archive of Comparative Slavery</p>
+			</div> <!-- end #inner-header -->
+		</header>
+		<div id="navbar">
+		</div>
+		<div class="main-area container">
+			<%= yield %>
+
+		</div><!-- main-area -->
+		<div id="footer-sponsors">
+					<h4>Sponsors</h4>
+					<ul class="sponsors-list">
+						<li><a target="_blank" href="http://www.monticello.org/"><img src="http://www.daacs.org/wp-content/themes/daacs/library/images/sponsors/logo_monticello.png" alt="Monticello: Founder"></a></li>
+						<li><a target="_blank" href="http://www.mellon.org/"><img src="http://www.daacs.org/wp-content/themes/daacs/library/images/sponsors/logo_mellon.png" alt="Andrew W. Mellon Foundation"></a></li>
+						<li><a href="http://www.neh.gov/"><img src="http://www.daacs.org/wp-content/themes/daacs/library/images/sponsors/logo_humanities.png" alt="National Endowment for the Humanities"></a></li>
+					</ul>
+				</div>
+				<footer class="footer" role="contentinfo">
+					<div id="inner-footer">
+						<div class="source-org copyright">© 2015 Thomas Jefferson Foundation.</div>
+						<nav role="navigation">
+						<ul id="menu-footer-menu" class="nav footer-nav clearfix"><li id="menu-item-31" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-31"><a href="http://www.daacs.org/aboutdaacs/contact-us/">Contact Us</a></li>
+		</ul>
+						</nav>
+						<div class="social-follow">
+							<h4>Follow Us</h4>
+							<a href="http://www.facebook.com/daacsorg/" target="_blank"><img src="http://www.daacs.org/wp-content/themes/daacs/library/images/icons/icon_facebook.png" alt="Facebook"></a>
+							<a href="http://www.twitter.com/daacsorg/" target="_blank"><img src="http://www.daacs.org/wp-content/themes/daacs/library/images/icons/icon_twitter.png" alt="Twitter"></a>
+						</div>
+						<div class="licensing"><a rel="license" href="http://creativecommons.org/licenses/by-nd/3.0/deed.en_US"><img alt="Creative Commons License" src="http://www.daacs.org/wp-content/themes/daacs/library/images/icons/cc-by-nd.png"></a> This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nd/3.0/deed.en_US">Creative Commons Attribution-NoDerivs 3.0 United States License</a>.</div>
+					</div> <!-- end #inner-footer -->
+				</footer>
+			</div>
+		
+	<script type="text/javascript">
+			customForm.customForms.replaceAll();
+	</script>
+	
+</body>
+</html>

@@ -1,0 +1,21 @@
+<%= form_for(@ceramic_glaze) do |f| %>
+  <% if @ceramic_glaze.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@ceramic_glaze.errors.count, "error") %> prohibited this ceramic_glaze from being saved:</h2>
+
+      <ul>
+      <% @ceramic_glaze.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :ceramic_glaze %><br />
+    <%= f.text_field :ceramic_glaze %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

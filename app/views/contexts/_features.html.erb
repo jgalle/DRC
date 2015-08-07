@@ -1,0 +1,32 @@
+<div class="modal-list ceramics-list">
+	<%= form_tag({:controller => 'contexts', :action => 'features'}, :method => 'get', :remote => true) do %>
+		<fieldset>
+			<input type="hidden" name="project_id" value="<%= @project_id %>">
+			<input type="text" class="text" value="<%= params[:query] != nil ? params[:query] : '' %>" name="query"/>
+			<input id="feature-search" type="submit" class="btn submit" value="Search" />
+		</fieldset>
+	<% end %>
+	<div class="feature-table">
+		<table>
+		  <tr>
+			<th></th>
+		    <th class="cell-02">Feature Number</th>
+		    <th class="cell-03">Project ID</th>
+		    <th class="cell-04">Feature Type</th>
+		    <th class="cell-05">Feature Group</th>
+		  </tr>
+
+		<% @context_features.each do |context_feature| %>
+		  <tr class="">
+			<td><input type="radio" class="feature-choices" data-type="<%= context_feature.context_feature_type.FeatureType if context_feature.context_feature_type != nil %>" name="feature" value="<%= context_feature.FeatureNumber %>"></td>
+				<td class="cell-02">
+							<%= context_feature.FeatureNumber %>
+				</td>
+		 		<td class="cell-03"><%= context_feature.ProjectID %></td>
+				<td class="cell-04"><%= context_feature.context_feature_type.FeatureType if context_feature.context_feature_type != nil %></td>
+				<td class="cell-05"><%= context_feature.FeatureGroup %></td>
+		  </tr>
+		<% end %>
+		</table>
+	</div>
+</div><!-- end search -->

@@ -1,0 +1,15 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Munsell sediment color:</b>
+  <%= @sediment_color.munsell_sediment_color %>
+</p>
+
+<p>
+  <b>Munsell description:</b>
+  <%= @sediment_color.munsell_description %>
+</p>
+
+
+<%= link_to 'Edit', edit_sediment_color_path(@sediment_color) %> |
+<%= link_to 'Back', sediment_colors_path %>

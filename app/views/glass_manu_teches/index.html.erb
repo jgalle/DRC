@@ -1,0 +1,23 @@
+<h1>Listing glass_manu_teches</h1>
+
+<table>
+  <tr>
+    <th>Glass manu tech --skip stylesheets</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @glass_manu_teches.each do |glass_manu_tech| %>
+  <tr>
+    <td><%= glass_manu_tech.glass_manu_tech --skip_stylesheets %></td>
+    <td><%= link_to 'Show', glass_manu_tech %></td>
+    <td><%= link_to 'Edit', edit_glass_manu_tech_path(glass_manu_tech) %></td>
+    <td><%= link_to 'Destroy', glass_manu_tech, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Glass manu tech', new_glass_manu_tech_path %>

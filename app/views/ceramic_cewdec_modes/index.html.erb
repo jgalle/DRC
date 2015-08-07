@@ -1,0 +1,23 @@
+<h1>Listing ceramic_cewdec_modes</h1>
+
+<table>
+  <tr>
+    <th>Ceramic cewdec mode</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @ceramic_cewdec_modes.each do |ceramic_cewdec_mode| %>
+  <tr>
+    <td><%= ceramic_cewdec_mode.ceramic_cewdec_mode %></td>
+    <td><%= link_to 'Show', ceramic_cewdec_mode %></td>
+    <td><%= link_to 'Edit', edit_ceramic_cewdec_mode_path(ceramic_cewdec_mode) %></td>
+    <td><%= link_to 'Destroy', ceramic_cewdec_mode, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Ceramic cewdec mode', new_ceramic_cewdec_mode_path %>

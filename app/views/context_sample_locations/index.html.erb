@@ -1,0 +1,25 @@
+<h1>Listing context_sample_locations</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @context_sample_locations.each do |context_sample_location| %>
+      <tr>
+        <td><%= link_to 'Show', context_sample_location %></td>
+        <td><%= link_to 'Edit', edit_context_sample_location_path(context_sample_location) %></td>
+        <td><%= link_to 'Destroy', context_sample_location, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Context sample location', new_context_sample_location_path %>

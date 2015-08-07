@@ -1,0 +1,30 @@
+<% flash.each do |name, msg| %>
+<% if msg.is_a?(String) %>
+	<script>
+	$(function() {
+		console.log('fini');
+		$('.alert-success').slideDown();
+		setTimeout(function(){
+			$('.alert-success').slideUp();
+		}, 3000);
+	});
+	</script>
+    <div class="alert alert-<%= name == :notice ? "success" : "error" %>">
+      <a class="close" data-dismiss="alert">&#215;</a>
+      <%= content_tag :div, msg, :id => "flash_#{name}" %>
+    </div>
+  <% end %>
+<% end %>
+<% if defined? errors %>
+	<% if errors.any? %>
+	  <div id="error_explanation">
+	    <h2><%= pluralize(errors.count, "error") %> prohibited this post from being saved:</h2>
+ 
+	    <ul>
+	    <% errors.full_messages.each do |msg| %>
+	      <li><%= msg %></li>
+	    <% end %>
+	    </ul>
+	  </div>
+	<% end %>
+<% end %>

@@ -1,0 +1,21 @@
+<%= form_for(@bead_casing_layer) do |f| %>
+  <% if @bead_casing_layer.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@bead_casing_layer.errors.count, "error") %> prohibited this bead_casing_layer from being saved:</h2>
+
+      <ul>
+      <% @bead_casing_layer.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :casing_layer %><br />
+    <%= f.text_field :casing_layer %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

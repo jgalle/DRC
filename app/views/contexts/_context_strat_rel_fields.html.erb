@@ -1,0 +1,19 @@
+                    <div class="block <%= @strat_colored == true ? 'colored' : '' %>">
+                        <div class="three-columns with-delete">
+                            <div class="row-area">
+                                <div class="col">
+																	<%= f.label('StratRelTypeID', 'Stratigraphic Relationship')%>
+																	<%= f.collection_select('StratRelTypeID', ContextStratRelType.all.order('"StratRelType"'), :id, 'StratRelType', {:include_blank => '--select--'}, {'data-placeholder' => '--select--', :class => 'form-control'})%>
+                                </div>
+                                <div class="col">
+																	<%= f.label('context', 'Context')%>
+																	<%= f.select('Context', @contexts_in_project, {:include_blank => '--select--'}, {'data-placeholder' => '--select--', :class => 'form-control'})%>
+																	
+																	<%#= f.text_field('Context', {:maxlength => 15, :class => 'form-control'})%>
+                                </div>
+								<%= f.hidden_field :_destroy %>
+								<a href="#" data-toggle="modal" data-target="#strat-alert-modal" class="strat-delete-link delete" tabindex="-1">Delete</a>
+							</div>
+                        </div><!-- selects -->
+<div class="number" style="display:none">_NUM_</div>
+                    </div><!-- block -->

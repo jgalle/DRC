@@ -1,0 +1,21 @@
+<%= form_for(@context_inclusion_size) do |f| %>
+  <% if @context_inclusion_size.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@context_inclusion_size.errors.count, "error") %> prohibited this context_inclusion_size from being saved:</h2>
+
+      <ul>
+      <% @context_inclusion_size.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :inclusion_size %><br />
+    <%= f.text_field :inclusion_size %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

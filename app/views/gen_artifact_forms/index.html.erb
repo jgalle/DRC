@@ -1,0 +1,23 @@
+<h1>Listing gen_artifact_forms</h1>
+
+<table>
+  <tr>
+    <th>Gen artifact form</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @gen_artifact_forms.each do |gen_artifact_form| %>
+  <tr>
+    <td><%= gen_artifact_form.gen_artifact_form %></td>
+    <td><%= link_to 'Show', gen_artifact_form %></td>
+    <td><%= link_to 'Edit', edit_gen_artifact_form_path(gen_artifact_form) %></td>
+    <td><%= link_to 'Destroy', gen_artifact_form, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Gen artifact form', new_gen_artifact_form_path %>

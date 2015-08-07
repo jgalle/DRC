@@ -1,0 +1,21 @@
+<%= form_for(@bead_diaphaneity) do |f| %>
+  <% if @bead_diaphaneity.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@bead_diaphaneity.errors.count, "error") %> prohibited this bead_diaphaneity from being saved:</h2>
+
+      <ul>
+      <% @bead_diaphaneity.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :diaphaneity %><br />
+    <%= f.text_field :diaphaneity %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

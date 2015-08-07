@@ -1,0 +1,25 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Artifact:</b>
+  <%= @glass_mark.artifact_id %>
+</p>
+
+<p>
+  <b>Mark:</b>
+  <%= @glass_mark.mark %>
+</p>
+
+<p>
+  <b>Glass mark location:</b>
+  <%= @glass_mark.glass_mark_location_id %>
+</p>
+
+<p>
+  <b>Generate context artifact:</b>
+  <%= @glass_mark.generate_context_artifact_id %>
+</p>
+
+
+<%= link_to 'Edit', edit_glass_mark_path(@glass_mark) %> |
+<%= link_to 'Back', glass_marks_path %>

@@ -1,0 +1,23 @@
+<h1>Listing bone_mark_locations</h1>
+
+<table>
+  <tr>
+    <th>Bone mark location</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @bone_mark_locations.each do |bone_mark_location| %>
+  <tr>
+    <td><%= bone_mark_location.bone_mark_location %></td>
+    <td><%= link_to 'Show', bone_mark_location %></td>
+    <td><%= link_to 'Edit', edit_bone_mark_location_path(bone_mark_location) %></td>
+    <td><%= link_to 'Destroy', bone_mark_location, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Bone mark location', new_bone_mark_location_path %>

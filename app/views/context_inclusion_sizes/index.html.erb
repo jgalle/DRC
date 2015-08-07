@@ -1,0 +1,23 @@
+<h1>Listing context_inclusion_sizes</h1>
+
+<table>
+  <tr>
+    <th>Inclusion size</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @context_inclusion_sizes.each do |context_inclusion_size| %>
+  <tr>
+    <td><%= context_inclusion_size.inclusion_size %></td>
+    <td><%= link_to 'Show', context_inclusion_size %></td>
+    <td><%= link_to 'Edit', edit_context_inclusion_size_path(context_inclusion_size) %></td>
+    <td><%= link_to 'Destroy', context_inclusion_size, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Context inclusion size', new_context_inclusion_size_path %>

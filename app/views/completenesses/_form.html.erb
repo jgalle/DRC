@@ -1,0 +1,21 @@
+<%= form_for(@completeness) do |f| %>
+  <% if @completeness.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@completeness.errors.count, "error") %> prohibited this completeness from being saved:</h2>
+
+      <ul>
+      <% @completeness.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :completeness %><br />
+    <%= f.text_field :completeness %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

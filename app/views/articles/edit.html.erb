@@ -1,0 +1,211 @@
+<script>
+
+$(function() {
+	
+	// $('.datepicker').click(function(){
+		$('.datepicker').datepicker();
+	// });
+	
+	// capture Save button click
+	$('#button-record-save').click(function (event) {
+		console.log('local save');
+		$('.edit_article').submit();
+		$('.new_article').submit();
+	});
+	
+	$('.delete-record').click(function(){
+		$.ajax({
+		  url: "/articles/<%= @article.id %>",
+		  type: "DELETE",
+			statusCode: {
+			    200: function() {
+						$('#delete-alert-modal').modal('hide')
+						window.location="/articles#success-deleted"
+			    }
+			  }
+		});
+	});
+
+
+});
+</script>
+
+<div class="page-header page-header-01">
+	<div class="frame">
+		<div class="clearfix">
+			<%= link_to 'Back to List', articles_path, :class => 'back-link'%>
+		</div>
+		<div class="paging">
+		</div><!-- paging -->
+	</div><!-- frame -->
+	<h1>Article</h1>
+	<%= link_to 'Add New', new_article_path, {:class => 'add-new'} %>
+</div><!-- page-header -->
+<%= render 'layouts/messages', errors: @article.errors %>
+
+<div class="clearfix">
+	<%= form_for(@article, {:class => 'edit_glass'}) do |f|%>
+		<fieldset>
+			<aside id="aside">
+				<h2 class="visible-md visible-lg">Record Details</h2>
+				<div class="box">
+					<!-- <a href="#" data-toggle="modal" data-target="#add-new" class="add-new">Add New record</a> -->
+				</div><!-- box -->
+				<div class="box">
+					<button id="button-record-save" class="btn btn-success btn-save ie-fix"><span>Save</span></button>
+					<div class="area clearfix">
+						<% if current_user.user_level > 3 %>
+							<a href="#" data-toggle="modal" data-target="#delete-alert-modal" class="delete">Delete</a>
+						<% end %>
+					</div>
+				</div><!-- box -->
+				<div class="details-bar">
+					<a href="#" data-toggle="dropdown" class="open-close"></a>
+					<div class="drop dropdown-menu" role="menu">
+						<div class="info-box">
+						</div><!-- info-box -->
+						<div class="aside-accordion" id="aside-accordion">
+						</div><!-- accordion -->
+					</div>
+				</div><!-- details-bar -->
+			</aside><!-- aside -->
+			<section class="tabs">
+				<ul class="nav nav-tabs">
+					<li class="active"><a href="#tab-01" data-toggle="tab">Article</a></li>
+				</ul><!-- nav-tabs -->
+				<div class="tab-content">
+					<div class="tab-pane active" id="tab-01">
+						<section class="section">
+							<div class="heading">
+							</div>
+							<div>
+							<div class="one-column">
+								<div class="row-area">
+									<div class="col">
+										<%= f.label('title', 'Title')%>
+										<div class="frame">
+											<%= f.text_field('title', {:class => "form-control"})%>
+										</div>
+									</div>
+								</div>
+								<div class="row-area">
+									<div class="col">
+										<%= f.label('subtitle', 'Subtitle')%>
+										<div class="frame">
+											<%= f.text_field('subtitle', {:class => "form-control"})%>
+										</div>
+									</div>
+								</div>
+								<div class="row-area">
+									<div class="col">
+										<%= f.label('thumbnail', 'Thumbnail')%>
+										<div class="frame">
+											<%= f.text_field('thumbnail', {:class => "form-control"})%>
+										</div>
+									</div>
+								</div>
+								<div class="row-area">
+									<div class="col">
+										<%= f.label('summary', 'Summary')%>
+										<div class="frame">
+											<%= f.text_area('summary', {:class => "form-control"})%>
+										</div>
+									</div>
+								</div>
+								<div class="row-area">
+									<div class="col">
+										<%= f.label('body', 'Body')%>
+										<div class="frame">
+											<%= f.text_area('body', {:class => "form-control"})%>
+										</div>
+									</div>
+								</div>
+								<div class="row-area">
+									<div class="col">
+										<%= f.label('position', 'Position')%>
+										<div class="frame">
+											<%= f.text_field('position', {:class => "form-control"})%>
+										</div>
+									</div>
+								</div>
+							</div><!-- material-form -->
+							</div>
+						</section><!-- section -->
+				</div><!-- tab-content -->
+			</section><!-- tabs -->
+		</fieldset>
+	<% end %>
+</div>
+<div class="modal alert-modal fade" id="casing-alert-modal" tabindex="-1" role="dialog" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+				<h4 class="modal-title">Alert</h4>
+			</div>
+			<div class="modal-body">
+				<p class="txt">Are you sure you want to delete?</p>
+			</div>
+			<div class="modal-footer">
+				<button class="btn btn-default" data-dismiss="modal">Cancel</button>
+				<button class="btn btn-warning casing-delete">Delete</button>
+			</div>
+		</div><!-- /.modal-content -->
+	</div><!-- /.modal-dialog -->
+</div><!-- alert-modal -->
+
+<div class="modal alert-modal fade" id="decoration-alert-modal" tabindex="-1" role="dialog" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+				<h4 class="modal-title">Alert</h4>
+			</div>
+			<div class="modal-body">
+				<p class="txt">Are you sure you want to delete?</p>
+			</div>
+			<div class="modal-footer">
+				<button class="btn btn-default" data-dismiss="modal">Cancel</button>
+				<button class="btn btn-warning decoration-delete">Delete</button>
+			</div>
+		</div><!-- /.modal-content -->
+	</div><!-- /.modal-dialog -->
+</div><!-- alert-modal -->
+
+<div class="modal alert-modal fade" id="mend-alert-modal" tabindex="-1" role="dialog" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+				<h4 class="modal-title">Alert</h4>
+			</div>
+			<div class="modal-body">
+				<p class="txt">Are you sure you want to delete?</p>
+			</div>
+			<div class="modal-footer">
+				<button class="btn btn-default" data-dismiss="modal">Cancel</button>
+				<button class="btn btn-warning mend-delete">Delete</button>
+			</div>
+		</div><!-- /.modal-content -->
+	</div><!-- /.modal-dialog -->
+</div><!-- alert-modal -->
+
+<div class="modal alert-modal fade" id="delete-alert-modal" tabindex="-1" role="dialog" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+				<h4 class="modal-title">Alert</h4>
+			</div>
+			<div class="modal-body">
+				<p class="txt">Are you sure you want to delete?</p>
+			</div>
+			<div class="modal-footer">
+				<button class="btn btn-default" data-dismiss="modal">Cancel</button>
+				<button class="btn btn-warning delete-record">Delete</button>
+			</div>
+		</div><!-- /.modal-content -->
+	</div><!-- /.modal-dialog -->
+</div><!-- alert-modal -->
+
+

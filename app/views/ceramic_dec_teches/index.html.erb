@@ -1,0 +1,23 @@
+<h1>Listing ceramic_dec_teches</h1>
+
+<table>
+  <tr>
+    <th>Artifact</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @ceramic_dec_teches.each do |ceramic_dec_tech| %>
+  <tr>
+    <td><%= ceramic_dec_tech.artifact_id %></td>
+    <td><%= link_to 'Show', ceramic_dec_tech %></td>
+    <td><%= link_to 'Edit', edit_ceramic_dec_tech_path(ceramic_dec_tech) %></td>
+    <td><%= link_to 'Destroy', ceramic_dec_tech, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Ceramic dec tech', new_ceramic_dec_tech_path %>

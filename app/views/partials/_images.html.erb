@@ -1,0 +1,39 @@
+<div class="modal-list ceramics-list">
+	<%= form_tag({:action => 'images'}, :method => 'get', :remote => true) do %>
+		<input type="hidden" name="project_id" value="<%= @project_id %>">
+		<input type="hidden" name="image_type" value="<%= @image_type %>">
+		<input type="hidden" name="image_subtype" value="<%= @image_subtype %>">
+		<fieldset>
+			<input type="text" class="text" value="<%= params[:query] != nil ? params[:query] : '' %>" name="query"/>
+			<input id="image-search" type="submit" class="btn submit" value="Search" />
+		</fieldset>
+	<% end %>
+	<div class="feature-table">
+		<table>
+		  <tr>
+				<th></th>
+		    <th class="cell-02">Image</th>
+		    <th class="cell-02a">Image ID</th>
+		    <th class="cell-03">Image Type</th>
+		    <th class="cell-04">Catalogue Number</th>
+		    <th class="cell-04">Description</th>
+				<th class="cell-05">Date Added</th>
+		  </tr>
+		<% if defined? @images %>
+		<% @images.each do |image| %>
+		  <tr class="holder-for-delete">
+				<td><input type="radio" class="image-choices" name="image" value="<%= image.ImageID %>"></td>
+				<td class="cell-02">
+					<%= image_tag(image.ImageFileLocation, :width => '51px', :height => '51px')%>
+				</td>
+				<td class="cell-02a"><%= image.ImageID %></td>
+		 		<td class="cell-03"><%= image.image_type.ImageType if image.image_type != nil  %></td>
+				<td class="cell-04"><%= image.CatalogueNumber %></td>
+				<td class="cell-04"><%= image.ImageDescription %></td>
+				<td class="cell-08"><%= image.DateAdded.strftime("%m/%d/%Y") if image.DateAdded != nil %></td>
+		  </tr>
+		<% end %>
+		<% end %>
+		</table>
+	</div>
+</div><!-- end search -->

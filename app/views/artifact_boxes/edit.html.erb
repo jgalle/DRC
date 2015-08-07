@@ -1,0 +1,334 @@
+q<script>
+// alternating row color variables
+var form_color = false;
+var decoration_color = false;
+
+$(function() {
+
+	$('#context-add').click(function (event) {
+				// alert(unsaved);
+				// $('.casing-empty-relationship').hide();
+				unsaved = true;
+			  time = new Date().getTime();
+			  regexp = new RegExp($(this).data('id'), 'g');	
+				$('#context-elements').append($(this).data('fields').replace(regexp, time).replace('_NUM_',time));
+
+				$("select").each(function() {
+					if($(this).attr('id').indexOf("_NUM_") == -1) {
+						$(this).chosen();
+					}
+				});
+
+				$('#new-context-alert-modal').modal();
+				customForm.customForms.replaceAll();
+				event.preventDefault();
+			});
+			
+			$('.add-context-value').click(function (event) {
+				unsaved = true;
+				$('#new-context-alert-modal').modal('hide');
+				// $('#context-button').html($('.context-choices:checked').val());
+				$('.new-context-artifact-box-id:last').val($('.context-choices:checked').val());
+				$.ajax({
+				  url: "<%= url_for(:action => 'context_info') %>?context_id="+$('.context-choices:checked').val(),
+				  type: "GET"
+				});
+
+				event.preventDefault();
+			});
+			
+			$('.context-delete').click(function (event) {
+						unsaved = true;
+						if(content_to_remove != null) {
+							$(content_to_remove).prev('input[type=hidden]').val('1');
+							$(content_to_remove).closest('.block').hide();
+						}
+						$('#context-artifact-box-alert-modal').modal('hide')
+						event.preventDefault();
+					});
+
+					// grab contents that are about to be deleted
+					$(document).on('click', '.context-artifact-box-delete-link', function (event) {
+						content_to_remove = this;
+					});
+			
+	$('.delete-record').click(function(){
+		$.ajax({
+		  url: "/artifact_boxes/<%= @artifact_box.id %>",
+		  type: "DELETE",
+			statusCode: {
+			    200: function() {
+						$('#delete-alert-modal').modal('hide')
+						window.location="/artifact_boxes#success-deleted"
+			    }
+			  }
+		});
+	});
+	
+	// capture Save button click
+	$('#button-record-save').click(function (event) {
+		console.log('local save');
+		$('#active_tag').val($("ul li.active a").attr('href'));
+		$('.edit_artifact_box').submit();
+		$('.new_artifact_box').submit();
+	});
+	
+
+});
+</script>
+
+<div class="page-header page-header-01">
+	<div class="frame">
+		<div class="clearfix">
+			<%= link_to 'Back to List', artifact_boxes_path, :class => 'back-link'%>
+		</div>
+		<div class="paging">
+		</div><!-- paging -->
+	</div><!-- frame -->
+	<h1>Artifact Box</h1>
+	<% if current_user.is_editor? %>
+	<%= link_to('Add New', new_artifact_box_path, {:class => 'add-new'})%>
+	<% end %>
+</div><!-- page-header -->
+<%= render 'layouts/messages', errors: @artifact_box.errors %>
+
+<div class="clearfix">
+	<%= form_for(@artifact_box, {:class => 'edit_glass'}) do |f|%>
+		<input type="hidden" name="active_tag" id="active_tag">
+		<fieldset>
+			<aside id="aside">
+				<h2 class="visible-md visible-lg">Record Details</h2>
+				<div class="box">
+					<!-- <a href="#" data-toggle="modal" data-target="#add-new" class="add-new">Add New record</a> -->
+				</div><!-- box -->
+				<% if current_user.is_editor?  %>
+				<div class="box">
+					<button id="button-record-save" class="btn btn-success btn-save ie-fix"><span>Save</span></button>
+					<%= image_tag('fancybox_loading.gif', :style => 'display:none', :id => 'loading-icon') %>
+					<div class="area clearfix">
+						<%= link_to('Duplicate', {:action => 'duplicate', :id => params[:id]}, {:class=>"btn btn-info btn-duplicate ie-fix"})%>
+						<%# if current_user.user_level > 3 or current_user.user_level == 2  %>
+						<% if current_user.is_admin?  %>
+							<a href="#" data-toggle="modal" data-target="#delete-alert-modal" class="delete">Delete</a>
+						<% end %>
+					</div>
+				</div><!-- box -->
+				<% end %>
+				<div class="details-bar">
+					<a href="#" data-toggle="dropdown" class="open-close"></a>
+					<div class="drop dropdown-menu" role="menu">
+						<div class="info-box">
+							<dl>
+								<dt class="visible-md visible-lg">Box ID:</dt><dd class="visible-md visible-lg"><%= @artifact_box.BoxID != nil ? @artifact_box.BoxID : ' - ' %></dd>
+								<dt>Project:</dt><dd><%= (@artifact_box.project != nil) ? @artifact_box.project.project_name.ProjectName : ' - ' %></dd>
+							</dl>
+						</div><!-- info-box -->
+						<div class="aside-accordion" id="aside-accordion">
+							<div class="panel">
+							</div>
+							<div class="panel">
+								<h2 class="visible-md visible-lg"><a class="collapsed" data-toggle="collapse" data-parent="#aside-accordion" href="#collapse-02">Cataloger Details</a></h2>
+								<div id="collapse-02" class="panel-collapse collapse">
+									<div class="details-box">
+										<dl>
+											<% user = User.where('editor_id = ?', @artifact_box.EditorIDN).first %>
+											<dt>Added By:</dt><dd><%= user != nil ? "#{user.first_name != nil ? user.first_name+' '+user.last_name : user.userid}" : ' - '%></dd>
+											<dt>Date Added:</dt><dd><%=h @artifact_box.DateAdded !=nil ? @artifact_box.DateAdded.strftime('%m/%d/%Y %H:%M:%S') : " - "%></dd>
+										</dl>
+										<dl>
+											<% user = User.where('editor_id = ?', @artifact_box.EditorID).first %>
+											<dt>Changed By:</dt><dd><%= user != nil ? "#{user.first_name != nil ? user.first_name+' '+user.last_name : user.userid}" : ' - '%></dd>
+											<dt>Date Changed:</dt><dd><%=h @artifact_box.DateChanged !=nil ? @artifact_box.DateChanged.strftime('%m/%d/%Y %H:%M:%S') : " - "%></dd>
+										</dl>
+										<div class="clearfix">
+											<a href="#" class="link">Change Log</a>
+										</div>
+									</div><!-- details-box -->
+								</div>
+							</div>
+						</div><!-- accordion -->
+					</div>
+				</div><!-- details-bar -->
+			</aside><!-- aside -->
+			<section class="tabs">
+				<ul class="nav nav-tabs">
+					<li class="active"><a href="#tab-01" data-toggle="tab">Main</a></li>
+					<li><a href="#tab-02" data-toggle="tab">Contexts</a></li>
+				</ul><!-- nav-tabs -->
+				<div class="tab-content">
+					<div class="tab-pane active" id="tab-01">
+						<section class="section">
+							<div class="heading">
+								<h2>General</h2>
+							</div>
+							<div class="material-form">
+							<div class="two-columns">
+								<div class="row-area">
+									<div class="col">
+										<%= f.label('BoxLocation', 'Box Location')%>
+										<div class="frame">
+											<%= f.text_field('BoxLocation', {:class => "form-control"})%>
+										</div>
+									</div>
+									<div class="col">
+										<%= f.label('BoxNumber', 'Box Number')%>
+										<div class="frame">
+											<%= f.text_field('BoxNumber', {:class => "form-control"})%>
+										</div>
+									</div>
+								</div><!-- row-area -->
+								<div class="row-area">
+									<div class="col">
+										<%= f.label('ProjectID', 'Project')%>
+										<div class="frame">
+											<%= f.collection_select('ProjectID', Project.includes(:project_name).references(:project_name).order('"tblProjectName"."ProjectName"'), :id, 'project_name', {:include_blank => '--select--'}, {'data-placeholder' => '--select--', :class => 'form-control'})%>
+										</div>
+									</div>
+									<div class="col">
+										<%= f.label('ProjectYear', 'Project Year')%>
+										<div class="frame">
+											<%= f.text_field('ProjectYear', {:class => 'form-control'})%>
+										</div>
+									</div>
+								</div><!-- row-area -->
+							</div><!-- material-form -->
+							</div>
+						</section><!-- section -->
+						<section class="section">
+							<div class="heading">
+								<h2>Notes</h2>
+							</div>
+							<div class="one-column">
+								<div class="row-area">
+									<%= f.text_area('Notes', {:class => "form-control"})%>
+								</div>								
+							</div>
+						</section>
+					</div><!-- tab-01 -->
+					<div class="tab-pane" id="tab-02">
+						<div class="context-list">
+							<div id="context-elements">
+								<%= f.fields_for :context_artifact_boxes do |aif| %>
+									<%= render 'context_artifact_box_fields', f: aif %>
+								<% end %>
+							</div>
+							<div class="clearfix">
+								<div class="btn-area">
+									<%= link_to_add_fields "Add Context", f, :context_artifact_boxes, {:id=>"context-add", :class => "btn btn-info btn-add"} %>
+									<!-- <a class="btn btn-info btn-add" data-toggle="modal" data-target="#new-image">Add</a> -->
+								</div>
+							</div>
+						</div>
+					</div>
+				</div><!-- tab-content -->
+			</section><!-- tabs -->
+		</fieldset>
+	<% end %>
+</div>
+<div class="modal alert-modal fade" id="form-alert-modal" tabindex="-1" role="dialog" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+				<h4 class="modal-title">Alert</h4>
+			</div>
+			<div class="modal-body">
+				<p class="txt">Are you sure you want to delete?</p>
+			</div>
+			<div class="modal-footer">
+				<button class="btn btn-default" data-dismiss="modal">Cancel</button>
+				<button class="btn btn-warning form-delete">Delete</button>
+			</div>
+		</div><!-- /.modal-content -->
+	</div><!-- /.modal-dialog -->
+</div><!-- alert-modal -->
+
+<div class="modal alert-modal fade" id="decoration-alert-modal" tabindex="-1" role="dialog" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+				<h4 class="modal-title">Alert</h4>
+			</div>
+			<div class="modal-body">
+				<p class="txt">Are you sure you want to delete?</p>
+			</div>
+			<div class="modal-footer">
+				<button class="btn btn-default" data-dismiss="modal">Cancel</button>
+				<button class="btn btn-warning decoration-delete">Delete</button>
+			</div>
+		</div><!-- /.modal-content -->
+	</div><!-- /.modal-dialog -->
+</div><!-- alert-modal -->
+
+<div class="modal alert-modal fade" id="mend-alert-modal" tabindex="-1" role="dialog" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+				<h4 class="modal-title">Alert</h4>
+			</div>
+			<div class="modal-body">
+				<p class="txt">Are you sure you want to delete?</p>
+			</div>
+			<div class="modal-footer">
+				<button class="btn btn-default" data-dismiss="modal">Cancel</button>
+				<button class="btn btn-warning mend-delete">Delete</button>
+			</div>
+		</div><!-- /.modal-content -->
+	</div><!-- /.modal-dialog -->
+</div><!-- alert-modal -->
+
+<div class="modal alert-modal fade" id="delete-alert-modal" tabindex="-1" role="dialog" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+				<h4 class="modal-title">Alert</h4>
+			</div>
+			<div class="modal-body">
+				<p class="txt">Are you sure you want to delete?</p>
+			</div>
+			<div class="modal-footer">
+				<button class="btn btn-default" data-dismiss="modal">Cancel</button>
+				<button class="btn btn-warning delete-record">Delete</button>
+			</div>
+		</div><!-- /.modal-content -->
+	</div><!-- /.modal-dialog -->
+</div><!-- alert-modal -->
+
+<div class="modal alert-modal fade" id="context-artifact-box-alert-modal" tabindex="-1" role="dialog" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+				<h4 class="modal-title">Alert</h4>
+			</div>
+			<div class="modal-body">
+				<p class="txt">Are you sure you want to delete?</p>
+			</div>
+			<div class="modal-footer">
+				<button class="btn btn-default" data-dismiss="modal">Cancel</button>
+				<button class="btn btn-warning context-delete">Delete</button>
+			</div>
+		</div><!-- /.modal-content -->
+	</div><!-- /.modal-dialog -->
+</div><!-- alert-modal -->
+
+<div class="modal alert-modal fade" id="new-context-alert-modal" tabindex="-1" role="dialog" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+				<h4 class="modal-title">Contexts</h4>
+			</div>
+			<div class="modal-body context-query">
+				<%= render :partial => 'contexts'%>
+			</div>
+			<div class="modal-footer">
+				<button class="btn btn-default" data-dismiss="modal">Cancel</button>
+				<button class="btn btn-warning add-context-value">Select</button>
+			</div>
+		</div><!-- /.modal-content -->
+	</div><!-- /.modal-dialog -->
+</div><!-- alert-modal -->

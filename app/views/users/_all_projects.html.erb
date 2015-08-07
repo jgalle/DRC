@@ -1,0 +1,19 @@
+<div class="block box ie-fix project">
+	<div class="heading ie-fix">
+		<div class="check-block">
+			<input type="checkbox"  onchange="checkAll(this)" id="lbl-028" class="check" />
+			<label for="lbl-028">Select All</label>
+		</div><!-- end chech-block -->
+		<h2><%= @institution.Institution %> Projects</h2>
+	</div><!-- heading -->
+	<div id="project_list">
+		<ul class="list">
+		<% Project.includes(:project_name).where(["\"InstitutionID\" = ?", @organization_id]).references(:project_name).order('"tblProjectName"."ProjectName"').each do |project| -%>
+		    <li>
+		      <%= check_box_tag :project_ids, project.id, false, :name => "#{@name}[]" -%>
+		      <%= project.project_name.ProjectName %>
+		    </li>
+		 <% end -%>
+		</ul>
+	</div>
+</div>

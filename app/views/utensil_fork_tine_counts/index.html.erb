@@ -1,0 +1,23 @@
+<h1>Listing utensil_fork_tine_counts</h1>
+
+<table>
+  <tr>
+    <th>Fork tine count</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @utensil_fork_tine_counts.each do |utensil_fork_tine_count| %>
+  <tr>
+    <td><%= utensil_fork_tine_count.fork_tine_count %></td>
+    <td><%= link_to 'Show', utensil_fork_tine_count %></td>
+    <td><%= link_to 'Edit', edit_utensil_fork_tine_count_path(utensil_fork_tine_count) %></td>
+    <td><%= link_to 'Destroy', utensil_fork_tine_count, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Utensil fork tine count', new_utensil_fork_tine_count_path %>

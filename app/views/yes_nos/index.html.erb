@@ -1,0 +1,21 @@
+<h1>Listing yes_nos</h1>
+
+<table>
+  <tr>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @yes_nos.each do |yes_no| %>
+  <tr>
+    <td><%= link_to 'Show', yes_no %></td>
+    <td><%= link_to 'Edit', edit_yes_no_path(yes_no) %></td>
+    <td><%= link_to 'Destroy', yes_no, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Yes no', new_yes_no_path %>

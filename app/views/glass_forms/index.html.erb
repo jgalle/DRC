@@ -1,0 +1,23 @@
+<h1>Listing glass_forms</h1>
+
+<table>
+  <tr>
+    <th>Glass form</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @glass_forms.each do |glass_form| %>
+  <tr>
+    <td><%= glass_form.glass_form %></td>
+    <td><%= link_to 'Show', glass_form %></td>
+    <td><%= link_to 'Edit', edit_glass_form_path(glass_form) %></td>
+    <td><%= link_to 'Destroy', glass_form, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Glass form', new_glass_form_path %>

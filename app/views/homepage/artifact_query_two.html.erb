@@ -1,0 +1,32 @@
+<div class="page-header page-header-004">
+	<h1>Query the Database</h1>
+	<p>Artifact Query 2: Detailed Inventory</p>
+</div><!-- page-header -->
+<div class="query-database popover-area">
+	<%= form_tag({:action => 'search_two'}, {:onreset=>"setTimeout(function(){sitesContain()},100)"}) do %>
+	<!-- <form action="#" onreset="setTimeout(function(){sitesContain()},100)"> -->
+		<fieldset>
+			<div class="block">
+				<div class="heading">
+					<div class="check-block">
+						<input type="checkbox" id="lbl-028" onchange="checkAll(this)" class="check" />
+						<label for="lbl-028">Select All</label>
+					</div><!-- end chech-block -->
+					<h2>Step 1: Choose One or More Sites<button class="btn" data-content="A site is a spatial cluster of artifacts or other physical traces of past human activity and the surrounding sedimentary matrix. Only sites that have been investigated archaeologically are represented in the DAACS database." data-placement="right" data-toggle="popover" data-container="body" type="button" data-original-title="Help Tip" title="Help Tip"> Popover on left </button></h2>
+				</div><!-- end heading -->
+				<div class="section section-003">
+					<%= render :partial => 'site_selection' %>
+				</div><!-- end section -->
+			</div><!-- end block -->
+			<div class="buttons">
+				<div class="c">
+					<div class="box">
+						<input type="reset" class="reset" value="Reset" />
+						<input type="submit" class="btn submit" value="Submit" />
+					</div><!-- end box -->
+				</div><!-- end c -->
+			</div><!-- end buttons -->
+		</fieldset>
+	<!-- </form> -->
+	<% end %>
+</div><!-- end query-database -->

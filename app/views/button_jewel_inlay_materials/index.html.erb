@@ -1,0 +1,23 @@
+<h1>Listing button_jewel_inlay_materials</h1>
+
+<table>
+  <tr>
+    <th>Jewel inlay material</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @button_jewel_inlay_materials.each do |button_jewel_inlay_material| %>
+  <tr>
+    <td><%= button_jewel_inlay_material.jewel_inlay_material %></td>
+    <td><%= link_to 'Show', button_jewel_inlay_material %></td>
+    <td><%= link_to 'Edit', edit_button_jewel_inlay_material_path(button_jewel_inlay_material) %></td>
+    <td><%= link_to 'Destroy', button_jewel_inlay_material, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Button jewel inlay material', new_button_jewel_inlay_material_path %>

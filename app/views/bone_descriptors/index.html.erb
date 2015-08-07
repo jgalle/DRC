@@ -1,0 +1,23 @@
+<h1>Listing bone_descriptors</h1>
+
+<table>
+  <tr>
+    <th>Bone descriptor</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @bone_descriptors.each do |bone_descriptor| %>
+  <tr>
+    <td><%= bone_descriptor.bone_descriptor %></td>
+    <td><%= link_to 'Show', bone_descriptor %></td>
+    <td><%= link_to 'Edit', edit_bone_descriptor_path(bone_descriptor) %></td>
+    <td><%= link_to 'Destroy', bone_descriptor, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Bone descriptor', new_bone_descriptor_path %>

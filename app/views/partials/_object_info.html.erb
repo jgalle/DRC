@@ -1,0 +1,12 @@
+<dl>
+	<dt>Object ID:</dt><dd><%= gen_object.ObjectID %></dd>
+	<dt>Form:</dt><dd><%= gen_object.gen_object_form != nil ? gen_object.gen_object_form.ObjectForm : '-' %></dd>
+	<dt>Ware:</dt><dd><%= gen_object.gen_object_ware_type != nil ? gen_object.gen_object_ware_type.Ware : '-'%></dd>
+	<dt>Material:</dt><dd><%= gen_object.gen_object_material != nil ? gen_object.gen_object_material.ObjectMaterial : '-' %></dd>
+</dl>
+<dl>
+	<dt>Object Description:</dt><dd><%= gen_object.ObjectDescription %></dd>
+	<% user = User.where('editor_id = ?', gen_object.EditorIDN).first %>
+	<dt>Added By:</dt><dd><%= user != nil ? "#{user.first_name != nil ? user.first_name+' '+user.last_name : user.userid}" : ' - '%></dd>
+	<dt>Date Added:</dt><dd><%=h gen_object.DateAdded !=nil ? gen_object.DateAdded.to_formatted_s(:db) : " - "%></dd>
+</dl>

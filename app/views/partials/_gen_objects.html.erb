@@ -1,0 +1,38 @@
+<div class="modal-list ceramics-list">
+	<%= form_tag({:action => 'gen_objects'}, :method => 'get', :remote => true) do %>
+		<fieldset>
+			<input type="text" class="text" value="<%= params[:query] != nil ? params[:query] : '' %>" name="query"/>
+			<input id="object-search" type="submit" class="btn submit" value="Search" />
+		</fieldset>
+	<% end %>
+	<div class="feature-table">
+		<table>
+		  <tr>
+				<th>&nbsp;</th>
+				<th>&nbsp;</th>
+			    <th class="cell-02">Object ID</th>
+			    <th class="cell-04">Form</th>
+			    <th class="cell-05">Ware</th>
+			    <th class="cell-06">Material</th>
+				<th class="cell-07">Description</th>
+		  </tr>
+		<% if defined? @gen_objects %>
+		<% @gen_objects.each do |gen_object| %>
+		  <tr class="holder-for-delete">
+				<td><input type="radio" class="gen_object-choices" name="gen_object" value="<%= gen_object.ObjectID %>"></td>
+				<td class="">
+					<% if gen_object.images.size > 0 %>
+					<%= image_tag(gen_object.images.first.ImageFileLocation, :width => '51px', :height => '51px')%>
+					<% end %>
+				</td>
+				<td class="cell-02"><%= gen_object.ObjectID %></td>
+		 		<td class="cell-04"><%= gen_object.gen_object_form.ObjectForm if gen_object.gen_object_form != nil %></td>
+				<td class="cell-05"><%= gen_object.gen_object_ware_type.Ware if gen_object.gen_object_ware_type != nil %></td>
+				<td class="cell-06"><%= gen_object.gen_object_material.ObjectMaterial if gen_object.gen_object_material != nil	%>	  
+								<td class="cell-07"><%= gen_object.ObjectDescription %></td>
+			</tr>
+		<% end %>
+		<% end %>
+		</table>
+	</div>
+</div><!-- end search -->

@@ -1,0 +1,383 @@
+<script>
+	$(function() {
+		$('#button-record-save').click(function (event) {
+			console.log('local save');
+			$('#active_tag').val($("ul li.active a").attr('href'));
+			$('.edit_project').submit();
+			$('.new_project').submit();
+		});
+		$('.delete-record').click(function(){
+			$.ajax({
+			  url: "/projects/<%= @project.id %>",
+			  type: "DELETE",
+				statusCode: {
+				    200: function() {
+							$('#delete-alert-modal').modal('hide')
+							window.location="/projects#success-deleted"
+				    }
+				  }
+			});
+		});
+	});
+</script>
+<div class="page-header page-header-01">
+	<div class="frame">
+		<div class="clearfix">
+			<%= link_to 'Back to List', projects_path, :class => 'back-link'%>
+		</div>
+	</div><!-- frame -->
+	<h1>Project</h1>
+	<%#= link_to('Add New record', new_project_path, {:class => 'add-new'})%>
+</div><!-- page-header -->
+<%= render 'layouts/messages', errors: @project.errors %>
+<div class="clearfix">
+	<%= form_for(@project, {:class => 'edit_project'}) do |f|%>
+	<input type="hidden" name="active_tag" id="active_tag">
+		<fieldset>
+			<aside id="aside">
+				<h2 class="visible-md visible-lg">Record Details</h2>
+				<% if current_user.edit_projects.include?(@project) or current_user.is_admin? %>
+				<% if current_user.is_super_admin? %>
+				<div class="box">
+					<%= link_to('Add New record', new_project_path, {:class => 'add-new'})%>
+				</div><!-- box -->
+				<% end %>
+				<div class="box">
+					<button id="button-record-save" class="btn btn-success btn-save ie-fix"><span>Save</span></button>
+					<%= image_tag('fancybox_loading.gif', :style => 'display:none', :id => 'loading-icon') %>
+					<div class="area clearfix">
+						<% if current_user.is_admin? %>
+							<a href="#" data-toggle="modal" data-target="#delete-alert-modal" class="delete">Delete</a>
+						<% end %>
+					</div>
+				</div><!-- box -->
+				<% end %>
+				<div class="details-bar">
+					<a href="#" data-toggle="dropdown" class="open-close"></a>
+					<div class="drop dropdown-menu" role="menu">
+						<div class="info-box">
+						</div><!-- info-box -->
+						<div class="aside-accordion" id="aside-accordion">
+							<div class="panel">
+								<h2 class="visible-md visible-lg"><a class="collapsed" data-toggle="collapse" data-parent="#aside-accordion" href="#collapse-02">Cataloger Details</a></h2>
+								<div id="collapse-02" class="panel-collapse collapse">
+									<div class="details-box">
+										<dl>
+											<% user = User.where('editor_id = ?', @project.EditorIDN).first %>
+											<dt>Added By:</dt><dd><%= user != nil ? "#{(user.first_name != nil and user.first_name != '') ? user.first_name+' '+user.last_name : user.userid}" : ' - '%></dd>
+											<dt>Date Added:</dt><dd><%=h @project.DateAdded !=nil ? @project.DateAdded.strftime('%m/%d/%Y %H:%M:%S') : " - "%></dd>
+										</dl>
+										<dl>
+											<% user = User.where('editor_id = ?', @project.EditorID).first %>
+											<dt>Changed By:</dt><dd><%= user != nil ? "#{(user.first_name != nil and user.first_name != '') ? user.first_name+' '+user.last_name : user.userid}" : ' - '%></dd>
+											<dt>Date Changed:</dt><dd><%=h @project.DateChanged !=nil ? @project.DateChanged.strftime('%m/%d/%Y %H:%M:%S') : " - "%></dd>
+										</dl>
+										<div class="clearfix">
+											<a href="#" class="link">Change Log</a>
+										</div>
+									</div><!-- details-box -->
+								</div>
+							</div>
+						</div><!-- accordion -->
+					</div>
+				</div><!-- details-bar -->
+			</aside><!-- aside -->
+			<section class="tabs">
+				<ul class="nav nav-tabs">
+					<li class="active"><a href="#tab-01" data-toggle="tab">General</a></li>
+					<li><a href="#tab-02" data-toggle="tab">Geo Datum</a></li>
+					<li><a href="#tab-03" data-toggle="tab">Site Map</a></li>
+				</ul><!-- nav-tabs -->
+				<div class="tab-content">
+					<div class="tab-pane active" id="tab-01">
+						<section class="section">
+							<div class="heading">
+								<h2>General</h2>
+							</div>
+							<div class="two-columns">
+								<div class="row-area">
+									<div class="col">
+										<%= f.label('ProjectID', 'Project ID')%>
+										<div class="frame">
+											<% if @project.id != nil and @project.ProjectID != nil %>
+												<%= f.text_field 'ProjectID', {:disabled => true, :class => "form-control"}%>
+												<%= f.hidden_field 'ProjectID'%>
+											<% else %>
+												<%= f.text_field 'ProjectID', {:maxlength => 4, :class => "form-control"}%>
+											<% end %>
+										</div>
+									</div>
+									<div class="col">
+										<%= f.label('ProjectNameID', 'Project Name')%>
+										<div class="frame">
+											<%= f.collection_select('ProjectNameID', ProjectName.all.order('"ProjectName"'), :id, 'ProjectName', {:include_blank => '--select--'}, {'data-placeholder' => '--select--', :class => 'form-control'})%>
+										</div>
+									</div>
+								</div><!-- row-area -->
+								<div class="row-area">
+									<div class="col">
+										<%= f.label('StateSiteNumber', 'State Site Number')%>
+										<div class="frame">
+											<%= f.text_field(:StateSiteNumber, {:maxlength => 15, :class => 'form-control'})%>
+										</div>
+									</div>
+									<div class="col">
+										<%= f.label('InstitutionID', 'Institution')%>
+										<div class="frame">
+										<%= f.collection_select('InstitutionID', ProjectInstitution.all.order('"Institution"'), :id, 'Institution', {:include_blank => '--select--'}, {'data-placeholder' => '--select--', :class => 'form-control'})%>
+										</div>
+									</div>
+								</div><!-- row-area -->
+								<div class="row-area">
+									<div class="col">
+										<%= f.label('ArtifactRepositoryID', 'Artifact Repository')%>
+										<div class="frame">
+											<%= f.collection_select('ArtifactRepositoryID', ProjectInstitution.all.order('"Institution"'), :id, 'Institution', {:include_blank => '--select--'}, {'data-placeholder' => '--select--', :class => 'form-control'})%>
+										</div>
+									</div>
+									<div class="col">
+										<%= f.label('RegionID', 'Region')%>
+										<div class="frame">
+											<%= f.collection_select('RegionID', ProjectRegion.all.order('"Region"'), :id, 'Region', {:include_blank => '--select--'}, {'data-placeholder' => '--select--', :class => 'form-control'})%>
+										</div>
+									</div>
+								</div><!-- row-area -->
+								<div class="row-area">
+									<div class="col">
+										<%= f.label('CountyID', 'County')%>
+										<div class="frame">
+											<%= f.collection_select('CountyID', ProjectCounty.all.order('"County"'), :id, 'County', {:include_blank => '--select--'}, {'data-placeholder' => '--select--', :class => 'form-control'})%>
+										</div>
+									</div>
+									<div class="col">
+										<%= f.label('ProjectStateID', 'State')%>
+										<div class="frame">
+											<%= f.collection_select('ProjectStateID', ProjectState.all.order('"ProjectState"'), :id, 'ProjectState', {:include_blank => '--select--'}, {'data-placeholder' => '--select--', :class => 'form-control'})%>
+										</div>
+									</div>
+								</div><!-- row-area -->
+								<div class="row-area">
+									<div class="col">
+										<%= f.label('ProjectCountryID', 'Country')%>
+										<div class="frame"><%#debugger%>
+											<%= f.collection_select('ProjectCountryID', ProjectCountry.all.order('"ProjectCountry"'), :id, 'ProjectCountry', {:include_blank => '--select--'}, {'data-placeholder' => '--select--', :class => 'form-control'})%>
+										</div>
+									</div>
+									<div class="col">
+										<%= f.label('PlaceNameID', 'Place Name')%>
+										<div class="frame"><%#debugger%>
+											<%= f.collection_select('PlaceNameID', ProjectPlaceName.all.order('"PlaceName"'), :id, 'PlaceName', {:include_blank => '--select--'}, {'data-placeholder' => '--select--', :class => 'form-control'})%>
+										</div>
+									</div>
+								</div><!-- row-area -->
+								<div class="row-area">
+									<div class="col">
+										<%= f.label('PlantationID', 'Plantation Name')%>
+										<div class="frame"><%#debugger%>
+											<%= f.collection_select('PlantationID', Plantation.all.order('"PlantationName"'), :id, 'PlantationName', {:include_blank => '--select--'}, {'data-placeholder' => '--select--', :class => 'form-control'})%>
+										</div>
+									</div>
+									<div class="col">
+										<%= f.label('LevelofTreatmentID', 'Level of Treatment')%>
+										<div class="frame"><%#debugger%>
+											<%= f.collection_select('LevelofTreatmentID', ProjectLevelofTreatment.all.order('"LevelofTreatment"'), :id, 'LevelofTreatment', {:include_blank => '--select--'}, {'data-placeholder' => '--select--', :class => 'form-control'})%>
+										</div>
+									</div>
+								</div><!-- row-area -->
+							</div><!-- material-form -->
+						</section><!-- section -->
+						<section class="section">
+							<div class="heading">
+								<h2>Excavation Info</h2>
+							</div>
+							<div class="three-columns">
+								<div class="row-area">
+									<div class="col">
+										<%= f.label('UnitofMeasureID', 'Unit of Measurement')%>
+										<%= f.collection_select('UnitofMeasureID', ProjectUnitofMeasure.all.order('"UnitofMeasurement"'), :id, 'UnitofMeasurement', {:include_blank => '--select--'}, {'data-placeholder' => '--select--', :class => 'form-control'})%>
+									</div>
+									<div class="col">
+										<%= f.label('DrainageID', 'Drainage')%>
+										<%= f.collection_select('DrainageID', ProjectDrainage.all.order('"Drainage"'), :id, 'Drainage', {:include_blank => '--select--'}, {'data-placeholder' => '--select--', :class => 'form-control'})%>
+									</div>
+									<div class="col">
+										<%= f.label('NearestWaterSource', 'Nearest Water Source')%>
+										<%= f.text_field('NearestWaterSource', {:maxlength => 50, :class => 'form-control'})%>
+									</div>
+								</div><!-- row-area -->
+								<div class="row-area">
+									<div class="col">
+										<%= f.label('DistancefromWaterSource', 'Distance From Water Source')%>
+										<%= f.text_field('DistancefromWaterSource', {:maxlength => 50, :class => 'form-control'})%>
+									</div>
+									<div class="col">
+										<%= f.label('SiteSoils', 'Site Soils')%>
+										<%= f.text_field('SiteSoils', {:maxlength => 50, :class => 'form-control'})%>
+									</div>
+									<div class="col">
+										<%= f.label('ElevationTypeID', 'Elevation Type')%>
+										<%= f.collection_select('ElevationTypeID', ProjectElevationType.all.order('"ElevationType"'), :id, 'ElevationType', {:include_blank => '--select--'}, {'data-placeholder' => '--select--', :class => 'form-control'})%>
+									</div>
+								</div>
+								<div class="row-area">
+									<div class="col">
+										<%= f.label('AzimuthOrientation', 'Grid Azimuth Orientation')%>
+										<%= f.text_field('AzimuthOrientation', {:class => 'form-control'})%>
+									</div>
+									<div class="col">
+										<%= f.label('TotalAreaExcavated', 'Total Area Excavated')%>
+										<%= f.text_field('TotalAreaExcavated', {:class => 'form-control'})%>
+									</div>
+									<div class="col">
+										<%= f.label('TotalConvexHull', 'Total Convex Hull')%>
+										<%= f.text_field('TotalConvexHull', {:class => 'form-control'})%>
+									</div>
+								</div><!-- row-area -->
+							</div><!-- surfaces-form -->
+						</section><!-- section -->
+						<section class="section">
+							<div class="heading">
+								<h2>Dates</h2>
+							</div>
+							<div class="three-columns">
+								<div class="row-area">
+									<div class="col">
+										<%= f.label('DatesExcavated', 'Dates Excavated')%>
+										<%= f.text_field('DatesExcavated', {:maxlength => 20, :class => "form-control"})%>
+									</div>
+									<div class="col">
+										<%= f.label('BeginDate', 'Occupation Beginning Date')%>
+										<%= f.text_field('BeginDate', {:maxlength => 25, :class => "form-control"})%>
+									</div>
+									<div class="col">
+										<%= f.label('EndDate', 'Occupation End Date')%>
+										<%= f.text_field('EndDate', {:maxlength => 25, :class => "form-control"})%>
+									</div>
+								</div>
+							</div>
+						</section><!-- section -->
+						<section class="section">
+							<div class="heading">
+								<h2>Notes</h2>
+							</div>
+							<div class="one-column">
+								<div class="row-area">
+										<%= f.label('ProjectNotes', 'Project Notes')%>
+										<%= f.text_area('ProjectNotes', {:class => "form-control"})%>
+								</div>
+								<div class="row-area">
+										<%= f.label('SiteAbstract', 'Site Abstract')%>
+										<%= f.text_area('SiteAbstract', {:class => "form-control"})%>
+								</div>
+								<div class="row-area">
+									<%= f.label('WebsiteRegionID', 'Website Region')%>
+									<%= f.collection_select('WebsiteRegionID', WebsiteRegion.all.order('"WebsiteRegion"'), :id, 'WebsiteRegion', {:include_blank => '--select--'}, {'data-placeholder' => '--select--', :class => 'form-control'})%>
+								</div>
+							</div>
+						</section><!-- section -->
+					</div><!-- tab-01 -->
+					<div class="tab-pane" id="tab-02">
+						<div class="geo-datum">
+							<div class="holder">
+								<section class="section">
+									<div class="heading">
+										<h2>General</h2>
+									</div>
+										<div class="two-columns">
+											<div class="row-area">
+												<div class="col">
+													<%= f.label('GeoDatumID', 'Geo Datum')%>
+													<div class="frame">
+														<%= f.collection_select('GeoDatumID', ProjectGeoDatum.all.order('"GeoDatum"'), :id, 'GeoDatum', {:include_blank => '--select--'}, {'data-placeholder' => '--select--', :class => 'form-control'})%>
+													</div>
+												</div>
+												<div class="col">
+													<%= f.label('GeoCoordinateSystemID', 'Geo Coordinate System')%>
+													<div class="frame">
+														<%= f.collection_select('GeoCoordinateSystemID', ProjectGeoCoordinateSystem.all.order('"GeoCoordinateSystem"'), :id, 'GeoCoordinateSystem', {:include_blank => '--select--'}, {'data-placeholder' => '--select--', :class => 'form-control'})%>
+													</div>
+												</div>
+											</div><!-- row-area -->
+											<div class="row-area">
+												<div class="col">
+													<%= f.label('NorthingGeoCoordinateofLocalDatum', 'Northing Geo Coordinate of Local Datum')%>
+													<div class="frame">
+														<%= f.text_field(:NorthingGeoCoordinateofLocalDatum, {:class => 'form-control'})%>
+													</div>
+												</div>
+												<div class="col">
+													<%= f.label('EastingGeoCoordinateofLocalDatum', 'Easting Geo Coordinate of Local Datum')%>
+													<div class="frame">
+														<%= f.text_field(:EastingGeoCoordinateofLocalDatum, {:class => 'form-control'})%>
+													</div>
+												</div>
+											</div><!-- row-area -->
+											<div class="row-area">
+												<div class="col">
+													<%= f.label('VerticalGeoCoordinateofLocalDatum', 'Vertical Geo Coordinate of Local Datum')%>
+													<div class="frame">
+														<%= f.text_field(:VerticalGeoCoordinateofLocalDatum, {:class => 'form-control'})%>
+ 													</div>
+												</div>
+											</div><!-- row-area -->
+										</div><!-- material-form -->
+								</section><!-- section -->
+							</div>
+						</div><!-- measurements -->
+					</div><!-- tab-02 -->
+					<div class="tab-pane" id="tab-03">
+						<div class="image-list">
+							<div id="image-elements">
+								<%= f.fields_for :project_images do |aif| %>
+									<%= render 'project_image_fields', f: aif %>
+								<% end %>
+							</div>
+							<div class="clearfix">
+								<div class="btn-area">
+									<%= link_to_add_fields "Add Image", f, :project_images, {:id=>"image-add", :class => "btn btn-info btn-add"} %>
+									<!-- <a class="btn btn-info btn-add" data-toggle="modal" data-target="#new-image">Add</a> -->
+								</div>
+							</div>
+						</div>
+					</div>
+					
+				</div><!-- tab-content -->
+			</section><!-- tabs -->
+		</fieldset>
+	<% end %>
+</div>
+<div class="modal alert-modal fade" id="dec-tech-alert-modal" tabindex="-1" role="dialog" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+				<h4 class="modal-title">Alert</h4>
+			</div>
+			<div class="modal-body">
+				<p class="txt">Are you sure you want to delete?</p>
+			</div>
+			<div class="modal-footer">
+				<button class="btn btn-default" data-dismiss="modal">Cancel</button>
+				<button class="btn btn-warning dec-tech-delete">Delete</button>
+			</div>
+		</div><!-- /.modal-content -->
+	</div><!-- /.modal-dialog -->
+</div><!-- alert-modal -->
+
+<div class="modal alert-modal fade" id="delete-alert-modal" tabindex="-1" role="dialog" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+				<h4 class="modal-title">Alert</h4>
+			</div>
+			<div class="modal-body">
+				<p class="txt">Are you sure you want to delete?</p>
+			</div>
+			<div class="modal-footer">
+				<button class="btn btn-default" data-dismiss="modal">Cancel</button>
+				<button class="btn btn-warning delete-record">Delete</button>
+			</div>
+		</div><!-- /.modal-content -->
+	</div><!-- /.modal-dialog -->
+</div><!-- alert-modal -->

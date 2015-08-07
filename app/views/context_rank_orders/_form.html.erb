@@ -1,0 +1,21 @@
+<%= form_for(@context_rank_order) do |f| %>
+  <% if @context_rank_order.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@context_rank_order.errors.count, "error") %> prohibited this context_rank_order from being saved:</h2>
+
+      <ul>
+      <% @context_rank_order.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :rank_order %><br />
+    <%= f.text_field :rank_order %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

@@ -1,0 +1,55 @@
+                    <div class="block <%= @form_colored == true ? 'colored' : '' %>">
+                      <div class="three-columns three-with-delete">
+                          <div class="row-area">
+                                <div class="col">
+																	<%= f.label('BucklePartID', 'Buckle Part')%>
+																	<%= f.collection_select('BucklePartID', BucklePart.all.order('"BucklePart"'), :id, 'BucklePart', {:include_blank => '--select--'}, {'data-placeholder' => '--select--', :class => 'form-control'})%>
+                                </div>
+                                <div class="col">
+																	<%= f.label('BuckleMaterialID', 'Material')%>
+																	<div class="clearfix">
+																		<%= f.collection_select('BuckleMaterialID', BuckleMaterial.all.order('"BuckleMaterial"'), :id, 'BuckleMaterial', {:include_blank => '--select--'}, {'data-placeholder' => '--select--', :class => 'form-control'})%>
+																	</div>
+                                </div>
+                                <div class="col">
+																	<%= f.label('BuckleManuTechID', 'Manufacturing Technique')%>
+																	<div class="clearfix">
+																		<%= f.collection_select('BuckleManuTechID', BuckleManuTech.all.order('"BuckleManuTech"'), :id, 'BuckleManuTech', {:include_blank => '--select--'}, {'data-placeholder' => '--select--', :class => 'form-control'})%>
+																	</div>
+                                </div>
+   																<%= f.hidden_field :_destroy %>
+																<a href="#" data-toggle="modal" data-target="#form-alert-modal" class="form-delete-link delete" tabindex="-1">Delete</a>
+														</div>
+	                          <div class="row-area">
+	                                <div class="col">
+																		<%= f.label('BuckleShapeID', 'Shape')%>
+																		<%= f.collection_select('BuckleShapeID', BuckleShape.all.order('"BuckleShape"'), :id, 'BuckleShape', {:include_blank => '--select--'}, {'data-placeholder' => '--select--', :class => 'form-control'})%>
+	                                </div>
+	                                <div class="col">
+																		<%= f.label('BuckleElementID', 'Element Type')%>
+																		<div class="clearfix">
+																			<%= f.collection_select('BuckleElementID', BuckleElement.all.order('"BuckleElement"'), :id, 'BuckleElement', {:include_blank => '--select--'}, {'data-placeholder' => '--select--', :class => 'form-control'})%>
+																		</div>
+	                                </div>
+	                                <div class="col">
+																		<%= f.label('Length', 'Length (mm)')%>
+																		<div class="clearfix">
+																			<%= f.text_field('Length', {:class => 'form-control'})%>
+																		</div>
+	                                </div>
+															</div>
+		                          <div class="row-area">
+		                                <div class="col">
+																			<%= f.label('Width', 'Width (mm)')%>
+																			<%= f.text_field('Width', {:class => 'form-control'})%>
+		                                </div>
+		                                <div class="col">
+																			<%= f.label('PinCenterpointMeasure', 'Pin Centerpoint Measure (mm)')%>
+																			<div class="clearfix">
+																				<%= f.text_field('PinCenterpointMeasure', {:class => 'form-control'})%>
+																			</div>
+		                                </div>
+																</div>
+												</div>
+<div class="number" style="display:none">_NUM_</div>
+                    </div><!-- block -->

@@ -1,0 +1,25 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Applied color written description:</b>
+  <%= @munsell_applied_color.applied_color_written_description %>
+</p>
+
+<p>
+  <b>Munsell range applied color:</b>
+  <%= @munsell_applied_color.munsell_range_applied_color %>
+</p>
+
+<p>
+  <b>Basic color:</b>
+  <%= @munsell_applied_color.basic_color %>
+</p>
+
+<p>
+  <b>Color type:</b>
+  <%= @munsell_applied_color.color_type %>
+</p>
+
+
+<%= link_to 'Edit', edit_munsell_applied_color_path(@munsell_applied_color) %> |
+<%= link_to 'Back', munsell_applied_colors_path %>

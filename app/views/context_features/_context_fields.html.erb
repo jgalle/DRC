@@ -1,0 +1,19 @@
+                    <div class="block">
+                      <div class="three-columns three-with-delete">
+                      	<div class="row-area">
+													<% if defined? ro %>
+                                <div class="col">
+																	<%= f.text_field(:ContextID, {:class => 'form-control', :disabled => true})%><br>
+                                </div>
+																<%= f.hidden_field :_destroy %>
+																<a href="#" data-toggle="modal" data-target="#context-alert-modal" class="context-delete-link delete">Delete</a>
+															<% else%>
+                              <div class="col">
+																<%= f.hidden_field('ContextID') %>
+																<%= f.text_field('ContextID', {'class'=>"form-control typeahead md-se-#{number}", 'placeholder'=>"ContextID", 'autocomplete'=>"off", 'spellcheck'=>"false", "dir"=>"auto"})%>
+															</div>
+															<% end %>
+														</div>
+													</div>
+<div class="number" style="display:none">_NUM_</div>
+                    </div><!-- block -->

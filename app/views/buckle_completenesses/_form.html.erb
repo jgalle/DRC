@@ -1,0 +1,21 @@
+<%= form_for(@buckle_completeness) do |f| %>
+  <% if @buckle_completeness.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@buckle_completeness.errors.count, "error") %> prohibited this buckle_completeness from being saved:</h2>
+
+      <ul>
+      <% @buckle_completeness.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :buckle_completeness %><br />
+    <%= f.text_field :buckle_completeness %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

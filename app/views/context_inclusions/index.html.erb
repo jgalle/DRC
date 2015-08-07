@@ -1,0 +1,31 @@
+<h1>Listing context_inclusions</h1>
+
+<table>
+  <tr>
+    <th>Context</th>
+    <th>Inclusion description</th>
+    <th>Inclusion side</th>
+    <th>Rank order</th>
+    <th>Percentage</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @context_inclusions.each do |context_inclusion| %>
+  <tr>
+    <td><%= context_inclusion.context_id %></td>
+    <td><%= context_inclusion.inclusion_description_id %></td>
+    <td><%= context_inclusion.inclusion_side_id %></td>
+    <td><%= context_inclusion.rank_order %></td>
+    <td><%= context_inclusion.percentage_id %></td>
+    <td><%= link_to 'Show', context_inclusion %></td>
+    <td><%= link_to 'Edit', edit_context_inclusion_path(context_inclusion) %></td>
+    <td><%= link_to 'Destroy', context_inclusion, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Context inclusion', new_context_inclusion_path %>

@@ -1,0 +1,174 @@
+<script>
+$(document).ready(function(){
+	$("#list_selection input").change(function() {
+	     this.form.submit();
+	});
+	$("#list_selection select").change(function() {
+	     this.form.submit();
+	});
+	if ($('.ceramics-list .delete-tr').exists()) {
+		$('.ceramics-list .delete-tr').click(function(){
+			id_to_delete = $(this).attr('id');
+			completeness_for_delete = $(this).parents('.holder-for-delete');
+		});
+	}
+	if ($('#alert-modal').exists()) {
+		$('#alert-modal').on('hidden.bs.modal', function (e) {
+			completeness_for_delete = "";
+		})
+		$('#alert-modal .delete-list').click(function(){
+			if (completeness_for_delete) {
+				completeness_for_delete.remove();
+			}
+			$.ajax({
+			  url: "/images/"+id_to_delete,
+			  type: "DELETE"
+			});
+			$('.alert-success').slideDown();
+			setTimeout(function(){
+				$('.alert-success').slideUp();
+			}, 3000)
+			$('#alert-modal').modal('hide')
+		});
+	}
+});
+</script>
+<div class="list-head">
+	<div class="page-header page-header-005">
+		<h1>Image List</h1>
+		<% if current_user.is_editor? %>
+		<%= link_to('Add New', new_image_path, {:class => 'add-new'})%>
+		<% end %>
+	</div><!-- page-header -->
+	<div class="alert alert-success success-deleted" style="display:none">
+		<p>Successfully deleted image!</p>
+	</div><!-- end alert -->
+	<div class="list-panel">
+		<div class="block">
+			<!-- <span class="page-info">Page <%= @page %> of <%= @total_pages %></span> -->
+			<div class="search">
+				<%= form_tag({:controller => 'images', :action => 'index'}, :method => 'get') do %>
+					<fieldset>
+						<input type="hidden" name="artifacts" value="<%= params[:artifacts] %>">
+						<input type="hidden" name="per_page" value="<%= params[:per_page] != nil ? params[:per_page] : 25 %>">
+						<input type="text" class="text" value="<%= params[:query] != nil ? params[:query] : '' %>" name="query"/>
+						<input type="submit" class="btn submit" value="Search" />
+					</fieldset>
+				<% end %>
+			</div><!-- end search -->
+		</div><!-- end block -->
+		</div>
+		<div class="list-panel">
+		<div class="filter">
+			<%= form_tag({:controller => 'images', :action => 'index'}, :method => 'get', :id => 'list_selection') do %>
+				<input type="hidden" name="query" value="<%= params[:query] %>">
+				<fieldset>
+					<ul class="radio-block total-found">
+						<li>
+							<%= @total %> items found
+						</li>
+					</ul>
+					<div class="top-pagination">
+						<%= paginate @images, :window => 2 %>
+					</div>
+					<div class="select-block per-page">
+						<label for="per_page">Results per Page</label>
+						<select id="per_page" class="per-page sel-001" name="per_page">
+							<%= options_for_select(['25','50','100'], params[:per_page])%>
+						</select>
+					</div><!-- end select-block -->
+				</fieldset>
+			<% end %>
+		</div><!-- end filter -->
+	</div><!-- end list-panel -->
+</div><!-- end list-head -->
+<div class="ceramics-list">
+
+	<table class="bordered">
+	  <tr>
+	    <th class="cell-02">Image</th>
+	    <th class="cell-02a">Image ID</th>
+	    <th class="cell-03">Image Type</th>
+	    <th class="cell-04">Description</th>
+		<th class="cell-05">Artifacts</th>
+		<th class="cell-06">Objects</th>
+	<th class="cell-07">Date Added</th>
+	  </tr>
+
+	<% @images.each do |image| %>
+	  <tr class="holder-for-delete">
+			<td class="cell-02">
+				<p>
+						<%= link_to image_tag(image.ImageFileLocation, :width => '91px', :height => '91px'), edit_image_path(image) %>
+				</p>
+				<% if current_user.is_editor? %>
+				<ul>
+					<li><%= link_to 'Edit', edit_image_path(image) %></li>
+					<% if current_user.is_admin? %>
+					<li><a href="#" id="<%= image[:id] %>" data-toggle="modal" data-target="#alert-modal" class="delete-tr">Delete</a></li>
+					<% end %>
+				</ul>
+				<% end %>
+			</td>
+			<td class="cell-02a"><%= image.ImageID %></td>
+	 		<td class="cell-03"><%= image.image_type.ImageType if image.image_type != nil  %></td>
+			<td class="cell-04"><%= image.ImageDescription %></td>
+			<td class="cell-05">
+				<% Bead.find_by_sql('SELECT "tblBead".* FROM "tblBead" INNER JOIN "tblArtifactImage" ON "tblBead"."GenerateContextArtifactID" = "tblArtifactImage"."GenerateContextArtifactID" WHERE "tblArtifactImage"."ImageID" = '+image.id.to_s).each do |o| %>
+				<%= o.ArtifactID %><br>
+				<% end %>
+				<% Button.find_by_sql('SELECT "tblButton".* FROM "tblButton" INNER JOIN "tblArtifactImage" ON "tblButton"."GenerateContextArtifactID" = "tblArtifactImage"."GenerateContextArtifactID" WHERE "tblArtifactImage"."ImageID" = '+image.id.to_s).each do |o| %>
+				<%= o.ArtifactID %><br>
+				<% end %>
+				<% Buckle.find_by_sql('SELECT "tblBuckle".* FROM "tblBuckle" INNER JOIN "tblArtifactImage" ON "tblBuckle"."GenerateContextArtifactID" = "tblArtifactImage"."GenerateContextArtifactID" WHERE "tblArtifactImage"."ImageID" = '+image.id.to_s).each do |o| %>
+				<%= o.ArtifactID %><br>
+				<% end %>
+				<% Ceramic.find_by_sql('SELECT "tblCeramic".* FROM "tblCeramic" INNER JOIN "tblArtifactImage" ON "tblCeramic"."GenerateContextArtifactID" = "tblArtifactImage"."GenerateContextArtifactID" WHERE "tblArtifactImage"."ImageID" = '+image.id.to_s).each do |o| %>
+				<%= o.ArtifactID %><br>
+				<% end %>
+				<% Glass.find_by_sql('SELECT "tblGlass".* FROM "tblGlass" INNER JOIN "tblArtifactImage" ON "tblGlass"."GenerateContextArtifactID" = "tblArtifactImage"."GenerateContextArtifactID" WHERE "tblArtifactImage"."ImageID" = '+image.id.to_s).each do |o| %>
+				<%= o.ArtifactID %><br>
+				<% end %>
+				<% GenArtifact.find_by_sql('SELECT "tblGenArtifact".* FROM "tblGenArtifact" INNER JOIN "tblArtifactImage" ON "tblGenArtifact"."GenerateContextArtifactID" = "tblArtifactImage"."GenerateContextArtifactID" WHERE "tblArtifactImage"."ImageID" = '+image.id.to_s).each do |o| %>
+				<%= o.ArtifactID %><br>
+				<% end %>
+				<% TobaccoPipe.find_by_sql('SELECT "tblTobaccoPipe".* FROM "tblTobaccoPipe" INNER JOIN "tblArtifactImage" ON "tblTobaccoPipe"."GenerateContextArtifactID" = "tblArtifactImage"."GenerateContextArtifactID" WHERE "tblArtifactImage"."ImageID" = '+image.id.to_s).each do |o| %>
+				<%= o.ArtifactID %><br>
+				<% end %>
+				<% Utensil.find_by_sql('SELECT "tblUtensil".* FROM "tblUtensil" INNER JOIN "tblArtifactImage" ON "tblUtensil"."GenerateContextArtifactID" = "tblArtifactImage"."GenerateContextArtifactID" WHERE "tblArtifactImage"."ImageID" = '+image.id.to_s).each do |o| %>
+				<%= o.ArtifactID %><br>
+				<% end %>
+			</td>
+			<td class="cell-06">
+				<% image.gen_object_images.each do |o| %>
+					<%= "#{o.id}, #{o.gen_object.gen_object_form.ObjectForm if o.gen_object.gen_object_form != nil}, #{o.gen_object.project.project_name.ProjectName if o.gen_object.project != nil}"%><br>
+				<% end %>
+			</td>
+			<td class="cell-07"><%= image.DateAdded.strftime("%m/%d/%Y") if image.DateAdded != nil %></td>
+	  </tr>
+	<% end %>
+	</table>
+</div>
+
+<%= paginate @images %>
+
+<br />
+
+
+<div class="modal alert-modal fade" id="alert-modal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title">Alert</h4>
+            </div>
+            <div class="modal-body">
+                <p class="txt">Are you sure you want to delete?</p>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-default" data-dismiss="modal">Cancel</button>
+                <button class="btn btn-warning delete-list">Delete</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- alert-modal -->

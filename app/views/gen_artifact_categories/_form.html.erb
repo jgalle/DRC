@@ -1,0 +1,21 @@
+<%= form_for(@gen_artifact_category) do |f| %>
+  <% if @gen_artifact_category.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@gen_artifact_category.errors.count, "error") %> prohibited this gen_artifact_category from being saved:</h2>
+
+      <ul>
+      <% @gen_artifact_category.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :gen_artifact_category %><br />
+    <%= f.text_field :gen_artifact_category %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

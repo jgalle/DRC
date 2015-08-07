@@ -1,0 +1,23 @@
+<h1>Listing tobacco_pipe_bowl_completenesses</h1>
+
+<table>
+  <tr>
+    <th>Tobacco bowl completeness</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @tobacco_pipe_bowl_completenesses.each do |tobacco_pipe_bowl_completeness| %>
+  <tr>
+    <td><%= tobacco_pipe_bowl_completeness.tobacco_bowl_completeness %></td>
+    <td><%= link_to 'Show', tobacco_pipe_bowl_completeness %></td>
+    <td><%= link_to 'Edit', edit_tobacco_pipe_bowl_completeness_path(tobacco_pipe_bowl_completeness) %></td>
+    <td><%= link_to 'Destroy', tobacco_pipe_bowl_completeness, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Tobacco pipe bowl completeness', new_tobacco_pipe_bowl_completeness_path %>

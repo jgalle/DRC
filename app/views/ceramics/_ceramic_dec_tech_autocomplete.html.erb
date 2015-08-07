@@ -1,0 +1,42 @@
+<%  %>
+<script>
+$(function() {
+
+var items = new Bloodhound({
+    datumTokenizer: function(d) { return Bloodhound.tokenizers.whitespace(d.num); },
+    queryTokenizer: Bloodhound.tokenizers.whitespace,
+		local: [
+		    { num: 'one' },
+		    { num: 'two' },
+		    { num: 'three' },
+		    { num: 'four' },
+		    { num: 'five' },
+		    { num: 'six' },
+		    { num: 'seven' },
+		    { num: 'eight' },
+		    { num: 'nine' },
+		    { num: 'ten' }
+		  ]
+    // 		    prefetch: { 
+    //     url: $('.se-se-_NUM_').attr('data-source'), 
+    //     ttl: 900000, // 15 minutes, but this should be changed in production
+    //     cacheKey: '.se-se-_NUM_abc'
+    // }
+});
+items.initialize();
+$('.se-se-_NUM_').typeahead(null, {
+    name: 'se-se-_NUM_',
+    displayKey: 'num',
+    // valueKey: 'DecTechStyElemID',
+    source: items.ttAdapter(),
+    templates: {
+        suggestion: Handlebars.compile(
+            '<p><strong>{{num}}</strong></p>'
+        )
+    }
+}).on('typeahead:selected', onSelected);
+function onSelected($e, datum) {
+    console.log('selected: '+datum.num);
+}
+});
+</script>

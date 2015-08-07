@@ -1,0 +1,21 @@
+<%= form_for(@context_percentage) do |f| %>
+  <% if @context_percentage.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@context_percentage.errors.count, "error") %> prohibited this context_percentage from being saved:</h2>
+
+      <ul>
+      <% @context_percentage.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :percentage %><br />
+    <%= f.text_field :percentage %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

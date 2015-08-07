@@ -1,0 +1,15 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Reliability:</b>
+  <%= @bone_reliability.reliability %>
+</p>
+
+<p>
+  <b>Reliability code:</b>
+  <%= @bone_reliability.reliability_code %>
+</p>
+
+
+<%= link_to 'Edit', edit_bone_reliability_path(@bone_reliability) %> |
+<%= link_to 'Back', bone_reliabilities_path %>

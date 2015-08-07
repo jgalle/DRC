@@ -1,0 +1,23 @@
+<h1>Listing button_eyes</h1>
+
+<table>
+  <tr>
+    <th>Eye</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @button_eyes.each do |button_eye| %>
+  <tr>
+    <td><%= button_eye.eye %></td>
+    <td><%= link_to 'Show', button_eye %></td>
+    <td><%= link_to 'Edit', edit_button_eye_path(button_eye) %></td>
+    <td><%= link_to 'Destroy', button_eye, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Button eye', new_button_eye_path %>

@@ -1,0 +1,15 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Generate context artifact:</b>
+  <%= @ceramic_mend.generate_context_artifact_id %>
+</p>
+
+<p>
+  <b>Mends generate context artifact:</b>
+  <%= @ceramic_mend.mends_generate_context_artifact_id %>
+</p>
+
+
+<%= link_to 'Edit', edit_ceramic_mend_path(@ceramic_mend) %> |
+<%= link_to 'Back', ceramic_mends_path %>

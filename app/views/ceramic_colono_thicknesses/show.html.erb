@@ -1,0 +1,20 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Ceramic completeness:</b>
+  <%= @ceramic_colono_thickness.ceramic_completeness_id %>
+</p>
+
+<p>
+  <b>Colono sherd thickness:</b>
+  <%= @ceramic_colono_thickness.colono_sherd_thickness %>
+</p>
+
+<p>
+  <b>Generate context artifact:</b>
+  <%= @ceramic_colono_thickness.generate_context_artifact_id %>
+</p>
+
+
+<%= link_to 'Edit', edit_ceramic_colono_thickness_path(@ceramic_colono_thickness) %> |
+<%= link_to 'Back', ceramic_colono_thicknesses_path %>

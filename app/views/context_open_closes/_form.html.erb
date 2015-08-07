@@ -1,0 +1,21 @@
+<%= form_for(@context_open_close) do |f| %>
+  <% if @context_open_close.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@context_open_close.errors.count, "error") %> prohibited this context_open_close from being saved:</h2>
+
+      <ul>
+      <% @context_open_close.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :opening_closing %><br />
+    <%= f.text_field :opening_closing %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

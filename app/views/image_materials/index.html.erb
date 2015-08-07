@@ -1,0 +1,27 @@
+<h1>Listing image_materials</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Imagematerial</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @image_materials.each do |image_material| %>
+      <tr>
+        <td><%= image_material.ImageMaterial %></td>
+        <td><%= link_to 'Show', image_material %></td>
+        <td><%= link_to 'Edit', edit_image_material_path(image_material) %></td>
+        <td><%= link_to 'Destroy', image_material, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Image material', new_image_material_path %>

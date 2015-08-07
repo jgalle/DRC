@@ -1,0 +1,31 @@
+<h1>Listing tobacco_pipe_decorations</h1>
+
+<table>
+  <tr>
+    <th>Tobacco pipe dec motif</th>
+    <th>Motif text location</th>
+    <th>Tobacco pipe motif manu tech</th>
+    <th>Notes</th>
+    <th>Generate context artifact</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @tobacco_pipe_decorations.each do |tobacco_pipe_decoration| %>
+  <tr>
+    <td><%= tobacco_pipe_decoration.tobacco_pipe_dec_motif_id %></td>
+    <td><%= tobacco_pipe_decoration.motif_text_location_id %></td>
+    <td><%= tobacco_pipe_decoration.tobacco_pipe_motif_manu_tech_id %></td>
+    <td><%= tobacco_pipe_decoration.notes %></td>
+    <td><%= tobacco_pipe_decoration.generate_context_artifact_id %></td>
+    <td><%= link_to 'Show', tobacco_pipe_decoration %></td>
+    <td><%= link_to 'Edit', edit_tobacco_pipe_decoration_path(tobacco_pipe_decoration) %></td>
+    <td><%= link_to 'Destroy', tobacco_pipe_decoration, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Tobacco pipe decoration', new_tobacco_pipe_decoration_path %>

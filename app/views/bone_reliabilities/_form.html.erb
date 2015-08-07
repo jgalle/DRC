@@ -1,0 +1,25 @@
+<%= form_for(@bone_reliability) do |f| %>
+  <% if @bone_reliability.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@bone_reliability.errors.count, "error") %> prohibited this bone_reliability from being saved:</h2>
+
+      <ul>
+      <% @bone_reliability.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :reliability %><br />
+    <%= f.text_field :reliability %>
+  </div>
+  <div class="field">
+    <%= f.label :reliability_code %><br />
+    <%= f.text_field :reliability_code %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

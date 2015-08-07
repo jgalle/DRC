@@ -1,0 +1,27 @@
+<h1>Listing website_regions</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Websiteregion</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @website_regions.each do |website_region| %>
+      <tr>
+        <td><%= website_region.WebsiteRegion %></td>
+        <td><%= link_to 'Show', website_region %></td>
+        <td><%= link_to 'Edit', edit_website_region_path(website_region) %></td>
+        <td><%= link_to 'Destroy', website_region, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Website region', new_website_region_path %>

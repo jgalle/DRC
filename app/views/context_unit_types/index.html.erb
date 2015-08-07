@@ -1,0 +1,23 @@
+<h1>Listing context_unit_types</h1>
+
+<table>
+  <tr>
+    <th>Unit type</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @context_unit_types.each do |context_unit_type| %>
+  <tr>
+    <td><%= context_unit_type.unit_type %></td>
+    <td><%= link_to 'Show', context_unit_type %></td>
+    <td><%= link_to 'Edit', edit_context_unit_type_path(context_unit_type) %></td>
+    <td><%= link_to 'Destroy', context_unit_type, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Context unit type', new_context_unit_type_path %>

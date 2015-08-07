@@ -1,0 +1,25 @@
+<h1>Listing paste_inclusions</h1>
+
+<table>
+  <tr>
+    <th>Artifact</th>
+    <th>Paste inclusion</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @paste_inclusions.each do |paste_inclusion| %>
+  <tr>
+    <td><%= paste_inclusion.artifact_id %></td>
+    <td><%= paste_inclusion.paste_inclusion %></td>
+    <td><%= link_to 'Show', paste_inclusion %></td>
+    <td><%= link_to 'Edit', edit_paste_inclusion_path(paste_inclusion) %></td>
+    <td><%= link_to 'Destroy', paste_inclusion, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Paste inclusion', new_paste_inclusion_path %>

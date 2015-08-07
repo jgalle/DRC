@@ -1,0 +1,20 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Fine sediment texture:</b>
+  <%= @context_stp_sediment.fine_sediment_texture_id %>
+</p>
+
+<p>
+  <b>Mun sed color:</b>
+  <%= @context_stp_sediment.mun_sed_color_id %>
+</p>
+
+<p>
+  <b>Percentage:</b>
+  <%= @context_stp_sediment.percentage_id %>
+</p>
+
+
+<%= link_to 'Edit', edit_context_stp_sediment_path(@context_stp_sediment) %> |
+<%= link_to 'Back', context_stp_sediments_path %>

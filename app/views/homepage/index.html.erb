@@ -1,0 +1,17 @@
+<%= render :partial => 'homepage/home_content'%>
+<aside id="sidebar">
+	<div class="signed">
+		<div class="sign-in">
+			<h3>Welcome <%= current_user.first_name if current_user != nil %></h3>
+			<ul class="links">
+				<li><%= link_to('My Info', edit_user_path(current_user)) if current_user != nil %></li>
+				<li><%= link_to('DASHBOARD', :action => 'dashboard') %></li>
+				<li><a href="#">Help</a></li>
+			</ul>
+			<div class="clearfix">
+				<%= link_to 'Sign Out', destroy_user_session_path, {:method=>'delete',:class=>"btn btn-primary ie-fix"} %>
+			</div>
+		</div><!-- sign-in -->
+	</div><!-- signed -->
+	<%= render :partial => 'homepage/sidebar_links' %>
+</aside><!-- sidebar -->

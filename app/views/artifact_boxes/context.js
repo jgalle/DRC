@@ -1,0 +1,1 @@
+$('.new-context-artifact-box-details:last').html('<%= j render 'context', context: @context %>');

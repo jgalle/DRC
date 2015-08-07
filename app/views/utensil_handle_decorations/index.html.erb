@@ -1,0 +1,23 @@
+<h1>Listing utensil_handle_decorations</h1>
+
+<table>
+  <tr>
+    <th>Handle decoration</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @utensil_handle_decorations.each do |utensil_handle_decoration| %>
+  <tr>
+    <td><%= utensil_handle_decoration.handle_decoration %></td>
+    <td><%= link_to 'Show', utensil_handle_decoration %></td>
+    <td><%= link_to 'Edit', edit_utensil_handle_decoration_path(utensil_handle_decoration) %></td>
+    <td><%= link_to 'Destroy', utensil_handle_decoration, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Utensil handle decoration', new_utensil_handle_decoration_path %>

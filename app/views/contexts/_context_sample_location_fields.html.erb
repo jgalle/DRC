@@ -1,0 +1,38 @@
+                    <div class="block <%= @context_sample_location_colored == true ? 'colored' : '' %>">
+                        <div class="three-columns three-with-delete">
+                            <div class="row-area">
+                                <div class="col">
+																	<%= f.label('ContextSampleLocationInstitutionID', 'Sample Institution')%>
+																	<%= f.collection_select('ContextSampleLocationInstitutionID', ContextSampleInstitution.all.order('"ContextSampleLocationInstitution"'), :id, 'ContextSampleLocationInstitution', {:include_blank => '--select--'}, {'data-placeholder' => '--select--', :class => 'form-control'})%>
+                                </div>
+                                <div class="col">
+																	<%= f.label('ContextSampleStatusID', 'Sample Status')%>
+																	<%= f.collection_select('ContextSampleStatusID', ContextSampleStatus.all.order('"ContextSampleStatus"'), :id, 'ContextSampleStatus', {:include_blank => '--select--'}, {'data-placeholder' => '--select--', :class => 'form-control'})%>
+                                </div>
+								<%= f.hidden_field :_destroy %>
+								<a href="#" data-toggle="modal" data-target="#context-sample-location-alert-modal" class="context-sample-location-delete-link delete" tabindex="-1">Delete</a>
+
+                            </div><!-- row-area -->
+                            <div class="row-area">
+                                <div class="col">
+																	<%= f.label('DateLoaned', 'Date Loaned')%>
+																	<%= f.text_field('DateLoaned', {:class => 'form-control'})%>
+                                </div>
+                                <div class="col">
+																	<%= f.label('DateReturned', 'Date Returned')%>
+																	<%= f.text_field('DateReturned', {:class => 'form-control'})%>
+                                </div>
+							</div>
+                            <div class="row-area">
+                                <div class="col">
+																	<%= f.label('SampleNotes', 'Sample Notes')%>
+																	<%= f.text_area('SampleNotes', {:class => 'form-control'})%>
+                                </div>
+                                <div class="col">
+																	<%= f.label('BoxNumber', 'BoxNumber')%>
+																	<%= f.text_field('BoxNumber', {:class => 'form-control'})%>
+                                </div>
+							</div>
+                        </div><!-- selects -->
+						<div class="number" style="display:none">_NUM_</div>
+                    </div><!-- block -->

@@ -1,0 +1,37 @@
+<%= form_for(@ceramic_use_wear) do |f| %>
+  <% if @ceramic_use_wear.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@ceramic_use_wear.errors.count, "error") %> prohibited this ceramic_use_wear from being saved:</h2>
+
+      <ul>
+      <% @ceramic_use_wear.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :artifact_id %><br />
+    <%= f.text_field :artifact_id %>
+  </div>
+  <div class="field">
+    <%= f.label :generate_context_artifact_id %><br />
+    <%= f.text_field :generate_context_artifact_id %>
+  </div>
+  <div class="field">
+    <%= f.label :use_wear_location_id %><br />
+    <%= f.text_field :use_wear_location_id %>
+  </div>
+  <div class="field">
+    <%= f.label :use_wear_pattern_id %><br />
+    <%= f.text_field :use_wear_pattern_id %>
+  </div>
+  <div class="field">
+    <%= f.label :ceramic_completeness_id %><br />
+    <%= f.text_field :ceramic_completeness_id %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

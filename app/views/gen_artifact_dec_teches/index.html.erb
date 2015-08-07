@@ -1,0 +1,31 @@
+<h1>Listing gen_artifact_dec_teches</h1>
+
+<table>
+  <tr>
+    <th>Artifact</th>
+    <th>Gen artifact dec tech type</th>
+    <th>Mun app color</th>
+    <th>Decoration notes</th>
+    <th>Generate context artifact</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @gen_artifact_dec_teches.each do |gen_artifact_dec_tech| %>
+  <tr>
+    <td><%= gen_artifact_dec_tech.artifact_id %></td>
+    <td><%= gen_artifact_dec_tech.gen_artifact_dec_tech_type_id %></td>
+    <td><%= gen_artifact_dec_tech.mun_app_color_id %></td>
+    <td><%= gen_artifact_dec_tech.decoration_notes %></td>
+    <td><%= gen_artifact_dec_tech.generate_context_artifact_id %></td>
+    <td><%= link_to 'Show', gen_artifact_dec_tech %></td>
+    <td><%= link_to 'Edit', edit_gen_artifact_dec_tech_path(gen_artifact_dec_tech) %></td>
+    <td><%= link_to 'Destroy', gen_artifact_dec_tech, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Gen artifact dec tech', new_gen_artifact_dec_tech_path %>

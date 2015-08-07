@@ -1,0 +1,10 @@
+<dl>
+	<dt>Context ID:</dt><dd><%= context.ContextID %></dd>
+	<dt>Unit Type:</dt><dd><%= context.context_unit_type.UnitType if context.context_unit_type != nil %></dd>
+	<dt>Deposit Type:</dt><dd><%= context.context_deposit_type.DepositType if context.context_deposit_type != nil %></dd>
+</dl>
+<dl>
+	<% user = User.where('editor_id = ?', context.EditorIDN).first %>
+	<dt>Added By:</dt><dd><%= user != nil ? "#{user.first_name != nil ? user.first_name+' '+user.last_name : user.userid}" : ' - '%></dd>
+	<dt>Date Added:</dt><dd><%=h context.DateAdded !=nil ? context.DateAdded.to_formatted_s(:db) : " - "%></dd>
+</dl>

@@ -1,0 +1,17 @@
+<%= form_for(@context_stp_inclusion) do |f| %>
+  <% if @context_stp_inclusion.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@context_stp_inclusion.errors.count, "error") %> prohibited this context_stp_inclusion from being saved:</h2>
+
+      <ul>
+      <% @context_stp_inclusion.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

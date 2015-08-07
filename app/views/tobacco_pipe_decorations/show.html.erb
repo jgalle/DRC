@@ -1,0 +1,30 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Tobacco pipe dec motif:</b>
+  <%= @tobacco_pipe_decoration.tobacco_pipe_dec_motif_id %>
+</p>
+
+<p>
+  <b>Motif text location:</b>
+  <%= @tobacco_pipe_decoration.motif_text_location_id %>
+</p>
+
+<p>
+  <b>Tobacco pipe motif manu tech:</b>
+  <%= @tobacco_pipe_decoration.tobacco_pipe_motif_manu_tech_id %>
+</p>
+
+<p>
+  <b>Notes:</b>
+  <%= @tobacco_pipe_decoration.notes %>
+</p>
+
+<p>
+  <b>Generate context artifact:</b>
+  <%= @tobacco_pipe_decoration.generate_context_artifact_id %>
+</p>
+
+
+<%= link_to 'Edit', edit_tobacco_pipe_decoration_path(@tobacco_pipe_decoration) %> |
+<%= link_to 'Back', tobacco_pipe_decorations_path %>

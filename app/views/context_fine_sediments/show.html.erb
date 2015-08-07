@@ -1,0 +1,35 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Context:</b>
+  <%= @context_fine_sediment.context_id %>
+</p>
+
+<p>
+  <b>Fine sediment texture:</b>
+  <%= @context_fine_sediment.fine_sediment_texture_id %>
+</p>
+
+<p>
+  <b>Rank order:</b>
+  <%= @context_fine_sediment.rank_order %>
+</p>
+
+<p>
+  <b>Mun sed color:</b>
+  <%= @context_fine_sediment.mun_sed_color_id %>
+</p>
+
+<p>
+  <b>Excavator sediment color description:</b>
+  <%= @context_fine_sediment.excavator_sediment_color_description %>
+</p>
+
+<p>
+  <b>Percentage:</b>
+  <%= @context_fine_sediment.percentage_id %>
+</p>
+
+
+<%= link_to 'Edit', edit_context_fine_sediment_path(@context_fine_sediment) %> |
+<%= link_to 'Back', context_fine_sediments_path %>

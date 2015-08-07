@@ -1,0 +1,25 @@
+<%= form_for(@gen_object_artifact) do |f| %>
+  <% if @gen_object_artifact.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@gen_object_artifact.errors.count, "error") %> prohibited this gen_object_artifact from being saved:</h2>
+
+      <ul>
+      <% @gen_object_artifact.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :artifact_id %><br />
+    <%= f.text_field :artifact_id %>
+  </div>
+  <div class="field">
+    <%= f.label :object_id %><br />
+    <%= f.text_field :object_id %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

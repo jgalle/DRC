@@ -1,0 +1,21 @@
+<%= form_for(@bead_complex_shape) do |f| %>
+  <% if @bead_complex_shape.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@bead_complex_shape.errors.count, "error") %> prohibited this bead_complex_shape from being saved:</h2>
+
+      <ul>
+      <% @bead_complex_shape.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :bead_complex_shape %><br />
+    <%= f.text_field :bead_complex_shape %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

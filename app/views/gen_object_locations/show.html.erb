@@ -1,0 +1,50 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Object:</b>
+  <%= @gen_object_location.object_id %>
+</p>
+
+<p>
+  <b>Loaned to:</b>
+  <%= @gen_object_location.loaned_to %>
+</p>
+
+<p>
+  <b>Institution contact:</b>
+  <%= @gen_object_location.institution_contact %>
+</p>
+
+<p>
+  <b>Exhibit name:</b>
+  <%= @gen_object_location.exhibit_name %>
+</p>
+
+<p>
+  <b>Date loaned:</b>
+  <%= @gen_object_location.date_loaned %>
+</p>
+
+<p>
+  <b>Date returned:</b>
+  <%= @gen_object_location.date_returned %>
+</p>
+
+<p>
+  <b>Artifact handler:</b>
+  <%= @gen_object_location.artifact_handler %>
+</p>
+
+<p>
+  <b>Notes:</b>
+  <%= @gen_object_location.notes %>
+</p>
+
+<p>
+  <b>Loan length:</b>
+  <%= @gen_object_location.loan_length %>
+</p>
+
+
+<%= link_to 'Edit', edit_gen_object_location_path(@gen_object_location) %> |
+<%= link_to 'Back', gen_object_locations_path %>

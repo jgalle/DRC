@@ -1,0 +1,17 @@
+                    <div class="block <%= @quadrat_colored == true ? 'colored' : '' %>">
+                        <div class="three-columns three-with-delete">
+                            <div class="row-area">
+                                <div class="col">
+																	<%= f.label('QuadratEasting', 'Easting')%>
+																	<%= f.text_field('QuadratEasting',{:class => 'form-control'})%>
+                                </div>
+                                <div class="col">
+																	<%= f.label('QuadratNorthing', 'Northing')%>
+																	<%= f.text_field('QuadratNorthing', {:class => 'form-control'})%>
+                                </div>
+								<%= f.hidden_field :_destroy %>
+								<a href="#" data-toggle="modal" data-target="#quadrat-alert-modal" class="quadrat-delete-link delete" tabindex="-1">Delete</a>
+							</div>
+                        </div><!-- selects -->
+<div class="number" style="display:none">_NUM_</div>
+                    </div><!-- block -->

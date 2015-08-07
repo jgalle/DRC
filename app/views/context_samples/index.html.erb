@@ -1,0 +1,39 @@
+<h1>Listing context_samples</h1>
+
+<table>
+  <tr>
+    <th>Recovery method</th>
+    <th>Context</th>
+    <th>Sample number</th>
+    <th>Context sample</th>
+    <th>Sample size</th>
+    <th>Context sample type</th>
+    <th>Screen size</th>
+    <th>Storage box number</th>
+    <th>Box comments</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @context_samples.each do |context_sample| %>
+  <tr>
+    <td><%= context_sample.recovery_method_id %></td>
+    <td><%= context_sample.context_id %></td>
+    <td><%= context_sample.sample_number %></td>
+    <td><%= context_sample.context_sample_id %></td>
+    <td><%= context_sample.sample_size %></td>
+    <td><%= context_sample.context_sample_type_id %></td>
+    <td><%= context_sample.screen_size_id %></td>
+    <td><%= context_sample.storage_box_number %></td>
+    <td><%= context_sample.box_comments %></td>
+    <td><%= link_to 'Show', context_sample %></td>
+    <td><%= link_to 'Edit', edit_context_sample_path(context_sample) %></td>
+    <td><%= link_to 'Destroy', context_sample, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Context sample', new_context_sample_path %>

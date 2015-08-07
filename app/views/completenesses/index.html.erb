@@ -1,0 +1,23 @@
+<h1>Listing completenesses</h1>
+
+<table>
+  <tr>
+    <th>Completeness</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @completenesses.each do |completeness| %>
+  <tr>
+    <td><%= completeness.completeness %></td>
+    <td><%= link_to 'Show', completeness %></td>
+    <td><%= link_to 'Edit', edit_completeness_path(completeness) %></td>
+    <td><%= link_to 'Destroy', completeness, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Completeness', new_completeness_path %>

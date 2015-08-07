@@ -1,0 +1,15 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Artifact:</b>
+  <%= @ceramic_paste_inclusion.artifact_id %>
+</p>
+
+<p>
+  <b>Paste inclusion:</b>
+  <%= @ceramic_paste_inclusion.paste_inclusion_id %>
+</p>
+
+
+<%= link_to 'Edit', edit_ceramic_paste_inclusion_path(@ceramic_paste_inclusion) %> |
+<%= link_to 'Back', ceramic_paste_inclusions_path %>

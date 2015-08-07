@@ -1,0 +1,21 @@
+<%= form_for(@bone_descriptor) do |f| %>
+  <% if @bone_descriptor.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@bone_descriptor.errors.count, "error") %> prohibited this bone_descriptor from being saved:</h2>
+
+      <ul>
+      <% @bone_descriptor.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :bone_descriptor %><br />
+    <%= f.text_field :bone_descriptor %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

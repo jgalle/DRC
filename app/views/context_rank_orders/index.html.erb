@@ -1,0 +1,23 @@
+<h1>Listing context_rank_orders</h1>
+
+<table>
+  <tr>
+    <th>Rank order</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @context_rank_orders.each do |context_rank_order| %>
+  <tr>
+    <td><%= context_rank_order.rank_order %></td>
+    <td><%= link_to 'Show', context_rank_order %></td>
+    <td><%= link_to 'Edit', edit_context_rank_order_path(context_rank_order) %></td>
+    <td><%= link_to 'Destroy', context_rank_order, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Context rank order', new_context_rank_order_path %>

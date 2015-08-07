@@ -1,0 +1,19 @@
+<div class="block <%= @decoration_colored == true ? 'colored' : '' %>">
+<ul class="images">
+	<li>
+		<div class="desc">
+			<% if f.object.context != nil %>
+				<%= render 'context', context: f.object.context %>
+				<%= f.hidden_field :ContextID %>
+			<% else %>
+				<span class="new-context-artifact-box-details">&nbsp;</span>
+				<%= f.hidden_field :ContextID, {:class => 'new-context-artifact-box-id'} %>
+			<% end %>
+			<!-- <a href="#" data-toggle="modal" data-target="#edit-image" class="btn btn-edit">Edit</a> -->
+			<%= f.hidden_field :_destroy %>
+			<a href="#" data-toggle="modal" data-target="#context-artifact-box-alert-modal" class="context-artifact-box-delete-link delete">Delete</a>
+		</div>
+	</li>
+</ul>
+<div class="number" style="display:none">_NUM_</div>
+</div>

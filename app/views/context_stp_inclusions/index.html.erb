@@ -1,0 +1,21 @@
+<h1>Listing context_stp_inclusions</h1>
+
+<table>
+  <tr>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @context_stp_inclusions.each do |context_stp_inclusion| %>
+  <tr>
+    <td><%= link_to 'Show', context_stp_inclusion %></td>
+    <td><%= link_to 'Edit', edit_context_stp_inclusion_path(context_stp_inclusion) %></td>
+    <td><%= link_to 'Destroy', context_stp_inclusion, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Context stp inclusion', new_context_stp_inclusion_path %>

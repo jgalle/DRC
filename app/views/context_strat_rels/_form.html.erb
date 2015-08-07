@@ -1,0 +1,29 @@
+<%= form_for(@context_strat_rel) do |f| %>
+  <% if @context_strat_rel.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@context_strat_rel.errors.count, "error") %> prohibited this context_strat_rel from being saved:</h2>
+
+      <ul>
+      <% @context_strat_rel.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :context %><br />
+    <%= f.text_field :context %>
+  </div>
+  <div class="field">
+    <%= f.label :context_auto_id %><br />
+    <%= f.number_field :context_auto_id %>
+  </div>
+  <div class="field">
+    <%= f.label :strat_rel_type_id %><br />
+    <%= f.number_field :strat_rel_type_id %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

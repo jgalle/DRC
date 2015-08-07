@@ -1,0 +1,21 @@
+<%= form_for(@bone_symmetry) do |f| %>
+  <% if @bone_symmetry.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@bone_symmetry.errors.count, "error") %> prohibited this bone_symmetry from being saved:</h2>
+
+      <ul>
+      <% @bone_symmetry.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :symmetry %><br />
+    <%= f.text_field :symmetry %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

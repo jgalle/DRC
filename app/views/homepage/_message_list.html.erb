@@ -1,0 +1,15 @@
+<% messages_sort.each do |id, message| %>
+<%# debugger %><tr class="<%= message[:message].is_unread?(current_user) != true ? 'read' : '' %> <%= @even == true ? 'even' : 'odd' %>">
+	<td><%= message[:date] %></td>
+	<td><%= link_to message[:user], :action => 'display_message', :id => id, :remote => true %></td>
+	<td><span class="wrap">
+			<span class="holder"><%= link_to "#{message[:subject].split('|').last}", :action => 'display_message', :id => id, :remote => true %></span>
+				<% if message[:attachment] != nil and message[:attachment].url != nil %>			
+					<%= link_to('Download',message[:attachment].url, :target => "_blank", :class => "download") %>
+				<% end %>
+		</span>
+	</td>
+	<td><a href="#" data-toggle="modal" data-target="#compose" class="reply" data-subject="<%="#{message[:subject].split('|').last}" %>">Reply</a></td>
+</tr>
+<% @even = @even == true ? false : true %>
+<% end %>

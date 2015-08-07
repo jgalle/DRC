@@ -1,0 +1,23 @@
+<h1>Listing ceramic_dec_tech_motifs</h1>
+
+<table>
+  <tr>
+    <th>Ceramic dec tech motif</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @ceramic_dec_tech_motifs.each do |ceramic_dec_tech_motif| %>
+  <tr>
+    <td><%= ceramic_dec_tech_motif.ceramic_dec_tech_motif %></td>
+    <td><%= link_to 'Show', ceramic_dec_tech_motif %></td>
+    <td><%= link_to 'Edit', edit_ceramic_dec_tech_motif_path(ceramic_dec_tech_motif) %></td>
+    <td><%= link_to 'Destroy', ceramic_dec_tech_motif, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Ceramic dec tech motif', new_ceramic_dec_tech_motif_path %>

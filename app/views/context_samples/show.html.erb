@@ -1,0 +1,50 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Recovery method:</b>
+  <%= @context_sample.recovery_method_id %>
+</p>
+
+<p>
+  <b>Context:</b>
+  <%= @context_sample.context_id %>
+</p>
+
+<p>
+  <b>Sample number:</b>
+  <%= @context_sample.sample_number %>
+</p>
+
+<p>
+  <b>Context sample:</b>
+  <%= @context_sample.context_sample_id %>
+</p>
+
+<p>
+  <b>Sample size:</b>
+  <%= @context_sample.sample_size %>
+</p>
+
+<p>
+  <b>Context sample type:</b>
+  <%= @context_sample.context_sample_type_id %>
+</p>
+
+<p>
+  <b>Screen size:</b>
+  <%= @context_sample.screen_size_id %>
+</p>
+
+<p>
+  <b>Storage box number:</b>
+  <%= @context_sample.storage_box_number %>
+</p>
+
+<p>
+  <b>Box comments:</b>
+  <%= @context_sample.box_comments %>
+</p>
+
+
+<%= link_to 'Edit', edit_context_sample_path(@context_sample) %> |
+<%= link_to 'Back', context_samples_path %>

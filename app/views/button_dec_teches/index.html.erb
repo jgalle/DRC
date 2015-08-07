@@ -1,0 +1,33 @@
+<h1>Listing button_dec_teches</h1>
+
+<table>
+  <tr>
+    <th>Artifact</th>
+    <th>Button decoration</th>
+    <th>Jewel inlay material</th>
+    <th>Mun app color</th>
+    <th>Decorative motif</th>
+    <th>Generate context artifact id--skip stylesheets</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @button_dec_teches.each do |button_dec_tech| %>
+  <tr>
+    <td><%= button_dec_tech.artifact_id %></td>
+    <td><%= button_dec_tech.button_decoration_id %></td>
+    <td><%= button_dec_tech.jewel_inlay_material_id %></td>
+    <td><%= button_dec_tech.mun_app_color_id %></td>
+    <td><%= button_dec_tech.decorative_motif %></td>
+    <td><%= button_dec_tech.generate_context_artifact_id--skip_stylesheets %></td>
+    <td><%= link_to 'Show', button_dec_tech %></td>
+    <td><%= link_to 'Edit', edit_button_dec_tech_path(button_dec_tech) %></td>
+    <td><%= link_to 'Destroy', button_dec_tech, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Button dec tech', new_button_dec_tech_path %>

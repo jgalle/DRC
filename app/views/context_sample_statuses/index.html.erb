@@ -1,0 +1,25 @@
+<h1>Listing context_sample_statuses</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @context_sample_statuses.each do |context_sample_status| %>
+      <tr>
+        <td><%= link_to 'Show', context_sample_status %></td>
+        <td><%= link_to 'Edit', edit_context_sample_status_path(context_sample_status) %></td>
+        <td><%= link_to 'Destroy', context_sample_status, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Context sample status', new_context_sample_status_path %>

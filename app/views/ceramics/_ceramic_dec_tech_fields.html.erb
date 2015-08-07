@@ -1,0 +1,41 @@
+<%# number = Time.now.to_formatted_s(:number) %>
+
+                    <div class="block <%= @dec_tech_colored == true ? 'colored' : '' %>">
+                        <div class="three-columns three-with-delete">
+                            <div class="row-area">
+                                <div class="col">
+																	<%= f.label('InteriorExteriorID', 'Interior / Exterior')%>
+																	<%= f.collection_select('InteriorExteriorID', CeramicDecTechInteriorExterior.all.order('"InteriorExterior"'), :id, 'InteriorExterior', {:include_blank => '--select--'}, {'data-placeholder' => '--select--', :class => 'form-control'})%>
+                                </div>
+                                <div class="col">
+																	<%= f.label('CeramicDecTechLocationID', 'Location')%>
+																	<%= f.collection_select('CeramicDecTechLocationID', CeramicDecTechLocation.all.order('"CeramicDecTechLocation"'), :id, 'CeramicDecTechLocation', {:include_blank => '--select--'}, {'data-placeholder' => '--select--', :class => 'form-control'})%>
+                                </div>
+																<%= f.hidden_field :_destroy %>
+																<a href="#" data-toggle="modal" data-target="#dec-tech-alert-modal" class="dec-tech-delete-link delete" tabindex="-1">Delete</a>
+                            </div><!-- row-area -->
+                            <div class="row-area">
+                                <div class="col">
+																	<%= f.label('CeramicDecTechTypeID', 'Decorative Technique')%>
+																	<%= f.collection_select('CeramicDecTechTypeID', CeramicDecTechType.all.order('"CeramicDecTechType"'), :id, 'CeramicDecTechType', {:include_blank => '--select--'}, {'data-placeholder' => '--select--', :class => 'form-control'})%>
+                                </div>
+                                <div class="col">
+																	<%= f.label('MunAppColorID', 'Decoration Color')%>
+																	<%= f.collection_select('MunAppColorID', MunsellAppliedColor.all.order('"AppliedColorWrittenDescription"'), :id, 'AppliedColorWrittenDescription', {:include_blank => '--select--'}, {'data-placeholder' => '--select--', :class => 'form-control'})%>
+                                </div>
+                            </div><!-- row-area -->
+                            <div class="row-area">
+                                <div class="col">
+																	<%= f.label('CeramicDecTechStyElemID', 'Stylistic Element')%>
+																	<%#= f.text_field('CeramicDecTechStyElemID', {'class'=>"form-control typeahead se-se-#{number}", 'placeholder'=>"Stylistic Element", 'autocomplete'=>"off", 'spellcheck'=>"false", "dir"=>"auto", 'data-source'=>"/ceramic_dec_tech_sty_elements.json"})%>
+																	<%= f.collection_select('CeramicDecTechStyElemID', CeramicDecTechStyElement.all.order('"CeramicDecTechStyElem"'), :id, 'CeramicDecTechStyElem', {:include_blank => '--select--'}, {:class => 'sel-ar se-se-'+number})%>
+                                </div>
+                                <div class="col">
+																	<%= f.label('CeramicDecTechMotifID', 'Motif')%>
+																	<%= f.collection_select('CeramicDecTechMotifID', CeramicDecTechMotif.all.order('"CeramicDecTechMotif"'), :id, 'CeramicDecTechMotif', {:include_blank => '--select--'}, {'data-placeholder' => '--select--', :class => 'form-control'})%>
+                                </div>
+                            </div><!-- row-area -->
+
+                        </div><!-- selects -->
+<div class="number" style="display:none">_NUM_</div>
+                    </div><!-- block -->

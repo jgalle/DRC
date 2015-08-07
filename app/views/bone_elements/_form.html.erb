@@ -1,0 +1,25 @@
+<%= form_for(@bone_element) do |f| %>
+  <% if @bone_element.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@bone_element.errors.count, "error") %> prohibited this bone_element from being saved:</h2>
+
+      <ul>
+      <% @bone_element.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :bone_element %><br />
+    <%= f.text_field :bone_element %>
+  </div>
+  <div class="field">
+    <%= f.label :body_part %><br />
+    <%= f.text_field :body_part %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

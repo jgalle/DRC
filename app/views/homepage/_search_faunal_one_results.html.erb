@@ -1,0 +1,19 @@
+<table class="bordered">
+  <tr>
+    <th class="cell-01a">Project Name</th>
+    <th class="cell-02">Count</th>
+    <th class="cell-03">Taxon, English</th>
+    <th class="cell-04">Taxon, Latin</th>
+	<th class="cell-05">Taxon Category</th>
+  </tr>
+<% @bones.each do |artifact| %>
+  <tr class="holder-for-delete">
+		<td class="cell-01a"><%= artifact.ProjectName rescue '='%></td>
+		<td class="cell-02"><%= artifact.Count rescue '='%></td>
+		<td class="cell-02"><%= artifact.TaxonEnglish rescue '='%></td>
+		<td class="cell-04"><%= artifact.TaxonLatin rescue '='%></td>
+		<td class="cell-04"><%= artifact.TaxonCategory rescue '='%></td>
+		
+  </tr>
+<% end %>
+</table>

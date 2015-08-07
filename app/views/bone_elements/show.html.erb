@@ -1,0 +1,15 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Bone element:</b>
+  <%= @bone_element.bone_element %>
+</p>
+
+<p>
+  <b>Body part:</b>
+  <%= @bone_element.body_part %>
+</p>
+
+
+<%= link_to 'Edit', edit_bone_element_path(@bone_element) %> |
+<%= link_to 'Back', bone_elements_path %>

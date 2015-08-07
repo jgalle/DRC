@@ -1,0 +1,14 @@
+<% message_header.receipts_for(current_user).inbox.each do |receipt| %>
+<tr class="<%= receipt.is_unread? != true ? 'read' : '' %> <%= @even == true ? 'even' : 'odd' %>">
+	<td><%= message_header.created_at %></td>
+	<td><%= link_to message_header.last_sender.userid, :action => 'display_message', :id => message_header.id, :remote => true %></td>
+	<td><span class="wrap">
+			<span class="holder"><%= link_to message_header.subject, :action => 'display_message', :id => message_header.id, :remote => true %></span>
+				<% if receipt.message.attachment != nil and receipt.message.attachment.url != nil %>			
+					<%= link_to('Download',receipt.message.attachment.url, :target => "_blank", :class => "download") %>
+				<% end %>
+		</span>
+	</td>
+</tr>
+<% @even = @even == true ? false : true %>
+<% end %>

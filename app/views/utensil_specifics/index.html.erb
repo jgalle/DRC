@@ -1,0 +1,33 @@
+<h1>Listing utensil_specifics</h1>
+
+<table>
+  <tr>
+    <th>Artifact</th>
+    <th>Untesil part</th>
+    <th>Utensil shape</th>
+    <th>Utensil manu tech</th>
+    <th>Utensil material</th>
+    <th>Generate context artifact</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @utensil_specifics.each do |utensil_specific| %>
+  <tr>
+    <td><%= utensil_specific.artifact_id %></td>
+    <td><%= utensil_specific.untesil_part_id %></td>
+    <td><%= utensil_specific.utensil_shape_id %></td>
+    <td><%= utensil_specific.utensil_manu_tech_id %></td>
+    <td><%= utensil_specific.utensil_material_id %></td>
+    <td><%= utensil_specific.generate_context_artifact_id %></td>
+    <td><%= link_to 'Show', utensil_specific %></td>
+    <td><%= link_to 'Edit', edit_utensil_specific_path(utensil_specific) %></td>
+    <td><%= link_to 'Destroy', utensil_specific, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Utensil specific', new_utensil_specific_path %>

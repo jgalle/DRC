@@ -1,0 +1,23 @@
+<h1>Listing project_regions</h1>
+
+<table>
+  <tr>
+    <th>Region</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @project_regions.each do |project_region| %>
+  <tr>
+    <td><%= project_region.region %></td>
+    <td><%= link_to 'Show', project_region %></td>
+    <td><%= link_to 'Edit', edit_project_region_path(project_region) %></td>
+    <td><%= link_to 'Destroy', project_region, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Project region', new_project_region_path %>

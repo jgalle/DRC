@@ -1,0 +1,14 @@
+	<table class="bordered">
+	  <tr>
+		  <% @display_fields.each do |field| %>
+			<th class="cell-"><%= field.gsub(/([A-Z])/,' \1').gsub('I D', 'ID').gsub('D A A C S', 'DAACS') %></th>
+		  <% end %>
+	  </tr>
+	  <% @artifacts.each do |artifact| %>
+		  <tr>
+			  <% @display_fields.each do |field| %>
+				<td class="cell-"><%= artifact.send(field) %></td>
+			  <% end %>
+	  	</tr>
+	  <% end %>
+	</table>

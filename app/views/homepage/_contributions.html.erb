@@ -1,0 +1,145 @@
+<table class="data">
+	<tr>
+		<td>Contexts</td>
+		<% g = @contexts.where(:action => 'create') %>
+		<td><%= g.size %></td>
+		<td>
+			<% if g != nil %>
+				<%# a = g.map {|o| o.object_id.to_i if o.controller == 'contexts'} %>
+				<%#= a.size %>
+			<% end %>
+		</td>
+		<!-- <td><%= @contexts.where(:action => 'update').size %></td> -->
+		<td><%= @contexts.where(:action => 'destroy').size %></td>
+	</tr>
+	<tr>
+		<td>Features</td>
+		<% g = @features.where(:action => 'create') %>
+		<td><%= g.size %></td>
+		<td>
+			<% if g != nil %>
+				<%# a = g.map {|o| o.object_id.to_i if o.controller == 'contexts'} %>
+				<%#= a.size %>
+			<% end %>
+		</td>
+		<!-- <td><%= @features.where(:action => 'update').size %></td> -->
+		<td><%= @features.where(:action => 'destroy').size %></td>
+	</tr>
+<tr>
+	<td>General Artifacts</td>
+	<% g = @gen_artifacts.where(:action => 'create') %>
+	<td><%= g.size %></td>
+	<td>
+		<% if g != nil %>
+			<% a = g.map {|o| o.object_id.to_i if o.controller == 'gen_artifacts'} %>
+			<%= GenArtifact.where(:GenerateContextArtifactID => a).sum '"Quantity"' %>
+		<% end %>
+	</td>
+	<!-- <td><%= @gen_artifacts.where(:action => 'update').size %></td> -->
+	<td><%= @gen_artifacts.where(:action => 'destroy').size %></td>
+</tr>
+<tr>
+	<td>Ceramics</td>
+	<% g = @ceramics.where(:action => 'create') %>
+	<td><%= g.size %></td>
+	<td>
+		<% if g != nil %>
+			<% a = g.map {|o| o.object_id.to_i if o.controller == 'ceramics'} %>
+			<%= Ceramic.where(:GenerateContextArtifactID => a).sum '"Quantity"' %>
+		<% end %>
+	</td>
+	<!-- <td><%= @ceramics.where(:action => 'update').size %></td> -->
+	<td><%= @ceramics.where(:action => 'destroy').size %></td>
+</tr>
+<tr>
+	<td>Glass</td>
+	<% g = @glasses.where(:action => 'create') %>
+	<td><%= g.size %></td>
+	<td>
+		<% if g != nil %>
+			<% a = g.map {|o| o.object_id.to_i if o.controller == 'glasses'} %>
+			<%= Glass.where(:GenerateContextArtifactID => a).sum '"Quantity"' %>
+		<% end %>
+	</td>
+	<!-- <td><%= @glasses.where(:action => 'update').size %></td> -->
+	<td><%= @glasses.where(:action => 'destroy').size %></td>
+</tr>
+<tr>
+	<td>Beads</td>
+	<% g = @beads.where(:action => 'create') %>
+	<td><%= g.size %></td>
+	<td>
+		<% if g != nil %>
+			<% a = g.map {|o| o.object_id.to_i if o.controller == 'beads'} %>
+			<%= Bead.where(:GenerateContextArtifactID => a).sum '"Quantity"' %>
+		<% end %>
+	</td>
+	<!-- <td><%= @beads.where(:action => 'update').size %></td> -->
+	<td><%= @beads.where(:action => 'destroy').size %></td>
+</tr>
+<tr>
+	<td>Buckles</td>
+	<% g = @buckles.where(:action => 'create') %>
+	<td><%= g.size %></td>
+	<td>
+		<% if g != nil %>
+			<% a = g.map {|o| o.object_id.to_i if o.controller == 'buckles'} %>
+			<%= Buckle.where(:GenerateContextArtifactID => a).sum '"Quantity"' %>
+		<% end %>
+	</td>
+	<!-- <td><%= @buckles.where(:action => 'update').size %></td> -->
+	<td><%= @buckles.where(:action => 'destroy').size %></td>
+</tr>
+<tr>
+	<td>Buttons</td>
+	<% g = @buttons.where(:action => 'create') %>
+	<td><%= g.size %></td>
+	<td>
+		<% if g != nil %>
+			<% a = g.map {|o| o.object_id.to_i if o.controller == 'buttons'} %>
+			<%= Button.where(:GenerateContextArtifactID => a).sum '"Quantity"' %>
+		<% end %>
+	</td>
+	<!-- <td><%= @buttons.where(:action => 'update').size %></td> -->
+	<td><%= @buttons.where(:action => 'destroy').size %></td>
+</tr>
+<tr>
+	<td>Tobacco Pipes</td>
+	<% g = @tobacco_pipes.where(:action => 'create') %>
+	<td><%= g.size %></td>
+	<td>
+		<% if g != nil %>
+			<% a = g.map {|o| o.object_id.to_i if o.controller == 'tobacco_pipes'} %>
+			<%= TobaccoPipe.where(:GenerateContextArtifactID => a).sum '"Quantity"' %>
+		<% end %>
+	</td>
+	<!-- <td><%= @tobacco_pipes.where(:action => 'update').size %></td> -->
+	<td><%= @tobacco_pipes.where(:action => 'destroy').size %></td>
+</tr>
+<tr>
+	<td>Utensils</td>
+	<% g = @utensils.where(:action => 'create') %>
+	<td><%= g.size %></td>
+	<td>
+		<% if g != nil %>
+			<% a = g.map {|o| o.object_id.to_i if o.controller == 'utensils'} %>
+			<%= Utensil.where(:GenerateContextArtifactID => a).sum '"Quantity"' %>
+		<% end %>
+	</td>
+	<!-- <td><%= @utensils.where(:action => 'update').size %></td> -->
+	<td><%= @utensils.where(:action => 'destroy').size %></td>
+</tr>
+<tr>
+	<td>Faunal</td>
+	<% g = @bones.where(:action => 'create') %>
+	<td><%= g.size %></td>
+	<td>
+		<% if g != nil %>
+			<% a = g.map {|o| o.object_id.to_i if o.controller == 'bones'} %>
+			<%= Bone.where(:GenerateContextArtifactID => a).sum '"Quantity"' %>
+		<% end %>
+	</td>
+	<!-- <td><%= @bones.where(:action => 'update').size %></td> -->
+	<td><%= @bones.where(:action => 'destroy').size %></td>
+</tr>
+</table>

@@ -1,0 +1,15 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Image type:</b>
+  <%= @image_type.image_type %>
+</p>
+
+<p>
+  <b>Image table:</b>
+  <%= @image_type.image_table %>
+</p>
+
+
+<%= link_to 'Edit', edit_image_type_path(@image_type) %> |
+<%= link_to 'Back', image_types_path %>

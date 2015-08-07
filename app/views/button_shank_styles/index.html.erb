@@ -1,0 +1,23 @@
+<h1>Listing button_shank_styles</h1>
+
+<table>
+  <tr>
+    <th>Shank style</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @button_shank_styles.each do |button_shank_style| %>
+  <tr>
+    <td><%= button_shank_style.shank_style %></td>
+    <td><%= link_to 'Show', button_shank_style %></td>
+    <td><%= link_to 'Edit', edit_button_shank_style_path(button_shank_style) %></td>
+    <td><%= link_to 'Destroy', button_shank_style, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Button shank style', new_button_shank_style_path %>

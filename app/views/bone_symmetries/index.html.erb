@@ -1,0 +1,23 @@
+<h1>Listing bone_symmetries</h1>
+
+<table>
+  <tr>
+    <th>Symmetry</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @bone_symmetries.each do |bone_symmetry| %>
+  <tr>
+    <td><%= bone_symmetry.symmetry %></td>
+    <td><%= link_to 'Show', bone_symmetry %></td>
+    <td><%= link_to 'Edit', edit_bone_symmetry_path(bone_symmetry) %></td>
+    <td><%= link_to 'Destroy', bone_symmetry, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Bone symmetry', new_bone_symmetry_path %>

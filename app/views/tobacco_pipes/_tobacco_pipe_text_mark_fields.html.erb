@@ -1,0 +1,49 @@
+                    <div class="block <%= @mark_colored == true ? 'colored' : '' %>">
+                        <div class="three-columns three-with-delete">
+                          <div class="clearfix">
+														</div>
+                            <div class="row-area">
+                                <div class="col">
+																	<%= f.label('TextMarkTypeID', 'Type of Marks')%>
+																	<%= f.collection_select('TextMarkTypeID', TobaccoPipeTextMarkType.all.order('"TextMarkType"'), :id, 'TextMarkType', {:include_blank => '--select--'}, {'data-placeholder' => '--select--', :class => 'form-control'})%>
+                                </div>
+                                <div class="col">
+																	<%= f.label('MotifTextLocationID', 'Text Location')%>
+																	<%= f.collection_select('MotifTextLocationID', TobaccoPipeMotifTextLocation.all.order('"MotifTextLocation"'), :id, 'MotifTextLocation', {:include_blank => '--select--'}, {'data-placeholder' => '--select--', :class => 'form-control'})%>
+                                </div>
+                                <div class="col">
+																	<%= f.label('PipeTextFrameMotifID', 'Text Frame Motif')%>
+																	<%= f.collection_select('PipeTextFrameMotifID', TobaccoPipeTextFrameMotif.all.order('"PipeTextFrameMotif"'), :id, 'PipeTextFrameMotif', {:include_blank => '--select--'}, {'data-placeholder' => '--select--', :class => 'form-control'})%>
+                                </div>
+																<%= f.hidden_field :_destroy %>
+																<a href="#" data-toggle="modal" data-target="#mark-alert-modal" class="mark-delete-link delete" tabindex="-1">Delete</a>
+								</div>
+								<div class="row-area">
+                  <div class="col">
+										<%= f.label('FirstName', 'First Name')%>
+										<%= f.text_area('FirstName', {:maxlength => 100, :class => 'form-control'})%>
+                  </div>
+                  <div class="col">
+										<%= f.label('LastName', 'Last Name')%>
+										<%= f.text_area('LastName', {:maxlength => 100, :class => 'form-control'})%>
+                  </div>
+                  <div class="col">
+										<%= f.label('PlaceName', 'Place Name')%>
+										<%= f.text_area('PlaceName', {:maxlength => 100, :class => 'form-control'})%>
+                  </div>
+								</div>
+
+								<div class="row-area">
+                  <div class="col">
+										<%= f.label('SloganOther', 'Slogan/Other')%>
+										<%= f.text_area('SloganOther', {:maxlength => 100, :class => 'form-control'})%>
+                  </div>
+                  <div class="col">
+										<%= f.label('MarkNotes', 'Mark Notes')%>
+										<%= f.text_area('MarkNotes', {:class => 'form-control'})%>
+                  </div>
+								</div>
+							
+                        </div><!-- selects -->
+<div class="number" style="display:none">_NUM_</div>
+                    </div><!-- block -->

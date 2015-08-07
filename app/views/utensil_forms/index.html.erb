@@ -1,0 +1,23 @@
+<h1>Listing utensil_forms</h1>
+
+<table>
+  <tr>
+    <th>Utensil form</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @utensil_forms.each do |utensil_form| %>
+  <tr>
+    <td><%= utensil_form.utensil_form %></td>
+    <td><%= link_to 'Show', utensil_form %></td>
+    <td><%= link_to 'Edit', edit_utensil_form_path(utensil_form) %></td>
+    <td><%= link_to 'Destroy', utensil_form, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Utensil form', new_utensil_form_path %>

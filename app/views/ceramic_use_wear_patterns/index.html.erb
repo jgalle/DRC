@@ -1,0 +1,23 @@
+<h1>Listing ceramic_use_wear_patterns</h1>
+
+<table>
+  <tr>
+    <th>Use wear pattern</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @ceramic_use_wear_patterns.each do |ceramic_use_wear_pattern| %>
+  <tr>
+    <td><%= ceramic_use_wear_pattern.use_wear_pattern %></td>
+    <td><%= link_to 'Show', ceramic_use_wear_pattern %></td>
+    <td><%= link_to 'Edit', edit_ceramic_use_wear_pattern_path(ceramic_use_wear_pattern) %></td>
+    <td><%= link_to 'Destroy', ceramic_use_wear_pattern, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Ceramic use wear pattern', new_ceramic_use_wear_pattern_path %>

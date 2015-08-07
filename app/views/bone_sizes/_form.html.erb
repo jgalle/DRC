@@ -1,0 +1,21 @@
+<%= form_for(@bone_size) do |f| %>
+  <% if @bone_size.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@bone_size.errors.count, "error") %> prohibited this bone_size from being saved:</h2>
+
+      <ul>
+      <% @bone_size.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :bone_size %><br />
+    <%= f.text_field :bone_size %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

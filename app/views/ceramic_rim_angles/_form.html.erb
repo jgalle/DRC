@@ -1,0 +1,21 @@
+<%= form_for(@ceramic_rim_angle) do |f| %>
+  <% if @ceramic_rim_angle.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@ceramic_rim_angle.errors.count, "error") %> prohibited this ceramic_rim_angle from being saved:</h2>
+
+      <ul>
+      <% @ceramic_rim_angle.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :rim_angle %><br />
+    <%= f.text_field :rim_angle %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

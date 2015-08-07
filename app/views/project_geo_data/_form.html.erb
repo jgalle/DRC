@@ -1,0 +1,21 @@
+<%= form_for(@project_geo_datum) do |f| %>
+  <% if @project_geo_datum.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@project_geo_datum.errors.count, "error") %> prohibited this project_geo_datum from being saved:</h2>
+
+      <ul>
+      <% @project_geo_datum.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :geo_datum %><br />
+    <%= f.text_field :geo_datum %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

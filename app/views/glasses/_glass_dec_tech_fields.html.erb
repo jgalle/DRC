@@ -1,0 +1,21 @@
+                    <div class="block <%= @decoration_colored == true ? 'colored' : '' %>">
+                        <div class="three-columns three-with-delete">
+                            <div class="row-area">
+                                <div class="col">
+																	<%= f.label('GlassDecTechTypeID', 'Decorative Technique')%>
+																	<%= f.collection_select('GlassDecTechTypeID', GlassDecTechType.all.order('"GlassDecTechType"'), :id, 'GlassDecTechType', {:include_blank => '--select--'}, {'data-placeholder' => '--select--', :class => 'form-control'})%>
+                                </div>
+                                <div class="col">
+																	<%= f.label('GlassDecTechBasicColorID', 'Applied Color')%>
+																	<%= f.collection_select('GlassDecTechBasicColorID', BasicColor.all.order('"BasicColor"'), :id, 'BasicColor', {:include_blank => '--select--'}, {'data-placeholder' => '--select--', :class => 'form-control'})%>
+                                </div>
+                                <div class="col">
+																	<%= f.label('GlassDecTechStyElemID', 'Glass Stylistic Element')%>
+																	<%= f.collection_select('GlassDecTechStyElemID', GlassDecTechStyElem.all.order('"GlassDecTechStyElem"'), :id, 'GlassDecTechStyElem', {:include_blank => '--select--'}, {'data-placeholder' => '--select--', :class => 'form-control'})%>
+                                </div>
+								<%= f.hidden_field :_destroy %>
+								<a href="#" data-toggle="modal" data-target="#decoration-alert-modal" class="decoration-delete-link delete" tabindex="-1">Delete</a>
+							</div>
+                        </div><!-- selects -->
+<div class="number" style="display:none">_NUM_</div>
+                    </div><!-- block -->

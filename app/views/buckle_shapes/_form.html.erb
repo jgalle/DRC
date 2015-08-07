@@ -1,0 +1,21 @@
+<%= form_for(@buckle_shape) do |f| %>
+  <% if @buckle_shape.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@buckle_shape.errors.count, "error") %> prohibited this buckle_shape from being saved:</h2>
+
+      <ul>
+      <% @buckle_shape.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :buckle_shape %><br />
+    <%= f.text_field :buckle_shape %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

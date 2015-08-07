@@ -1,0 +1,30 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Artifact:</b>
+  <%= @bone_measure.artifact_id %>
+</p>
+
+<p>
+  <b>Measuring description:</b>
+  <%= @bone_measure.measuring_description_id %>
+</p>
+
+<p>
+  <b>Measurement:</b>
+  <%= @bone_measure.measurement %>
+</p>
+
+<p>
+  <b>Accurate:</b>
+  <%= @bone_measure.accurate %>
+</p>
+
+<p>
+  <b>Generate context artifact:</b>
+  <%= @bone_measure.generate_context_artifact_id %>
+</p>
+
+
+<%= link_to 'Edit', edit_bone_measure_path(@bone_measure) %> |
+<%= link_to 'Back', bone_measures_path %>

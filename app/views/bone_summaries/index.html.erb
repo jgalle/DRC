@@ -1,0 +1,31 @@
+<h1>Listing bone_summaries</h1>
+
+<table>
+  <tr>
+    <th>Meta content</th>
+    <th>Phase</th>
+    <th>Taxon</th>
+    <th>Mniad</th>
+    <th>Mnim</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @bone_summaries.each do |bone_summary| %>
+  <tr>
+    <td><%= bone_summary.meta_content %></td>
+    <td><%= bone_summary.phase %></td>
+    <td><%= bone_summary.taxon %></td>
+    <td><%= bone_summary.mniad %></td>
+    <td><%= bone_summary.mnim %></td>
+    <td><%= link_to 'Show', bone_summary %></td>
+    <td><%= link_to 'Edit', edit_bone_summary_path(bone_summary) %></td>
+    <td><%= link_to 'Destroy', bone_summary, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Bone summary', new_bone_summary_path %>

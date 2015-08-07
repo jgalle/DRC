@@ -1,0 +1,73 @@
+<%= form_for(@bone_taxon) do |f| %>
+  <% if @bone_taxon.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@bone_taxon.errors.count, "error") %> prohibited this bone_taxon from being saved:</h2>
+
+      <ul>
+      <% @bone_taxon.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :taxon %><br />
+    <%= f.text_field :taxon %>
+  </div>
+  <div class="field">
+    <%= f.label :latin %><br />
+    <%= f.text_field :latin %>
+  </div>
+  <div class="field">
+    <%= f.label :english %><br />
+    <%= f.text_field :english %>
+  </div>
+  <div class="field">
+    <%= f.label :taxon_category_id %><br />
+    <%= f.text_field :taxon_category_id %>
+  </div>
+  <div class="field">
+    <%= f.label :mt_wt_ad %><br />
+    <%= f.text_field :mt_wt_ad %>
+  </div>
+  <div class="field">
+    <%= f.label :mt_wt_im %><br />
+    <%= f.text_field :mt_wt_im %>
+  </div>
+  <div class="field">
+    <%= f.label :txn_order %><br />
+    <%= f.text_field :txn_order %>
+  </div>
+  <div class="field">
+    <%= f.label :taxon_group_category %><br />
+    <%= f.text_field :taxon_group_category %>
+  </div>
+  <div class="field">
+    <%= f.label :class_category %><br />
+    <%= f.text_field :class_category %>
+  </div>
+  <div class="field">
+    <%= f.label :biomass_category %><br />
+    <%= f.text_field :biomass_category %>
+  </div>
+  <div class="field">
+    <%= f.label :pg_cow_sg %><br />
+    <%= f.text_field :pg_cow_sg %>
+  </div>
+  <div class="field">
+    <%= f.label :idor_unid %><br />
+    <%= f.text_field :idor_unid %>
+  </div>
+  <div class="field">
+    <%= f.label :wildor_domestic %><br />
+    <%= f.text_field :wildor_domestic %>
+  </div>
+  <div class="field">
+    <%= f.label :bone_type %><br />
+    <%= f.text_field :bone_type %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

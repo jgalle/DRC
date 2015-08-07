@@ -1,0 +1,23 @@
+<h1>Listing glass_mark_locations</h1>
+
+<table>
+  <tr>
+    <th>Glass mark location</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @glass_mark_locations.each do |glass_mark_location| %>
+  <tr>
+    <td><%= glass_mark_location.glass_mark_location %></td>
+    <td><%= link_to 'Show', glass_mark_location %></td>
+    <td><%= link_to 'Edit', edit_glass_mark_location_path(glass_mark_location) %></td>
+    <td><%= link_to 'Destroy', glass_mark_location, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Glass mark location', new_glass_mark_location_path %>

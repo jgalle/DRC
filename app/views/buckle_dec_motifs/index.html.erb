@@ -1,0 +1,23 @@
+<h1>Listing buckle_dec_motifs</h1>
+
+<table>
+  <tr>
+    <th>Buckle dec motif</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @buckle_dec_motifs.each do |buckle_dec_motif| %>
+  <tr>
+    <td><%= buckle_dec_motif.buckle_dec_motif %></td>
+    <td><%= link_to 'Show', buckle_dec_motif %></td>
+    <td><%= link_to 'Edit', edit_buckle_dec_motif_path(buckle_dec_motif) %></td>
+    <td><%= link_to 'Destroy', buckle_dec_motif, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Buckle dec motif', new_buckle_dec_motif_path %>

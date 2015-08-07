@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<%= stylesheet_link_tag "application", :media => "all" %>
+  <%= javascript_include_tag "application" %>
+  <%= csrf_meta_tags %>
+  
+	<!--[if lt IE 9]>
+		<script type="text/javascript" src="js/html5.js"></script>
+		<script type="text/javascript" src="js/respond.min.js"></script>
+		<script type="text/javascript" src="js/PIE.js"></script>
+		<link rel="stylesheet" media="all" type="text/css" href="css/ie.css">
+	<![endif]-->
+</head>
+<body class="iframe-body">
+		<div class="main-area container">
+      <%= yield %>
+
+		</div><!-- main-area -->
+	<script type="text/javascript">
+			customForm.customForms.replaceAll();
+	</script>
+	
+</body>
+</html>

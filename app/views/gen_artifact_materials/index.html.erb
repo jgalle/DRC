@@ -1,0 +1,31 @@
+<h1>Listing gen_artifact_materials</h1>
+
+<table>
+  <tr>
+    <th>Artifact</th>
+    <th>Gen artifact material type</th>
+    <th>Gen artifact material</th>
+    <th>Gen artifact manu tech</th>
+    <th>Generate context artifact</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @gen_artifact_materials.each do |gen_artifact_material| %>
+  <tr>
+    <td><%= gen_artifact_material.artifact_id %></td>
+    <td><%= gen_artifact_material.gen_artifact_material_type_id %></td>
+    <td><%= gen_artifact_material.gen_artifact_material_id %></td>
+    <td><%= gen_artifact_material.gen_artifact_manu_tech_id %></td>
+    <td><%= gen_artifact_material.generate_context_artifact_id %></td>
+    <td><%= link_to 'Show', gen_artifact_material %></td>
+    <td><%= link_to 'Edit', edit_gen_artifact_material_path(gen_artifact_material) %></td>
+    <td><%= link_to 'Destroy', gen_artifact_material, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Gen artifact material', new_gen_artifact_material_path %>

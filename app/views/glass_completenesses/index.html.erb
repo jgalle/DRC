@@ -1,0 +1,23 @@
+<h1>Listing glass_completenesses</h1>
+
+<table>
+  <tr>
+    <th>Glass completeness</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @glass_completenesses.each do |glass_completeness| %>
+  <tr>
+    <td><%= glass_completeness.glass_completeness %></td>
+    <td><%= link_to 'Show', glass_completeness %></td>
+    <td><%= link_to 'Edit', edit_glass_completeness_path(glass_completeness) %></td>
+    <td><%= link_to 'Destroy', glass_completeness, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Glass completeness', new_glass_completeness_path %>

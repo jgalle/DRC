@@ -1,0 +1,283 @@
+<script>
+$(function() {
+	if ($('#collapse-subtype').exists()) {
+		$('#subtype_attributes input[type="checkbox"]').change(function(){	
+			// var string_sites = new Array();
+			// var subtypes = '';
+			// $('#collapse-subtype input[type="checkbox"]').each(function(){
+			// 	if ($(this).is(':checked')) {
+			// 		if (subtypes != '') {
+			// 			subtypes += '_';
+			// 		}
+			//
+			// 		subtypes +=  $(this).next().text();
+			// 	}
+			// });
+			// $.ajax({
+			//  type: 'GET',
+			//  url: '/homepage/image_forms?sub_types='+encodeURIComponent(subtypes),
+			//  // url: 'http://hero.village.virginia.edu/mongo/faulkner/events/?filter_SourceTextCode='+text,
+			//    // url: 'http://hero.village.virginia.edu/~rwb3y/events.json',
+			//  dataType:'json',
+			//  success: function (data) {
+			// 	 console.log(data);
+			// 	 var str = '<ul>';
+			// 	var num = 0;
+			// 	var  total = data.length;
+			// 	var third = Math.ceil(data.length/3);
+			// 	$.each(data,function(index, val) {
+			// 		str += '<li><input name="forms[]" value="'+val+'" type="checkbox" id="form-lbl-'+num+'" class="check forms"  /> <label for="form-lbl-'+num+'">'+val+'</label> ';
+			// 		num += 1;
+			// 		if (Math.round(num%(third)) == 0) {
+			// 			if ((num >= (third*2)) && (num != total)) {
+			// 				str += '</ul><ul class="last-child">';
+			// 			} else if (num != total){
+			// 				str += '</ul><ul>';
+			// 			}
+			// 		}
+			// 	})
+			// 	str += '</ul>';
+			// 	$('#subtype_form_values').html(str);
+			// 	customForm.customForms.replaceAll();
+			//  }
+			// 		 	});
+		});
+	};
+
+});
+</script>
+<div class="page-header page-header-004 query-database popover-area">
+		<div class="frame">
+			<div class="clearfix">
+				<% if params[:daacs] != nil and params[:daacs] != '' %>
+					<div class="dropdown options-drop back-to-queries">
+												<a href="http://www.daacs.org/query-the-database/" id="back-to-queries" class="btn btn-info ie-fix">Back to Queries Page</a>
+					</div>
+				<% end %>
+				
+			</div>
+		</div><!-- frame -->
+		<div class="">
+	<h1>Query the Database</h1>
+							<% pd = PopupDialog.find(75) %>
+	<p>Image Query 2: <a id="aq5-popover" class="btn what-is-this" data-content="<%= pd.content %>" data-placement="right" data-toggle="popover" data-container="body" type="button" data-original-title="What Does This Query Do?" title="" tabindex="0" role="button" data-trigger="focus">What does this query do?</a></p>
+	</div>
+</div><!-- page-header -->
+<div class="query-database popover-area">
+	<%= form_tag({:action => 'query_two_image_results'}, {:onreset=>"setTimeout(function(){sitesContain()},100)"}) do %>
+	<!-- <form action="#" onreset="setTimeout(function(){sitesContain()},100)"> -->
+		<input type="hidden" name="daacs" value="<%= params[:daacs] %>">
+		<fieldset>
+			<div class="tabs">
+				<ul class="nav nav-tabs">
+					<li class="active"><a href="#tab-step2" data-toggle="tab">Step 1</a></li>
+					<li><a href="#tab-step3" data-toggle="tab">Step 2</a></li>
+				</ul><!-- end nav-tabs --> 
+				<div class="tab-content" id="query-steps">
+
+				<div class="block tab-pane active" id="tab-step2">
+				<div class="heading">
+					<h2>
+							<% pd = PopupDialog.find(76) %>
+							<%= pd.title %>
+					<a class="btn" data-content="<%= pd.content %>" data-placement="right" data-toggle="popover" data-container="body" type="button" data-original-title="<%= pd.title %>" title="<%= pd.title %>" tabindex="0" role="button" data-trigger="focus"> Popover on left </a></h2>
+				</div><!-- end heading -->
+				<div class="section">
+					<div class="wrap">
+						<div class="panel-group" id="accordion2">
+							<div class="panel panel-default">
+								<div class="panel-heading">
+									<h4 class="panel-title"><a data-toggle="collapse" data-parent="#accordion2" href="#collapse-types" class="<%= (((params[:subtype_selected] != nil and params[:subtype_selected] != '') or (params[:form_selected] != nil and params[:form_selected] != ''))) ? 'collapsed' : 'in' %>"><label><div class="custom-radio"><i class="<%= (((params[:subtype_selected] != nil and params[:subtype_selected] != '') or (params[:form_selected] != nil and params[:form_selected] != ''))) ? '' : 'custom-radio-selected' %>"></i></div> Image Type</label></a></h4>
+								</div>
+							<% pd = PopupDialog.find(77) %>
+								<a class="btn btn-right" data-content="<%= pd.content %>" data-placement="left" data-toggle="popover" data-container="body" type="button" data-original-title="<%= pd.title %>" title="" tabindex="0" role="button" data-trigger="focus"> Popover on left </a>
+								<div id="collapse-types" class="panel-collapse collapse <%= (((params[:subtype_selected] != nil and params[:subtype_selected] != '') or (params[:form_selected] != nil and params[:form_selected] != ''))) ? 'collapsed' : 'in' %> ">
+									<div class="panel-body">
+										<div class="collapse-block">
+											<div class="box">
+												<div class="check-block">
+													<label><input type="checkbox" onchange="checkAllWithClass(this, 'types')" class="check">Select All</label>
+												</div>
+											<div class="scrollable-area"> 
+												
+												<ul> 
+													<% items = ImageType.all.order(:ImageType) %>
+													<% num = 0 %>
+													<% third = (items.size/3).to_i%>
+													<% items.each do |item| %>
+													<li> <%# debugger %>
+														<input name="types[]" value="<%= item.ImageType %>" type="checkbox" id="lbl-<%= (num+=1).to_s.rjust(3,'0') %>" class="check types" <%= (params[:types] != nil and params[:types].include? item.ImageType) ? 'checked' : '' %> /> <label for="lbl-<%= num.to_s.rjust(3,'0') %>"><%= item.ImageType %></label> 
+													</li> 
+													<% if num%(third+1) == 0 %>
+														</ul>
+														<ul>
+													<% end %>
+													<% end %>
+ 												</ul> </div><!-- end scrollable-area --></div><!-- end box -->
+															<input type="hidden" class="type-selected" name="types_selected" value="<%= (((params[:subtype_selected] != nil and params[:subtype_selected] != '') or (params[:form_selected] != nil and params[:form_selected] != ''))) ? '' : 'in' %>">
+
+										</div><!-- end collapse-context -->
+									</div><!-- end panel-body -->
+								</div><!-- end #collapse-beads -->
+							</div><!-- end panel -->
+							<div class="panel">
+                                <div class="panel-heading">
+                                    <h4 class="panel-title"><a data-toggle="collapse" data-parent="#accordion2" href="#collapse-subtype" class="<%= (params[:subtype_selected] == nil or params[:subtype_selected] == '') ? 'collapsed' : '' %>"><label><div class="custom-radio"><i class="<%= (params[:subtype_selected] != nil and params[:subtype_selected] != '') ? 'custom-radio-selected' : '' %>"></i></div> Image SubType</label></a></h4>
+                                </div>
+							<% pd = PopupDialog.find(78) %>
+                                <a class="btn btn-right" data-content="<%= pd.content %>" data-placement="left" data-toggle="popover" data-container="body" type="button" data-original-title="<%= pd.title %>" title="Image SubType" tabindex="0" role="button" data-trigger="focus"> Popover on left </a>
+                                <div id="collapse-subtype" class="panel-collapse <%= (params[:subtype_selected] == nil or params[:subtype_selected] == '') ? 'collapse' : '' %>">
+                                    <div class="panel-body">
+                                        <div class="collapse-block">
+											<div class="check-block-container dropup">
+												<a href="#subtype_attributes" class="toggle-header">Select Subtypes <i class="caret"></i></a>
+											<div class="box" id="subtype_attributes">
+												<div class="check-block">
+													<label><input type="checkbox" onchange="checkAllWithClass(this, 'subtypes')" class="check">Select All</label>
+												</div>
+											<div class="scrollable-area"> 
+												
+												<ul> 
+													<% items = ImageSubtype.find_by_sql('select distinct "ImageSubtype" from "tblImageSubtype" order by "ImageSubtype"') %>
+													<% num = 0 %>
+													<% third = (items.size/3).to_i%>
+													<% items.each do |item| %>
+													<li> <%# debugger %>
+														<input name="subtypes[]" value="<%= item.ImageSubtype %>" type="checkbox" id="lbl-<%= (num+=1).to_s.rjust(3,'0') %>" class="check subtypes" <%= (params[:subtypes] != nil and params[:subtypes].include? item.ImageSubtype) ? 'checked' : '' %> /> <label for="lbl-<%= num.to_s.rjust(3,'0') %>"><%= item.ImageSubtype %></label> 
+													</li> 
+													<% if num%(third+1) == 0 %>
+														</ul>
+														<ul>
+													<% end %>
+													<% end %>
+ 												</ul> </div><!-- end scrollable-area --></div><!-- end box -->
+
+
+												<a href="#subtype_form_attributes" class="toggle-header">Select Form <i class="caret"></i></a>
+											<div class="box" id="subtype_form_attributes">
+												<div class="check-block">
+													<label><input type="checkbox" onchange="checkAllWithClass(this, 'forms')" class="check">Select All</label>
+												</div>
+											<div class="scrollable-area" id="subtype_form_values"> 
+												<ul>
+													<%
+												    items = []
+												    sub_types = []
+												    if params[:subtypes] != nil
+												      params[:subtypes].each do |st|
+												        sub_types += ImageSubtype.where(:ImageSubtype => st).map{|o| o.id}
+												      end
+												    end
+												    sub_types.each do |st|
+												      items += ImageForm.where(:ImageSubtypeID => st).map{|o| o.ImageForm }
+												    end
+												    items = items.uniq.sort
+														
+													%>
+													<% num = 0 %>
+													<% third = (items.size/3).to_i%>
+													<% items.each do |item| %>
+													<li> <%# debugger %>
+														<input name="forms[]" value="<%= item %>" type="checkbox" id="lbl-<%= (num+=1).to_s.rjust(3,'0') %>" class="check forms" <%= (params[:forms] != nil and params[:forms].include? item) ? 'checked' : '' %> /> <label for="lbl-<%= num.to_s.rjust(3,'0') %>"><%= item %></label> 
+													</li> 
+													<% if num%(third+1) == 0 %>
+														</ul>
+														<ul>
+													<% end %>
+													<% end %>
+													
+												</ul>
+												
+											</div><!-- end scrollable-area --></div><!-- end box -->
+
+															<input type="hidden" class="type-selected" name="subtype_selected" value="<%= (params[:subtypes] != nil and params[:subtypes] != '') ? 'in' : '' %>">
+											</div>
+                                        </div><!-- end collapse-block -->
+										
+                                    </div><!-- end panel-body -->
+                                </div><!-- end #collapse-feature-type -->
+                            </div><!-- end panel -->
+							
+							
+						</div>		
+						
+					</div>
+				</div>
+				<input type="hidden" id="subset_by" name="subset_by" value="context" />
+				</div><!-- end block -->
+			<div class="block tab-pane" id="tab-step3">
+				<div class="heading">
+					<div class="check-block">
+						<input type="checkbox" id="lbl-028" onchange="checkAll(this)" class="check" />
+						<label for="lbl-028">Select All</label>
+					</div><!-- end chech-block -->
+							<% pd = PopupDialog.find(79) %>
+					<h2><%= pd.title %><a class="btn" data-content="<%= pd.content %>" data-placement="right" data-toggle="popover" data-container="body" type="button" data-original-title="<%= pd.title %>" title="<%= pd.title %>" tabindex="0" role="button" data-trigger="focus"> Popover on left </a></h2>
+				</div><!-- end heading -->
+				<div class="section section-003">
+					<%= render :partial => 'site_selection' %>
+					<div id="query-selection">
+							<div class="query-info">
+								<h4>Query Selections</h4>
+								<table class="table table-bordered">
+									<thead>
+										<th>Step 1: Subset Data By</th>
+										<th>Step 2: Sites</th>
+									</thead>
+									<tbody>
+										<td><span id="subset_data_by_list">
+											<% if params[:types_selected] != nil and params[:types_selected] != '' %>
+											Image Type:
+											<% elsif params[:subtype_selected] != nil and params[:subtype_selected] != '' %>
+											Image Subtype:
+											<% elsif params[:form_selected] != nil and params[:form_selected] != '' %>
+											Artifact Form:
+											<% else %>
+											Image Type:
+											<% end %>
+											
+										</span>
+									<span id="subset_values">
+										<% if params[:types_selected] != nil and params[:types_selected] != '' %>
+										<%= params[:types].join(', ') %>
+										<% elsif params[:subtype_selected] != nil and params[:subtype_selected] != '' %>
+										<%= params[:subtypes].join(', ') %>
+										<% elsif params[:form_selected] != nil and params[:form_selected] != '' %>
+										<%= params[:forms].to_s.split("\r\n").join(', ') %>
+										<% end %>											
+										
+									</span><br>
+									<span id="form_values">
+										<% if params[:forms] != nil and params[:forms] != '' %>
+											Form: <%= params[:forms].join(', ') %>
+										<% end %>											
+										
+									</span>
+								</td>
+										<td><span id="sites_contain">
+											<% if params[:sites] != nil and params[:sites] != '' %>
+											<%= params[:sites].join(', ') %>
+											<% end %>
+										</span></td>
+									</tbody>
+								</table>
+							</div>
+					</div><!-- end #query-selection -->
+
+					<div class="buttons">
+						<div class="c">
+							<div class="box">
+								<input type="reset" class="reset" value="Reset" />
+								<input type="submit" class="btn submit" value="Submit" />
+							</div><!-- end box -->
+						</div><!-- end c -->
+					</div><!-- end buttons -->
+					
+				</div><!-- end section -->
+			</div><!-- end block -->
+		</fieldset>
+		
+		
+	<!-- </form> -->
+	<% end %>
+</div><!-- end query-database -->

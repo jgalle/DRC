@@ -1,0 +1,31 @@
+<h1>Listing ceramic_use_wears</h1>
+
+<table>
+  <tr>
+    <th>Artifact</th>
+    <th>Generate context artifact</th>
+    <th>Use wear location</th>
+    <th>Use wear pattern</th>
+    <th>Ceramic completeness</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @ceramic_use_wears.each do |ceramic_use_wear| %>
+  <tr>
+    <td><%= ceramic_use_wear.artifact_id %></td>
+    <td><%= ceramic_use_wear.generate_context_artifact_id %></td>
+    <td><%= ceramic_use_wear.use_wear_location_id %></td>
+    <td><%= ceramic_use_wear.use_wear_pattern_id %></td>
+    <td><%= ceramic_use_wear.ceramic_completeness_id %></td>
+    <td><%= link_to 'Show', ceramic_use_wear %></td>
+    <td><%= link_to 'Edit', edit_ceramic_use_wear_path(ceramic_use_wear) %></td>
+    <td><%= link_to 'Destroy', ceramic_use_wear, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Ceramic use wear', new_ceramic_use_wear_path %>

@@ -1,0 +1,303 @@
+<script>
+$(document).ready(function(){
+	$(".pagination li a").click(function(e){
+		e.preventDefault();
+		if ($(this).attr("href").indexOf('&page=') > 0) {
+			var tp_id = $(this).attr("href").split('&page=')[1].split('&')[0];
+		} else {
+			var tp_id = 1;
+		}
+		$('#pagination_search').append("<input type='hidden' name='page' value='" + tp_id +"' >");
+		// <% if params['daacs'] != nil  %>
+		// 	$('#pagination_search').append("<input type='hidden' name='daacs' value='y' >");
+		// <% end %>
+		$('#pagination_search').submit();
+	});
+
+	
+	
+	$('.new-bead-type').click(function() {
+		// alert('a');
+		$('#artifact_selection').val('bead');
+		$('#artifact_selection').trigger('chosen:updated')
+		
+	})
+	
+	var completeness_for_delete;
+	var id_to_delete;
+	
+	$("#list_selection input").change(function() {
+	     this.form.submit();
+	});
+	$("#list_selection select").change(function() {
+	     this.form.submit();
+	});
+	if ($('.ceramics-list .delete-tr').exists()) {
+		$('.ceramics-list .delete-tr').click(function(){
+			id_to_delete = $(this).attr('id');
+			completeness_for_delete = $(this).parents('.holder-for-delete');
+		});
+	}
+	if ($('#alert-modal').exists()) {
+		$('#alert-modal').on('hidden.bs.modal', function (e) {
+			completeness_for_delete = "";
+		})
+		$('#alert-modal .delete-list').click(function(){
+			if (completeness_for_delete) {
+				completeness_for_delete.remove();
+			}
+			$.ajax({
+			  url: "/beads/"+id_to_delete,
+			  type: "DELETE"
+			});
+			$('.alert-success').slideDown();
+			setTimeout(function(){
+				$('.alert-success').slideUp();
+			}, 3000)
+			$('#alert-modal').modal('hide')
+		});
+	}
+	
+	// $('#per_page').chosen({width: 100px});
+});
+</script>
+<div class="list-head">
+	<div class="page-header page-header-003">
+		<div class="frame">
+			<div class="clearfix">
+				<% if params[:daacs] != nil and params[:daacs] != '' %>
+					<div class="dropdown options-drop back-to-queries">
+												<a href="http://www.daacs.org/query-the-database/" id="back-to-queries" class="btn btn-info ie-fix">Back to Queries Page</a>
+					</div>
+				<% end %>
+				
+				<div class="dropdown options-drop">
+					<a class="btn" data-toggle="dropdown" href="#">Query Options</a>
+					<ul class="dropdown-menu" role="menu">
+						<li><%= link_to 'New Query', :action => 'artifact_query_five', :params => { :daacs => params[:daacs]} %></li>
+						<li><a href="#" onclick="$('#edit_search').submit()">Modify Query</a><%#= link_to 'Modify Query', :action => 'artifact_query_five', :params => params %></li>
+						<%# params[:all] = true %>
+						<li><a href="#" onclick="$('#download_search').submit()">Download Data</a></li>
+						<!-- <li><%= link_to 'Download Data', :action => 'search', :params => params, :format => :xls, :method => :post %></li> -->
+					</ul>
+				</div>
+			</div>
+		</div><!-- frame -->
+		<div class="block">
+			<h1>Query Results</h1>
+			<p>Artifact Query 5: Select Artifact Attributes by Category</p>
+		</div><!-- end block -->
+	</div><!-- page-header -->
+	<div class="alert alert-success success-deleted" style="display:none">
+		<p>Successfully deleted artifact!</p>
+	</div><!-- end alert -->
+	<div class="list-panel">
+		<div class="filter query-results">
+			<table class="parameters">
+				<tr>
+					<th class="cell-01">Artifact Category:</th>
+					<th class="cell-02">Data Subset:</th>
+					<th class="cell-03">Artifact Types:</th>
+					<th class="cell-04">Artifact Count:</th>
+					<th class="cell-05">Sites:</th>
+				</tr>
+				<tr>
+					<td><%= params[:artifact_type].humanize %></td>
+					<td>Context</td>
+					<td>40</td>
+					<td>40</td>
+					<td>
+						<%= params[:sites].map{|s| Project.find(s).project_name.ProjectName}.join(', ')%>
+					</td>
+				</tr>
+			</table><!-- end parameters -->
+		</div><!-- end block -->
+		</div>
+		<div class="list-panel">
+		<div class="filter">
+			<%= form_tag({:action => 'search'}, :id => 'list_selection', :method => :post) do %>
+				<input type="hidden" name="per_page" value="<%= params[:per_page] != nil ? params[:per_page] : 25 %>">
+				<%= render 'hidden_fields' %>
+				<input type="hidden" name="daacs" value="<%= params[:daacs] %>">
+				
+				<fieldset>
+					<ul class="radio-block total-found">
+						<li>
+							<%= @total %> items found
+						</li>
+					</ul>
+					<div class="top-pagination">
+						<%#= paginate(@beads, :window => 2, :method_type => :post, :remote => true) %>
+<% if defined? @beads %>
+	<%= paginate @beads, :window => 2 %>
+<% elsif defined? @buckles %>
+	<%= paginate @buckles, :window => 2 %>
+<% elsif defined? @buttons %>
+	<%= paginate @buttons, :window => 2 %>
+<% elsif defined? @ceramics %>
+	<%= paginate @ceramics, :window => 2 %>
+<% elsif defined? @glasses %>
+	<%= paginate @glasses, :window => 2 %>
+<% elsif defined? @tobacco_pipes %>
+	<%= paginate @tobacco_pipes, :window => 2 %>
+<% elsif defined? @utensils %>
+	<%= paginate @utensils, :window => 2 %>
+<% elsif defined? @gen_artifacts %>
+	<%= paginate @gen_artifacts, :window => 2 %>
+<% end %>
+					</div>
+					<div class="select-block per-page">
+						<label for="per_page">Results per Page</label>
+						<select id="per_page" class="per-page sel-001" name="per_page">
+							<%= options_for_select(['25','50','100'], params[:per_page])%>
+						</select>
+					</div><!-- end select-block -->
+				</fieldset>
+			<% end %>
+		</div><!-- end filter -->
+	</div><!-- end list-panel -->
+</div><!-- end list-head -->
+<div class="ceramics-list">
+
+	<table class="bordered">
+	  <tr>
+	    <th class="cell-01a">Project</th>
+	    <th class="cell-02">Context</th>
+	    <th class="cell-03">Artifact ID</th>
+	    <th class="cell-04">Count</th>
+		<% if params[:bead_fields] != nil %>
+			<% params[:bead_fields].each do |f| %>
+		    	<th class="cell-05"><%= f.split('|').first %></th>
+			<% end %>
+		<% end %>
+		<% if params[:buckle_fields] != nil %>
+			<% params[:buckle_fields].each do |f| %>
+		    	<th class="cell-05"><%= f.split('|').first %></th>
+			<% end %>
+		<% end %>
+	    <!-- <th class="cell-06">Manu Tech</th>
+	    <th class="cell-07">Shape</th>	
+	    <th class="cell-08">Color</th>
+	    <th class="cell-09">Last Updated</th> -->
+	  </tr>
+	  <% if defined? @beads %>
+		<% @beads.each do |artifact| %>
+		  <tr class="holder-for-delete">
+				<td class="cell-01a"><%= artifact.project.project_name.ProjectName rescue '='%></td>
+				<td class="cell-02"><%= artifact.context.Context rescue '='%></td>
+				<td class="cell-03">
+					<p>
+							<%= artifact.ArtifactID %>
+					</p>
+				</td>
+				<td class="cell-04"><%= artifact.Quantity %></td>
+				<% params[:bead_fields].each do |f| %>
+					<% case f.split('|').last %>
+					<% when 'CompletenessID'%>
+			    		<td class="cell-05"><%= Completeness.find(artifact.send(f.split('|').last)).Completeness rescue '' %></td>
+					<% when 'BeadMaterialID'%>
+			    		<td class="cell-05"><%= BeadMaterial.find(artifact.send(f.split('|').last)).BeadMaterial rescue '' %></td>
+					<% when 'BeadManuTechID'%>
+			    		<td class="cell-05"><%= BeadManuTech.find(artifact.send(f.split('|').last)).BeadManuTech rescue ''%></td>
+					<% when 'StructureID'%>
+			    		<td class="cell-05"><%= BeadStructure.find(artifact.send(f.split('|').last)).Structure rescue '' %></td>
+					<% when 'BeadFormID'%>
+			    		<td class="cell-05"><%= BeadForm.find(artifact.send(f.split('|').last)).BeadForm rescue '' %></td>
+					<% when 'BeadShapeID'%>
+			    		<td class="cell-05"><%= BeadShape.find(artifact.send(f.split('|').last)).BeadShape rescue '' %></td>
+					<% when 'DiaphaneityID'%>
+			    		<td class="cell-05"><%= BeadDiaphaneity.find(artifact.send(f.split('|').last)).Diaphaneity rescue '' %></td>
+					<% when 'MendedID'%>
+			    		<td class="cell-05"><%= YesNo.find(artifact.send(f.split('|').last)).YesNo rescue '' %></td>
+					<% when 'DecorationYN'%>
+			    		<td class="cell-05"><%= YesNo.find(artifact.send(f.split('|').last)).YesNo rescue '' %></td>
+					<% when 'Burned'%>
+			    		<td class="cell-05"><%= YesNo.find(artifact.send(f.split('|').last)).YesNo rescue '' %></td>
+					<% when 'Patination'%>
+			    		<td class="cell-05"><%= YesNo.find(artifact.send(f.split('|').last)).YesNo rescue '' %></td>
+					<% when 'BeadWeatheredEroded'%>
+			    		<td class="cell-05"><%= YesNo.find(artifact.send(f.split('|').last)).YesNo rescue '' %></td>
+					<% when 'PMM'%>
+			    		<td class="cell-05"><%= YesNo.find(artifact.send(f.split('|').last)).YesNo rescue '' %></td>
+					<% when 'Images','Casting Layer Color', 'Decorative Technique' %>
+						<td class="cell-05">-</td>
+					<% else %>
+			    		<td class="cell-05"><%= artifact.send(f.split('|').last) %></td>
+					<% end %>
+				<% end %>
+			
+		  </tr>
+		<% end %>
+		<% end %>
+	  <% if defined? @buckles %>
+		<% @buckles.each do |artifact| %>
+		  <tr class="holder-for-delete">
+				<td class="cell-01a"><%= artifact.project.project_name.ProjectName rescue '='%></td>
+				<td class="cell-02"><%= artifact.context.Context rescue '='%></td>
+				<td class="cell-03">
+					<p>
+							<%= artifact.ArtifactID %>
+					</p>
+				</td>
+				<td class="cell-04"><%= artifact.Quantity %></td>
+				<% params[:buckle_fields].each do |f| %>
+					<% case f.split('|').last %>
+					<% when 'BuckleTypeID'%>
+			    		<td class="cell-05"><%= BuckleType.find(artifact.send(f.split('|').last)).BuckleType rescue '' %></td>
+					<% when 'BuckleCompletenessID'%>
+			    		<td class="cell-05"><%= BuckleCompleteness.find(artifact.send(f.split('|').last)).BuckleCompleteness rescue '' %></td>
+					<% when 'FramePlatingID'%>
+			    		<td class="cell-05"><%= BuckleFramePlating.find(artifact.send(f.split('|').last)).FramePlating rescue ''%></td>
+					<% when 'Mended'%>
+			    		<td class="cell-05"><%= YesNo.find(artifact.send(f.split('|').last)).YesNo rescue '' %></td>
+					<% when 'Burned'%>
+			    		<td class="cell-05"><%= YesNo.find(artifact.send(f.split('|').last)).YesNo rescue '' %></td>
+					<% when 'PMM'%>
+			    		<td class="cell-05"><%= YesNo.find(artifact.send(f.split('|').last)).YesNo rescue '' %></td>
+					<% when 'Images','Dimensions', 'Decorative Technique' %>
+						<td class="cell-05">-</td>
+					<% else %>
+			    		<td class="cell-05"><%= artifact.send(f.split('|').last) %></td>
+					<% end %>
+				<% end %>
+			
+		  </tr>
+		  <% end %>
+	<% end %>
+	</table>
+</div>
+<% if defined? @beads %>
+	<%= paginate @beads, :params => {:daacs => params['daacs']} %>
+<% elsif defined? @buckles %>
+	<%= paginate @buckles, :window => 2 %>
+<% elsif defined? @buttons %>
+	<%= paginate @buttons, :window => 2 %>
+<% elsif defined? @ceramics %>
+	<%= paginate @ceramics, :window => 2 %>
+<% elsif defined? @glasses %>
+	<%= paginate @glasses, :window => 2 %>
+<% elsif defined? @tobacco_pipes %>
+	<%= paginate @tobacco_pipes, :window => 2 %>
+<% elsif defined? @utensils %>
+	<%= paginate @utensils, :window => 2 %>
+<% elsif defined? @gen_artifacts %>
+	<%= paginate @gen_artifacts, :window => 2 %>
+<% end %>
+<br />
+
+<%= form_tag({:action => 'search'}, :id => 'pagination_search') do %>
+	<input type="hidden" name="per_page" value="<%= @per_page %>">
+	<input type='hidden' name='daacs' value='<%= params['daacs'] %>' >
+		<%= render 'hidden_fields' %>
+<% end %>
+<%= form_tag({:action => 'search'}, :id => 'download_search', :method => :post) do %>
+	<input type="hidden" name="format" value="xls">
+	<input type="hidden" name="all" value="true">
+	<input type='hidden' name='daacs' value='<%= params['daacs'] %>' >
+				<%= render 'hidden_fields' %>
+<% end %>
+<%= form_tag({:action => 'artifact_query_five'}, :id => 'edit_search') do %>
+	<input type='hidden' name='daacs' value='<%= params['daacs'] %>' >
+				<%= render 'hidden_fields' %>
+	
+<% end %>

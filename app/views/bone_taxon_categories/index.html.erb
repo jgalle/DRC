@@ -1,0 +1,23 @@
+<h1>Listing bone_taxon_categories</h1>
+
+<table>
+  <tr>
+    <th>Taxon category</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @bone_taxon_categories.each do |bone_taxon_category| %>
+  <tr>
+    <td><%= bone_taxon_category.taxon_category %></td>
+    <td><%= link_to 'Show', bone_taxon_category %></td>
+    <td><%= link_to 'Edit', edit_bone_taxon_category_path(bone_taxon_category) %></td>
+    <td><%= link_to 'Destroy', bone_taxon_category, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Bone taxon category', new_bone_taxon_category_path %>

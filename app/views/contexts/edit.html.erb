@@ -1,0 +1,1688 @@
+<script>
+	var context_sample_color = false;
+	var context_sample_location_color = false;
+	var sediment_color = false;
+	var inclusion_color = false;
+	var strat_color = false;
+	var elevation_color = false;
+	var quadrat_color = false;
+	var stp_description_color = false;
+	var stp_inclusion_color = false;
+	var stp_sediment_color = false;
+	
+	$(function() {
+		$('#button-record-save').click(function (event) {
+			console.log('local save');
+			$('#active_tag').val($("ul li.active a").attr('href'));
+			$('.edit_context').submit();
+			$('.new_context').submit();
+		});
+		
+		$('.delete-record').click(function(){
+			$.ajax({
+			  url: "/contexts/<%= @context.id %>",
+			  type: "DELETE",
+				statusCode: {
+				    200: function() {
+							$('#delete-alert-modal').modal('hide')
+							window.location="/contexts#success-deleted"
+				    }
+				  }
+			});
+		});
+
+		$('#feature-button').click(function(){
+			unsaved = true;
+			if ($('.feature-type-value').val() == '4') {
+				$('#new-feature-alert-modal').modal();
+			}
+			event.preventDefault();
+			return false;
+		})
+
+		$('#quadratid-button').click(function(){
+			unsaved = true;
+			if ($('.feature-type-value').val() == '3') {
+				$('#new-quadrat-alert-modal').modal();
+			}
+			event.preventDefault();
+			return false;
+		})
+
+		$('#context-sample-add').click(function (event) {
+			$('.context-sample-empty-relationship').hide();
+			unsaved = true;
+		  time = new Date().getTime();
+		  regexp = new RegExp($(this).data('id'), 'g');
+		  // $(this).before($(this).data('fields').replace(regexp, time));
+			if(context_sample_color == true) {
+				context_sample_color = false;
+			  $('#context-sample-elements').append($(this).data('fields').replace(regexp, time).replace('"block "', '"block colored"'));
+			} else {
+				context_sample_color = true;
+			  $('#context-sample-elements').append($(this).data('fields').replace(regexp, time));
+			}
+			$('.context-sample-delete-link').click(function (event) {
+				content_to_remove = this;
+			});
+			$("select").each(function() {
+				if($(this).attr('id').indexOf("_NUM_") == -1) {
+					$(this).chosen();
+				}
+			});
+			customForm.customForms.replaceAll();
+			event.preventDefault();
+		});
+
+		$(document).on('click','.context-sample-location-add', function (event) {
+			$('.context-sample-location-empty-relationship').hide();
+			unsaved = true;
+		  time = new Date().getTime();
+		  regexp = new RegExp($(this).data('id'), 'g');
+		  // $(this).before($(this).data('fields').replace(regexp, time));
+			if(context_sample_location_color == true) {
+				context_sample_location_color = false;
+			  $(this).parent().prev().append($(this).data('fields').replace(regexp, time).replace('"block "', '"block colored"'));
+			  // $('#context-sample-location-elements').append($(this).data('fields').replace(regexp, time).replace('"block "', '"block colored"'));
+			} else {
+				context_sample_location_color = true;
+			  $(this).parent().prev().append($(this).data('fields').replace(regexp, time));
+			  // $('#context-sample-location-elements').append($(this).data('fields').replace(regexp, time));
+			}
+			$('.context-sample-location-delete-link').click(function (event) {
+				content_to_remove = this;
+			});
+			$("select").each(function() {
+				if($(this).attr('id').indexOf("_NUM_") == -1) {
+					$(this).chosen();
+				}
+			});
+			customForm.customForms.replaceAll();
+			event.preventDefault();
+		});
+
+		$('#sediment-add').click(function (event) {
+			$('.sediment-empty-relationship').hide();
+			unsaved = true;
+		  time = new Date().getTime();
+		  regexp = new RegExp($(this).data('id'), 'g');
+		  // $(this).before($(this).data('fields').replace(regexp, time));
+			if(sediment_color == true) {
+				sediment_color = false;
+			  $('#sediment-elements').append($(this).data('fields').replace(regexp, time).replace('"block "', '"block colored"'));
+			} else {
+				sediment_color = true;
+			  $('#sediment-elements').append($(this).data('fields').replace(regexp, time));
+			}
+			$('.sediment-delete-link').click(function (event) {
+				content_to_remove = this;
+			});
+			$("select").each(function() {
+				if($(this).attr('id').indexOf("_NUM_") == -1) {
+					$(this).chosen();
+				}
+			});
+			customForm.customForms.replaceAll();
+			event.preventDefault();
+		});
+
+		$('#inclusion-add').click(function (event) {
+			$('.inclusion-empty-relationship').hide();
+			unsaved = true;
+		  time = new Date().getTime();
+		  regexp = new RegExp($(this).data('id'), 'g');
+		  // $(this).before($(this).data('fields').replace(regexp, time));
+			if(inclusion_color == true) {
+				inclusion_color = false;
+			  $('#inclusion-elements').append($(this).data('fields').replace(regexp, time).replace('"block "', '"block colored"'));
+			} else {
+				inclusion_color = true;
+			  $('#inclusion-elements').append($(this).data('fields').replace(regexp, time));
+			}
+			$('.inclusion-delete-link').click(function (event) {
+				content_to_remove = this;
+			});
+			$("select").each(function() {
+				if($(this).attr('id').indexOf("_NUM_") == -1) {
+					$(this).chosen();
+				}
+			});
+			customForm.customForms.replaceAll();
+			event.preventDefault();
+		});
+
+		$('#strat-add').click(function (event) {
+			$('.strat-empty-relationship').hide();
+			unsaved = true;
+		  time = new Date().getTime();
+		  regexp = new RegExp($(this).data('id'), 'g');
+		  // $(this).before($(this).data('fields').replace(regexp, time));
+			if(strat_color == true) {
+				strat_color = false;
+			  $('#strat-elements').append($(this).data('fields').replace(regexp, time).replace('"block "', '"block colored"'));
+			} else {
+				strat_color = true;
+			  $('#strat-elements').append($(this).data('fields').replace(regexp, time));
+			}
+			$('.strat-delete-link').click(function (event) {
+				content_to_remove = this;
+			});
+			$("select").each(function() {
+				if($(this).attr('id').indexOf("_NUM_") == -1) {
+					$(this).chosen();
+				}
+			});
+			customForm.customForms.replaceAll();
+			event.preventDefault();
+		});
+
+		$('#elevation-add').click(function (event) {
+			$('.elevation-empty-relationship').hide();
+			unsaved = true;
+		  time = new Date().getTime();
+		  regexp = new RegExp($(this).data('id'), 'g');
+		  // $(this).before($(this).data('fields').replace(regexp, time));
+			if(elevation_color == true) {
+				elevation_color = false;
+			  $('#elevation-elements').append($(this).data('fields').replace(regexp, time).replace('"block "', '"block colored"'));
+			} else {
+				elevation_color = true;
+			  $('#elevation-elements').append($(this).data('fields').replace(regexp, time));
+			}
+			$('.elevation-delete-link').click(function (event) {
+				content_to_remove = this;
+			});
+			$("select").each(function() {
+				if($(this).attr('id').indexOf("_NUM_") == -1) {
+					$(this).chosen();
+				}
+			});
+			customForm.customForms.replaceAll();
+			event.preventDefault();
+		});
+
+		$('#quadrat-add').click(function (event) {
+			$('.quadrat-empty-relationship').hide();
+			unsaved = true;
+		  time = new Date().getTime();
+		  regexp = new RegExp($(this).data('id'), 'g');
+		  // $(this).before($(this).data('fields').replace(regexp, time));
+			if(quadrat_color == true) {
+				quadrat_color = false;
+			  $('#quadrat-elements').append($(this).data('fields').replace(regexp, time).replace('"block "', '"block colored"'));
+			} else {
+				quadrat_color = true;
+			  $('#quadrat-elements').append($(this).data('fields').replace(regexp, time));
+			}
+			$('.quadrat-delete-link').click(function (event) {
+				content_to_remove = this;
+			});
+			$("select").each(function() {
+				if($(this).attr('id').indexOf("_NUM_") == -1) {
+					$(this).chosen();
+				}
+			});
+			customForm.customForms.replaceAll();
+			event.preventDefault();
+		});
+
+		$('#stp-description-add').click(function (event) {
+			$('.stp-description-empty-relationship').hide();
+			unsaved = true;
+		  time = new Date().getTime();
+		  regexp = new RegExp($(this).data('id'), 'g');
+		  // $(this).before($(this).data('fields').replace(regexp, time));
+			if(stp_description_color == true) {
+				stp_description_color = false;
+			  $('#stp-description-elements').append($(this).data('fields').replace(regexp, time).replace('"block "', '"block colored"'));
+			} else {
+				stp_description_color = true;
+			  $('#stp-description-elements').append($(this).data('fields').replace(regexp, time));
+			}
+			$('.stp-description-delete-link').click(function (event) {
+				content_to_remove = this;
+			});
+			$("select").each(function() {
+				if($(this).attr('id').indexOf("_NUM_") == -1) {
+					$(this).chosen();
+				}
+			});
+			customForm.customForms.replaceAll();
+			event.preventDefault();
+		});
+
+		$(document).on('click', '.stp-sediment-add', function (event) {
+			$('.stp-sediment-empty-relationship').hide();
+			unsaved = true;
+		  time = new Date().getTime();
+		  regexp = new RegExp($(this).data('id'), 'g');
+		  // $(this).before($(this).data('fields').replace(regexp, time));
+			if(stp_sediment_color == true) {
+				stp_sediment_color = false;
+			  // $('.stp-sediment-elements')
+				$(this).parent().prev().append($(this).data('fields').replace(regexp, time).replace('"block "', '"block colored"'));
+			} else {
+				stp_sediment_color = true;
+			  //$('.stp-sediment-elements')
+				$(this).parent().prev().append($(this).data('fields').replace(regexp, time));
+			}
+			$('.stp-sediment-delete-link').click(function (event) {
+				content_to_remove = this;
+			});
+			$("select").each(function() {
+				if($(this).attr('id').indexOf("_NUM_") == -1) {
+					$(this).chosen();
+				}
+			});
+			customForm.customForms.replaceAll();
+			event.preventDefault();
+		});
+
+		$(document).on('click', '.stp-inclusion-add', function (event) {
+			$('.stp-inclusion-empty-relationship').hide();
+			unsaved = true;
+		  time = new Date().getTime();
+		  regexp = new RegExp($(this).data('id'), 'g');
+		  // $(this).before($(this).data('fields').replace(regexp, time));
+			if(stp_inclusion_color == true) {
+				stp_inclusion_color = false;
+			  //$('.stp-inclusion-elements')
+				$(this).parent().prev().append($(this).data('fields').replace(regexp, time).replace('"block "', '"block colored"'));
+			} else {
+				stp_inclusion_color = true;
+			  //$('.stp-inclusion-elements')
+				$(this).parent().prev().append($(this).data('fields').replace(regexp, time));
+			}
+			$('.stp-inclusion-delete-link').click(function (event) {
+				content_to_remove = this;
+			});
+			$("select").each(function() {
+				if($(this).attr('id').indexOf("_NUM_") == -1) {
+					$(this).chosen();
+				}
+			});
+			customForm.customForms.replaceAll();
+			event.preventDefault();
+		});
+		
+		var content_to_remove;
+
+		$('.context-sample-delete').click(function (event) {
+			unsaved = true;
+			if(content_to_remove != null) {
+				$(content_to_remove).prev('input[type=hidden]').val('1');
+				$(content_to_remove).closest('.block').hide();
+				// hide nested form as well
+				$(content_to_remove).closest('.block').next().hide();
+			}
+			$('#context-sample-alert-modal').modal('hide')
+			event.preventDefault();
+		});
+		$('.context-sample-delete-link').click(function (event) {
+			content_to_remove = this;
+		});
+
+		$('.context-sample-location-delete').click(function (event) {
+			unsaved = true;
+			if(content_to_remove != null) {
+				$(content_to_remove).prev('input[type=hidden]').val('1');
+				$(content_to_remove).closest('.block').hide();
+			}
+			$('#context-sample-location-alert-modal').modal('hide')
+			event.preventDefault();
+		});
+		$('.context-sample-location-delete-link').click(function (event) {
+			content_to_remove = this;
+		});
+
+		$('.sediment-delete').click(function (event) {
+			unsaved = true;
+			if(content_to_remove != null) {
+				$(content_to_remove).prev('input[type=hidden]').val('1');
+				$(content_to_remove).closest('.block').hide();
+			}
+			$('#sediment-alert-modal').modal('hide')
+			event.preventDefault();
+		});
+		$('.sediment-delete-link').click(function (event) {
+			content_to_remove = this;
+		});
+
+		$('.inclusion-delete').click(function (event) {
+			unsaved = true;
+			if(content_to_remove != null) {
+				$(content_to_remove).prev('input[type=hidden]').val('1');
+				$(content_to_remove).closest('.block').hide();
+			}
+			$('#inclusion-alert-modal').modal('hide')
+			event.preventDefault();
+		});
+		$('.inclusion-delete-link').click(function (event) {
+			content_to_remove = this;
+		});
+
+		$('.strat-delete').click(function (event) {
+			unsaved = true;
+			if(content_to_remove != null) {
+				$(content_to_remove).prev('input[type=hidden]').val('1');
+				$(content_to_remove).closest('.block').hide();
+			}
+			$('#strat-alert-modal').modal('hide')
+			event.preventDefault();
+		});
+		$('.strat-delete-link').click(function (event) {
+			content_to_remove = this;
+		});
+
+		$('.elevation-delete').click(function (event) {
+			unsaved = true;
+			if(content_to_remove != null) {
+				$(content_to_remove).prev('input[type=hidden]').val('1');
+				$(content_to_remove).closest('.block').hide();
+			}
+			$('#elevation-alert-modal').modal('hide')
+			event.preventDefault();
+		});
+		$('.elevation-delete-link').click(function (event) {
+			content_to_remove = this;
+		});
+
+		$('.quadrat-delete').click(function (event) {
+			unsaved = true;
+			if(content_to_remove != null) {
+				$(content_to_remove).prev('input[type=hidden]').val('1');
+				$(content_to_remove).closest('.block').hide();
+			}
+			$('#quadrat-alert-modal').modal('hide')
+			event.preventDefault();
+		});
+		$('.quadrat-delete-link').click(function (event) {
+			content_to_remove = this;
+		});
+
+		$('.stp-description-delete').click(function (event) {
+			unsaved = true;
+			if(content_to_remove != null) {
+				$(content_to_remove).prev('input[type=hidden]').val('1');
+				$(content_to_remove).closest('.block').hide();
+			}
+			$('#stp-description-alert-modal').modal('hide')
+			event.preventDefault();
+		});
+		$('.stp-description-delete-link').click(function (event) {
+			content_to_remove = this;
+		});
+
+		$('.stp-sediment-delete').click(function (event) {
+			unsaved = true;
+			if(content_to_remove != null) {
+				$(content_to_remove).prev('input[type=hidden]').val('1');
+				$(content_to_remove).closest('.block').hide();
+			}
+			$('#stp-sediment-alert-modal').modal('hide')
+			event.preventDefault();
+		});
+		$('.stp-sediment-delete-link').click(function (event) {
+			content_to_remove = this;
+		});
+
+		$('.stp-inclusion-delete').click(function (event) {
+			unsaved = true;
+			if(content_to_remove != null) {
+				$(content_to_remove).prev('input[type=hidden]').val('1');
+				$(content_to_remove).closest('.block').hide();
+			}
+			$('#stp-inclusion-alert-modal').modal('hide')
+			event.preventDefault();
+		});
+		$('.stp-inclusion-delete-link').click(function (event) {
+			content_to_remove = this;
+		});
+		
+		$('.add-quadratid-value').click(function (event) {
+			unsaved = false;
+			$('#new-quadrat-alert-modal').modal('hide');
+			if($('#selected-quadratid').val() != "--select--") {
+				$('#quadratid-button').html($('#selected-quadratid').val());
+				$('.quadratid-field').val($('#selected-quadratid').val());
+			} else {
+				$('#quadratid-button').html($('#new-quadratid').val());
+				$('.quadratid-field').val($('#new-quadratid').val());				
+			}
+			$('#quadrat-elements').html('');
+			$('.edit_context').submit();
+			$('.new_context').submit();
+			
+			event.preventDefault();
+		});
+
+		$('.add-feature-value').click(function (event) {
+			unsaved = false;
+			$('#new-feature-alert-modal').modal('hide');
+			$('#feature-button').html($('.feature-choices:checked').val());
+			$('.feature-field').val($('.feature-choices:checked').val());
+			$('.feature-type').val($('.feature-choices:checked').attr('data-type'));
+			$('.edit_context').submit();
+			$('.new_context').submit();
+			event.preventDefault();
+		});
+		
+		$("#context_UnitTypeID").chosen().change(function() {
+			if($(this).val() != 4) {
+				$('#feature-button').html('');
+				$('.feature-field').val(null);
+				$('.feature-type').val('');				
+			}
+			if($(this).val() != 3) {
+					$('#quadratid-button').html('');
+					$('.quadratid-field').val('');
+					$('.quadratid-type').val('');
+					$('#quadrat-elements').html('');
+				// $('#context_QuadratID').val(null);
+			}
+		});
+		
+		$('#quadrat-tab').click(function (e) {
+		  e.preventDefault();
+			if($('.feature-type-value').val() == "3") {
+		  		$(this).tab('show')
+			}
+		})
+		$('#stp-tab').click(function (e) {
+		  e.preventDefault();
+			if($('.feature-type-value').val() == "1") {
+		  		$(this).tab('show')
+			}
+		})
+		
+	});
+</script>
+<div class="page-header page-header-01">
+	<div class="frame">
+		<div class="clearfix">
+			<%= link_to 'Back to List', contexts_path, :class => 'back-link'%>
+		</div>
+		<div class="paging">
+			<!-- <a href="#" class="next">Next</a> -->
+			<% if @context.project != nil %>
+				<% if @context.project.contexts.order('"ContextID"').index(@context) != nil %>
+				<% if @context.project.contexts.order('"ContextID"').index(@context) < (@context.project.contexts.order('"ContextID"').size-1) %>
+					<%= link_to 'Next', edit_context_path(@context.project.contexts.order('"ContextID"')[@context.project.contexts.order('"ContextID"').index(@context)+1].id), {:class => 'next'}%>
+				<% end %>
+				<span class="caption"><%= @context.project.contexts.order('"ContextID"').index(@context)+1 %> of <%= @context.project.contexts.order('"ContextID"').size %></span>
+				<% if @context.project.contexts.order('"ContextID"').index(@context) > 0%>
+					<%= link_to 'Previous', edit_context_path(@context.project.contexts.order('"ContextID"')[@context.project.contexts.order('"ContextID"').index(@context)-1].id), {:class => 'prev'}%>
+				<% end %>
+				<% end %>
+			<% end %>
+			<!-- <a href="#" class="prev">Previous</a> -->
+		</div><!-- paging -->
+		
+	</div><!-- frame -->
+	<h1>Context</h1>
+	<%#= link_to('Add New', new_context_path, {:class => 'add-new'})%>
+</div><!-- page-header -->
+<%= render 'layouts/messages' %>
+<% errors = [] %>
+<% errors << @context.errors %>
+<%# @context.context_fine_sediments.each {|o| errors << o.errors} %>
+<%# @context.context_elevations.each {|o| errors << o.errors} %>
+<% if errors.any? %>
+	<% errors.each do |error|%>
+		<% if error.any? %>
+		  <div id="error_explanation">
+		    <h2><%= pluralize(error.count, "error") %> prohibited this post from being saved:</h2>
+
+		    <ul>
+			    <% error.full_messages.each do |msg| %>
+			      <li><%= msg %></li>
+			    <% end %>
+		    </ul>
+		  </div>
+		<% end %>
+	<% end %>
+<% end %>
+<div class="clearfix">
+	<%= form_for(@context, {:class => 'edit_context'}) do |f|%>
+		<input type="hidden" name="active_tag" id="active_tag">
+		<fieldset>
+			<aside id="aside">
+				<h2 class="visible-md visible-lg">Record Details</h2>
+				<% if current_user.edit_projects.include?(@context.project) or @context.project == nil %>
+				<div class="box">
+					<%= link_to('Add New record', new_context_path, {:class => 'add-new'})%>
+				</div><!-- box -->
+				<div class="box">
+					<button id="button-record-save" class="btn btn-success btn-save ie-fix"><span>Save</span></button>
+					<%= image_tag('fancybox_loading.gif', :style => 'display:none', :id => 'loading-icon') %>
+					<div class="area clearfix">
+						<%= link_to('Duplicate', {:action => 'duplicate', :id => params[:id]}, {:class=>"btn btn-info btn-duplicate ie-fix"})%>
+						<%# if current_user.user_level >= 3 %>
+						<% if current_user.deletable_projects.include?(@context.project) or current_user.is_admin?  %>
+							<a href="#" data-toggle="modal" data-target="#delete-alert-modal" class="delete">Delete</a>
+						<% end %>
+					</div>
+				</div><!-- box -->
+				<% end %>
+				<div class="details-bar">
+					<a href="#" data-toggle="dropdown" class="open-close"></a>
+					<div class="drop dropdown-menu" role="menu">
+						<div class="info-box">
+							<dl>
+								<dt>Project:</dt><dd><%= @context.project != nil ? @context.project.project_name.ProjectName : ' - '  %></dd>
+								<dt>Context:</dt><dd><%= @context.Context != nil ? @context.Context : ' - '  %></dd>
+								<dt>Level Type:</dt><dd><%= @context.context_level_type != nil ? @context.context_level_type.LevelType : ' - '  %></dd>
+								<dt>Deposit Type:</dt><dd><%= @context.context_deposit_type != nil ? @context.context_deposit_type.DepositType : ' - '  %></dd>
+								<dt>Unit Type:</dt><dd><%= @context.context_unit_type != nil ? @context.context_unit_type.UnitType : ' - '  %></dd>
+								<dt>Feature Number:</dt><dd> <%= (@context.FeatureNumber != nil and @context.FeatureNumber != '') ? @context.FeatureNumber : ' - '  %> </dd>
+								<dt>Feature Type:</dt><dd> <%= @context.context_feature != nil ? @context.context_feature.context_feature_type.FeatureType : ' - '  %> </dd>
+								<dt>Database ID:</dt><dd><%= @context.id %></dd>
+							</dl>
+						</div><!-- info-box -->
+						<div class="aside-accordion" id="aside-accordion">
+							<div class="panel">
+								<h2><a class="collapsed" data-toggle="collapse" data-parent="#aside-accordion" href="#collapse-01">all contexts in project</a></h2>
+								<div id="collapse-01" class="panel-collapse collapse">
+									<div class="frame">
+										<div class="artifacts scrollable-area">
+											<ul>
+												<% if @context.project != nil %>
+												<% @context.project.contexts.order('"ContextID"').each do |context| %>
+													<!--  check for saving!!! -->
+													<li <%= @context.ContextID == context.ContextID ? 'class=current' : '' %>><%= @context.ContextID != context.ContextID ? link_to(context.ContextID, edit_context_path(context)) : context.ContextID %></li>
+												<% end %>
+												<% end %>
+											</ul>
+										</div><!-- artifacts -->
+									</div>
+								</div>
+							</div>
+							<div class="panel">
+								<h2 class="visible-md visible-lg"><a class="collapsed" data-toggle="collapse" data-parent="#aside-accordion" href="#collapse-02">Cataloger Details</a></h2>
+								<div id="collapse-02" class="panel-collapse collapse">
+									<div class="details-box">
+										<dl>
+											<% user = User.where('editor_id = ?', @context.EditorIDN).first %>
+											<dt>Added By:</dt><dd><%= user != nil ? "#{(user.first_name != nil and user.first_name != '') ? user.first_name+' '+user.last_name : user.userid}" : ' - '%></dd>
+											<dt>Date Added:</dt><dd><%=h @context.DateAdded !=nil ? @context.DateAdded.strftime('%m/%d/%Y %H:%M:%S') : " - "%></dd>
+										</dl>
+										<dl>
+											<% user = User.where('editor_id = ?', @context.EditorID).first %>
+											<dt>Changed By:</dt><dd><%= user != nil ? "#{(user.first_name != nil and user.first_name != '') ? user.first_name+' '+user.last_name : user.userid}" : ' - '%></dd>
+											<dt>Date Changed:</dt><dd><%=h @context.DateChanged !=nil ? @context.DateChanged.strftime('%m/%d/%Y %H:%M:%S') : " - "%></dd>
+										</dl>
+										<div class="clearfix">
+											<a href="#" class="link">Change Log</a>
+										</div>
+									</div><!-- details-box -->
+								</div>
+							</div>
+						</div><!-- accordion -->
+					</div>
+				</div><!-- details-bar -->
+			</aside><!-- aside -->
+			<section class="tabs">
+				<ul class="nav nav-tabs">
+					<li class="active"><a href="#tab-01" data-toggle="tab">Recording Info</a></li>
+					<li><a href="#tab-02" data-toggle="tab">Context Sample</a></li>
+					<li><a href="#tab-03" data-toggle="tab">Sediment</a></li>
+					<li><a href="#tab-04" data-toggle="tab">Strat Info</a></li>
+					<li><a href="#tab-05" data-toggle="tab">Elevations</a></li>
+					<li><a href="#tab-06" data-toggle="" id="quadrat-tab">Quadrat</a></li>
+					<li><a href="#tab-07" data-toggle="tab">Feature</a></li>
+					<li><a href="#tab-08" data-toggle="" id="stp-tab">STP Data</a></li>
+					<li><a href="#tab-09" data-toggle="tab">Metadata</a></li>
+					<li><a href="#tab-10" data-toggle="tab">Images</a></li>
+				</ul><!-- nav-tabs -->
+				<div class="tab-content">
+					<div class="tab-pane active" id="tab-01">
+						<section class="section">
+							<div class="heading">
+								<h2>General</h2>
+							</div>
+							<div class="two-columns">
+								<div class="row-area">
+									<div class="col">
+										<%= f.label('ContextID', 'Context ID Number')%>
+										<div class="frame">
+											<%= f.text_field 'ContextID', {:disabled => true, :class => "form-control"}%>
+										</div>
+									</div>
+									<div class="col">
+										<%= f.label('ProjectID', 'Project ID')%>
+										<div class="frame">
+											<% if @context.ProjectID == nil %>
+												<% if current_user.user_level >= 3 %>
+													<%= f.collection_select('ProjectID', Project.all.order('"ProjectID"'), :id, 'ProjectID', {:include_blank => '--select--'}, {'data-placeholder' => '--select--', :class => 'form-control'})%>
+												<% else %>
+													<%= f.collection_select('ProjectID', current_user.projects.order('"ProjectID"'), :id, 'ProjectID', {:include_blank => '--select--'}, {'data-placeholder' => '--select--', :class => 'form-control'})%>
+												<% end %>
+											<% else %>
+												<%= f.text_field 'ProjectID', {:disabled => true, :class => "form-control"}%>
+												<%= f.hidden_field 'ProjectID' %>
+											<% end %>
+										</div>
+									</div>
+								</div><!-- row-area -->
+								<div class="row-area">
+									<div class="col">
+										<%= f.label('Context', 'Context')%>
+										<div class="frame">
+											<% if @context.id != nil and @context.Context != nil and @context.Context != '' %>
+												<input value="<%= @context.Context %>" disabled class="form-control">
+												<%#= f.text_field 'ContextRO', {:value :disabled => true, :class => "form-control"}%>
+												<%= f.hidden_field 'Context'%>
+											<% else %>
+												<%= f.text_field 'Context', {:maxlength => 10,  :class => "form-control"}%>
+											<% end %>
+										</div>
+									</div>
+									<div class="col">
+										<%= f.label('Excavated', 'Was this Context Excavated?')%>
+										<div class="frame">
+										<%= f.collection_select('Excavated', YesNo.all.order('"YesNo"'), :id, 'YesNo', {:include_blank => '--select--'}, {'data-placeholder' => '--select--', :class => 'form-control'})%>
+										</div>
+									</div>
+								</div><!-- row-area -->
+								<div class="row-area">
+									<div class="col">
+										<%= f.label('LevelTypeID', 'Level Type')%>
+										<div class="frame">
+											<%= f.collection_select('LevelTypeID', ContextLevelType.all.order('"LevelType"'), :id, 'LevelType', {:include_blank => '--select--'}, {'data-placeholder' => '--select--', :class => 'form-control'})%>
+										</div>
+									</div>
+									<div class="col">
+										<%= f.label('DepositTypeID', 'Deposit Type')%>
+										<div class="frame">
+											<%= f.collection_select('DepositTypeID', ContextDepositType.all.order('"DepositType"'), :id, 'DepositType', {:include_blank => '--select--'}, {'data-placeholder' => '--select--', :class => 'form-control'})%>
+										</div>
+									</div>
+								</div><!-- row-area -->
+								<div class="row-area">
+									<!-- <div class="col">
+										<%#= f.label('SpatialDistribution', 'Include in Distribution Map?')%>
+										<div class="frame">
+											<%#= f.collection_select('SpatialDistribution', YesNo.all.order('"YesNo"'), :id, 'YesNo', {:include_blank => '--select--'}, {'data-placeholder' => '--select--', :class => 'form-control'})%>
+										</div>
+									</div> -->
+									<div class="col">
+										<%= f.label('UnitTypeID', 'Unit Type')%>
+										<div class="frame">
+											<%= f.collection_select('UnitTypeID', ContextUnitType.all.order('"UnitType"'), :id, 'UnitType', {:include_blank => '--select--'}, {'data-placeholder' => '--select--', :class => 'feature-type-value form-control'})%>
+										</div>
+									</div>
+								</div>
+								<div class="row-area">
+									<div class="col">
+										<%= f.label('FeatureNumber', 'Feature Number')%>
+										<div class="frame"><%#debugger%>
+											<button onclick="return false;" id="feature-button" class="btn btn-primary form-control" data-toggle-old="modal" data-target="#new-feature-alert-modal">
+											  <%= (@context.FeatureNumber != nil and @context.FeatureNumber != '') ? @context.FeatureNumber : '--select--' %>
+											</button>
+											<%= f.hidden_field('FeatureNumber', {:class => 'form-control feature-field'})%>
+											<%#= f.text_field('FeatureNumber', {:disabled => true, :class => 'form-control'})%>
+										</div>
+									</div>
+									<div class="col">
+										<%= f.label('FeatureTypeID', 'Feature Type')%>
+										<div class="frame">
+											<input class="form-control feature-type" disabled value="<%= @context.context_feature != nil ? @context.context_feature.context_feature_type.FeatureType : ''  %>">
+											<%#= f.collection_select('FeatureTypeID', ContextFeatureType.all.order('"FeatureType"'), :id, 'FeatureTypeID', {:include_blank => '--select--'}, {'data-placeholder' => '--select--', :class => 'form-control', :disabled => true})%>
+										</div>
+									</div>
+								</div><!-- row-area -->
+								<div class="row-area">
+									<div class="col">
+										<%= f.label('ContextLength', 'Context Length')%>
+										<div class="frame"><%#debugger%>
+											<%= f.text_field('ContextLength', {:class => 'form-control'})%>
+										</div>
+									</div>
+									<div class="col">
+										<%= f.label('ContextWidth', 'Context Width')%>
+										<div class="frame"><%#debugger%>
+											<%= f.text_field('ContextWidth', {:class => 'form-control'})%>
+										</div>
+									</div>
+								</div><!-- row-area -->
+								<div class="row-area">
+									<div class="col">
+										<%= f.label('MaximumLithostratigraphicThickness', 'Max LS Thickness')%>
+										<div class="frame"><%#debugger%>
+											<%= f.text_field('MaximumLithostratigraphicThickness', {:class => 'form-control'})%>
+										</div>
+									</div>
+									<div class="col">
+										<%= f.label('ActualMeasuredVolume', 'Actual Measured Volume (liters)')%>
+										<div class="frame"><%#debugger%>
+											<%= f.text_field('ActualMeasuredVolume', {:class => 'form-control'})%>
+											<%#= f.label('ActualMeasuredVolume', 'liters')%>
+										</div>
+									</div>
+								</div><!-- row-area -->
+								<div class="row-area">
+									<div class="col">
+										<%= f.label('QuadratID', 'Quadrat ID')%>
+										<div class="frame"><%#debugger%>
+											<button onclick="return false;" id="quadratid-button" class="btn btn-primary form-control" >
+											  <%= (@context.QuadratID != nil and @context.QuadratID != '') ? @context.QuadratID : '--select--' %>
+											</button>
+											<%= f.hidden_field('QuadratID', {:class => 'form-control quadratid-field'})%>
+										</div>
+									</div>
+								</div><!-- row-area -->
+								<div class="row-area">
+									<div class="col">
+										<%= f.label('QuadratLength', 'Quadrat Length')%>
+										<div class="frame"><%#debugger%>
+											<%= f.text_field('QuadratLength', {:class => 'form-control'})%>
+										</div>
+									</div>
+									<div class="col">
+										<%= f.label('QuadratWidth', 'Quadrat Width')%>
+										<div class="frame"><%#debugger%>
+											<%= f.text_field('QuadratWidth', {:class => 'form-control'})%>
+										</div>
+									</div>
+								</div><!-- row-area -->
+								<div class="row-area">
+									<div class="col">
+										<%= f.label('ArtifactPresence', 'Artifact Presence')%>
+										<div class="frame">
+											<%= f.collection_select('ArtifactPresence', YesNo.all.order('"YesNo"'), :id, 'YesNo', {:include_blank => '--select--'}, {'data-placeholder' => '--select--', :class => 'form-control'})%>
+										</div>
+									</div>
+									<div class="col">
+										<%= f.label('TPQ', 'TPQ')%>
+										<div class="frame">
+											<%= f.text_field('TPQ', {:maxlength => 4, :class => 'form-control'})%>
+										</div>
+									</div>
+								</div><!-- row-area -->
+								<div class="row-area">
+									<div class="col">
+										<%= f.label('TPQNotes', 'TPQ Notes')%>
+										<div class="frame">
+											<%= f.text_area('TPQNotes', {:class => 'form-control'})%>
+										</div>
+									</div>
+								</div><!-- row-area -->
+							</div><!-- material-form -->
+						</section><!-- section -->
+						<section class="section">
+							<div class="heading">
+								<h2>Excavator Information</h2>
+							</div>
+							<div class="two-columns">
+								<div class="row-area">
+									<div class="col">
+										<%= f.label('DateOpened', 'Date Opened (yyyy/mm/dd)')%>
+										<div class="frame">
+											<%= f.text_field 'DateOpened', {:value => "#{f.object.DateOpened != nil ? f.object.DateOpened.strftime('%Y/%m/%d') : ''}", :class => "form-control"}%>
+											<%#= f.date_select 'DateOpened', {:include_blank => true, :default => nil} %>
+											<%#= f.date_select 'DateOpened', :class => "form-controll"%>
+										</div>
+									</div>
+									<div class="col">
+										<%= f.label('DateClosed', 'Date Closed (yyyy/mm/dd)')%>
+										<div class="frame">
+											<%= f.text_field 'DateClosed', {:value => "#{f.object.DateClosed != nil ? f.object.DateClosed.strftime('%Y/%m/%d') : ''}", :class => "form-control"}%>
+											<%#= f.date_select 'DateClosed', {:include_blank => true, :default => nil} %>
+										</div>
+									</div>
+								</div><!-- row-area -->
+								<div class="row-area">
+									<div class="col">
+										<%= f.label('ExcavatedBy', 'Excavated By')%>
+										<div class="frame">
+											<%= f.text_field 'ExcavatedBy', {:maxlength => 15, :class => "form-control"}%>
+										</div>
+									</div>
+									<div class="col">
+										<%= f.label('RecordedBy', 'Recorded By')%>
+										<div class="frame">
+											<%= f.text_field 'RecordedBy', {:maxlength => 15, :class => "form-control"}%>
+										</div>
+									</div>
+								</div><!-- row-area -->
+							</div>
+						</section><!-- section -->
+						<section class="section">
+							<div class="heading">
+								<h2>Excavator Description</h2>
+							</div>
+							<div class="one-column">
+								<div class="row-area">
+									<%= f.text_area('ExcavatorSedimentDescription')%>
+								</div>
+							</div><!-- surfaces-form -->
+						</section><!-- section -->
+						<section class="section">
+							<div class="heading">
+								<h2>Excavator Interpretation</h2>
+							</div>
+							<div class="one-column">
+								<div class="row-area">
+									<%= f.text_area('ExcavatorInterpretation')%>
+								</div>
+							</div>
+						</section><!-- section -->
+						<section class="section">
+							<div class="heading">
+								<h2>Data Entry Notes</h2>
+							</div>
+							<div class="one-column">
+								<div class="row-area">
+									<%= f.text_area('DataEntryNotes')%>
+								</div>
+							</div>
+						</section><!-- section -->
+					</div><!-- tab-01 -->
+					<div class="tab-pane" id="tab-02">
+						<section class="section">
+							<div class="heading">
+								<h2>Context Samples</h2>
+							</div>
+							<div class="context-samples">
+								<div id="context-sample-elements">
+								<% @context_sample_colored = true %>
+								<% if @context.context_samples.any? %>
+									<%= f.fields_for :context_samples do |cs| %>
+										<%= render 'context_sample_fields', f: cs %>
+										<% @context_sample_colored = @context_sample_colored == true ? false : true %>
+										<%# debugger %>
+									<% end %>
+									<% if @context_sample_colored == false %>
+										<script>
+											context_sample_color = false;
+										</script>
+									<% else %>
+										<script>
+											context_sample_color = true;
+										</script>
+									<% end %>
+									<% else %>
+									<span class="context-sample-empty-relationship">Click Add for new entries.</span>
+										<%#= render_new_nested_fields f, :context_samples %>
+									<% end %>
+								<% @context_sample_colored = false %>
+								</div>
+								<div class="clearfix stylistic-before-holder">
+									<%= link_to_add_fields "Add Context Sample", f, :context_samples, {:id=>"context-sample-add", :class => "btn btn-info btn-add"} %>
+									<!-- <span id="stylistic-add-measurement" class="btn btn-info btn-add">Add stylistic element</span> -->
+								</div>
+							</div><!-- stylistic-elements -->
+						</section>
+					</div><!-- tab-02 -->
+					<div class="tab-pane" id="tab-03">
+						<section class="section">
+							<div class="heading">
+								<h2>Sediment Description</h2>
+							</div>
+							<div class="sediments">
+								<div id="sediment-elements">
+								<% @sediment_colored = true %>
+								<% if @context.context_fine_sediments.any? %>
+									<%= f.fields_for :context_fine_sediments do |cs| %>
+										<%= render 'context_fine_sediment_fields', f: cs %>
+										<% @sediment_colored = @sediment_colored == true ? false : true %>
+										<%# debugger %>
+									<% end %>
+									<% if @sediment_colored == false %>
+										<script>
+											sediment_color = false;
+										</script>
+									<% else %>
+										<script>
+											sediment_color = true;
+										</script>
+									<% end %>
+								<% else %>
+								<span class="sediment-empty-relationship">Click Add for new entries.</span>
+									<%#= render_new_nested_fields f, :context_fine_sediments %>
+								<% end %>
+								<% @sediment_colored = false %>
+								</div>
+								<div class="clearfix stylistic-before-holder">
+									<%= link_to_add_fields "Add Sediment Description", f, :context_fine_sediments, {:id=>"sediment-add", :class => "btn btn-info btn-add"} %>
+								</div>
+							</div><!-- stylistic-elements -->
+						</section>
+						<section class="section">
+							<div class="heading">
+								<h2>Inclusions</h2>
+							</div>
+							<div class="inclusions">
+								<div id="inclusion-elements">
+								<% @inclusion_colored = true %>
+								<% if @context.context_inclusions.any? %>
+									<%= f.fields_for :context_inclusions do |cs| %>
+										<%= render 'context_inclusion_fields', f: cs %>
+										<% @inclusion_colored = @inclusion_colored == true ? false : true %>
+										<%# debugger %>
+									<% end %>
+									<% if @inclusion_colored == false %>
+										<script>
+											inclusion_color = false;
+										</script>
+									<% else %>
+										<script>
+											inclusion_color = true;
+										</script>
+									<% end %>
+								<% else %>
+								<span class="inclusion-empty-relationship">Click Add for new entries.</span>
+									<%#= render_new_nested_fields f, :context_inclusions %>
+								<% end %>
+								<% @inclusion_colored = false %>
+								</div>
+								<div class="clearfix stylistic-before-holder">
+									<%= link_to_add_fields "Add Inclusion", f, :context_inclusions, {:id=>"inclusion-add", :class => "btn btn-info btn-add"} %>
+								</div>
+							</div><!-- stylistic-elements -->
+						</section>
+					</div>
+					<div class="tab-pane" id="tab-04">
+						<section class="section">
+							<div class="heading">
+								<h2>Stratigraphic Relationships</h2>
+							</div>
+							<div class="strats">
+								<div id="strat-elements">
+								<% @strat_colored = true %>
+								<% if @context.context_strat_rels.any? %>
+									<%= f.fields_for :context_strat_rels do |cs| %>
+										<%= render 'context_strat_rel_fields', f: cs %>
+										<% @strat_colored = @strat_colored == true ? false : true %>
+										<%# debugger %>
+									<% end %>
+									<% if @strat_colored == false %>
+										<script>
+											strat_color = false;
+										</script>
+									<% else %>
+										<script>
+											strat_color = true;
+										</script>
+									<% end %>
+								<% else %>
+								<span class="strat-empty-relationship">Click Add for new entries.</span>
+									<%#= render_new_nested_fields f, :context_strat_rels %>
+								<% end %>
+								<% @strat_colored = false %>
+								</div>
+								<div class="clearfix stylistic-before-holder">
+									<%= link_to_add_fields "Add Stratigraphic Relationships", f, :context_strat_rels, {:id=>"strat-add", :class => "btn btn-info btn-add"} %>
+									<!-- <span id="stylistic-add-measurement" class="btn btn-info btn-add">Add stylistic element</span> -->
+								</div>
+							</div><!-- stylistic-elements -->
+						</section>
+					</div><!-- tab-02 -->
+					<div class="tab-pane" id="tab-05">
+						<section class="section">
+							<div class="heading">
+								<h2>Elevations</h2>
+							</div>
+							<div class="elevations">
+								<div id="elevation-elements">
+								<% @elevation_colored = true %>
+								<% if @context.context_elevations.any? %>
+									<%= f.fields_for :context_elevations do |cs| %>
+										<%= render 'context_elevation_fields', f: cs %>
+										<% @elevation_colored = @elevation_colored == true ? false : true %>
+										<%# debugger %>
+									<% end %>
+									<% if @elevation_colored == false %>
+										<script>
+											elevation_color = false;
+										</script>
+									<% else %>
+										<script>
+											elevation_color = true;
+										</script>
+									<% end %>
+								<% else %>
+								<span class="elevation-empty-relationship">Click Add for new entries.</span>
+									<%#= render_new_nested_fields f, :context_elevations %>
+								<% end %>
+								<% @elevation_colored = false %>
+								</div>
+								<div class="clearfix stylistic-before-holder">
+									<%= link_to_add_fields "Add Elevation", f, :context_elevations, {:id=>"elevation-add", :class => "btn btn-info btn-add"} %>
+									<!-- <span id="stylistic-add-measurement" class="btn btn-info btn-add">Add stylistic element</span> -->
+								</div>
+							</div><!-- stylistic-elements -->
+						</section>
+					</div><!-- tab-02 -->
+					<div class="tab-pane" id="tab-06">
+						<section class="section">
+							<div class="heading">
+								<h2>Quadrat Boundary Data</h2>
+							</div>
+							<div class="quadrats">
+								<div id="quadrat-elements">
+									<% if @context.QuadratID == nil or @context.QuadratID == ''%>
+										Please Choose a QuadatID and Save, before using Boundary Data
+									<% else %>
+										<% @quadrat_colored = true %>
+										<% if @context.context_quadrat_boundaries.any? %>
+											<%= f.fields_for :context_quadrat_boundaries do |cs| %>
+												<%= render 'context_quadrat_boundary_fields', f: cs %>
+												<% @quadrat_colored = @quadrat_colored == true ? false : true %>
+												<%# debugger %>
+											<% end %>
+											<% if @quadrat_colored == false %>
+												<script>
+													quadrat_color = false;
+												</script>
+											<% else %>
+												<script>
+													quadrat_color = true;
+												</script>
+											<% end %>
+										<% else %>
+										<span class="quadrat-empty-relationship">Click Add for new entries.</span>
+											<%#= render_new_nested_fields f, :context_quadrat_boundaries %>
+										<% end %>
+										<% @quadrat_colored = false %>
+										</div>
+										<div class="clearfix stylistic-before-holder">
+											<%= link_to_add_fields "Add Quadrat Boundary", f, :context_quadrat_boundaries, {:id=>"quadrat-add", :class => "btn btn-info btn-add"} %>
+											<!-- <span id="stylistic-add-measurement" class="btn btn-info btn-add">Add stylistic element</span> -->
+										</div>
+									<% end %>
+							</div><!-- stylistic-elements -->
+						</section>
+					</div><!-- tab-02 -->
+					
+					<div class="tab-pane" id="tab-07">
+						<% if @context.context_feature == nil %>
+							No Feature selected.
+						<% else %>
+						<div class="clearfix">
+							<%= fields_for(@context.context_feature, {:class => 'edit_context_feature'}) do |f|%>
+									<section class="">
+										<div class="">
+											<div class="active">
+												<section class="section">
+													<div class="heading">
+														<h2>Feature Description</h2>
+													</div>
+													<div class="two-columns">
+														<div class="row-area">
+															<div class="col">
+																<%= f.label('ProjectID', 'Project ID')%>
+																<div class="frame">
+																	<%= f.text_field 'ProjectID', {:maxlength => 4, :class => "form-control", :disabled => true}%>
+																</div>
+															</div>
+															<div class="col">
+																<%= f.label('FeatureNumber', 'Feature Number')%>
+																<div class="frame">
+																	<%= f.text_field 'FeatureNumber', {:maxlength => 50, :class => "form-control", :disabled => true}%>
+																</div>
+															</div>
+														</div><!-- row-area -->
+														<div class="row-area">
+															<div class="col">
+																<%= f.label('FeatureTypeID', 'Feature Type')%>
+																<div class="frame">
+																		<%= f.collection_select('FeatureTypeID', ContextFeatureType.all.order('"FeatureType"'), :id, 'FeatureType', {:include_blank => '--select--'}, {'data-placeholder' => '--select--', :class => 'form-control', :disabled => true})%>
+																</div>
+															</div>
+															<div class="col">
+																<%= f.label('FeatureTPQ', 'Feature TPQ')%>
+																<div class="frame">
+																<%= f.text_field('FeatureTPQ', {:class => 'form-control', :disabled => true})%>
+																</div>
+															</div>
+														</div><!-- row-area -->
+														<div class="row-area">
+															<div class="col">
+																<%= f.label('Description', 'Description')%>
+																<div class="frame">
+																		<%= f.text_area 'Description', {:class => "form-control", :disabled => true}%>
+																</div>
+															</div>
+														</div><!-- row-area -->
+												</section><!-- section -->
+												<section class="section">
+													<div class="heading">
+														<h2>Feature Measurements</h2>
+													</div>
+													<div class="two-columns">
+														<div class="row-area">
+															<div class="col">
+																<%= f.label('Length', 'Length')%>
+																<div class="frame">
+																	<%= f.text_field 'Length', {:class => "form-control", :disabled => true}%>
+																</div>
+															</div>
+															<div class="col">
+																<%= f.label('Width', 'Width')%>
+																<div class="frame">
+																	<%= f.text_field 'Width', {:class => "form-control", :disabled => true}%>
+																</div>
+															</div>
+														</div><!-- row-area -->
+														<div class="row-area">
+															<div class="col">
+																	<%= f.label('Depth', 'Depth')%>
+																	<div class="frame">
+																		<%= f.text_field 'Depth', {:class => "form-control", :disabled => true}%>
+																	</div>
+																</div>
+														</div><!-- row-area -->
+														<div class="row-area">
+															<div class="col">
+																<%= f.label('OriginalPitCutLength', 'Original Pit Cut Length')%>
+																<div class="frame">
+																<%= f.text_field('OriginalPitCutLength', {:class => 'form-control', :disabled => true})%>
+																</div>
+															</div>
+															<div class="col">
+																<%= f.label('OriginalPitCutWidth', 'Original Pit Cut Width')%>
+																<div class="frame">
+																<%= f.text_field('OriginalPitCutWidth', {:class => 'form-control', :disabled => true})%>
+																</div>
+															</div>
+														</div><!-- row-area -->
+														<div class="row-area">
+															<div class="col">
+																<%= f.label('OriginalPitCutDepth', 'Original Pit Cut Depth')%>
+																<div class="frame">
+																<%= f.text_field('OriginalPitCutDepth', {:class => 'form-control', :disabled => true})%>
+																</div>
+															</div>
+														</div><!-- row-area -->
+														<div class="row-area">
+															<div class="col">
+																<%= f.label('PlanShapeID', 'Plan Shape')%>
+																<div class="frame">
+																	<%= f.collection_select('PlanShapeID', ContextFeaturePlanShape.all.order('"PlanShape"'), :id, 'PlanShape', {:include_blank => '--select--'}, {'data-placeholder' => '--select--', :class => 'form-control', :disabled => true})%>
+																</div>
+															</div>
+															<div class="col">
+																<%= f.label('ProfileShapeID', 'Profile Shape')%>
+																<div class="frame">
+																	<%= f.collection_select('ProfileShapeID', ContextFeatureProfileShape.all.order('"ProfileShape"'), :id, 'ProfileShape', {:include_blank => '--select--'}, {'data-placeholder' => '--select--', :class => 'form-control', :disabled => true})%>
+																</div>
+															</div>
+														</div><!-- row-area -->
+														<div class="row-area">
+															<div class="col">
+																<%= f.label('CentroidX', 'Centroid X')%>
+																<div class="frame">
+																<%= f.text_field('CentroidX', {:class => 'form-control', :disabled => true})%>
+																</div>
+															</div>
+															<div class="col">
+																<%= f.label('CentroidY', 'Centroid Y')%>
+																<div class="frame">
+																<%= f.text_field('CentroidY', {:class => 'form-control', :disabled => true})%>
+																</div>
+															</div>
+														</div><!-- row-area -->
+
+												</section><!-- section -->
+												<section class="section">
+													<div class="heading">
+														<h2>Feature Group</h2>
+													</div>
+													<div class="two-columns">
+														<div class="row-area">
+															<div class="col">
+																<%= f.label('FeatureGroup', 'Feature Group')%>
+																<div class="frame">
+																	<%= f.text_field 'FeatureGroup', {:maxlength => 20, :class => "form-control", :disabled => true}%>
+																</div>
+															</div>
+															<div class="col">
+																<%= f.label('FeatureGroupInterpretation', 'Feature Group Interpretation')%>
+																<div class="frame">
+																		<%= f.text_area('FeatureGroupInterpretation', {:maxlength => 4000, :class => 'form-control', :disabled => true})%>
+																</div>
+															</div>
+														</div><!-- row-area -->
+												</section><!-- section -->
+												<section class="section">
+													<div class="heading">
+														<h2>Associated Contexts</h2>
+													</div>
+													<div class="two-columns">
+														<div class="row-area">
+															<div class="col">
+																<% @context.context_feature.contexts.each do |context| %>
+																	<%= link_to context.ContextID, :controller => 'contexts', :action => 'edit', :id => context.id %><br>
+																<% end %>
+															</div>
+														</div><!-- row-area -->
+												</section><!-- section -->
+
+											</div><!-- tab-01 -->
+
+										</div><!-- tab-content -->
+									</section><!-- tabs -->
+							<% end %>
+						</div>
+						
+						<% end %>
+					</div>
+
+					<div class="tab-pane" id="tab-08">
+						<section class="section">
+							<div class="heading">
+								<h2>Shovel Test Pit Coordinates</h2>
+							</div>
+							<div class="stp-coordinates">
+								<div class="two-columns">
+									<div class="row-area">
+										<div class="col">
+											<%= f.label('STPEasting', 'Easting')%>
+											<div class="frame">
+												<%= f.text_field('STPEasting', {:class => 'form-control'})%>
+											</div>
+										</div>
+										<div class="col">
+											<%= f.label('STPNorthing', 'Northing')%>
+											<div class="frame">
+												<%= f.text_field('STPNorthing', {:class => 'form-control'})%>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div><!-- stylistic-elements -->
+						</section>
+						<section class="section">
+							<div class="heading">
+								<h2>Shovel Test Pit Description</h2>
+							</div>
+							<div class="stp-descriptions">
+								<div id="stp-description-elements">
+								<% @stp_description_colored = true %>
+								<% if @context.context_stp_levels.any? %>
+									<%= f.fields_for :context_stp_levels do |cs| %>
+										<%= render 'context_stp_level_fields', f: cs %>
+										<% @stp_description_colored = @stp_description_colored == true ? false : true %>
+										<%# debugger %>
+									<% end %>
+									<% if @stp_description_colored == false %>
+										<script>
+											stp_description_color = false;
+										</script>
+									<% else %>
+										<script>
+											stp_description_color = true;
+										</script>
+									<% end %>
+								<% else %>
+								<span class="stp-description-empty-relationship">Click Add for new entries.</span>
+									<%#= render_new_nested_fields f, :context_stp_levels %>
+								<% end %>
+								<% @stp_description_color = false %>
+								</div>
+								<div class="clearfix stylistic-before-holder">
+									<%= link_to_add_fields "Add STP Level", f, :context_stp_levels, {:id=>"stp-description-add", :class => "btn btn-info btn-add"} %>
+									<!-- <span id="stylistic-add-measurement" class="btn btn-info btn-add">Add stylistic element</span> -->
+								</div>
+							</div><!-- stylistic-elements -->
+						</section>
+						
+					</div><!-- tab-02 -->
+					
+					<div class="tab-pane" id="tab-09">
+						<section class="section">
+							<div class="heading">
+								<h2>Context Metadata</h2>
+							</div>
+							<div class="metadata">
+								<div class="two-columns">
+									<div class="row-area">
+										<div class="col">
+											<%= f.label('LevelDesignation', 'Level Designation')%>
+											<div class="frame">
+											<%= f.text_field('LevelDesignation', {:maxlength => 5, :class => 'form-control'})%>
+											</div>
+										</div>
+										<div class="col">
+											<%= f.label('FSNumber', 'FS Number')%>
+											<div class="frame">
+											<%= f.text_field('FSNumber', {:maxlength => 10, :class => 'form-control'})%>
+											</div>
+										</div>
+									</div>
+									<div class="row-area">
+										<div class="col">
+											<%= f.label('MasterContextNumber', 'Master Context Number')%>
+											<div class="frame">
+											<%= f.text_field('MasterContextNumber', {:maxlength => 50, :class => 'form-control'})%>
+											</div>
+										</div>
+										<div class="col">
+											<%= f.label('MasterContextInterpretation', 'Master Context Interpretation')%>
+											<div class="frame">
+											<%= f.text_field('MasterContextInterpretation', {:maxlength => 50, :class => 'form-control'})%>
+											</div>
+										</div>
+									</div>
+									<div class="row-area">
+										<div class="col">
+											<%= f.label('ExcavatorPhase', 'Excavator Phase')%>
+											<div class="frame">
+											<%= f.text_field('ExcavatorPhase', {:maxlength => 5, :class => 'form-control'})%>
+											</div>
+										</div>
+									</div>
+									<div class="row-area">
+										<div class="col">
+											<%= f.label('DAACSStratigraphicGroup', 'DAACS Stratigraphic Group')%>
+											<div class="frame">
+											<%= f.text_field('DAACSStratigraphicGroup', {:maxlength => 50, :class => 'form-control'})%>
+											</div>
+										</div>
+										<div class="col">
+											<%= f.label('DAACSStratigraphicGroupInterpretation', 'DAACS Stratigraphic Group Interpretation')%>
+											<div class="frame">
+											<%= f.text_area('DAACSStratigraphicGroupInterpretation', {:maxlength => 250, :class => 'form-control'})%>
+											</div>
+										</div>
+									</div>
+									<div class="row-area">
+										<div class="col">
+											<%= f.label('DAACSPhase', 'DAACS Phase')%>
+											<div class="frame">
+											<%= f.text_field('DAACSPhase', {:maxlength => 5, :class => 'form-control'})%>
+											</div>
+										</div>
+										<div class="col">
+											<%= f.label('CAPlowzonePhase', 'CA Plowzone Phase')%>
+											<div class="frame">
+											<%= f.text_field('CAPlowzonePhase', {:maxlength => 25, :class => 'form-control'})%>
+											</div>
+										</div>
+									</div>
+									<div class="row-area">
+										<div class="col">
+											<%= f.label('Photographs', 'Photographs')%>
+											<div class="frame">
+											<%= f.collection_select('Photographs', YesNo.all.order('"YesNo"'), :id, 'YesNo', {:include_blank => '--select--'}, {'data-placeholder' => '--select--', :class => 'form-control'})%>
+											</div>
+										</div>
+									</div>
+									<div class="row-area">
+										<div class="col">
+											<%= f.label('PlanDrawings', 'Plan Drawings')%>
+											<div class="frame">
+											<%= f.text_field('PlanDrawings', {:class => 'form-control'})%>
+											</div>
+										</div>
+									</div>
+									<div class="row-area">
+										<div class="col">
+											<%= f.label('ProfileDrawings', 'Profile Drawings')%>
+											<div class="frame">
+											<%= f.text_field('ProfileDrawings', {:class => 'form-control'})%>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div><!-- stylistic-elements -->
+						</section>
+					</div><!-- tab-02 -->
+					<div class="tab-pane" id="tab-10">
+						<div class="image-list">
+							<div id="image-elements">
+								<%= f.fields_for :context_images do |aif| %>
+									<%= render 'context_image_fields', f: aif %>
+								<% end %>
+							</div>
+							<div class="clearfix">
+								<div class="btn-area">
+									<%= link_to_add_fields "Add Image", f, :context_images, {:id=>"image-add", :class => "btn btn-info btn-add"} %>
+									<!-- <a class="btn btn-info btn-add" data-toggle="modal" data-target="#new-image">Add</a> -->
+								</div>
+							</div>
+						</div>
+					</div>
+					
+				</div><!-- tab-content -->
+			</section><!-- tabs -->
+		</fieldset>
+	<% end %>
+</div>
+<div class="modal alert-modal fade" id="context-sample-alert-modal" tabindex="-1" role="dialog" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+				<h4 class="modal-title">Alert</h4>
+			</div>
+			<div class="modal-body">
+				<p class="txt">Are you sure you want to delete?</p>
+			</div>
+			<div class="modal-footer">
+				<button class="btn btn-default" data-dismiss="modal">Cancel</button>
+				<button class="btn btn-warning context-sample-delete">Delete</button>
+			</div>
+		</div><!-- /.modal-content -->
+	</div><!-- /.modal-dialog -->
+</div><!-- alert-modal -->
+<div class="modal alert-modal fade" id="context-sample-location-alert-modal" tabindex="-1" role="dialog" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+				<h4 class="modal-title">Alert</h4>
+			</div>
+			<div class="modal-body">
+				<p class="txt">Are you sure you want to delete?</p>
+			</div>
+			<div class="modal-footer">
+				<button class="btn btn-default" data-dismiss="modal">Cancel</button>
+				<button class="btn btn-warning context-sample-location-delete">Delete</button>
+			</div>
+		</div><!-- /.modal-content -->
+	</div><!-- /.modal-dialog -->
+</div><!-- alert-modal -->
+<div class="modal alert-modal fade" id="sediment-alert-modal" tabindex="-1" role="dialog" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+				<h4 class="modal-title">Alert</h4>
+			</div>
+			<div class="modal-body">
+				<p class="txt">Are you sure you want to delete?</p>
+			</div>
+			<div class="modal-footer">
+				<button class="btn btn-default" data-dismiss="modal">Cancel</button>
+				<button class="btn btn-warning sediment-delete">Delete</button>
+			</div>
+		</div><!-- /.modal-content -->
+	</div><!-- /.modal-dialog -->
+</div><!-- alert-modal -->
+<div class="modal alert-modal fade" id="inclusion-alert-modal" tabindex="-1" role="dialog" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+				<h4 class="modal-title">Alert</h4>
+			</div>
+			<div class="modal-body">
+				<p class="txt">Are you sure you want to delete?</p>
+			</div>
+			<div class="modal-footer">
+				<button class="btn btn-default" data-dismiss="modal">Cancel</button>
+				<button class="btn btn-warning inclusion-delete">Delete</button>
+			</div>
+		</div><!-- /.modal-content -->
+	</div><!-- /.modal-dialog -->
+</div><!-- alert-modal -->
+<div class="modal alert-modal fade" id="strat-alert-modal" tabindex="-1" role="dialog" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+				<h4 class="modal-title">Alert</h4>
+			</div>
+			<div class="modal-body">
+				<p class="txt">Are you sure you want to delete?</p>
+			</div>
+			<div class="modal-footer">
+				<button class="btn btn-default" data-dismiss="modal">Cancel</button>
+				<button class="btn btn-warning strat-delete">Delete</button>
+			</div>
+		</div><!-- /.modal-content -->
+	</div><!-- /.modal-dialog -->
+</div><!-- alert-modal -->
+<div class="modal alert-modal fade" id="elevation-alert-modal" tabindex="-1" role="dialog" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+				<h4 class="modal-title">Alert</h4>
+			</div>
+			<div class="modal-body">
+				<p class="txt">Are you sure you want to delete?</p>
+			</div>
+			<div class="modal-footer">
+				<button class="btn btn-default" data-dismiss="modal">Cancel</button>
+				<button class="btn btn-warning elevation-delete">Delete</button>
+			</div>
+		</div><!-- /.modal-content -->
+	</div><!-- /.modal-dialog -->
+</div><!-- alert-modal -->
+<div class="modal alert-modal fade" id="quadrat-alert-modal" tabindex="-1" role="dialog" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+				<h4 class="modal-title">Alert</h4>
+			</div>
+			<div class="modal-body">
+				<p class="txt">Are you sure you want to delete?</p>
+			</div>
+			<div class="modal-footer">
+				<button class="btn btn-default" data-dismiss="modal">Cancel</button>
+				<button class="btn btn-warning quadrat-delete">Delete</button>
+			</div>
+		</div><!-- /.modal-content -->
+	</div><!-- /.modal-dialog -->
+</div><!-- alert-modal -->
+<div class="modal alert-modal fade" id="stp-description-alert-modal" tabindex="-1" role="dialog" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+				<h4 class="modal-title">Alert</h4>
+			</div>
+			<div class="modal-body">
+				<p class="txt">Are you sure you want to delete?</p>
+			</div>
+			<div class="modal-footer">
+				<button class="btn btn-default" data-dismiss="modal">Cancel</button>
+				<button class="btn btn-warning stp-description-delete">Delete</button>
+			</div>
+		</div><!-- /.modal-content -->
+	</div><!-- /.modal-dialog -->
+</div><!-- alert-modal -->
+<div class="modal alert-modal fade" id="stp-sediment-alert-modal" tabindex="-1" role="dialog" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+				<h4 class="modal-title">Alert</h4>
+			</div>
+			<div class="modal-body">
+				<p class="txt">Are you sure you want to delete?</p>
+			</div>
+			<div class="modal-footer">
+				<button class="btn btn-default" data-dismiss="modal">Cancel</button>
+				<button class="btn btn-warning stp-sediment-delete">Delete</button>
+			</div>
+		</div><!-- /.modal-content -->
+	</div><!-- /.modal-dialog -->
+</div><!-- alert-modal -->
+<div class="modal alert-modal fade" id="stp-inclusion-alert-modal" tabindex="-1" role="dialog" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+				<h4 class="modal-title">Alert</h4>
+			</div>
+			<div class="modal-body">
+				<p class="txt">Are you sure you want to delete?</p>
+			</div>
+			<div class="modal-footer">
+				<button class="btn btn-default" data-dismiss="modal">Cancel</button>
+				<button class="btn btn-warning stp-inclusion-delete">Delete</button>
+			</div>
+		</div><!-- /.modal-content -->
+	</div><!-- /.modal-dialog -->
+</div><!-- alert-modal -->
+
+<div class="modal alert-modal fade" id="delete-alert-modal" tabindex="-1" role="dialog" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+				<h4 class="modal-title">Alert</h4>
+			</div>
+			<div class="modal-body">
+				<p class="txt">Are you sure you want to delete?</p>
+			</div>
+			<div class="modal-footer">
+				<button class="btn btn-default" data-dismiss="modal">Cancel</button>
+				<button class="btn btn-warning delete-record">Delete</button>
+			</div>
+		</div><!-- /.modal-content -->
+	</div><!-- /.modal-dialog -->
+</div><!-- alert-modal -->
+
+<div class="modal alert-modal fade" id="new-quadrat-alert-modal" tabindex="-1" role="dialog" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+				<h4 class="modal-title">Quadrat ID</h4>
+			</div>
+			<div class="modal-body">
+				<select id="selected-quadratid" class="form-control" data-placeholder="--select--">
+					<option>--select--</option>
+					<% if @context.project != nil %>
+						<% ids = {}; ContextQuadratBoundary.where(:ProjectID => @context.project.ProjectID).order('"QuadratID"').map{|o| ids[o.QuadratID] = true} %>
+						<% ids.keys.each do |id|%>
+							<option <%= @context.QuadratID == id ? 'selected' : ''%>><%= id %></option>
+						<% end %>
+					<% end %>
+				</select>
+				<br>
+				
+				<label for="new-quadratid">or Create New QuadratID</label>
+				<input id="new-quadratid" class="form-control">
+			</div>
+			<div class="modal-footer">
+				<button class="btn btn-default" data-dismiss="modal">Cancel</button>
+				<button class="btn btn-warning add-quadratid-value">Save</button>
+			</div>
+		</div><!-- /.modal-content -->
+	</div><!-- /.modal-dialog -->
+</div><!-- alert-modal -->
+
+<div class="modal alert-modal fade" id="new-feature-alert-modal" tabindex="-1" role="dialog" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+				<h4 class="modal-title">Features</h4>
+			</div>
+			<div class="modal-body feature-query">
+				<%= render :partial => 'features'%>
+			</div>
+			<div class="modal-footer">
+				<button class="btn btn-default" data-dismiss="modal">Cancel</button>
+				<button class="btn btn-warning add-feature-value">Select</button>
+			</div>
+		</div><!-- /.modal-content -->
+	</div><!-- /.modal-dialog -->
+</div><!-- alert-modal -->

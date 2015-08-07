@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>DAACS Research Consortium: <%= defined?(@page_title) != nil ? @page_title : 'Exploring Slavery in the Atlantic World' %></title>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<%= stylesheet_link_tag "application", :media => "all" %>
+  <%= javascript_include_tag "application" %>
+  <%= csrf_meta_tags %>
+	<!--[if lt IE 9]>
+		<script type="text/javascript" src="js/html5.js"></script>
+		<script type="text/javascript" src="js/respond.min.js"></script>
+		<script type="text/javascript" src="js/PIE.js"></script>
+	<![endif]-->
+</head>
+<body class="home-page">
+	<div id="fb-root"></div>
+	<script>(function(d, s, id) {
+	  var js, fjs = d.getElementsByTagName(s)[0];
+	  if (d.getElementById(id)) return;
+	  js = d.createElement(s); js.id = id;
+	  js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.3";
+	  fjs.parentNode.insertBefore(js, fjs);
+	}(document, 'script', 'facebook-jssdk'));</script>
+	
+	<div class="wrapper-area">
+		<header>
+			<div class="container <%= action_name != 'new' ? 'secondary-page' : '' %>">
+				<strong class="logo"><a href="/">daacs research consortium</a></strong>
+				<nav>
+					<ul>
+						<li><a href="/homepage/about">About</a></li>
+						<li><a href="/homepage/project_team">Project Team</a></li>
+						<li><a href="/homepage/partners">Partners</a></li>
+						<li><a href="/homepage/sponsors">Sponsors</a></li>
+						<li><a href="/homepage/research">Research</a></li>
+						<% if (action_name != 'new') and (current_user == nil) %>
+							<li class="login"><a href="/"><%#= action_name %>Sign In</a></li>
+						<% end %>
+					</ul>
+				</nav>
+			</div><!-- container -->
+		</header><!-- header -->
+		<div id="main" class="container">
+	      <%= yield %>
+
+		</div><!-- main -->
+		<div class="container">
+			<ul class="socials">
+				<li><a href="https://www.facebook.com/daacsorg">facebook</a></li>
+				<li><a class="twitter" href="https://twitter.com/daacsorg/">twitter</a></li>
+			</ul><!-- socials -->
+		</div>
+		<footer>
+			<div class="container">
+				<ul class="logos">
+					<li><span><a href="http://www.daacs.org/"><img class="logo-01" src="<%= asset_path('DAACS_logo.png')%> " alt="#"></a></span></li>
+					<li><span><a href="http://www.iath.virginia.edu/"><img class="logo-02" src="<%= asset_path('logo-02.png') %>" alt="#"></a></span></li>
+					<li><span><a href="http://www.monticello.org/"><img class="logo-03" src="<%= asset_path('TJF_logo.png') %>" alt="#"></a></span></li>
+					<li><span><a href="http://www.mellon.org/"><img class="logo-04" src="<%= asset_path('Mellon_logo.png') %>" alt="#"></a></span></li>
+				</ul>
+				<p class="copy">Copyright 2013 Thomas Jefferson Foundation.  This work is licensed under a Creative Commons Attribution-NoDerivs 3.0 United States License</p>
+			</div><!-- container -->
+		</footer><!-- footer -->
+	</div>
+</body>
+</html>

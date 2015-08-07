@@ -1,0 +1,27 @@
+<h1>Listing image_subtypes</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Imagesubtype</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @image_subtypes.each do |image_subtype| %>
+      <tr>
+        <td><%= image_subtype.ImageSubtype %></td>
+        <td><%= link_to 'Show', image_subtype %></td>
+        <td><%= link_to 'Edit', edit_image_subtype_path(image_subtype) %></td>
+        <td><%= link_to 'Destroy', image_subtype, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Image subtype', new_image_subtype_path %>

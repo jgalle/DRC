@@ -1,0 +1,21 @@
+<%= form_for(@buckle_manu_tech) do |f| %>
+  <% if @buckle_manu_tech.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@buckle_manu_tech.errors.count, "error") %> prohibited this buckle_manu_tech from being saved:</h2>
+
+      <ul>
+      <% @buckle_manu_tech.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :buckle_manu_tech %><br />
+    <%= f.text_field :buckle_manu_tech %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

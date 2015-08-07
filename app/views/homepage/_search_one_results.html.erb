@@ -1,0 +1,17 @@
+<table class="bordered">
+  <tr>
+    <th class="cell-01a">Project Name</th>
+    <th class="cell-02">Count</th>
+    <th class="cell-03">Artifact Type</th>
+    <th class="cell-04">Artifact Category</th>
+  </tr>
+<% @artifacts.each do |artifact| %>
+  <tr class="holder-for-delete">
+		<td class="cell-01a"><%= artifact.ProjectName rescue '='%></td>
+		<td class="cell-02"><%= artifact.send('Total Count') rescue '='%></td>
+		<td class="cell-02"><%= artifact.send('Artifact Type') rescue '='%></td>
+		<td class="cell-04"><%= artifact.send('Artifact Category') rescue '='%></td>
+		
+  </tr>
+<% end %>
+</table>

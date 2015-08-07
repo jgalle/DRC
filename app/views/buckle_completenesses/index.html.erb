@@ -1,0 +1,23 @@
+<h1>Listing buckle_completenesses</h1>
+
+<table>
+  <tr>
+    <th>Buckle completeness</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @buckle_completenesses.each do |buckle_completeness| %>
+  <tr>
+    <td><%= buckle_completeness.buckle_completeness %></td>
+    <td><%= link_to 'Show', buckle_completeness %></td>
+    <td><%= link_to 'Edit', edit_buckle_completeness_path(buckle_completeness) %></td>
+    <td><%= link_to 'Destroy', buckle_completeness, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Buckle completeness', new_buckle_completeness_path %>

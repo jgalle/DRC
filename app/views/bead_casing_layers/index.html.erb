@@ -1,0 +1,23 @@
+<h1>Listing bead_casing_layers</h1>
+
+<table>
+  <tr>
+    <th>Casing layer</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @bead_casing_layers.each do |bead_casing_layer| %>
+  <tr>
+    <td><%= bead_casing_layer.casing_layer %></td>
+    <td><%= link_to 'Show', bead_casing_layer %></td>
+    <td><%= link_to 'Edit', edit_bead_casing_layer_path(bead_casing_layer) %></td>
+    <td><%= link_to 'Destroy', bead_casing_layer, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Bead casing layer', new_bead_casing_layer_path %>

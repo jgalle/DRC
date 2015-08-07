@@ -1,0 +1,23 @@
+<h1>Listing button_decorations</h1>
+
+<table>
+  <tr>
+    <th>Button decoration</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @button_decorations.each do |button_decoration| %>
+  <tr>
+    <td><%= button_decoration.button_decoration %></td>
+    <td><%= link_to 'Show', button_decoration %></td>
+    <td><%= link_to 'Edit', edit_button_decoration_path(button_decoration) %></td>
+    <td><%= link_to 'Destroy', button_decoration, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Button decoration', new_button_decoration_path %>

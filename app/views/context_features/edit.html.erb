@@ -1,0 +1,433 @@
+<script>
+	
+	$(function() {
+		$('#button-record-save').click(function (event) {
+			console.log('local save');
+			// $('#active_tag').val($("ul li.active a").attr('href'));
+			$('.edit_context_feature').submit();
+			$('.new_context_feature').submit();
+		});
+		
+		$('.delete-record').click(function(){
+			$.ajax({
+			  url: "/context_features/<%= @context_feature.id %>",
+			  type: "DELETE",
+				statusCode: {
+				    200: function() {
+							$('#delete-alert-modal').modal('hide')
+							window.location="/context_features#success-deleted"
+				    }
+				  }
+			});
+		});
+
+		var items = new Bloodhound({
+		    datumTokenizer: function(d) { return Bloodhound.tokenizers.whitespace(d.ArtifactID); },
+		    queryTokenizer: Bloodhound.tokenizers.whitespace,
+		    		    remote: { 
+		        url: '/context_features/context_ids.json?project_id=<%= @context_feature.ProjectID %>&q=%QUERY',
+		    }
+		});
+		items.initialize();
+
+		$('.md-se-').typeahead(null, {
+		    name: 'md-se-',
+		    displayKey: 'ContextID',
+		    valueKey: 'ContextID',
+				source: items.ttAdapter(),
+		    templates: {
+		        suggestion: Handlebars.compile(
+		            '<p><strong>{{ContextID}}</strong></p>'
+		        )
+		    }
+		}).on('typeahead:selected', onSelected);
+		function onSelected($e, datum) {
+		    console.log('selected: '+datum.ContextID);
+			$(this).parent().prev().attr('value',datum.ContextID);
+		}
+
+		$('#context-add').click(function (event) {
+			$('.context-empty-relationship').hide();
+			unsaved = true;
+		  time = new Date().getTime();
+		  regexp = new RegExp($(this).data('id'), 'g');
+		  // $(this).before($(this).data('fields').replace(regexp, time));
+		  $('#context-elements').append($(this).data('fields').replace(regexp, time).replace('_NUM_',time));
+		
+
+		
+		
+			$('.context-delete-link').click(function (event) {
+				content_to_remove = this;
+			});
+			$("select").each(function() {
+				if($(this).attr('id').indexOf("_NUM_") == -1) {
+					$(this).chosen();
+				}
+			});
+			customForm.customForms.replaceAll();
+			event.preventDefault();
+		});
+
+		$('.context-delete').click(function (event) {
+			unsaved = true;
+			if(content_to_remove != null) {
+				$(content_to_remove).prev('input[type=hidden]').val('1');
+				$(content_to_remove).parent().hide();
+			}
+			$('#context-alert-modal').modal('hide')
+			event.preventDefault();
+		});
+		$('.context-delete-link').click(function (event) {
+			content_to_remove = this;
+		});
+
+		
+	});
+</script>
+<div class="page-header page-header-01">
+	<div class="frame">
+		<div class="clearfix">
+			<%= link_to 'Back to List', context_features_path, :class => 'back-link'%>
+		</div>
+		<div class="paging">
+			<% if @in_context.index(@context_feature) != nil %>
+			<% if @in_context.index(@context_feature) < (@in_context.size-1) %>
+				<%= link_to 'Next', edit_context_feature_path(@in_context[@in_context.index(@context_feature)+1].id), {:class => 'next'}%>
+			<% end %>
+			<span class="caption"><%= @in_context.index(@context_feature)+1 %> of <%= @in_context.size %></span>
+			<% if @in_context.index(@context_feature) > 0%>
+				<%= link_to 'Previous', edit_context_feature_path(@in_context[@in_context.index(@context_feature)-1].id), {:class => 'prev'}%>
+			<% end %>
+			<% end %>
+		</div><!-- paging -->
+		
+	</div><!-- frame -->
+	<h1>Context Feature</h1>
+	<%#= link_to('Add New', new_context_feature_path, {:class => 'add-new'})%>
+</div><!-- page-header -->
+<%= render 'layouts/messages' %>
+<% errors = [] %>
+<% errors << @context_feature.errors %>
+<%# @context_feature.context_feature_fine_sediments.each {|o| errors << o.errors} %>
+<%# @context_feature.context_feature_elevations.each {|o| errors << o.errors} %>
+<% if errors.any? %>
+	<% errors.each do |error|%>
+		<% if error.any? %>
+		  <div id="error_explanation">
+		    <h2><%= pluralize(error.count, "error") %> prohibited this post from being saved:</h2>
+
+		    <ul>
+			    <% error.full_messages.each do |msg| %>
+			      <li><%= msg %></li>
+			    <% end %>
+		    </ul>
+		  </div>
+		<% end %>
+	<% end %>
+<% end %>
+<div class="clearfix">
+	<%= form_for(@context_feature, {:class => 'edit_context_feature'}) do |f|%>
+		<input type="hidden" name="active_tag" id="active_tag">
+		<fieldset>
+			<aside id="aside">
+				<h2 class="visible-md visible-lg">Record Details</h2>
+				<% if current_user.is_editor?  %>
+				<div class="box">
+					<%= link_to('Add New record', new_context_feature_path, {:class => 'add-new'})%>
+				</div><!-- box -->
+				<div class="box">
+					<button id="button-record-save" class="btn btn-success btn-save ie-fix"><span>Save</span></button>
+					<div class="area clearfix">
+						<%#= link_to('Duplicate', {:action => 'duplicate', :id => params[:id]}, {:class=>"btn btn-info btn-duplicate ie-fix"})%>
+						<% if current_user.is_admin? %>
+							<a href="#" data-toggle="modal" data-target="#delete-alert-modal" class="delete">Delete</a>
+						<% end %>
+					</div>
+				</div><!-- box -->
+				<% end %>
+				<div class="details-bar">
+					<a href="#" data-toggle="dropdown" class="open-close"></a>
+					<div class="drop dropdown-menu" role="menu">
+						<div class="info-box">
+							<dl>
+								<dt>Project:</dt><dd><%= @context_feature.project != nil ? @context_feature.project.project_name.ProjectName : ' - '  %></dd>
+								<dt>Database ID:</dt><dd><%= @context_feature.id %></dd>
+							</dl>
+						</div><!-- info-box -->
+						<div class="aside-accordion" id="aside-accordion">
+							<div class="panel">
+								<h2><a class="collapsed" data-toggle="collapse" data-parent="#aside-accordion" href="#collapse-01">Features in project</a></h2>
+								<div id="collapse-01" class="panel-collapse collapse">
+									<div class="frame">
+										<div class="artifacts scrollable-area">
+											<ul>
+												<% @in_context.each do |context_feature| %>
+													<!--  check for saving!!! -->
+													<li <%= @context_feature.FeatureNumber == context_feature.FeatureNumber ? 'class=current' : '' %>><%= @context_feature.FeatureNumber != context_feature.FeatureNumber ? link_to(context_feature.FeatureNumber, edit_context_feature_path(context_feature)) : context_feature.FeatureNumber %></li>
+												<% end %>
+											</ul>
+										</div><!-- artifacts -->
+									</div>
+								</div>
+							</div>
+							<div class="panel">
+								<h2 class="visible-md visible-lg"><a class="collapsed" data-toggle="collapse" data-parent="#aside-accordion" href="#collapse-02">Cataloger Details</a></h2>
+								<div id="collapse-02" class="panel-collapse collapse">
+									<div class="details-box">
+										<dl>
+											<% user = User.where('editor_id = ?', @context_feature.EditorIDN).first %>
+											<dt>Added By:</dt><dd><%= user != nil ? "#{user.first_name != nil ? user.first_name+' '+user.last_name : user.userid}" : ' - '%></dd>
+											<dt>Date Added:</dt><dd><%=h @context_feature.DateAdded !=nil ? @context_feature.DateAdded.to_formatted_s(:db) : " - "%></dd>
+										</dl>
+										<dl>
+											<% user = User.where('editor_id = ?', @context_feature.EditorID).first %>
+											<dt>Changed By:</dt><dd><%= user != nil ? "#{user.first_name != nil ? user.first_name+' '+user.last_name : user.userid}" : ' - '%></dd>
+											<dt>Date Changed:</dt><dd><%=h @context_feature.DateChanged !=nil ? @context_feature.DateChanged.to_formatted_s(:db) : " - "%></dd>
+										</dl>
+										<div class="clearfix">
+											<a href="#" class="link">Change Log</a>
+										</div>
+									</div><!-- details-box -->
+								</div>
+							</div>
+						</div><!-- accordion -->
+					</div>
+				</div><!-- details-bar -->
+			</aside><!-- aside -->
+			<section class="tabs">
+				<ul class="nav nav-tabs">
+					<li class="active"><a href="#tab-01" data-toggle="tab">General</a></li>
+				</ul><!-- nav-tabs -->
+				<div class="tab-content">
+					<div class="tab-pane active" id="tab-01">
+						<section class="section">
+							<div class="heading">
+								<h2>Feature Description</h2>
+							</div>
+							<div class="two-columns">
+								<div class="row-area">
+									<div class="col">
+										<%= f.label('ProjectID', 'Project ID')%>
+										<div class="frame">
+											<%#= f.text_field 'ProjectID', {:class => "form-control"}%>
+											<%= f.collection_select('ProjectID', Project.all.order('"ProjectID"'), :id, 'ProjectID', {:include_blank => '--select--'}, {'data-placeholder' => '--select--', :class => 'form-control'})%>
+										</div>
+									</div>
+									<div class="col">
+										<%= f.label('FeatureNumber', 'Feature Number')%>
+										<div class="frame">
+											<%= f.text_field 'FeatureNumber', {:class => "form-control"}%>
+										</div>
+									</div>
+								</div><!-- row-area -->
+								<div class="row-area">
+									<div class="col">
+										<%= f.label('FeatureTypeID', 'Feature Type')%>
+										<div class="frame">
+												<%= f.collection_select('FeatureTypeID', ContextFeatureType.all.order('"FeatureType"'), :id, 'FeatureType', {:include_blank => '--select--'}, {'data-placeholder' => '--select--', :class => 'form-control'})%>
+										</div>
+									</div>
+									<div class="col">
+										<%= f.label('FeatureTPQ', 'Feature TPQ')%>
+										<div class="frame">
+										<%= f.text_field('FeatureTPQ', {:class => 'form-control'})%>
+										</div>
+									</div>
+								</div><!-- row-area -->
+								<div class="row-area">
+									<div class="col">
+										<%= f.label('Description', 'Description')%>
+										<div class="frame">
+												<%= f.text_area 'Description', {:class => "form-control"}%>
+										</div>
+									</div>
+								</div><!-- row-area -->
+						</section><!-- section -->
+						<section class="section">
+							<div class="heading">
+								<h2>Feature Measurements</h2>
+							</div>
+							<div class="two-columns">
+								<div class="row-area">
+									<div class="col">
+										<%= f.label('Length', 'Length')%>
+										<div class="frame">
+											<%= f.text_field 'Length', {:class => "form-control"}%>
+										</div>
+									</div>
+									<div class="col">
+										<%= f.label('Width', 'Width')%>
+										<div class="frame">
+											<%= f.text_field 'Width', {:class => "form-control"}%>
+										</div>
+									</div>
+								</div><!-- row-area -->
+								<div class="row-area">
+									<div class="col">
+											<%= f.label('Depth', 'Depth')%>
+											<div class="frame">
+												<%= f.text_field 'Depth', {:class => "form-control"}%>
+											</div>
+										</div>
+								</div><!-- row-area -->
+								<div class="row-area">
+									<div class="col">
+										<%= f.label('OriginalPitCutLength', 'Original Pit Cut Length')%>
+										<div class="frame">
+										<%= f.text_field('OriginalPitCutLength', {:class => 'form-control'})%>
+										</div>
+									</div>
+									<div class="col">
+										<%= f.label('OriginalPitCutWidth', 'Original Pit Cut Width')%>
+										<div class="frame">
+										<%= f.text_field('OriginalPitCutWidth', {:class => 'form-control'})%>
+										</div>
+									</div>
+								</div><!-- row-area -->
+								<div class="row-area">
+									<div class="col">
+										<%= f.label('OriginalPitCutDepth', 'Original Pit Cut Depth')%>
+										<div class="frame">
+										<%= f.text_field('OriginalPitCutDepth', {:class => 'form-control'})%>
+										</div>
+									</div>
+								</div><!-- row-area -->
+								<div class="row-area">
+									<div class="col">
+										<%= f.label('PlanShapeID', 'Plan Shape')%>
+										<div class="frame">
+											<%= f.collection_select('PlanShapeID', ContextFeaturePlanShape.all.order('"PlanShape"'), :id, 'PlanShape', {:include_blank => '--select--'}, {'data-placeholder' => '--select--', :class => 'form-control'})%>
+										</div>
+									</div>
+									<div class="col">
+										<%= f.label('ProfileShapeID', 'Profile Shape')%>
+										<div class="frame">
+											<%= f.collection_select('ProfileShapeID', ContextFeatureProfileShape.all.order('"ProfileShape"'), :id, 'ProfileShape', {:include_blank => '--select--'}, {'data-placeholder' => '--select--', :class => 'form-control'})%>
+										</div>
+									</div>
+								</div><!-- row-area -->
+								<div class="row-area">
+									<div class="col">
+										<%= f.label('CentroidX', 'Centroid X')%>
+										<div class="frame">
+										<%= f.text_field('CentroidX', {:class => 'form-control'})%>
+										</div>
+									</div>
+									<div class="col">
+										<%= f.label('CentroidY', 'Centroid Y')%>
+										<div class="frame">
+										<%= f.text_field('CentroidY', {:class => 'form-control'})%>
+										</div>
+									</div>
+								</div><!-- row-area -->
+								
+						</section><!-- section -->
+						<section class="section">
+							<div class="heading">
+								<h2>Feature Group</h2>
+							</div>
+							<div class="two-columns">
+								<div class="row-area">
+									<div class="col">
+										<%= f.label('QuadratID', 'Associated Quadrat ID')%>
+										<div class="frame">
+											<%= f.text_field 'QuadratID', {:class => "form-control"}%>
+										</div>
+									</div>
+									<div class="col">
+										<%= f.label('FeatureGroup', 'Feature Group')%>
+										<div class="frame">
+											<%= f.text_field 'FeatureGroup', {:class => "form-control"}%>
+										</div>
+									</div>
+								</div>
+								<div class="row-area">								
+									<div class="col">
+										<%= f.label('FeatureGroupInterpretation', 'Feature Group Interpretation')%>
+										<div class="frame">
+												<%= f.text_area('FeatureGroupInterpretation', {:class => 'form-control'})%>
+										</div>
+									</div>
+								</div>
+								<div class="row-area">
+								</div><!-- row-area -->
+						</section><!-- section -->
+						<section class="section">
+							<div class="heading">
+								<h2>Associated Contexts</h2>
+							</div>
+
+							<div class="contexts">
+								<div id="context-elements">
+									<div class="two-columns">
+									<% @context_feature.contexts.each do |context| %>
+										<div class="row-area">
+											<div class="col">
+												<%= link_to context.ContextID, :controller => 'contexts', :action => 'edit', :id => context.id %>
+											</div>
+										</div>
+									<% end %>
+										<div class="row-area">
+											<div class="col">
+												<%#= collection_check_boxes(:context_feature, :context_ids, @context_feature.contexts.all, :id, :ContextID) %>
+												<!-- <input class="form-control typeahead md-se-" placeholder="ContextID" autocomplete="off" spellcheck="false" dir="auto" > -->
+											</div>
+										</div>
+									</div>
+									<%#= f.fields_for :contexts do |cs| %>
+										<%# debugger %>
+										<%# number = Time.now.to_formatted_s(:number) %>
+										<%#= render 'context_fields', f: cs, ro: true, number: number %>
+									<%# end %>
+								</div>
+								<div class="clearfix context-before-holder">
+									<%#= link_to_add_fields "Add Context", f, :contexts, {:id=>"context-add", :class => "btn btn-info btn-add"} %>
+								</div>
+							</div><!-- stylistic-elements -->
+						</section><!-- section -->
+						
+					</div><!-- tab-01 -->
+					
+				</div><!-- tab-content -->
+			</section><!-- tabs -->
+		</fieldset>
+	<% end %>
+</div>
+
+<div class="modal alert-modal fade" id="context-alert-modal" tabindex="-1" role="dialog" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+				<h4 class="modal-title">Alert</h4>
+			</div>
+			<div class="modal-body">
+				<p class="txt">Are you sure you want to delete?</p>
+			</div>
+			<div class="modal-footer">
+				<button class="btn btn-default" data-dismiss="modal">Cancel</button>
+				<button class="btn btn-warning context-delete">Delete</button>
+			</div>
+		</div><!-- /.modal-content -->
+	</div><!-- /.modal-dialog -->
+</div><!-- alert-modal -->
+
+<div class="modal alert-modal fade" id="delete-alert-modal" tabindex="-1" role="dialog" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+				<h4 class="modal-title">Alert</h4>
+			</div>
+			<div class="modal-body">
+				<p class="txt">Are you sure you want to delete?</p>
+			</div>
+			<div class="modal-footer">
+				<button class="btn btn-default" data-dismiss="modal">Cancel</button>
+				<button class="btn btn-warning delete-record">Delete</button>
+			</div>
+		</div><!-- /.modal-content -->
+	</div><!-- /.modal-dialog -->
+</div><!-- alert-modal -->
+

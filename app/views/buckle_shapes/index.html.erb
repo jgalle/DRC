@@ -1,0 +1,23 @@
+<h1>Listing buckle_shapes</h1>
+
+<table>
+  <tr>
+    <th>Buckle shape</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @buckle_shapes.each do |buckle_shape| %>
+  <tr>
+    <td><%= buckle_shape.buckle_shape %></td>
+    <td><%= link_to 'Show', buckle_shape %></td>
+    <td><%= link_to 'Edit', edit_buckle_shape_path(buckle_shape) %></td>
+    <td><%= link_to 'Destroy', buckle_shape, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Buckle shape', new_buckle_shape_path %>

@@ -1,0 +1,23 @@
+<h1>Listing bone_chew_types</h1>
+
+<table>
+  <tr>
+    <th>Chew type</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @bone_chew_types.each do |bone_chew_type| %>
+  <tr>
+    <td><%= bone_chew_type.chew_type %></td>
+    <td><%= link_to 'Show', bone_chew_type %></td>
+    <td><%= link_to 'Edit', edit_bone_chew_type_path(bone_chew_type) %></td>
+    <td><%= link_to 'Destroy', bone_chew_type, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Bone chew type', new_bone_chew_type_path %>

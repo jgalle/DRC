@@ -1,0 +1,23 @@
+<h1>Listing glass_materials</h1>
+
+<table>
+  <tr>
+    <th>Glass material</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @glass_materials.each do |glass_material| %>
+  <tr>
+    <td><%= glass_material.glass_material %></td>
+    <td><%= link_to 'Show', glass_material %></td>
+    <td><%= link_to 'Edit', edit_glass_material_path(glass_material) %></td>
+    <td><%= link_to 'Destroy', glass_material, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Glass material', new_glass_material_path %>

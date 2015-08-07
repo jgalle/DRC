@@ -1,0 +1,33 @@
+<h1>Listing context_fine_sediments</h1>
+
+<table>
+  <tr>
+    <th>Context</th>
+    <th>Fine sediment texture</th>
+    <th>Rank order</th>
+    <th>Mun sed color</th>
+    <th>Excavator sediment color description</th>
+    <th>Percentage</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @context_fine_sediments.each do |context_fine_sediment| %>
+  <tr>
+    <td><%= context_fine_sediment.context_id %></td>
+    <td><%= context_fine_sediment.fine_sediment_texture_id %></td>
+    <td><%= context_fine_sediment.rank_order %></td>
+    <td><%= context_fine_sediment.mun_sed_color_id %></td>
+    <td><%= context_fine_sediment.excavator_sediment_color_description %></td>
+    <td><%= context_fine_sediment.percentage_id %></td>
+    <td><%= link_to 'Show', context_fine_sediment %></td>
+    <td><%= link_to 'Edit', edit_context_fine_sediment_path(context_fine_sediment) %></td>
+    <td><%= link_to 'Destroy', context_fine_sediment, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Context fine sediment', new_context_fine_sediment_path %>

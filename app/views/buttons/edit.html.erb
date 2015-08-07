@@ -1,0 +1,694 @@
+<script>
+// alternating row color variables
+var casing_color = false;
+var decoration_color = false;
+
+$(function() {
+	
+	$('.new-button-type').click(function() {
+		// alert('a');
+		$('#artifact_selection').val('button');
+		$('#artifact_selection').trigger('chosen:updated')
+		$('#project_selection').val('<%= @button.project.ProjectID if @button.project != nil %>');
+		$('#project_selection').trigger('chosen:updated')
+		var context = '<%= @button.context_sample.ContextSampleID if @button.context_sample != nil %>';
+		update_contexts('#project_selection',context);
+		
+	})
+	// $('.datepicker').click(function(){
+		$('.datepicker').datepicker();
+	// });
+	
+	// capture Save button click
+	$('#button-record-save').click(function (event) {
+		console.log('local save');
+		$('#active_tag').val($("ul li.active a").attr('href'));
+		$('.edit_button').submit();
+		$('.new_button').submit();
+	});
+	
+	$('.delete-record').click(function(){
+		$.ajax({
+		  url: "/buttons/<%= @button.id %>",
+		  type: "DELETE",
+			statusCode: {
+			    200: function() {
+						$('#delete-alert-modal').modal('hide')
+						window.location="/buttons#success-deleted"
+			    }
+			  }
+		});
+	});
+	
+	// add new nested form item
+	$('#casing-add').click(function (event) {
+		// alert(unsaved);
+		$('.casing-empty-relationship').hide();
+		unsaved = true;
+	  time = new Date().getTime();
+	  regexp = new RegExp($(this).data('id'), 'g');
+	  // $(this).before($(this).data('fields').replace(regexp, time));
+		if(casing_color == true) {
+			casing_color = false;
+		  $('#casing-elements').append($(this).data('fields').replace(regexp, time).replace('"block "', '"block colored"').replace('_NUM_',time));
+		} else {
+			casing_color = true;
+		  $('#casing-elements').append($(this).data('fields').replace(regexp, time).replace('_NUM_',time));
+		}
+		$('.casing-delete-link').click(function (event) {
+			content_to_remove = this;
+		});
+		
+		$("select").each(function() {
+			if($(this).attr('id').indexOf("_NUM_") == -1) {
+				$(this).chosen();
+			}
+		});
+		
+		customForm.customForms.replaceAll();
+		event.preventDefault();
+	});
+
+	$('#decoration-add').click(function (event) {
+		// alert(unsaved);
+		$('.decoration-empty-relationship').hide();
+		unsaved = true;
+	  time = new Date().getTime();
+	  regexp = new RegExp($(this).data('id'), 'g');
+	  // $(this).before($(this).data('fields').replace(regexp, time));
+		if(decoration_color == true) {
+			decoration_color = false;
+		  $('#decoration-elements').append($(this).data('fields').replace(regexp, time).replace('"block "', '"block colored"').replace('_NUM_',time));
+		} else {
+			decoration_color = true;
+		  $('#decoration-elements').append($(this).data('fields').replace(regexp, time).replace('_NUM_',time));
+		}
+		$('.decoration-delete-link').click(function (event) {
+			content_to_remove = this;
+		});
+		
+		$("select").each(function() {
+			if($(this).attr('id').indexOf("_NUM_") == -1) {
+				$(this).chosen();
+			}
+		});
+		
+		customForm.customForms.replaceAll();
+		event.preventDefault();
+	});
+
+
+	var content_to_remove;
+
+
+	// remove nested form
+	$('.casing-delete').click(function (event) {
+		unsaved = true;
+		if(content_to_remove != null) {
+			$(content_to_remove).prev('input[type=hidden]').val('1');
+			$(content_to_remove).closest('.block').hide();
+		}
+		$('#casing-alert-modal').modal('hide')
+		event.preventDefault();
+	});
+	
+	// grab contents that are about to be deleted
+	$('.casing-delete-link').click(function (event) {
+		content_to_remove = this;
+	});
+
+	// remove nested form
+	$('.decoration-delete').click(function (event) {
+		unsaved = true;
+		if(content_to_remove != null) {
+			$(content_to_remove).prev('input[type=hidden]').val('1');
+			$(content_to_remove).closest('.block').hide();
+		}
+		$('#decoration-alert-modal').modal('hide')
+		event.preventDefault();
+	});
+	
+	// grab contents that are about to be deleted
+	$('.decoration-delete-link').click(function (event) {
+		content_to_remove = this;
+	});
+
+
+});
+</script>
+
+<div class="page-header page-header-01">
+	<div class="frame">
+		<div class="clearfix">
+			<%= link_to 'Back to List', buttons_path, :class => 'back-link'%>
+		</div>
+		<div class="paging">
+			<% if @in_context.index(@button) != nil %>
+			<% if @in_context.index(@button) < (@in_context.size-1) %>
+				<%= link_to 'Next', edit_button_path(@in_context[@in_context.index(@button)+1].id), {:class => 'next'}%>
+			<% end %>
+			<span class="caption"><%= @in_context.index(@button)+1 %> of <%= @in_context.size %></span>
+			<% if @in_context.index(@button) > 0%>
+				<%= link_to 'Previous', edit_button_path(@in_context[@in_context.index(@button)-1].id), {:class => 'prev'}%>
+			<% end %>
+			<% end %>
+		</div><!-- paging -->
+	</div><!-- frame -->
+	<h1>Button</h1>
+	<% if current_user.is_admin?  %>
+	<a href="#" data-toggle="modal" data-target="#add-new" class="add-new new-button-type">Add New</a>
+	<% end %>
+</div><!-- page-header -->
+<%= render 'layouts/messages', errors: @button.errors %>
+
+<div class="clearfix">
+	<%= form_for(@button, {:class => 'edit_glass'}) do |f|%>
+		<%= f.hidden_field(:GenerateContextArtifactID)%>
+		<input type="hidden" name="active_tag" id="active_tag">
+		<fieldset>
+			<aside id="aside">
+				<h2 class="visible-md visible-lg">Record Details</h2>
+				<% if @button.context_sample == nil or current_user.edit_projects.include?(@button.context_sample.project) or current_user.is_admin?  %>
+				<div class="box">
+					<% if @button.context_sample != nil %>
+						<%= link_to 'Add Artifact to Context', {:action => 'new', :context_sample => @button.context_sample.ContextSampleID}, {:class => 'add-new'}%>
+					<% end %>
+					<!-- <a href="#" data-toggle="modal" data-target="#add-new" class="add-new">Add New record</a> -->
+				</div><!-- box -->
+				<div class="box">
+					<button id="button-record-save" class="btn btn-success btn-save ie-fix"><span>Save</span></button>
+					<%= image_tag('fancybox_loading.gif', :style => 'display:none', :id => 'loading-icon') %>
+					<div class="area clearfix">
+						<%= link_to('Duplicate', {:action => 'duplicate', :id => params[:id]}, {:class=>"btn btn-info btn-duplicate ie-fix"})%>
+						<%# if current_user.user_level >= 3 or current_user.user_level == 2  %>
+						<% if current_user.deletable_projects.include?(@button.project) or current_user.is_admin?  %>
+							<a href="#" data-toggle="modal" data-target="#delete-alert-modal" class="delete">Delete</a>
+						<% end %>
+					</div>
+				</div><!-- box -->
+				<% end %>
+				<div class="details-bar">
+					<a href="#" data-toggle="dropdown" class="open-close"></a>
+					<div class="drop dropdown-menu" role="menu">
+						<div class="info-box">
+							<dl>
+								<dt class="visible-md visible-lg">Artifact ID:</dt><dd class="visible-md visible-lg"><%= @button.ArtifactID != nil ? @button.ArtifactID : ' - ' %></dd>
+								<dt>Project:</dt><dd><%= (@button.context_sample != nil and @button.context_sample.project != nil) ? @button.context_sample.project.project_name.ProjectName : ' - ' %></dd>
+								<dt>Context Sample:</dt><dd><%= @button.context_sample != nil ? @button.context_sample.ContextSampleID.gsub(';','') : ' - ' %></dd>
+							</dl>
+							<dl>
+								<dt>Material:</dt><dd><%= @button.button_material != nil ? @button.button_material.ButtonMaterial : ' - ' %></dd>
+								<dt>Color:</dt><dd><%= @button.button_basic_color != nil ? @button.button_basic_color.BasicColor : ' - ' %></dd>
+								<dt>Manu Tech:</dt><dd><%= @button.button_manu_tech != nil ? @button.button_manu_tech.ButtonManuTech : ' - ' %></dd>
+								<dt>Type:</dt><dd><%= @button.button_type != nil ? @button.button_type.ButtonType : ' - ' %></dd>
+								<dt>Shape:</dt><dd><%= @button.button_shape != nil ? @button.button_shape.ButtonShape : ' - ' %></dd>
+							</dl>
+						</div><!-- info-box -->
+						<div class="aside-accordion" id="aside-accordion">
+							<div class="panel">
+								<h2><a class="collapsed" data-toggle="collapse" data-parent="#aside-accordion" href="#collapse-01">all artifacts in context</a></h2>
+								<div id="collapse-01" class="panel-collapse collapse">
+									<div class="frame">
+										<div class="artifacts scrollable-area">
+											<ul>
+												<% @in_context.each do |button| %>
+													<!--  check for saving!!! -->
+													<li <%= @button.ArtifactID == button.ArtifactID ? 'class=current' : '' %>><%= @button.ArtifactID != button.ArtifactID ? link_to(button.ArtifactID, edit_button_path(button)) : button.ArtifactID %></li>
+												<% end %>
+											</ul>
+										</div><!-- artifacts -->
+									</div>
+								</div>
+							</div>
+							<div class="panel">
+								<h2 class="visible-md visible-lg"><a class="collapsed" data-toggle="collapse" data-parent="#aside-accordion" href="#collapse-02">Cataloger Details</a></h2>
+								<div id="collapse-02" class="panel-collapse collapse">
+									<div class="details-box">
+										<dl>
+											<% user = User.where('editor_id = ?', @button.EditorIDN).first %>
+											<dt>Added By:</dt><dd><%= user != nil ? "#{(user.first_name != nil and user.first_name != '') ? user.first_name+' '+user.last_name : user.userid}" : ' - '%></dd>
+											<dt>Date Added:</dt><dd><%=h @button.DateAdded !=nil ? @button.DateAdded.strftime('%m/%d/%Y %H:%M:%S') : " - "%></dd>
+										</dl>
+										<dl>
+											<% user = User.where('editor_id = ?', @button.EditorID).first %>
+											<dt>Changed By:</dt><dd><%= user != nil ? "#{(user.first_name != nil and user.first_name != '') ? user.first_name+' '+user.last_name : user.userid}" : ' - '%></dd>
+											<dt>Date Changed:</dt><dd><%=h @button.DateChanged !=nil ? @button.DateChanged.strftime('%m/%d/%Y %H:%M:%S') : " - "%></dd>
+										</dl>
+										<div class="clearfix">
+											<a href="#" class="link">Change Log</a>
+										</div>
+									</div><!-- details-box -->
+								</div>
+							</div>
+							<div class="panel">
+								<% if @button.artifact_images.size > 0 %>
+								<h2 class="visible-md visible-lg"><a class="collapsed" data-toggle="collapse" data-parent="#aside-accordion" href="#collapse-03">Images</a></h2>
+								<div id="collapse-03" class="panel-collapse collapse">
+									<script>
+										function showFancybox(){		
+										if ($('.fancybox').exists()){
+											$('.fancybox').fancybox({
+												href : $('.item.active').children()[0].src,
+												prevEffect : 'fade',
+												nextEffect : 'fade',
+											});
+										}
+										}
+										
+									</script>
+									<div class="slideshow slide" id="slideshow-01" data-ride="carousel" data-interval="false">
+										<div class="carousel-inner">
+											<% first = true %>
+											<% @button.artifact_images.each do |artifact_image| %>
+												<div class="item <%= first == true ? 'active' : '' %>">
+													<%= image_tag(artifact_image.image.ImageFileLocation) if artifact_image.image != nil%>
+												</div>
+												<% first = false %>
+											<% end %>
+										</div>
+										<a class="loupe fancybox" onclick="showFancybox();return false;" href="#">loupe</a>
+										<a class="prev-btn" href="#slideshow-01" data-slide="prev">&#60;</a>
+										<a class="next-btn" href="#slideshow-01" data-slide="next">&#62;</a>
+									</div><!-- slideshow -->
+								</div>
+								<% end %>
+							</div>
+						</div><!-- accordion -->
+					</div>
+				</div><!-- details-bar -->
+			</aside><!-- aside -->
+			<section class="tabs">
+				<ul class="nav nav-tabs">
+					<li class="active"><a href="#tab-01" data-toggle="tab">Main</a></li>
+					<li><a href="#tab-02" data-toggle="tab">Measurements</a></li>
+					<li><a href="#tab-03" data-toggle="tab">Decoration/Back Stamp</a></li>
+					<li><a href="#tab-04" data-toggle="tab">Two piece Info</a></li>
+					<li><a href="#tab-05" data-toggle="tab">Condition</a></li>
+					<li><a href="#tab-06" data-toggle="tab">Image</a></li>
+					<li><a href="#tab-07" data-toggle="tab">Object</a></li>
+				</ul><!-- nav-tabs -->
+				<div class="tab-content">
+					<div class="tab-pane active" id="tab-01">
+						<section class="section">
+							<div class="heading">
+								<h2>General</h2>
+							</div>
+							<div class="material-form">
+							<div class="two-columns">
+								<div class="row-area">
+									<div class="col">
+										<%= f.label('Quantity', 'Artifact Count')%>
+										<div class="frame">
+											<%= f.text_field('Quantity', {:class => "form-control"})%>
+										</div>
+									</div>
+									<div class="col">
+										<%= f.label('CompletenessID', 'Completeness')%>
+										<div class="frame">
+											<%= f.collection_select('CompletenessID', Completeness.all.order('"Completeness"'), :id, 'Completeness', {:include_blank => '--select--'}, {'data-placeholder' => '--select--', :class => 'form-control'})%>
+										</div>
+									</div>
+								</div><!-- row-area -->
+								<div class="row-area">
+									<div class="col">
+										<%= f.label('ButtonMaterialID', 'Material')%>
+										<div class="frame">
+											<%= f.collection_select('ButtonMaterialID', ButtonMaterial.all.order('"ButtonMaterial"'), :id, 'ButtonMaterial', {:include_blank => '--select--'}, {'data-placeholder' => '--select--', :class => 'form-control'})%>
+										</div>
+									</div>
+									<div class="col">
+										<%= f.label('ButtonManuTechID', 'Manu Tech')%>
+										<div class="frame">
+											<%= f.collection_select('ButtonManuTechID', ButtonManuTech.all.order('"ButtonManuTech"'), :id, 'ButtonManuTech', {:include_blank => '--select--'}, {'data-placeholder' => '--select--', :class => 'form-control'})%>
+										</div>
+									</div>
+								</div><!-- row-area -->
+								<div class="row-area">
+									<div class="col">
+										<%= f.label('ButtonTypeID', 'Button Type')%>
+										<div class="frame">
+											<%= f.collection_select('ButtonTypeID', ButtonType.all.order('"ButtonType"'), :id, 'ButtonType', {:include_blank => '--select--'}, {'data-placeholder' => '--select--', :class => 'form-control'})%>
+										</div>
+									</div>
+									<div class="col">
+										<%= f.label('ButtonFormID', 'Button Form')%>
+										<div class="frame">
+											<%= f.collection_select('ButtonShapeID', ButtonShape.all.order('"ButtonShape"'), :id, 'ButtonShape', {:include_blank => '--select--'}, {'data-placeholder' => '--select--', :class => 'form-control'})%>
+										</div>
+									</div>
+								</div><!-- row-area -->
+								<div class="row-area">
+									<div class="col">
+										<%= f.label('ButtonBasicColorID', 'Button Color')%>
+										<div class="frame">
+											<%= f.collection_select('ButtonBasicColorID', BasicColor.all.order('"BasicColor"'), :id, 'BasicColor', {:include_blank => '--select--'}, {'data-placeholder' => '--select--', :class => 'form-control'})%>
+										</div>
+									</div>
+									<div class="col">
+										<%= f.label('ButtonMetalColorID', 'Button Metal Color')%>
+										<div class="frame">
+										<%= f.collection_select('ButtonMetalColorID', ButtonMetalColor.all.order('"ButtonMetalColor"'), :id, 'ButtonMetalColor', {:include_blank => '--select--'}, {'data-placeholder' => '--select--', :class => 'form-control'})%>
+										</div>
+									</div>
+								</div><!-- row-area -->
+								<div class="row-area">
+									<div class="col">
+										<%= f.label('MendedYNID', 'Mended?')%>
+										<div class="frame">
+											<%= f.collection_select('MendedYNID', Mended.all.order('"MendYN"'), :id, 'MendYN', {:include_blank => '--select--'}, {'data-placeholder' => '--select--', :class => 'form-control'})%>
+										</div>
+									</div>
+									<div class="col">
+										<%= f.label('DecorationYN', 'Decoration?')%>
+										<div class="frame">
+											<%= f.collection_select('DecorationYN', YesNo.all.order('"YesNo"'), :id, 'YesNo', {:include_blank => '--select--'}, {'data-placeholder' => '--select--', :class => 'form-control'})%>
+										</div>
+									</div>
+									
+								</div><!-- row-area -->
+							</div><!-- material-form -->
+							</div>
+						</section><!-- section -->
+						<section class="section">
+							<div class="heading">
+								<h2>Attributes</h2>
+							</div>
+							<div class="material-form">
+							<div class="two-columns">
+								<div class="row-area">
+									<div class="col">
+										<%= f.label('EyeID', 'Eye')%>
+										<div class="frame">
+											<%= f.collection_select('EyeID', ButtonEye.all.order('"Eye"'), :id, 'Eye', {:include_blank => '--select--'}, {'data-placeholder' => '--select--', :class => 'form-control'})%>
+										</div>
+									</div>
+									<div class="col">
+										<%= f.label('ShankMaterialID', 'Shank Material')%>
+										<div class="frame">
+											<%= f.collection_select('ShankMaterialID', ButtonShankMaterial.all.order('"ShankMaterial"'), :id, 'ShankMaterial', {:include_blank => '--select--'}, {'data-placeholder' => '--select--', :class => 'form-control'})%>
+										</div>
+									</div>
+								</div><!-- row-area -->
+								<div class="row-area">
+									<div class="col">
+										<%= f.label('ShankStyleID', 'Shank Style')%>
+										<div class="frame">
+											<%= f.collection_select('ShankStyleID', ButtonShankStyle.all.order('"ShankStyle"'), :id, 'ShankStyle', {:include_blank => '--select--'}, {'data-placeholder' => '--select--', :class => 'form-control'})%>
+										</div>
+									</div>
+									<div class="col">
+										<%= f.label('ShankConditionID', 'Shank Condition')%>
+										<div class="frame">
+											<%= f.collection_select('ShankConditionID', ButtonShankCondition.all.order('"ShankCondition"'), :id, 'ShankCondition', {:include_blank => '--select--'}, {'data-placeholder' => '--select--', :class => 'form-control'})%>
+										</div>
+									</div>
+								</div><!-- row-area -->
+							</div><!-- material-form -->
+							</div>
+						</section><!-- section -->
+						<section class="section">
+							<div class="heading">
+								<h2>Notes</h2>
+							</div>
+							<div class="one-column">
+								<div class="row-area">
+									<%= f.text_area('Notes', {:class => "form-control"})%>
+								</div>								
+							</div>
+						</section>
+					</div><!-- tab-01 -->
+					<div class="tab-pane" id="tab-02">
+						<div class="">
+								<section class="section">
+									<div class="heading">
+										<h2>Measurements</h2>
+									</div>
+									<div class="two-columns">
+										<div class="row-area">
+											<div class="col">
+												<%= f.label 'Weight', 'Button Weight (grams)'%>
+												<div class="frame">
+													<%= f.text_field('Weight', {:class => 'form-control'})%>
+												</div>
+											</div>
+											<div class="col">
+												<%= f.label 'Height', 'Button Height (mm)' %>
+												<div class="frame">
+													<%= f.text_field('Height', {:class => 'form-control'})%>
+												</div>
+											</div>
+										</div><!-- row-area -->
+										<div class="row-area">
+											<div class="col">
+												<%= f.label 'Diameter', 'Button Diameter (mm)'%>
+												<div class="frame">
+													<%= f.text_field('Diameter', {:class => 'form-control'})%>
+												</div>
+											</div>
+											<div class="col">
+												<%= f.label 'Length', 'Button Length (mm)' %>
+												<div class="frame">
+													<%= f.text_field('Length', {:class => 'form-control'})%>
+												</div>
+											</div>
+										</div><!-- row-area -->
+										<div class="row-area">
+											<div class="col">
+												<%= f.label 'Width', 'Button Width (mm)' %>
+												<div class="frame">
+													<%= f.text_field('Width', {:class => 'form-control'})%>
+												</div>
+											</div>
+										</div><!-- row-area -->
+									</div>
+								</section><!-- section -->
+						</div><!-- measurements -->
+					</div><!-- tab-02 -->
+					<div class="tab-pane" id="tab-03">
+						<section class="section">
+							<div class="heading">
+								<h2>Specific Attributes</h2>
+							</div>
+							<div class="material-form">
+							<div class="two-columns">
+								<div class="row-area">
+									<div class="col">
+										<%= f.label('BackStamp', 'Back Stamp')%>
+										<div class="frame">
+											<%= f.text_field('BackStamp', {:maxlength => 15, :class => 'form-control'})%>
+										</div>
+									</div>
+								</div><!-- row-area -->
+							</div><!-- material-form -->
+							</div>
+						</section><!-- section -->
+						<section class="section">
+							<div class="heading">
+								<h2>Decoration</h2>
+							</div>
+							<div class="decorations">
+								<div id="decoration-elements">
+								<% @decoration_colored = true %>
+								<% if @button.button_dec_techs.any? %>
+									<%= f.fields_for :button_dec_techs do |mat| %>
+										<%= render 'button_dec_tech_fields', f: mat %>
+										<% @decoration_colored = @decoration_colored == true ? false : true %>
+										<%# debugger %>
+									<% end %>
+									<% if @decoration_colored == false %>
+										<script>
+											decoration_color = false;
+										</script>
+									<% else %>
+										<script>
+											decoration_color = true;
+										</script>
+									<% end %>
+								<% else %>
+								<span class="decoration-empty-relationship">Click Add for new entries.</span>
+									<%#= render_new_nested_fields f, :gen_artifact_materials %>
+								<% end %>
+								<% @decoration_colored = false %>
+								</div>
+								<div class="clearfix">
+									<%= link_to_add_fields "Add Decoration", f, :button_dec_techs, {:id=>"decoration-add", :class => "btn btn-info btn-add"} %>
+								</div>
+							</div><!-- stylistic-elements -->
+							
+						</section><!-- section -->
+						</div>
+						<div class="tab-pane" id="tab-04">
+							<section class="section">
+								<div class="heading">
+									<h2>Attributes</h2>
+								</div>
+								<div class="material-form">
+								<div class="two-columns">
+									<div class="row-area">
+										<div class="col">
+											<%= f.label('ButtonFaceMaterialID', 'Button Face Material')%>
+											<div class="frame">
+												<%= f.collection_select('ButtonFaceMaterialID', ButtonMaterial.all.order('"ButtonMaterial"'), :id, 'ButtonMaterial', {:include_blank => '--select--'}, {'data-placeholder' => '--select--', :class => 'form-control'})%>
+											</div>
+										</div>
+										<div class="col">
+											<%= f.label('ButtonFaceManuTechID', 'Button Face Manufacturing Technique')%>
+											<div class="frame">
+												<%= f.collection_select('ButtonFaceManuTechID', ButtonManuTech.all.order('"ButtonManuTech"'), :id, 'ButtonManuTech', {:include_blank => '--select--'}, {'data-placeholder' => '--select--', :class => 'form-control'})%>
+											</div>
+										</div>
+									</div><!-- row-area -->
+									<div class="row-area">
+											<div class="col">
+												<%= f.label('ButtonJoinMethodID', 'Button Join Method')%>
+												<div class="frame">
+													<%= f.collection_select('ButtonJoinMethodID', ButtonJoinMethod.all.order('"ButtonJoinMethod"'), :id, 'ButtonJoinMethod', {:include_blank => '--select--'}, {'data-placeholder' => '--select--', :class => 'form-control'})%>
+												</div>
+											</div>
+									</div><!-- row-area -->
+								</div><!-- material-form -->
+								</div>
+							</section><!-- section -->
+
+          </div>
+					<div class="tab-pane" id="tab-05">
+						<section class="section">
+							<div class="heading">
+								<h2>Condition</h2>
+							</div>
+							<div class="material-form">
+							<div class="two-columns">
+								<div class="row-area">
+									<div class="col">
+										<%= f.label('Burned', 'Burned?')%>
+										<div class="frame">
+											<%= f.collection_select('Burned', YesNo.all.order('"YesNo"'), :id, 'YesNo', {:include_blank => '--select--'}, {'data-placeholder' => '--select--', :class => 'form-control'})%>
+										</div>
+									</div>
+									<div class="col">
+										<%= f.label('PMM', 'Post-Manufacturing Modification?')%>
+										<div class="frame">
+											<%= f.collection_select('PMM', YesNo.all.order('"YesNo"'), :id, 'YesNo', {:include_blank => '--select--'}, {'data-placeholder' => '--select--', :class => 'form-control'})%>
+										</div>
+									</div>
+								</div><!-- row-area -->
+								<div class="row-area">
+									<div class="col">
+										<%= f.label('Conservation', 'Conservation?')%>
+										<div class="frame">
+											<%= f.text_field('Conservation', {:maxlength => 15, :class => 'form-control'})%>
+										</div>
+									</div>
+								</div><!-- row-area -->
+							</div><!-- material-form -->
+							</div>
+						</section><!-- section -->
+						
+          </div>
+
+					<div class="tab-pane" id="tab-06">
+						<div class="image-list">
+							<div id="image-elements">
+								<%= f.fields_for :artifact_images do |aif| %>
+									<%= render 'artifact_image_fields', f: aif %>
+								<% end %>
+							</div>
+							<div class="clearfix">
+								<div class="btn-area">
+									<%= link_to_add_fields "Add Image", f, :artifact_images, {:id=>"image-add", :class => "btn btn-info btn-add"} %>
+									<!-- <a class="btn btn-info btn-add" data-toggle="modal" data-target="#new-image">Add</a> -->
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="tab-pane" id="tab-07">
+						<div class="object-list">
+							<div id="object-elements">
+								<%= f.fields_for :gen_object_artifacts do |aif| %>
+									<%= render 'partials/gen_object_artifact_fields', f: aif %>
+								<% end %>
+							</div>
+							<div class="clearfix">
+								<div class="btn-area">
+									<%= link_to_add_fields "Add Object", f, :gen_object_artifacts, {:id=>"object-add", :class => "btn btn-info btn-add"} %>
+									<!-- <a class="btn btn-info btn-add" data-toggle="modal" data-target="#new-image">Add</a> -->
+								</div>
+							</div>
+						</div>
+					</div>
+				</div><!-- tab-content -->
+			</section><!-- tabs -->
+		</fieldset>
+	<% end %>
+</div>
+<div class="modal alert-modal fade" id="casing-alert-modal" tabindex="-1" role="dialog" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+				<h4 class="modal-title">Alert</h4>
+			</div>
+			<div class="modal-body">
+				<p class="txt">Are you sure you want to delete?</p>
+			</div>
+			<div class="modal-footer">
+				<button class="btn btn-default" data-dismiss="modal">Cancel</button>
+				<button class="btn btn-warning casing-delete">Delete</button>
+			</div>
+		</div><!-- /.modal-content -->
+	</div><!-- /.modal-dialog -->
+</div><!-- alert-modal -->
+
+<div class="modal alert-modal fade" id="decoration-alert-modal" tabindex="-1" role="dialog" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+				<h4 class="modal-title">Alert</h4>
+			</div>
+			<div class="modal-body">
+				<p class="txt">Are you sure you want to delete?</p>
+			</div>
+			<div class="modal-footer">
+				<button class="btn btn-default" data-dismiss="modal">Cancel</button>
+				<button class="btn btn-warning decoration-delete">Delete</button>
+			</div>
+		</div><!-- /.modal-content -->
+	</div><!-- /.modal-dialog -->
+</div><!-- alert-modal -->
+
+<div class="modal alert-modal fade" id="mend-alert-modal" tabindex="-1" role="dialog" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+				<h4 class="modal-title">Alert</h4>
+			</div>
+			<div class="modal-body">
+				<p class="txt">Are you sure you want to delete?</p>
+			</div>
+			<div class="modal-footer">
+				<button class="btn btn-default" data-dismiss="modal">Cancel</button>
+				<button class="btn btn-warning mend-delete">Delete</button>
+			</div>
+		</div><!-- /.modal-content -->
+	</div><!-- /.modal-dialog -->
+</div><!-- alert-modal -->
+
+<div class="modal alert-modal fade" id="delete-alert-modal" tabindex="-1" role="dialog" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+				<h4 class="modal-title">Alert</h4>
+			</div>
+			<div class="modal-body">
+				<p class="txt">Are you sure you want to delete?</p>
+			</div>
+			<div class="modal-footer">
+				<button class="btn btn-default" data-dismiss="modal">Cancel</button>
+				<button class="btn btn-warning delete-record">Delete</button>
+			</div>
+		</div><!-- /.modal-content -->
+	</div><!-- /.modal-dialog -->
+</div><!-- alert-modal -->

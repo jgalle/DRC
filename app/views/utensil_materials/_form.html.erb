@@ -1,0 +1,21 @@
+<%= form_for(@utensil_material) do |f| %>
+  <% if @utensil_material.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@utensil_material.errors.count, "error") %> prohibited this utensil_material from being saved:</h2>
+
+      <ul>
+      <% @utensil_material.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :utensil_material %><br />
+    <%= f.text_field :utensil_material %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

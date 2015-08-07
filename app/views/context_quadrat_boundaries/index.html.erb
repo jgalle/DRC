@@ -1,0 +1,29 @@
+<h1>Listing context_quadrat_boundaries</h1>
+
+<table>
+  <tr>
+    <th>Quadrat northing</th>
+    <th>Quadrat easting</th>
+    <th>Quadrat</th>
+    <th>Project</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @context_quadrat_boundaries.each do |context_quadrat_boundary| %>
+  <tr>
+    <td><%= context_quadrat_boundary.quadrat_northing %></td>
+    <td><%= context_quadrat_boundary.quadrat_easting %></td>
+    <td><%= context_quadrat_boundary.quadrat_id %></td>
+    <td><%= context_quadrat_boundary.project_id %></td>
+    <td><%= link_to 'Show', context_quadrat_boundary %></td>
+    <td><%= link_to 'Edit', edit_context_quadrat_boundary_path(context_quadrat_boundary) %></td>
+    <td><%= link_to 'Destroy', context_quadrat_boundary, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Context quadrat boundary', new_context_quadrat_boundary_path %>

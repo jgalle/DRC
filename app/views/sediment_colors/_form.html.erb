@@ -1,0 +1,25 @@
+<%= form_for(@sediment_color) do |f| %>
+  <% if @sediment_color.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@sediment_color.errors.count, "error") %> prohibited this sediment_color from being saved:</h2>
+
+      <ul>
+      <% @sediment_color.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :munsell_sediment_color %><br />
+    <%= f.text_field :munsell_sediment_color %>
+  </div>
+  <div class="field">
+    <%= f.label :munsell_description %><br />
+    <%= f.text_field :munsell_description %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

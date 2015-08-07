@@ -1,0 +1,21 @@
+<%= form_for(@image_subtype) do |f| %>
+  <% if @image_subtype.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@image_subtype.errors.count, "error") %> prohibited this image_subtype from being saved:</h2>
+
+      <ul>
+      <% @image_subtype.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :ImageSubtype %><br>
+    <%= f.text_field :ImageSubtype %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

@@ -1,0 +1,23 @@
+<h1>Listing context_feature_plan_shapes</h1>
+
+<table>
+  <tr>
+    <th>Plan shape</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @context_feature_plan_shapes.each do |context_feature_plan_shape| %>
+  <tr>
+    <td><%= context_feature_plan_shape.plan_shape %></td>
+    <td><%= link_to 'Show', context_feature_plan_shape %></td>
+    <td><%= link_to 'Edit', edit_context_feature_plan_shape_path(context_feature_plan_shape) %></td>
+    <td><%= link_to 'Destroy', context_feature_plan_shape, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Context feature plan shape', new_context_feature_plan_shape_path %>

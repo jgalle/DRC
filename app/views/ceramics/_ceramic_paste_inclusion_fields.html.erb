@@ -1,0 +1,9 @@
+                    <div class="options-box <%= @inclusion_colored == true ? 'colored' : '' %>">
+                                <div class="col">
+																	<%= f.label('PasteInclusionID', 'Inclusions')%>
+																	<%= f.collection_select('PasteInclusionID', PasteInclusion.all.order('"PasteInclusion"'), :id, 'PasteInclusion', {:include_blank => '--select--'}, {'data-placeholder' => '--select--', :class => 'form-control'})%>
+                                </div>
+																<%= f.hidden_field :_destroy %>
+																<a href="#" data-toggle="modal" data-target="#inclusion-alert-modal" class="inclusion-delete-link delete" tabindex="-1">Delete</a>
+<div class="number" style="display:none">_NUM_</div>
+                    </div><!-- block -->

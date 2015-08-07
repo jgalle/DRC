@@ -1,0 +1,25 @@
+<h1>Listing ceramic_paste_inclusions</h1>
+
+<table>
+  <tr>
+    <th>Artifact</th>
+    <th>Paste inclusion</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @ceramic_paste_inclusions.each do |ceramic_paste_inclusion| %>
+  <tr>
+    <td><%= ceramic_paste_inclusion.artifact_id %></td>
+    <td><%= ceramic_paste_inclusion.paste_inclusion_id %></td>
+    <td><%= link_to 'Show', ceramic_paste_inclusion %></td>
+    <td><%= link_to 'Edit', edit_ceramic_paste_inclusion_path(ceramic_paste_inclusion) %></td>
+    <td><%= link_to 'Destroy', ceramic_paste_inclusion, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Ceramic paste inclusion', new_ceramic_paste_inclusion_path %>

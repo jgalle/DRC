@@ -1,0 +1,21 @@
+<%= form_for(@project_geo_coordinate_system) do |f| %>
+  <% if @project_geo_coordinate_system.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@project_geo_coordinate_system.errors.count, "error") %> prohibited this project_geo_coordinate_system from being saved:</h2>
+
+      <ul>
+      <% @project_geo_coordinate_system.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :geo_coordinate_system %><br />
+    <%= f.text_field :geo_coordinate_system %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

@@ -1,0 +1,139 @@
+<tr>
+	<td>
+		<table class="table">
+			<tr>
+				<td>
+			    <%= f.label 'Feature Number' %>
+				</td>
+				<td>
+						<%= f.text_field :feature_number %>
+				</td>
+			</tr>
+			<tr>
+				<td>
+			    <%= f.label 'Feature Type' %>
+				</td>
+				<td>
+					<!--  check what field should go here -->
+			    <%= f.collection_select(:feature_type_id, ContextFeatureType.all, :id, :feature_type, {}, :disabled => 'disabled') %>
+				</td>
+			</tr>
+			<tr>
+				<td>
+			    <%= f.label 'Feature Area' %>
+				</td>
+				<td>
+						<%= f.text_area :description, :rows => 3 %>
+				</td>
+			</tr>
+			<tr>
+				<td>
+			    <%= f.label 'Length' %>
+				</td>
+				<td>
+						<%= f.text_field :length %>
+				</td>
+			</tr>
+			<tr>
+				<td>
+			    <%= f.label 'Width' %>
+				</td>
+				<td>
+						<%= f.text_field :width %>
+				</td>
+			</tr>
+			<tr>
+				<td>
+			    <%= f.label 'Depth' %>
+				</td>
+				<td>
+						<%= f.text_field :depth %>
+				</td>
+			</tr>
+			<tr>
+				<td>
+			    <%= f.label 'Original Pit Cut Length' %>
+				</td>
+				<td>
+						<%= f.text_field :original_pit_cut_length %>
+				</td>
+			</tr>
+			<tr>
+				<td>
+			    <%= f.label 'Original Pit Cut Width' %>
+				</td>
+				<td>
+						<%= f.text_field :original_pit_cut_width %>
+				</td>
+			</tr>
+			<tr>
+				<td>
+			    <%= f.label 'Original Pit Cut depth' %>
+				</td>
+				<td>
+						<%= f.text_field :original_pit_cut_depth %>
+				</td>
+			</tr>
+		</table>
+	</td>
+	<td>
+		<table class="table">
+			<tr>
+				<td>
+			    <%= f.label 'Plan Shape' %>
+				</td>
+				<td>
+			    <%= f.collection_select(:plan_shape_id, ContextFeaturePlanShape.all, :id, :plan_shape, {:include_blank => true}) %>
+				</td>
+			</tr>
+			<tr>
+				<td>
+			    <%= f.label 'Plan Profile' %>
+				</td>
+				<td>
+			    <%= f.collection_select(:profile_shape_id, ContextFeatureProfileShape.all, :id, :profile_shape, {:include_blank => true}) %>
+				</td>
+			</tr>
+			<tr>
+				<td>
+			    <%= f.label 'Centroid X' %>
+				</td>
+				<td>
+					<%= f.text_field :centroid_x %>
+				</td>
+			</tr>
+			<tr>
+				<td>
+			    <%= f.label 'Centroid Y' %>
+				</td>
+				<td>
+					<%= f.text_field :centroid_y %>
+				</td>
+			</tr>
+			<tr>
+				<td>
+			    <%= f.label 'Feature TPQ' %>
+				</td>
+				<td>
+					<%= f.text_field :feature_tpq %>
+				</td>
+			</tr>
+			<tr>
+				<td>
+			    <%= f.label 'Feature Group' %>
+				</td>
+				<td>
+					<%= f.text_field :feature_group %>
+				</td>
+			</tr>
+			<tr>
+				<td>
+			    <%= f.label 'Feature Group Interpretation' %>
+				</td>
+				<td>
+					<%= f.text_area :feature_group_interpretation, :rows => 4 %>
+				</td>
+			</tr>
+		</table>
+	</td>
+</tr>

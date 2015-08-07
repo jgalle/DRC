@@ -1,0 +1,23 @@
+<h1>Listing context_open_closes</h1>
+
+<table>
+  <tr>
+    <th>Opening closing</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @context_open_closes.each do |context_open_close| %>
+  <tr>
+    <td><%= context_open_close.opening_closing %></td>
+    <td><%= link_to 'Show', context_open_close %></td>
+    <td><%= link_to 'Edit', edit_context_open_close_path(context_open_close) %></td>
+    <td><%= link_to 'Destroy', context_open_close, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Context open close', new_context_open_close_path %>

@@ -1,0 +1,21 @@
+<%= form_for(@ceramic_base_mark) do |f| %>
+  <% if @ceramic_base_mark.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@ceramic_base_mark.errors.count, "error") %> prohibited this ceramic_base_mark from being saved:</h2>
+
+      <ul>
+      <% @ceramic_base_mark.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :base_mark %><br />
+    <%= f.text_field :base_mark %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

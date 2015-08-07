@@ -1,0 +1,21 @@
+<h1>Listing context_elevations</h1>
+
+<table>
+  <tr>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @context_elevations.each do |context_elevation| %>
+  <tr>
+    <td><%= link_to 'Show', context_elevation %></td>
+    <td><%= link_to 'Edit', edit_context_elevation_path(context_elevation) %></td>
+    <td><%= link_to 'Destroy', context_elevation, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Context elevation', new_context_elevation_path %>

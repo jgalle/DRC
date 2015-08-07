@@ -1,0 +1,632 @@
+<div class="page-header page-header-004 query-database popover-area">
+		<div class="frame">
+			<div class="clearfix">
+				<% if params[:daacs] != nil and params[:daacs] != '' %>
+					<div class="dropdown options-drop back-to-queries">
+												<a href="http://www.daacs.org/query-the-database/" id="back-to-queries" class="btn btn-info ie-fix">Back to Queries Page</a>
+					</div>
+				<% end %>
+				
+			</div>
+		</div><!-- frame -->
+		<div class="">
+	<h1>Query the Database</h1>
+	<p>Artifact Query 5: Select Artifact Attributes by Category <a id="aq5-popover" class="btn what-is-this" data-content="This detailed query returns all data for a specific artifact type. You select the project and artifact type. In addition, you may choose specific context(s) or Unit Type(s) or Feature Number(s) or Feature Type (s) or Stratigraphic Group(s) or Phase(s) from which you would like to view data. Data are summarized at the context level." data-placement="right" data-toggle="popover" data-container="body" type="button" data-original-title="What Does This Query Do?" title="">What does this query do?</a></p>
+	</div>
+</div><!-- page-header -->
+<div class="query-database popover-area">
+	<%= form_tag({:action => 'search'}, {:onreset=>"setTimeout(function(){sitesContain()},100)"}) do %>
+	<!-- <form action="#" onreset="setTimeout(function(){sitesContain()},100)"> -->
+		<input type="hidden" name="daacs" value="<%= params[:daacs] %>">
+		<fieldset>
+			<div class="tabs">
+				<ul class="nav nav-tabs">
+					<li class="active"><a href="#tab-step1" data-toggle="tab">Step 1</a></li>
+					<li><a href="#tab-step2" data-toggle="tab">Step 2</a></li>
+					<li><a href="#tab-step3" data-toggle="tab">Step 3</a></li>
+				</ul><!-- end nav-tabs --> 
+				<div class="tab-content" id="query-steps">
+					<div class="block tab-pane active" id="tab-step1">
+						<div class="heading">
+							<h2>Step 1: Choose an Artifact Type and Attributes</h2>
+						</div><!-- end heading -->
+						<div class="section section-001" id="artifact-attributes">
+							<div class="wrap">
+								<div class="panel-group" id="accordion">
+									<div class="panel panel-default">
+										<div class="panel-heading">
+											<h4 class="panel-title"><a data-toggle="collapse" data-parent="#accordion" href="#collapse-beads" class="<%= (params[:buckle_fields] != nil or params[:button_fields] != nil or params[:ceramic_fields] != nil or params[:glass_fields] != nil or params[:tobacco_pipe_fields] != nil or params[:utensil_fields] != nil or params[:gen_artifact_fields] != nil) ? 'collapsed' : '' %>"><label><div class="custom-radio"><i class="custom-radio<%= (params[:buckle_fields] == nil and params[:button_fields] == nil and params[:ceramic_fields] == nil and params[:glass_fields] == nil and params[:gen_artifact_fields] == nil and params[:tobacco_pipe_fields] == nil and params[:utensil_fields] == nil) ? '-selected' : '' %>"></i></div> Beads</label></a></h4>
+										</div>
+										<div id="collapse-beads" class="panel-collapse collapse <%= (params[:buckle_fields] != nil or params[:button_fields] != nil or params[:ceramic_fields] != nil or params[:glass_fields] != nil or params[:tobacco_pipe_fields] != nil or params[:utensil_fields] != nil or params[:gen_artifact_fields] != nil) ? '' : 'in' %>">
+											<div class="panel-body">
+												<div class="collapse-block">
+													<div class="check-block-container dropup">
+														<a href="#beads_attributes" class="toggle-header">Select Bead Attributes <i class="caret"></i></a>
+														<div class="box" id="beads_attributes">
+															<div class="check-block">
+																<label><input type="checkbox" onchange="checkAll(this)" class="check">Select All</label>
+															</div>
+															<div class="scrollable-area"> 
+																<ul> 
+																	<% items = ['Completeness|CompletenessID', 'Material|BeadMaterialID', 'Manufacturing Technique|BeadManuTechID', 'Structure|StructureID', 'Form|BeadFormID', 'Shape|BeadShapeID', 'Diaphaneity|DiaphaneityID', 'Post Manufacturing Modification|PMM', 'Patination|Patination', 'Weather Eroded|BeadWeatheredEroded', 'Burned|Burned', 'Length|Length', 'Mended|Length', 'Conservation|Conservation', 'Images', 'Notes|Notes', 'Casting Layer Color', 'Decorative Technique']%>
+																	<% num = 0 %>
+																	<% third = (items.size/3).to_i%>
+																	<% items.each do |item| %>
+																	<li> <%# debugger %>
+																		<input name="bead_fields[]" value="<%= item %>" type="checkbox" id="lbl-<%= (num+=1).to_s.rjust(3,'0') %>" class="check" <%= (params[:bead_fields] != nil and params[:bead_fields].include? item) ? 'checked' : '' %> /> <label for="lbl-<%= num.to_s.rjust(3,'0') %>"><%= item.split('|').first %></label> 
+																	</li> 
+																	<% if num%(third+1) == 0 %>
+																		</ul>
+																		<ul>
+																	<% end %>
+																	<% end %>
+				 												</ul> 
+															</div><!-- end scrollable-area -->
+														</div><!-- end box -->
+													</div>
+												</div><!-- end collapse-block -->
+											</div><!-- end panel-body -->
+										</div><!-- end #collapse-beads -->
+									</div><!-- end panel -->
+									<div class="panel">
+		                                <div class="panel-heading">
+		                                    <h4 class="panel-title"><a data-toggle="collapse" data-parent="#accordion" href="#collapse-buckles" class="<%= (params[:buckle_fields] == nil) ? 'collapsed' : 'in' %>"><label><div class="custom-radio"><i class="<%= (params[:buckle_fields] != nil) ? 'custom-radio-selected' : '' %>"></i></div> Buckles</label></a></h4>
+		                                </div>
+		                                <div id="collapse-buckles" class="panel-collapse collapse <%= (params[:buckle_fields] == nil) ? 'collapsed' : 'in' %>">
+		                                    <div class="panel-body">
+		                                        <div class="collapse-block">
+													<div class="check-block-container dropup">
+														<a href="#beads_attributes" class="toggle-header">Select Buckle Attributes <i class="caret"></i></a>
+														<div class="box" id="beads_attributes">
+															<div class="check-block">
+																<label><input type="checkbox" onchange="checkAll(this)" class="check">Select All</label>
+															</div>
+															<div class="scrollable-area"> 
+																<ul> 
+																	<% items = ['Buckle Type|BuckleTypeID', 'Buckle Completeness|BuckleCompletenessID', 'Frame Plating|FramePlatingID', 'Weight|Weight', 'Marks|Marks', 'Burned|Burned', 'Conservation|Conservation', 'Mended|Mended', 'Post Manufacturing Modification|PMM', 'Images|Images', 'Notes|Notes', 'Part Material Manufacturing Technique Shape Dimensions|Dimensions', 'Decorative Technique']%>
+																	<% num = 0 %>
+																	<% third = (items.size/3).to_i%>
+																	<% items.each do |item| %>
+																	<li> <%# debugger %>
+																		<input name="buckle_fields[]" value="<%= item %>" type="checkbox" id="lbl-<%= (num+=1).to_s.rjust(3,'0') %>" class="check" <%= (params[:buckle_fields] != nil and params[:buckle_fields].include? item) ? 'checked' : '' %> /> <label for="lbl-<%= num.to_s.rjust(3,'0') %>"><%= item.split('|').first %></label> 
+																	</li> 
+																	<% if num%(third+1) == 0 %>
+																		</ul>
+																		<ul>
+																	<% end %>
+																	<% end %>
+				 												</ul> 
+															</div><!-- end scrollable-area -->
+														</div><!-- end box -->
+													</div>
+
+		                                        </div><!-- end collapse-block -->
+		                                    </div><!-- end panel-body -->
+		                                </div><!-- end #collapse-buckles -->
+		                            </div><!-- end panel -->
+									<div class="panel">
+		                                <div class="panel-heading">
+		                                    <h4 class="panel-title"><a data-toggle="collapse" data-parent="#accordion" href="#collapse-buttons" class="<%= (params[:button_fields] == nil) ? 'collapsed' : 'in' %>"><label><div class="custom-radio"><i class="<%= (params[:button_fields] != nil) ? 'custom-radio-selected' : '' %>"></i></div> Buttons</label></a></h4>
+		                                </div>
+		                                <div id="collapse-buttons" class="panel-collapse collapse <%= (params[:button_fields] == nil) ? 'collapsed' : 'in' %>">
+		                                    <div class="panel-body">
+		                                        <div class="collapse-block">
+													<div class="check-block-container dropup">
+														<a href="#beads_attributes" class="toggle-header">Select Button Attributes <i class="caret"></i></a>
+														<div class="box" id="beads_attributes">
+															<div class="check-block">
+																<label><input type="checkbox" onchange="checkAll(this)" class="check">Select All</label>
+															</div>
+															<div class="scrollable-area"> 
+																<ul>
+																	<% items = ['Completeness|CompletenessID', 'Manufacturing Technique|ButtonManuTechID', 'ButtonFaceManufacturingTechnique|ButtonManuTechID', 'Button Type|ButtonTypeID', 'Button Shape|ButtonShapeID', 'ButtonJoinMethod|ButtonJoinMethodID', 'Face Material|ButtonFaceMaterialID', 'Material|ButtonMaterialID', 'Button Color|ButtonBasicColorID', 'Eye|EyeID', 'Shank Style|ShankStyleID', 'Shank Material|ShankMaterialID', 'Shank Condition|ShankConditionID', 'Appearance|Appearance', 'Burned|Burned', 'Conservation|Conservation', 'Post Manufacturing Modification|PMM', 'Back Stamp|BackStamp', 'Length|Length', 'Width|Width', 'Height|Height', 'Weight|Weight', 'Diameter|Diameter', 'Images|Images', 'Notes|Notes', 'Decorative Technique|DecorativeTechnique']%>
+																	<% num = 0 %>
+																	<% third = (items.size/3).to_i%>
+																	<% items.each do |item| %>
+																	<li> <%# debugger %>
+																		<input name="button_fields[]" value="<%= item %>" type="checkbox" id="lbl-<%= (num+=1).to_s.rjust(3,'0') %>" class="check" <%= (params[:button_fields] != nil and params[:button_fields].include? item) ? 'checked' : '' %> /> <label for="lbl-<%= num.to_s.rjust(3,'0') %>"><%= item.split('|').first %></label> 
+																	</li> 
+																	<% if num%(third+1) == 0 %>
+																		</ul>
+																		<ul>
+																	<% end %>
+																	<% end %>
+				 												</ul> 
+															</div><!-- end scrollable-area -->
+														</div><!-- end box -->
+													</div>
+
+														
+
+		                                        </div><!-- end collapse-block -->
+		                                    </div><!-- end panel-body -->
+		                                </div><!-- end #collapse-buttons -->
+		                            </div><!-- end panel -->
+									<div class="panel">
+		                                <div class="panel-heading">
+		                                    <h4 class="panel-title"><a data-toggle="collapse" data-parent="#accordion" href="#collapse-ceramics" class="<%= (params[:ceramic_fields] == nil) ? 'collapsed' : 'in' %>"><label><div class="custom-radio"><i class="<%= (params[:ceramic_fields] != nil) ? 'custom-radio-selected' : '' %>"></i></div> Ceramics</label></a></h4>
+		                                </div>
+		                                <div id="collapse-ceramics" class="panel-collapse collapse <%= (params[:ceramic_fields] == nil) ? 'collapsed' : 'in' %>">
+		                                    <div class="panel-body">
+		                                        <div class="collapse-block">
+													<div class="check-block-container dropup">
+														<a href="#beads_attributes" class="toggle-header">Select Ceramic Attributes <i class="caret"></i></a>
+														<div class="box" id="ceramic_attributes">
+															<div class="check-block">
+																<label><input type="checkbox" onchange="checkAll(this)" class="check">Select All</label>
+															</div>
+															<div class="scrollable-area"> 
+																<ul>
+																	<% items = ['Material|CeramicMaterialID', 'Manufacturing Technique|CeramicManuTechID', 'Ware|WareID', 'Vessel Category|CeramicVesselCategoryID', 'Form|CeramicFormID', 'Mended Form|MendedFormID', 'Completeness|CeramicCompletenessID', 'Exterior Glaze Type|ExteriorGlazeID', 'Exterior Color|ExteriorMunAppColorID', 'Interior Glaze Type|InteriorGlazeID', 'Interior Color|InteriorMunAppColorID', 'Oxidized Vs Reduced|OxidizedVersusReducedID', 'Burned|EvidenceofBurningID', 'Post Manufacturing Modification|PMM', 'Pattern Name|EvidenceofBurningID', 'Stylistic Genre|Stylistic Genre', 'Base Mark|BaseMarkID', 'Base Mark Reference|BaseMarkReference', 'Base Mark Color|BaseMarkBasicColorID', 'Sherd Thickness|SherdThickness', 'Colono Sherd Thickness|Colono Sherd Thickness', 'Maximum Sherd Measurement|MaximumSherdMeasurement', 'Sherd Weight|SherdWeight', 'Mended Sherd Weight|MendedSherdWeight', 'Colonoware Rim Form|RimFormID', 'Colonoware Rim Angle|RimAngleID', 'Rim Length|RimLength', 'Rim Diameter|RimDiameter', 'Mended Rim Diameter|MendedRimDiameter', 'MaxRimWidth|MaxRimWidth', 'Images|Images', 'Notes|Notes', 'Plog Diameter|PlogDiameter', 'Decorative Technique|DecorativeTechnique', 'Paste Inclusion|PasteInclusion', 'Wear Location, Ceramic Completeness, Wear Pattern|WearLocationCeramicCompletenessWearPattern']%>
+																	<% num = 0 %>
+																	<% third = (items.size/3).to_i%>
+																	<% items.each do |item| %>
+																	<li> <%# debugger %>
+																		<input name="ceramic_fields[]" value="<%= item %>" type="checkbox" id="lbl-<%= (num+=1).to_s.rjust(3,'0') %>" class="check" <%= (params[:ceramic_fields] != nil and params[:ceramic_fields].include? item) ? 'checked' : '' %> /> <label for="lbl-<%= num.to_s.rjust(3,'0') %>"><%= item.split('|').first %></label> 
+																	</li> 
+																	<% if num%(third+1) == 0 %>
+																		</ul>
+																		<ul>
+																	<% end %>
+																	<% end %>
+				 												</ul> 
+															</div><!-- end scrollable-area -->
+														</div><!-- end box -->
+													</div>
+
+													<div class="check-block-container dropup">
+														<a href="#beads_attributes" class="toggle-header">Subset results by Coarse EW <i class="caret"></i></a>
+														<div class="box" id="coarse_ew_attributes">
+															<div class="check-block">
+																<label><input type="checkbox" onchange="checkAll(this)" class="check">Select All</label>
+															</div>
+															<div class="scrollable-area"> 
+																<ul>
+																	<% items = ['Afro-Caribbean Ware', 'Buckley', 'Coarse Earthenware, unidentified', 'Colonoware', 'Derbyshire', 'French Coarse Earthenware', 'Iberian Ware', 'Native American, unidentified', 'North Devon Gravel Tempered', 'North Devon Plain', 'Post-Medieval London-area Redware', 'Red Agate, coarse', 'Red Sandy Ware', 'Redware', 'Slipware, North Italian', 'Slipware, North Midlands/Staffordshire', 'Spanish Coarse Earthenware', 'Staffordshire Mottled Glaze', 'Surrey-Hampshire Border ware', 'Unidentifiable'
+]%>
+																	<% num = 0 %>
+																	<% third = (items.size/3).to_i%>
+																	<% items.each do |item| %>
+																	<li> <%# debugger %>
+																		<input name="ceramic_coarse_ew_fields[]" value="<%= item %>" type="checkbox" id="lbl-<%= (num+=1).to_s.rjust(3,'0') %>" class="check" <%= (params[:ceramic_coarse_ew_fields] != nil and params[:ceramic_coarse_ew_fields].include? item) ? 'checked' : '' %> /> <label for="lbl-<%= num.to_s.rjust(3,'0') %>"><%= item.split('|').first %></label> 
+																	</li> 
+																	<% if num%(third+1) == 0 %>
+																		</ul>
+																		<ul>
+																	<% end %>
+																	<% end %>
+				 												</ul> 
+															</div><!-- end scrollable-area -->
+														</div><!-- end box -->
+													</div>
+
+													<div class="check-block-container dropup">
+														<a href="#beads_attributes" class="toggle-header">Subset results by Porcelain <i class="caret"></i></a>
+														<div class="box" id="porcelain_attributes">
+															<div class="check-block">
+																<label><input type="checkbox" onchange="checkAll(this)" class="check">Select All</label>
+															</div>
+															<div class="scrollable-area"> 
+																<ul>
+																	<% items = ['Porcelain, Chinese', 'Porcelain, English Bone China', 'Porcelain, English Soft Paste', 'Porcelain, French', 'Porcelain, Japanese', 'Porcelain, unidentifiable', 'Porcellaneous/English Hard Paste']%>
+																	<% num = 0 %>
+																	<% third = (items.size/3).to_i%>
+																	<% items.each do |item| %>
+																	<li> <%# debugger %>
+																		<input name="ceramic_porcelain_fields[]" value="<%= item %>" type="checkbox" id="lbl-<%= (num+=1).to_s.rjust(3,'0') %>" class="check" <%= (params[:ceramic_porcelain_fields] != nil and params[:ceramic_porcelain_fields].include? item) ? 'checked' : '' %> /> <label for="lbl-<%= num.to_s.rjust(3,'0') %>"><%= item.split('|').first %></label> 
+																	</li> 
+																	<% if num%(third+1) == 0 %>
+																		</ul>
+																		<ul>
+																	<% end %>
+																	<% end %>
+				 												</ul> 
+															</div><!-- end scrollable-area -->
+														</div><!-- end box -->
+													</div>
+
+													<div class="check-block-container dropup">
+														<a href="#beads_attributes" class="toggle-header">Subset results by Refined EW <i class="caret"></i></a>
+														<div class="box" id="refined_ew_attributes">
+															<div class="check-block">
+																<label><input type="checkbox" onchange="checkAll(this)" class="check">Select All</label>
+															</div>
+															<div class="scrollable-area"> 
+																<ul>
+																	<% items = ['Agate, refined (Whieldon-type)', 'Astbury Type', 'Bennington/Rockingham', 'Canary Ware', 'Cauliflower ware', 'Creamware', 'Creamware, Carolina', 'Delftware, Dutch/British', 'Faience', 'Ironstone/White Granite', 'Jackfield Type', 'Pearlware', 'Red Agate, refined', 'Redware, refined', 'Refined Earthenware, modern', 'Refined Earthenware, unidentifiable', 'Tin-Enameled, unidentified', 'Unidentifiable', 'Wedgwood Green', 'Whieldon-type Ware', 'Whiteware', 'Yellow Ware']%>
+																	<% num = 0 %>
+																	<% third = (items.size/3).to_i%>
+																	<% items.each do |item| %>
+																	<li> <%# debugger %>
+																		<input name="ceramic_refined_ew_fields[]" value="<%= item %>" type="checkbox" id="lbl-<%= (num+=1).to_s.rjust(3,'0') %>" class="check" <%= (params[:ceramic_refined_ew_fields] != nil and params[:ceramic_refined_ew_fields].include? item) ? 'checked' : '' %> /> <label for="lbl-<%= num.to_s.rjust(3,'0') %>"><%= item.split('|').first %></label> 
+																	</li> 
+																	<% if num%(third+1) == 0 %>
+																		</ul>
+																		<ul>
+																	<% end %>
+																	<% end %>
+				 												</ul> 
+															</div><!-- end scrollable-area -->
+														</div><!-- end box -->
+													</div>
+
+													<div class="check-block-container dropup">
+														<a href="#beads_attributes" class="toggle-header">Subset results by Stoneware <i class="caret"></i></a>
+														<div class="box" id="refined_ew_attributes">
+															<div class="check-block">
+																<label><input type="checkbox" onchange="checkAll(this)" class="check">Select All</label>
+															</div>
+															<div class="scrollable-area"> 
+																<ul>
+																	<% items = ['American Stoneware', 'Black Basalt', 'British Stoneware', 'Burslem', 'Frechen Brown', 'Fulham Type', 'German Stoneware', 'Jasperware', 'Nottingham', 'Refined Stoneware, unidentifiable', 'Rosso Antico', 'Shaw Stoneware', 'Slip Dip', 'Staffordshire Brown Stoneware', 'Stoneware, unidentifiable', 'Turner Type', 'Unidentifiable', 'Westerwald/Rhenish', 'White Salt Glaze']%>
+																	<% num = 0 %>
+																	<% third = (items.size/3).to_i%>
+																	<% items.each do |item| %>
+																	<li> <%# debugger %>
+																		<input name="ceramic_stoneware_fields[]" value="<%= item %>" type="checkbox" id="lbl-<%= (num+=1).to_s.rjust(3,'0') %>" class="check" <%= (params[:ceramic_stoneware_fields] != nil and params[:ceramic_stoneware_fields].include? item) ? 'checked' : '' %> /> <label for="lbl-<%= num.to_s.rjust(3,'0') %>"><%= item.split('|').first %></label> 
+																	</li> 
+																	<% if num%(third+1) == 0 %>
+																		</ul>
+																		<ul>
+																	<% end %>
+																	<% end %>
+				 												</ul> 
+															</div><!-- end scrollable-area -->
+														</div><!-- end box -->
+													</div>
+
+													<div class="check-block-container dropup">
+														<a href="#beads_attributes" class="toggle-header">Subset results by Form <i class="caret"></i></a>
+														<div class="box" id="form_attributes">
+															<div class="check-block">
+																<label><input type="checkbox" onchange="checkAll(this)" class="check">Select All</label>
+															</div>
+															<div class="scrollable-area"> 
+																<ul>
+																	<% items = ['Basket', 'Bottle', 'Bottle, blacking', 'Bowl', 'Bowl, punch', 'Bowl, slop', 'Box', 'Castor', 'Chafing Dish', 'Chamberpot', 'Coffee Pot', 'Colander', 'Cup', 'Cup, lidded', 'Dish (>10" diameter)', 'Drinking Pot', 'Drug Jar/Salve Pot', 'Flower Pot', 'Gaming Piece', 'Griddle', 'Inkwell', 'Jar', 'Jar, mustard', 'Jug', 'Kiln Furniture', 'Lid', 'Milk Pan', 'Mold, jelly', 'Mug/Can', 'Not Applicable', 'Not Mended', 'Not Recorded', 'Patty Pan', 'Pipkin', 'Pitcher/Ewer', 'Plate', 'Platter', 'Porringer', 'Pot/Butter Pot', 'Saucer', 'Sea Kale Pot', 'Serving Dish, misc.', 'Storage Jar']%>
+																	<% num = 0 %>
+																	<% third = (items.size/3).to_i%>
+																	<% items.each do |item| %>
+																	<li> <%# debugger %>
+																		<input name="ceramic_form_fields[]" value="<%= item %>" type="checkbox" id="lbl-<%= (num+=1).to_s.rjust(3,'0') %>" class="check" <%= (params[:ceramic_form_fields] != nil and params[:ceramic_form_fields].include? item) ? 'checked' : '' %> /> <label for="lbl-<%= num.to_s.rjust(3,'0') %>"><%= item.split('|').first %></label> 
+																	</li> 
+																	<% if num%(third+1) == 0 %>
+																		</ul>
+																		<ul>
+																	<% end %>
+																	<% end %>
+				 												</ul> 
+															</div><!-- end scrollable-area -->
+														</div><!-- end box -->
+													</div>
+
+		                                        </div><!-- end collapse-block -->
+		                                    </div><!-- end panel-body -->
+		                                </div><!-- end #collapse-ceramics -->
+		                            </div><!-- end panel -->
+									<div class="panel">
+		                                <div class="panel-heading">
+		                                    <h4 class="panel-title"><a data-toggle="collapse" data-parent="#accordion" href="#collapse-glass" class="<%= (params[:glass_fields] == nil) ? 'collapsed' : 'in' %>"><label><div class="custom-radio"><i  class="<%= (params[:glass_fields] != nil) ? 'custom-radio-selected' : '' %>"></i></div> Glass</label></a></h4>
+		                                </div>
+		                                <div id="collapse-glass" class="panel-collapse collapse <%= (params[:glass_fields] == nil) ? 'collapsed' : 'in' %>">
+		                                    <div class="panel-body">
+		                                        <div class="collapse-block">
+
+		                                        </div><!-- end collapse-block -->
+		                                    </div><!-- end panel-body -->
+		                                </div><!-- end #collapse-glass -->
+		                            </div><!-- end panel -->
+									<div class="panel">
+		                                <div class="panel-heading">
+		                                    <h4 class="panel-title"><a data-toggle="collapse" data-parent="#accordion" href="#collapse-pipes" class=" <%= (params[:tobacco_pipe_fields] == nil) ? 'collapsed' : 'in' %>"><label><div class="custom-radio"><i class="<%= (params[:tobacco_pipe_fields] != nil) ? 'custom-radio-selected' : '' %>"></i></div> Tobacco Pipes</label></a></h4>
+		                                </div>
+		                                <div id="collapse-pipes" class="panel-collapse collapse <%= (params[:tobacco_pipe_fields] == nil) ? 'collapsed' : 'in' %>">
+		                                    <div class="panel-body">
+		                                        <div class="collapse-block">
+													<div class="check-block-container dropup">
+														<a href="#beads_attributes" class="toggle-header">Select Tobacco Pipe Attributes <i class="caret"></i></a>
+														<div class="box" id="beads_attributes">
+															<div class="check-block">
+																<label><input type="checkbox" onchange="checkAll(this)" class="check">Select All</label>
+															</div>
+															<div class="scrollable-area"> 
+																<ul>
+																	<% items = ['Tobacco Pipe', 'Completeness|TobaccoPipeCompletenessID', 'Material|TobaccoPipeMaterialID', 'Paste Color|PasteMunAppColorID', 'Paste Inclusion|PasteInclusionID', 'Manufacturing Technique|TobaccoPipeManuTechID', 'Glaze Type|GlazeTypeID', 'Glaze Color|GlazeMunAppColorID', 'Post Manufacturing Modification|PMM', 'Bowl Form|BowlFormID', 'Bowl Base Type|BowlBaseTypeID', 'Mouth Piece Form|MouthpieceFormID', 'Stem Length|StemLength', 'Exterior Stem Diameter|ExteriorStemDiameter', 'Bore Diameter Metric|MetricBoreDiameter', 'Bore Diameter 64ths|BoreDiameter64ths', 'Bowl Height|BowlHeight', 'Bowl Volume|BowlVolume', 'Maximum Bowl Diameter|MaximumBowlDiameter', 'Bowl Rim Diameter|BowlRimDiameter', 'Weight|Weight', 'Conservation|Conservation', 'Images|Images', 'Notes|Notes', 'Decoration|DecorationYN', 'TextMark|TextMarkYN']%>
+																	<% num = 0 %>
+																	<% third = (items.size/3).to_i%>
+																	<% items.each do |item| %>
+																	<li> <%# debugger %>
+																		<input name="tobacco_pipes_fields[]" value="<%= item %>" type="checkbox" id="lbl-<%= (num+=1).to_s.rjust(3,'0') %>" class="check" <%= (params[:tobacco_pipes_fields] != nil and params[:tobacco_pipes_fields].include? item) ? 'checked' : '' %> /> <label for="lbl-<%= num.to_s.rjust(3,'0') %>"><%= item.split('|').first %></label> 
+																	</li> 
+																	<% if num%(third+1) == 0 %>
+																		</ul>
+																		<ul>
+																	<% end %>
+																	<% end %>
+				 												</ul> 
+															</div><!-- end scrollable-area -->
+														</div><!-- end box -->
+													</div>
+
+		                                        </div><!-- end collapse-block -->
+		                                    </div><!-- end panel-body -->
+		                                </div><!-- end #collapse-pipes -->
+		                            </div><!-- end panel -->
+									<div class="panel">
+		                                <div class="panel-heading">
+		                                    <h4 class="panel-title"><a data-toggle="collapse" data-parent="#accordion" href="#collapse-utensils" class="<%= (params[:utensil_fields] == nil) ? 'collapsed' : 'in' %>"><label><div class="custom-radio"><i class="<%= (params[:utensil_fields] != nil) ? 'custom-radio-selected' : '' %>"></i></div> Utensils</label></a></h4>
+		                                </div>
+		                                <div id="collapse-utensils" class="panel-collapse collapse <%= (params[:utensil_fields] == nil) ? 'collapsed' : 'in' %>">
+		                                    <div class="panel-body">
+		                                        <div class="collapse-block">
+
+		                                        </div><!-- end collapse-block -->
+		                                    </div><!-- end panel-body -->
+		                                </div><!-- end #collapse-utensils -->
+		                            </div><!-- end panel -->
+									<div class="panel">
+		                                <div class="panel-heading">
+		                                    <h4 class="panel-title"><a data-toggle="collapse" data-parent="#accordion" href="#collapse-other" class=" <%= (params[:gen_artifact_fields] == nil) ? 'collapsed' : 'in' %>"><label><div class="custom-radio"><i class="<%= (params[:gen_artifact_fields] != nil) ? 'custom-radio-selected' : '' %>"></i></div> General Artifacts</label></a></h4>
+		                                </div>
+		                                <div id="collapse-other" class="panel-collapse collapse <%= (params[:gen_artifact_fields] == nil) ? 'collapsed' : 'in' %>">
+		                                    <div class="panel-body">
+		                                        <div class="collapse-block">
+		                                            <div class="box"><div class="check-block"><label><input type="checkbox" onchange="checkAll(this)" class="check">Select All</label></div><div class="scrollable-area">
+														<ul> </ul> 
+													</div><!-- end scrollable-area --></div><!-- end box -->
+		                                        </div><!-- end collapse-block -->
+		                                    </div><!-- end panel-body -->
+		                                </div><!-- end #collapse-other -->
+		                            </div><!-- end panel -->
+								</div><!-- end panel-group -->
+							</div><!-- end wrap -->
+						</div><!-- end section -->
+						<input type="hidden" id="artifact_type" name="artifact_type" value="beads" />
+			</div><!-- end block -->
+				<div class="block tab-pane" id="tab-step2">
+				<div class="heading">
+					<h2>Step 2: View or Subset Data By</h2>
+				</div><!-- end heading -->
+				<div class="section">
+					<div class="wrap">
+						<div class="panel-group" id="accordion2">
+							<div class="panel panel-default">
+								<div class="panel-heading">
+									<h4 class="panel-title"><a data-toggle="collapse" data-parent="#accordion2" href="#collapse-context" class="<%= (((params[:feature_number] != nil and params[:feature_number] != '') or (params[:feature_types] != nil and params[:feature_types] != '') or (params[:phase] != nil and params[:phase] != '') or (params[:strat_graph] != nil and params[:strat_graph] != '') or (params[:unit_types] != nil and params[:unit_types] != '') or (params[:unit_types] != nil and params[:unit_types] != ''))) ? 'collapsed' : 'in' %>"><label><div class="custom-radio"><i class="custom-radio<%= (((params[:feature_number] != nil and params[:feature_number] != '') or (params[:feature_types] != nil and params[:feature_types] != '') or (params[:phase] != nil and params[:phase] != '') or (params[:strat_graph] != nil and params[:strat_graph] != '') or (params[:unit_types] != nil and params[:unit_types] != '') or (params[:unit_types] != nil and params[:unit_types] != ''))) ? '' : '-selected' %>"></i></div> Context</label></a></h4>
+								</div>
+								<button class="btn btn-right" data-content="A delimited volume of sediment that is excavated and recorded as a single unit and from which any artifacts are given a single provenience designation. For some sites in DAACS, context numbers were assigned by the excavators not only to excavated sediment, but also to the basins or cuts in which the sediments resided." data-placement="left" data-toggle="popover" data-container="body" type="button" data-original-title="Help Tip" title="Contexts"> Popover on left </button>
+								<div id="collapse-context" class="panel-collapse collapse <%= (((params[:feature_number] != nil and params[:feature_number] != '') or (params[:feature_types] != nil and params[:feature_types] != '') or (params[:phase] != nil and params[:phase] != '') or (params[:strat_graph] != nil and params[:strat_graph] != '') or (params[:unit_types] != nil and params[:unit_types] != '') or (params[:unit_types] != nil and params[:unit_types] != ''))) ? 'collapsed' : 'in' %> ">
+									<div class="panel-body">
+										<div class="collapse-block">
+											<div class="section section-002">
+												<div class="columns">
+													<div class="left-column">
+														<p><label for="lbl-027">Write in one Context per line. You may use the wildcard character *.</label></p>
+														<div class="for-example">
+															<h3>For Example:</h3>
+															<ul>
+																<li>747AA2</li>
+																<li>756TPS</li>
+															</ul>
+														</div><!-- end for-example -->
+													</div><!-- end left-column -->
+													<div class="right-column">
+														<textarea name="context" class="form-control" cols="30" rows="10" id="lbl-027"><%= params[:context] %></textarea>
+													</div><!-- end right-column -->
+												</div><!-- end columns -->
+											</div><!-- end section -->
+										</div><!-- end collapse-context -->
+									</div><!-- end panel-body -->
+								</div><!-- end #collapse-beads -->
+							</div><!-- end panel -->
+							<div class="panel">
+                                <div class="panel-heading">
+                                    <h4 class="panel-title"><a data-toggle="collapse" data-parent="#accordion2" href="#collapse-feature-number" class="<%= (params[:feature_number] == nil or params[:feature_number] == '') ? 'collapsed' : 'in' %>"><label><div class="custom-radio"><i class="custom-radio<%= (params[:feature_number] != nil and params[:feature_number] != '') ? '-selected' : '' %>"></i></div> Feature Number</label></a></h4>
+                                </div>
+                                <button class="btn btn-right" data-content="In DAACS archaeological features have been assigned numbers that are unique to the site at which they were excavated. For those sites where the original excavators assigned numbers to features during excavation, DAACS used those original numbers. For sites where feature numbers were not assigned during excavation, DAACS assigned feature numbers. The latter are distinguished by an F prefix (e.g. F01, F02)." data-placement="left" data-toggle="popover" data-container="body" type="button" data-original-title="Help Tip" title="Feature Number"> Popover on left </button>
+                                <div id="collapse-feature-number" class="panel-collapse collapse <%= (params[:feature_number] == nil or params[:feature_number] == '') ? 'collapsed' : 'in' %>">
+                                    <div class="panel-body">
+                                        <div class="collapse-block">
+											<div class="collapse-block">
+												<div class="section section-002">
+													<div class="columns">
+														<div class="left-column">
+															<p><label for="lbl-027">Write in one feature number per line. You may use the wildcard character *.</label></p>
+															<div class="for-example">
+																<h3>For Example:</h3>
+																<ul>
+																	<li>00.42</li>
+																	<li>98.16</li>
+																	<li>99.1*</li>
+																</ul>
+															</div><!-- end for-example -->
+														</div><!-- end left-column -->
+														<div class="right-column">
+															<textarea name="feature_number" class="form-control" cols="30" rows="10" id="lbl-027"><%= params[:feature_number] %></textarea>
+														</div><!-- end right-column -->
+													</div><!-- end columns -->
+												</div><!-- end section -->
+											</div><!-- end collapse-context -->
+                                        </div><!-- end collapse-block -->
+                                    </div><!-- end panel-body -->
+                                </div><!-- end #collapse-feature-number -->
+                            </div><!-- end panel -->
+							<div class="panel">
+                                <div class="panel-heading">
+                                    <h4 class="panel-title"><a data-toggle="collapse" data-parent="#accordion2" href="#collapse-feature-type" class="<%= (params[:feature_types] == nil or params[:feature_types] == '') ? 'collapsed' : '' %>"><label><div class="custom-radio"><i class="custom-radio<%= (params[:feature_types] != nil and params[:feature_types] != '') ? '-selected' : '' %>"></i></div> Feature Type</label></a></h4>
+                                </div>
+                                <div id="collapse-feature-type" class="panel-collapse <%= (params[:feature_types] == nil or params[:feature_types] == '') ? 'collapse' : '' %>">
+                                    <div class="panel-body">
+                                        <div class="collapse-block">
+											<div class="box">
+												<div class="check-block">
+													<label><input type="checkbox" onchange="checkAllWithClass(this, 'feature-types')" class="check">Select All</label>
+												</div>
+											<div class="scrollable-area"> 
+												<ul> 
+													<% items = ContextFeatureType.all.order(:FeatureType)%>
+													<% num = 0 %>
+													<% third = (items.size/3).to_i%>
+													<% items.each do |item| %>
+													<li> <%# debugger %>
+														<input name="feature_types[]" value="<%= item.id %>" type="checkbox" id="lbl-<%= (num+=1).to_s.rjust(3,'0') %>" class="check feature-types" <%= (params[:feature_types] != nil and params[:feature_types].include? item.id.to_s) ? 'checked' : '' %> /> <label for="lbl-<%= num.to_s.rjust(3,'0') %>"><%= item.FeatureType %></label> 
+													</li> 
+													<% if num%(third+1) == 0 %>
+														</ul>
+														<ul>
+													<% end %>
+													<% end %>
+ 												</ul> </div><!-- end scrollable-area --></div><!-- end box -->
+
+                                        </div><!-- end collapse-block -->
+                                    </div><!-- end panel-body -->
+                                </div><!-- end #collapse-feature-type -->
+                            </div><!-- end panel -->
+							<div class="panel">
+                                <div class="panel-heading">
+                                    <h4 class="panel-title"><a data-toggle="collapse" data-parent="#accordion2" href="#collapse-phase" class="<%= (params[:phase] == nil or params[:phase] == '') ? 'collapsed' : '' %>"><label><div class="custom-radio"><i class="custom-radio<%= (params[:phase] != nil and params[:phase] != '') ? '-selected' : '' %>"></i></div> Phase</label></a></h4>
+                                </div>
+                                <button class="btn btn-right" data-content="Phases are groups of assemblages that have similar correspondence-analysis scores and are therefore inferred to be broadly contemporary. Phases are numbered uniquely within sites and carry a P-prefix." data-placement="left" data-toggle="popover" data-container="body" type="button" data-original-title="Help Tip" title="Phase"> Popover on left </button>
+                                <div id="collapse-phase" class="panel-collapse <%= (params[:phase] == nil or params[:phase] == '') ? 'collapse' : '' %>">
+                                    <div class="panel-body">
+                                        <div class="collapse-block">
+                                            <div class="collapse-block">
+												<div class="section section-002">
+													<div class="columns">
+														<div class="left-column">
+															<p><label for="lbl-027">Write in one phase per line. You may use the wildcard character *.</label></p>
+															<div class="for-example">
+																<h3>For Example:</h3>
+																<ul>
+																	<li>P01</li>
+																	<li>P02</li>
+																	<li>P1*</li>
+																</ul>
+															</div><!-- end for-example -->
+														</div><!-- end left-column -->
+														<div class="right-column">
+															<textarea name="phase" class="form-control" cols="30" rows="10" id="lbl-027"><%= params[:phase] %></textarea>
+														</div><!-- end right-column -->
+													</div><!-- end columns -->
+												</div><!-- end section -->
+											</div><!-- end collapse-context -->
+                                        </div><!-- end collapse-block -->
+                                    </div><!-- end panel-body -->
+                                </div><!-- end #collapse-phase -->
+                            </div><!-- end panel -->
+							<div class="panel">
+                                <div class="panel-heading">
+                                    <h4 class="panel-title"><a data-toggle="collapse" data-parent="#accordion2" href="#collapse-stratigraphic-group" class="<%= (params[:strat_graph] == nil or params[:strat_graph] == '') ? 'collapsed' : '' %>"><label><div class="custom-radio"><i class="custom-radio<%= (params[:strat_graph] != nil and params[:strat_graph] != '') ? '-selected' : '' %>"></i></div> Stratigraphic Group</label></a></h4>
+                                </div>
+                                <button class="btn btn-right" data-content="A group of separately excavated contexts that the original excavators of a site recognized were part of a single larger deposit. Stratigraphic groups are numbered uniquely within sites and carry a SG-prefix." data-placement="left" data-toggle="popover" data-container="body" type="button" data-original-title="Help Tip" title="Stratigraphic Group"> Popover on left </button>
+                                <div id="collapse-stratigraphic-group" class="panel-collapse <%= (params[:strat_graph] == nil or params[:strat_graph] == '') ? 'collapse' : '' %>">
+                                    <div class="panel-body">
+                                        <div class="collapse-block">
+                                            <div class="collapse-block">
+												<div class="section section-002">
+													<div class="columns">
+														<div class="left-column">
+															<p><label for="lbl-027">Write in one stratigraphic group per line. You may use the wildcard character *.</label></p>
+															<div class="for-example">
+																<h3>For Example:</h3>
+																<ul>
+																	<li>SG01</li>
+																	<li>SG02</li>
+																	<li>SG1*</li>
+																</ul>
+															</div><!-- end for-example -->
+														</div><!-- end left-column -->
+														<div class="right-column">
+															<textarea name="strat_group" class="form-control" cols="30" rows="10" id="lbl-027"><%= params[:strat_group] %></textarea>
+														</div><!-- end right-column -->
+													</div><!-- end columns -->
+												</div><!-- end section -->
+											</div><!-- end collapse-context -->
+                                        </div><!-- end collapse-block -->
+                                    </div><!-- end panel-body -->
+                                </div><!-- end #collapse-stratigraphic-group -->
+                            </div><!-- end panel -->
+							<div class="panel">
+                                <div class="panel-heading">
+                                    <h4 class="panel-title"><a data-toggle="collapse" data-parent="#accordion2" href="#collapse-unit-type" class="<%= (params[:unit_types] == nil or params[:unit_types] == '') ? 'collapsed' : '' %>"><label><div class="custom-radio"><i class="custom-radio<%= (params[:unit_types] != nil and params[:unit_types] != '') ? '-selected' : '' %>"></i></div> Unit Type</label></a></h4>
+                                </div>
+                                <div id="collapse-unit-type" class="panel-collapse <%= (params[:unit_types] == nil or params[:unit_types] == '') ? 'collapse' : '' %>">
+                                    <div class="panel-body">
+                                        <div class="collapse-block">
+											<div class="box">
+												<div class="check-block">
+													<label><input type="checkbox" onchange="checkAllWithClass(this,'unit-types')" class="check">Select All</label>
+												</div>
+											<div class="scrollable-area"> 
+												<ul> 
+													<% items = ContextUnitType.all.order(:UnitType)%>
+													<% num = 0 %>
+													<% third = (items.size/3).to_i%>
+													<% items.each do |item| %>
+													<li> <%# debugger %>
+														<input name="unit_types[]" value="<%= item.id %>" type="checkbox" id="lbl-<%= (num+=1).to_s.rjust(3,'0') %>" class="check unit-types" <%= (params[:unit_types] != nil and params[:unit_types].include? item.id.to_s) ? 'checked' : '' %> /> <label for="lbl-<%= num.to_s.rjust(3,'0') %>"><%= item.UnitType %></label> 
+													</li> 
+													<% if num%(third+1) == 0 %>
+														</ul>
+														<ul>
+													<% end %>
+													<% end %>
+ 												</ul> </div><!-- end scrollable-area --></div><!-- end box -->
+
+                                        </div><!-- end collapse-block -->
+                                    </div><!-- end panel-body -->
+                                </div><!-- end #collapse-unit-type -->
+                            </div><!-- end panel -->
+						</div>		
+					</div>
+				</div>
+				<input type="hidden" id="subset_by" name="subset_by" value="context" />
+				</div><!-- end block -->
+			<div class="block tab-pane" id="tab-step3">
+				<div class="heading">
+					<div class="check-block">
+						<input type="checkbox" id="lbl-028" onchange="checkAll(this)" class="check" />
+						<label for="lbl-028">Select All</label>
+					</div><!-- end chech-block -->
+					<h2>Step 3: Choose One or More Sites<button class="btn" data-content="A site is a spatial cluster of artifacts or other physical traces of past human activity and the surrounding sedimentary matrix. Only sites that have been investigated archaeologically are represented in the DAACS database." data-placement="right" data-toggle="popover" data-container="body" type="button" data-original-title="Help Tip" title="Help Tip"> Popover on left </button></h2>
+				</div><!-- end heading -->
+				<div class="section section-003">
+					<%= render :partial => 'site_selection' %>
+					<div id="query-selection">
+							<div class="query-info">
+								<h4>Query Selections</h4>
+								<table class="table table-bordered">
+									<thead>
+										<th>Step 1: Artifact Type &amp; Attributes</th>
+										<th>Step 2: Subset Data By</th>
+										<th>Step 3: Sites</th>
+									</thead>
+									<tbody>
+										<td>
+											<span id="artifact_type_list">None</span>
+											<span id="selected-attributes">None</span>
+										</td>
+										<td><span id="subset_data_by_list">None</span></td>
+										<td><span id="sites_contain">None</span></td>
+									</tbody>
+								</table>
+							</div>
+					</div><!-- end #query-selection -->
+
+					<div class="buttons">
+						<div class="c">
+							<div class="box">
+								<input type="reset" class="reset" value="Reset" />
+								<input type="submit" class="btn submit" value="Submit" />
+							</div><!-- end box -->
+						</div><!-- end c -->
+					</div><!-- end buttons -->
+					
+				</div><!-- end section -->
+			</div><!-- end block -->
+		</fieldset>
+		
+		
+	<!-- </form> -->
+	<% end %>
+</div><!-- end query-database -->

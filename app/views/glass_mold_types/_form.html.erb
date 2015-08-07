@@ -1,0 +1,21 @@
+<%= form_for(@glass_mold_type) do |f| %>
+  <% if @glass_mold_type.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@glass_mold_type.errors.count, "error") %> prohibited this glass_mold_type from being saved:</h2>
+
+      <ul>
+      <% @glass_mold_type.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :mold_type %><br />
+    <%= f.text_field :mold_type %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

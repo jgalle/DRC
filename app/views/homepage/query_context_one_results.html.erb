@@ -1,0 +1,116 @@
+<script>
+$(document).ready(function(){
+	$(".pagination li a").click(function(e){
+		e.preventDefault();
+		if ($(this).attr("href").indexOf('&page=') > 0) {
+			var tp_id = $(this).attr("href").split('&page=')[1].split('&')[0];
+		} else {
+			var tp_id = 1;
+		}
+		$('#pagination_search').append("<input type='hidden' name='page' value='" + tp_id +"' >");
+		// <% if params['daacs'] != nil  %>
+		// 	$('#pagination_search').append("<input type='hidden' name='daacs' value='y' >");
+		// <% end %>
+		$('#pagination_search').submit();
+	});
+	$("#list_selection input").change(function() {
+	     this.form.submit();
+	});
+	$("#list_selection select").change(function() {
+	     this.form.submit();
+	});
+});
+</script>
+<div class="list-head">
+	<div class="page-header page-header-003">
+		<div class="frame">
+			<div class="clearfix">
+				<% if params[:daacs] != nil and params[:daacs] != '' %>
+					<div class="dropdown options-drop back-to-queries">
+												<a href="http://www.daacs.org/query-the-database/" id="back-to-queries" class="btn btn-info ie-fix">Back to Queries Page</a>
+					</div>
+				<% end %>
+				
+				<div class="dropdown options-drop">
+					<a class="btn" data-toggle="dropdown" href="#">Query Options</a>
+					<ul class="dropdown-menu" role="menu">
+						<li><%= link_to 'New Query', :action => 'query_context_one', :params => { :daacs => params[:daacs]} %></li>
+						<li><a href="#" onclick="$('#edit_search').submit()">Modify Query</a><%#= link_to 'Modify Query', :action => 'artifact_query_five', :params => params %></li>
+						<%# params[:all] = true %>
+						<li><a href="#" onclick="$('#download_search').submit()">Download Data</a></li>
+						<!-- <li><%= link_to 'Download Data', :action => 'search', :params => params, :format => :xls, :method => :post %></li> -->
+					</ul>
+				</div>
+			</div>
+		</div><!-- frame -->
+		<div class="block">
+			<h1>Query Results</h1>
+			<p>Context Query 1: Basic Information</p>
+		</div><!-- end block -->
+	</div><!-- page-header -->
+	<div class="alert alert-success success-deleted" style="display:none">
+		<p>Successfully deleted artifact!</p>
+	</div><!-- end alert -->
+	<div class="list-panel">
+		<div class="filter query-results">
+			<table class="parameters">
+				<tr>
+					<th class="cell-05">Sites:</th>
+				</tr>
+				<tr>
+					<td>
+						<%= params[:sites].map{|s| Project.find(s).project_name.ProjectName}.join(', ') if params[:sites] != nil %>
+					</td>
+				</tr>
+			</table><!-- end parameters -->
+		</div><!-- end block -->
+		</div>
+		<div class="list-panel">
+		<div class="filter">
+			<%= form_tag({:action => 'query_objects_results'}, :id => 'list_selection', :method => :post) do %>
+				<input type="hidden" name="per_page" value="<%= params[:per_page] != nil ? params[:per_page] : 25 %>">
+				<%= render 'hidden_fields' %>
+				<input type="hidden" name="daacs" value="<%= params[:daacs] %>">
+				
+				<fieldset>
+					<ul class="radio-block total-found">
+						<li>
+							<%= @total %> items found
+						</li>
+					</ul>
+					<div class="top-pagination">
+						<%= paginate @contexts, :window => 2 %>
+					</div>
+					<div class="select-block per-page">
+						<label for="per_page">Results per Page</label>
+						<select id="per_page" class="per-page sel-001" name="per_page">
+							<%= options_for_select(['25','50','100'], params[:per_page])%>
+						</select>
+					</div><!-- end select-block -->
+				</fieldset>
+			<% end %>
+		</div><!-- end filter -->
+	</div><!-- end list-panel -->
+</div><!-- end list-head -->
+<div class="ceramics-list">
+	<%= render 'query_context_one_results' %>
+</div>
+	<%= paginate @contexts, :window => 2 %>
+<br />
+
+<%= form_tag({:action => 'query_context_one_results'}, :id => 'pagination_search') do %>
+	<input type="hidden" name="per_page" value="<%= @per_page %>">
+	<input type='hidden' name='daacs' value='<%= params['daacs'] %>' >
+		<%= render 'hidden_fields' %>
+<% end %>
+<%= form_tag({:action => 'query_context_one_results'}, :id => 'download_search', :method => :post) do %>
+	<input type="hidden" name="format" value="xls">
+	<input type="hidden" name="all" value="true">
+	<input type='hidden' name='daacs' value='<%= params['daacs'] %>' >
+				<%= render 'hidden_fields' %>
+<% end %>
+<%= form_tag({:action => 'query_context_one'}, :id => 'edit_search') do %>
+	<input type='hidden' name='daacs' value='<%= params['daacs'] %>' >
+				<%= render 'hidden_fields' %>
+	
+<% end %>

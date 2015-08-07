@@ -1,0 +1,23 @@
+<h1>Listing button_materials</h1>
+
+<table>
+  <tr>
+    <th>Button material</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @button_materials.each do |button_material| %>
+  <tr>
+    <td><%= button_material.button_material %></td>
+    <td><%= link_to 'Show', button_material %></td>
+    <td><%= link_to 'Edit', edit_button_material_path(button_material) %></td>
+    <td><%= link_to 'Destroy', button_material, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Button material', new_button_material_path %>

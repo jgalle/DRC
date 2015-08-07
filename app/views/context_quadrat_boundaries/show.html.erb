@@ -1,0 +1,25 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Quadrat northing:</b>
+  <%= @context_quadrat_boundary.quadrat_northing %>
+</p>
+
+<p>
+  <b>Quadrat easting:</b>
+  <%= @context_quadrat_boundary.quadrat_easting %>
+</p>
+
+<p>
+  <b>Quadrat:</b>
+  <%= @context_quadrat_boundary.quadrat_id %>
+</p>
+
+<p>
+  <b>Project:</b>
+  <%= @context_quadrat_boundary.project_id %>
+</p>
+
+
+<%= link_to 'Edit', edit_context_quadrat_boundary_path(@context_quadrat_boundary) %> |
+<%= link_to 'Back', context_quadrat_boundaries_path %>

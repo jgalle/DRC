@@ -1,0 +1,30 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Context:</b>
+  <%= @context_inclusion.context_id %>
+</p>
+
+<p>
+  <b>Inclusion description:</b>
+  <%= @context_inclusion.inclusion_description_id %>
+</p>
+
+<p>
+  <b>Inclusion side:</b>
+  <%= @context_inclusion.inclusion_side_id %>
+</p>
+
+<p>
+  <b>Rank order:</b>
+  <%= @context_inclusion.rank_order %>
+</p>
+
+<p>
+  <b>Percentage:</b>
+  <%= @context_inclusion.percentage_id %>
+</p>
+
+
+<%= link_to 'Edit', edit_context_inclusion_path(@context_inclusion) %> |
+<%= link_to 'Back', context_inclusions_path %>

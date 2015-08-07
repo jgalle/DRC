@@ -1,0 +1,21 @@
+<h1>Listing acdistances</h1>
+
+<table>
+  <tr>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @acdistances.each do |acdistance| %>
+  <tr>
+    <td><%= link_to 'Show', acdistance %></td>
+    <td><%= link_to 'Edit', edit_acdistance_path(acdistance) %></td>
+    <td><%= link_to 'Destroy', acdistance, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Acdistance', new_acdistance_path %>

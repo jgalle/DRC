@@ -1,0 +1,23 @@
+<h1>Listing context_level_types</h1>
+
+<table>
+  <tr>
+    <th>Level type</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @context_level_types.each do |context_level_type| %>
+  <tr>
+    <td><%= context_level_type.level_type %></td>
+    <td><%= link_to 'Show', context_level_type %></td>
+    <td><%= link_to 'Edit', edit_context_level_type_path(context_level_type) %></td>
+    <td><%= link_to 'Destroy', context_level_type, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Context level type', new_context_level_type_path %>

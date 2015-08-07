@@ -1,0 +1,17 @@
+                    <div class="block <%= @mark_colored == true ? 'colored' : '' %>">
+                        <div class="three-columns three-with-delete">
+                            <div class="row-area">
+                                <div class="col">
+																	<%= f.label('Mark', 'Mark')%>
+																	<%= f.text_area('Mark', {:maxlength => 100, :class => 'form-control'})%>
+                                </div>
+                                <div class="col">
+																	<%= f.label('GlassMarkLocationID', 'Location of Mark')%>
+																	<%= f.collection_select('GlassMarkLocationID', GlassMarkLocation.all.order('"GlassMarkLocation"'), :id, 'GlassMarkLocation', {:include_blank => '--select--'}, {'data-placeholder' => '--select--', :class => 'form-control'})%>
+                                </div>
+								<%= f.hidden_field :_destroy %>
+								<a href="#" data-toggle="modal" data-target="#mark-alert-modal" class="mark-delete-link delete" tabindex="-1">Delete</a>
+							</div>
+                        </div><!-- selects -->
+<div class="number" style="display:none">_NUM_</div>
+                    </div><!-- block -->

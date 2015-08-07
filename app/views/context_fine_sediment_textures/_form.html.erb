@@ -1,0 +1,21 @@
+<%= form_for(@context_fine_sediment_texture) do |f| %>
+  <% if @context_fine_sediment_texture.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@context_fine_sediment_texture.errors.count, "error") %> prohibited this context_fine_sediment_texture from being saved:</h2>
+
+      <ul>
+      <% @context_fine_sediment_texture.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :fine_sediment_texture %><br />
+    <%= f.text_field :fine_sediment_texture %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

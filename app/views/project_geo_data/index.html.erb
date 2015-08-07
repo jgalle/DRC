@@ -1,0 +1,23 @@
+<h1>Listing project_geo_data</h1>
+
+<table>
+  <tr>
+    <th>Geo datum</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @project_geo_data.each do |project_geo_datum| %>
+  <tr>
+    <td><%= project_geo_datum.geo_datum %></td>
+    <td><%= link_to 'Show', project_geo_datum %></td>
+    <td><%= link_to 'Edit', edit_project_geo_datum_path(project_geo_datum) %></td>
+    <td><%= link_to 'Destroy', project_geo_datum, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Project geo datum', new_project_geo_datum_path %>

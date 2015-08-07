@@ -1,0 +1,12 @@
+$('#message-category').val('<%= "#{@message.subject.split('|').first}" %>');
+$('#message-subject').val('<%= "#{@message.subject.split('|').last}" %>');
+<% @message.receipts_for(current_user).inbox.each do |receipt| %>
+	$('#message-body').val('<%= escape_javascript(receipt.message.body) %>');
+	<% if receipt.message.attachment != nil and receipt.message.attachment.url != nil %>
+		console.log('<%= receipt.message.attachment.url %>');
+		$('#message-attachment').html('<%= escape_javascript(link_to(receipt.message.attachment.url.split('/').last, receipt.message.attachment.url, :target => "_blank")) %>');
+	<% else %>
+		$('#message-attachment').html('');
+	<% end %>
+<% end %>
+$('#message-display').modal('show');

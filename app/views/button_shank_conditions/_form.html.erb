@@ -1,0 +1,21 @@
+<%= form_for(@button_shank_condition) do |f| %>
+  <% if @button_shank_condition.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@button_shank_condition.errors.count, "error") %> prohibited this button_shank_condition from being saved:</h2>
+
+      <ul>
+      <% @button_shank_condition.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :shank_condition %><br />
+    <%= f.text_field :shank_condition %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

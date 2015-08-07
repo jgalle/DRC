@@ -1,0 +1,23 @@
+<h1>Listing bead_end_treatments</h1>
+
+<table>
+  <tr>
+    <th>End treatment</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @bead_end_treatments.each do |bead_end_treatment| %>
+  <tr>
+    <td><%= bead_end_treatment.end_treatment %></td>
+    <td><%= link_to 'Show', bead_end_treatment %></td>
+    <td><%= link_to 'Edit', edit_bead_end_treatment_path(bead_end_treatment) %></td>
+    <td><%= link_to 'Destroy', bead_end_treatment, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Bead end treatment', new_bead_end_treatment_path %>

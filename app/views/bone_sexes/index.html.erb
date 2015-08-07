@@ -1,0 +1,23 @@
+<h1>Listing bone_sexes</h1>
+
+<table>
+  <tr>
+    <th>Sex</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @bone_sexes.each do |bone_sex| %>
+  <tr>
+    <td><%= bone_sex.sex %></td>
+    <td><%= link_to 'Show', bone_sex %></td>
+    <td><%= link_to 'Edit', edit_bone_sex_path(bone_sex) %></td>
+    <td><%= link_to 'Destroy', bone_sex, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Bone sex', new_bone_sex_path %>

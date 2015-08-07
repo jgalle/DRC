@@ -1,0 +1,29 @@
+<div class="block <%= @decoration_colored == true ? 'colored' : '' %>">
+<ul class="images">
+	<li>
+		<div class="img">
+			<% if f.object.gen_object != nil %>
+				<% if f.object.gen_object.images.size > 0 %>
+				<%= image_tag(f.object.gen_object.images.first.ImageFileLocation, {:width => 91, :height => 91})%>
+				<% end %>
+			<% else %>
+			<span class="new-image-image">&nbsp;</span>
+			<% end %>
+		</div>
+		<div class="desc">
+			<% if f.object.gen_object != nil %>
+				<%= render 'partials/object_info', gen_object: f.object.gen_object %>
+				<%= f.hidden_field :ObjectID %>
+			<% else %>
+				<span class="new-object-details">&nbsp;</span>
+				<%= f.hidden_field :ObjectID, {:class => 'new-object-id'} %>
+				<%= f.hidden_field :ArtifactID, :value => '-' %>
+			<% end %>
+			<!-- <a href="#" data-toggle="modal" data-target="#edit-image" class="btn btn-edit">Edit</a> -->
+			<%= f.hidden_field :_destroy %>
+			<a href="#" data-toggle="modal" data-target="#object-alert-modal" class="object-delete-link delete">Delete</a>
+		</div>
+	</li>
+</ul>
+<div class="number" style="display:none">_NUM_</div>
+</div>

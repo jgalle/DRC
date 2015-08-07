@@ -1,0 +1,27 @@
+<h1>Listing tobacco_pipe_motif_manu_teches</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Motifmanutech</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @tobacco_pipe_motif_manu_teches.each do |tobacco_pipe_motif_manu_tech| %>
+      <tr>
+        <td><%= tobacco_pipe_motif_manu_tech.MotifManuTech %></td>
+        <td><%= link_to 'Show', tobacco_pipe_motif_manu_tech %></td>
+        <td><%= link_to 'Edit', edit_tobacco_pipe_motif_manu_tech_path(tobacco_pipe_motif_manu_tech) %></td>
+        <td><%= link_to 'Destroy', tobacco_pipe_motif_manu_tech, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Tobacco pipe motif manu tech', new_tobacco_pipe_motif_manu_tech_path %>

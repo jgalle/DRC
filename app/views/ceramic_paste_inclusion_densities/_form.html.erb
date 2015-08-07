@@ -1,0 +1,21 @@
+<%= form_for(@ceramic_paste_inclusion_density) do |f| %>
+  <% if @ceramic_paste_inclusion_density.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@ceramic_paste_inclusion_density.errors.count, "error") %> prohibited this ceramic_paste_inclusion_density from being saved:</h2>
+
+      <ul>
+      <% @ceramic_paste_inclusion_density.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :paste_inclusion_density %><br />
+    <%= f.text_field :paste_inclusion_density %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

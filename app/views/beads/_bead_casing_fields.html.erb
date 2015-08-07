@@ -1,0 +1,19 @@
+                    <div class="block <%= @casing_colored == true ? 'colored' : '' %>">
+                      <div class="three-columns three-with-delete">
+                          <div class="row-area">
+                                <div class="col">
+																	<%= f.label('CasingLayerID', 'Bead Casing Layer')%>
+																	<%= f.collection_select('CasingLayerID', BeadCasingLayer.all.order('"CasingLayer"'), :id, 'CasingLayer', {:include_blank => '--select--'}, {'data-placeholder' => '--select--', :class => 'form-control'})%>
+                                </div>
+                                <div class="col">
+																	<%= f.label('MunAppColorID', 'Bead Casing Color')%>
+																	<div class="clearfix">
+																		<%= f.collection_select('MunAppColorID', MunsellAppliedColor.all.order('"AppliedColorWrittenDescription"'), :id, 'AppliedColorWrittenDescription', {:include_blank => '--select--'}, {'data-placeholder' => '--select--', :class => 'form-control'})%>
+																	</div>
+                                </div>
+																<%= f.hidden_field :_destroy %>
+																<a href="#" data-toggle="modal" data-target="#casing-alert-modal" class="casing-delete-link delete" tabindex="-1">Delete</a>
+														</div>
+													</div>
+<div class="number" style="display:none">_NUM_</div>
+                    </div><!-- block -->

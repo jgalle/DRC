@@ -1,0 +1,20 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Stplevel:</b>
+  <%= @context_stp_level.stplevel %>
+</p>
+
+<p>
+  <b>Stpclosing:</b>
+  <%= @context_stp_level.stpclosing %>
+</p>
+
+<p>
+  <b>Context:</b>
+  <%= @context_stp_level.context_id %>
+</p>
+
+
+<%= link_to 'Edit', edit_context_stp_level_path(@context_stp_level) %> |
+<%= link_to 'Back', context_stp_levels_path %>

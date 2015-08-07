@@ -1,0 +1,27 @@
+<h1>Listing basic_colors</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Color</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @basic_colors.each do |basic_color| %>
+      <tr>
+				<td><%= basic_color.BasicColor %></td>
+        <td><%= link_to 'Show', basic_color %></td>
+        <td><%= link_to 'Edit', edit_basic_color_path(basic_color) %></td>
+        <td><%= link_to 'Destroy', basic_color, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Basic color', new_basic_color_path %>

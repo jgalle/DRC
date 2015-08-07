@@ -1,0 +1,27 @@
+                    <div class="block <%= @decoration_colored == true ? 'colored' : '' %>">
+                        <div class="three-columns three-with-delete">
+                            <div class="row-area">
+                                <div class="col">
+																	<%= f.label('TobaccoPipeDecMotifID', 'Decorative Motif')%>
+																	<%= f.collection_select('TobaccoPipeDecMotifID', TobaccoPipeDecMotif.all.order('"TobaccoPipeDecMotif"'), :id, 'TobaccoPipeDecMotif', {:include_blank => '--select--'}, {'data-placeholder' => '--select--', :class => 'form-control'})%>
+                                </div>
+                                <div class="col">
+																	<%= f.label('TobaccoPipeMotifManuTechID', 'Motif Manufacturing Method')%>
+																	<%= f.collection_select('TobaccoPipeMotifManuTechID', TobaccoPipeMotifManuTech.all.order('"MotifManuTech"'), :id, 'MotifManuTech', {:include_blank => '--select--'}, {'data-placeholder' => '--select--', :class => 'form-control'})%>
+                                </div>
+                                <div class="col">
+																	<%= f.label('MotifTextLocationID', 'Motif Location')%>
+																	<%= f.collection_select('MotifTextLocationID', TobaccoPipeMotifTextLocation.all.order('"MotifTextLocation"'), :id, 'MotifTextLocation', {:include_blank => '--select--'}, {'data-placeholder' => '--select--', :class => 'form-control'})%>
+                                </div>
+								<%= f.hidden_field :_destroy %>
+								<a href="#" data-toggle="modal" data-target="#decoration-alert-modal" class="decoration-delete-link delete" tabindex="-1">Delete</a>
+							</div>
+                            <div class="row-area">
+                                <div class="col">
+																	<%= f.label('Notes', 'Notes')%>
+																	<%= f.text_area('Notes', {:class => 'form-control'})%>
+                                </div>
+							</div>
+                        </div><!-- selects -->
+<div class="number" style="display:none">_NUM_</div>
+                    </div><!-- block -->

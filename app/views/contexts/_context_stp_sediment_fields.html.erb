@@ -1,0 +1,21 @@
+                    <div class="block <%= @stp_sediment_colored == true ? 'colored' : '' %>">
+						<%= f.hidden_field :_destroy %>
+						<a href="#" data-toggle="modal" data-target="#stp-sediment-alert-modal" class="stp-sediment-delete-link delete" tabindex="-1">Delete</a>
+                        <div class="stp-three-columns three-columns three-with-delete">
+                            <div class="row-area">
+                                <div class="col">
+																	<%= f.label('FineSedimentTextureID', 'Fine Sediment Texture')%>
+																	<%= f.collection_select('FineSedimentTextureID', ContextFineSedimentTexture.all.order('"FineSedimentTexture"'), :id, 'FineSedimentTexture', {:include_blank => '--select--'}, {'data-placeholder' => '--select--', :class => 'form-control'})%>
+                                </div>
+                                <div class="col">
+																	<%= f.label('MunSedColorID', 'Munsell Color')%>
+																	<%= f.collection_select('MunSedColorID', SedimentColor.all.order('"MunsellSedimentColor"'), :id, 'MunsellSedimentColor', {:include_blank => '--select--'}, {'data-placeholder' => '--select--', :class => 'form-control'})%>
+                                </div>
+                                <div class="col">
+																	<%= f.label('PercentageID', 'Pecentage')%>
+																	<%= f.collection_select('PercentageID', ContextPercentage.all.order('"Percentage"'), :id, 'Percentage', {:include_blank => '--select--'}, {'data-placeholder' => '--select--', :class => 'form-control'})%>
+                                </div>
+							</div>
+                        </div><!-- selects -->
+<div class="number" style="display:none">_NUM_</div>
+                    </div><!-- block -->

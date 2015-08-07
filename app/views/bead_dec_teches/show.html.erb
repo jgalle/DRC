@@ -1,0 +1,25 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Artifact:</b>
+  <%= @bead_dec_tech.artifact_id %>
+</p>
+
+<p>
+  <b>Bead decoration:</b>
+  <%= @bead_dec_tech.bead_decoration_id %>
+</p>
+
+<p>
+  <b>Mun app color:</b>
+  <%= @bead_dec_tech.mun_app_color_id %>
+</p>
+
+<p>
+  <b>Dec description:</b>
+  <%= @bead_dec_tech.dec_description %>
+</p>
+
+
+<%= link_to 'Edit', edit_bead_dec_tech_path(@bead_dec_tech) %> |
+<%= link_to 'Back', bead_dec_teches_path %>

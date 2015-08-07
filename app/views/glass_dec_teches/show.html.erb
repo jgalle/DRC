@@ -1,0 +1,30 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Artifact:</b>
+  <%= @glass_dec_tech.artifact_id %>
+</p>
+
+<p>
+  <b>Glass dec tech type:</b>
+  <%= @glass_dec_tech.glass_dec_tech_type_id %>
+</p>
+
+<p>
+  <b>Mun app color:</b>
+  <%= @glass_dec_tech.mun_app_color_id %>
+</p>
+
+<p>
+  <b>Glass dec tech sty elem:</b>
+  <%= @glass_dec_tech.glass_dec_tech_sty_elem_id %>
+</p>
+
+<p>
+  <b>Generate context artifact:</b>
+  <%= @glass_dec_tech.generate_context_artifact_id %>
+</p>
+
+
+<%= link_to 'Edit', edit_glass_dec_tech_path(@glass_dec_tech) %> |
+<%= link_to 'Back', glass_dec_teches_path %>

@@ -1,0 +1,23 @@
+<h1>Listing project_geo_coordinate_systems</h1>
+
+<table>
+  <tr>
+    <th>Geo coordinate system</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @project_geo_coordinate_systems.each do |project_geo_coordinate_system| %>
+  <tr>
+    <td><%= project_geo_coordinate_system.geo_coordinate_system %></td>
+    <td><%= link_to 'Show', project_geo_coordinate_system %></td>
+    <td><%= link_to 'Edit', edit_project_geo_coordinate_system_path(project_geo_coordinate_system) %></td>
+    <td><%= link_to 'Destroy', project_geo_coordinate_system, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Project geo coordinate system', new_project_geo_coordinate_system_path %>
